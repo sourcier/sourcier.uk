@@ -73,6 +73,11 @@
 # Preview authentication (preview-auth edge function)
 #   PREVIEW_PASSCODE          Passcode protecting draft/scheduled post previews
 #
+# Scheduled publish trigger (trigger-scheduled-publish)
+#   GITHUB_PAT                Existing GitHub PAT (needs Actions "read and write"
+#                              on sourcier/sourcier.uk, or classic "public_repo"
+#                              scope) used to dispatch the CI workflow daily.
+#
 # One-time Netlify dashboard setup:
 #   Forms → blog-comments → Form notifications → Add notification
 #   → Outgoing webhook → URL: https://{your-site}/.netlify/functions/comment-handler
