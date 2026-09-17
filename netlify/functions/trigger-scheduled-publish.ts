@@ -7,9 +7,10 @@
 // workflow via the GitHub REST API instead of relying on GitHub's cron.
 //
 // Required environment variable (Netlify → Site configuration → Env vars):
-//   GITHUB_PAT  — existing GitHub PAT (needs Actions read/write on
-//                 sourcier/sourcier.uk, or classic "public_repo" scope) used
-//                 to call the workflow_dispatch API below.
+//   GITHUB_PAT  — existing GitHub PAT. For a fine-grained token this must
+//                 have the "Actions" repository permission set to "Read and
+//                 write" (read-only returns a 403) on sourcier/sourcier.uk;
+//                 for a classic token, "repo" or "public_repo" scope.
 
 import { schedule } from "@netlify/functions";
 
@@ -35,7 +36,7 @@ const triggerPublish = async () => {
       },
       body: JSON.stringify({
         ref: "main",
-        inputs: { environment: "prod" },
+        inputs: { environment: "prod", triggered_by: "scheduled-publish" },
       }),
     },
   );

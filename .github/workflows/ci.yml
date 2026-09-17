@@ -2,6 +2,7 @@ name: CI
 run-name: >-
   ${{ github.event_name == 'repository_dispatch' && format('[content] {0}', github.event.client_payload.commit_message) ||
       github.event_name == 'pull_request' && format('[pr] {0}', github.event.pull_request.title) ||
+      github.event_name == 'workflow_dispatch' && inputs.triggered_by == 'scheduled-publish' && '[scheduled] publish' ||
       github.event_name == 'workflow_dispatch' && format('[manual:{0}] {1} by @{2}', inputs.environment, github.ref_name, github.actor) ||
       format('[push] {0}', github.event.head_commit.message) }}
 
@@ -24,6 +25,13 @@ on:
         type: choice
         options: [prod, preview]
         default: prod
+      triggered_by:
+        description: >-
+          Internal — identifies the caller for run-name labelling. Leave as
+          "manual" when dispatching by hand; the Netlify Scheduled Function
+          passes "scheduled-publish".
+        type: string
+        default: manual
 
 concurrency:
   # All PRs share one group so opening/pushing to any PR cancels other PRs'
@@ -215,6 +223,7 @@ jobs:
           RAW_MSG: >-
             ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.commit_message ||
                 github.event_name == 'pull_request' && github.event.pull_request.title ||
+                github.event_name == 'workflow_dispatch' && inputs.triggered_by == 'scheduled-publish' && '[scheduled] publish' ||
                 github.event_name == 'workflow_dispatch' && format('[manual:{0}] triggered by @{1}', inputs.environment, github.actor) ||
                 github.event.head_commit.message }}
         run: echo "DEPLOY_MSG=$(echo "$RAW_MSG" | head -1)" >> "$GITHUB_ENV"

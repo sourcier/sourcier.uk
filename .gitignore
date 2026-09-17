@@ -18,9 +18,6 @@ public/pagefind/
 public/search-thumbnails/
 public/post-images/
 
-# blog content (cloned from private repo at build time)
-collections/posts/
-
 # environment variables
 .env
 .env.production
