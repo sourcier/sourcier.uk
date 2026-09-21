@@ -12,17 +12,25 @@
 //                 write" (read-only returns a 403) on sourcier/sourcier.uk;
 //                 for a classic token, "repo" or "public_repo" scope.
 
-import { schedule } from "@netlify/functions";
+import type { Config } from "@netlify/functions";
 
 const REPO = "sourcier/sourcier.uk";
 const WORKFLOW_FILE = "ci.yml";
 
-const triggerPublish = async () => {
+// V2 scheduled function: the legacy `schedule()` wrapper from
+// `@netlify/functions` is a runtime no-op (it just returns the handler
+// unchanged) and relies on Netlify's build-time static analysis to pick up
+// the cron string, which was not registering this function as scheduled
+// (confirmed via zero invocations and an empty `function_schedules` array
+// on deploys). The `export default` + `config.schedule` form below is the
+// currently documented way to declare a scheduled function and shows up
+// with a "Scheduled" badge on the Functions page once deployed.
+export default async () => {
   const token = process.env.GITHUB_PAT;
 
   if (!token) {
     console.error("trigger-scheduled-publish: GITHUB_PAT is not set");
-    return { statusCode: 500 };
+    return new Response(null, { status: 500 });
   }
 
   const res = await fetch(
@@ -46,11 +54,13 @@ const triggerPublish = async () => {
     console.error(
       `trigger-scheduled-publish: GitHub API error ${res.status}: ${errorBody}`,
     );
-    return { statusCode: 502 };
+    return new Response(null, { status: 502 });
   }
 
-  return { statusCode: 200 };
+  return new Response(null, { status: 200 });
 };
 
 // Runs daily at 07:45 UTC — matches the previous GitHub Actions cron slot.
-export const handler = schedule("45 7 * * *", triggerPublish);
+export const config: Config = {
+  schedule: "45 7 * * *",
+};
