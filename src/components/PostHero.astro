@@ -5,6 +5,7 @@ import SharePost from "./SharePost.astro";
 import Reactions from "./Reactions.astro";
 import Breadcrumb from "./Breadcrumb.astro";
 import { tagSlug } from "../utils/tags";
+import { coverObjectPosition } from "../utils/coverFocalPoint";
 
 interface Crumb {
   label: string;
@@ -14,7 +15,11 @@ interface Crumb {
 interface Props {
   title: string;
   subtitle?: string;
-  coverImage?: { image: ImageMetadata; alt?: string };
+  coverImage?: {
+    image: ImageMetadata;
+    alt?: string;
+    focalPoint?: { x: number; y: number };
+  };
   tags?: string[];
   status?: string;
   dateLabel?: string;
@@ -49,6 +54,7 @@ const hasCover = Boolean(coverImage?.image);
 const hasShare = Boolean(shareUrl);
 const hasTopBar = allCrumbs.length > 0;
 const hasEngagement = Boolean(postId || hasShare);
+const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 ---
 
 <header class:list={["post-hero", { "post-hero--with-cover": hasCover }]}>
@@ -66,6 +72,7 @@ const hasEngagement = Boolean(postId || hasShare);
               loading="eager"
               decoding="async"
               fetchpriority="high"
+              style={`object-position: ${coverPosition};`}
             />
           </div>
         )
@@ -233,7 +240,7 @@ const hasEngagement = Boolean(postId || hasShare);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 52% 18%;
+    /* object-position is set inline, derived from the cover's focal point */
   }
 
   .post-hero__inner {
@@ -565,10 +572,6 @@ const hasEngagement = Boolean(postId || hasShare);
 
     .post-hero__cover-shell {
       width: 100%;
-    }
-
-    .post-hero__cover {
-      object-position: 50% 14%;
     }
 
     .post-hero__title {

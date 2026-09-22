@@ -949,6 +949,23 @@ h6,
       var(--surface-page)
     );
   }
+
+  // Closing bookend for an added block — muted so the start marker (with the
+  // date) reads as the primary signal and this one just marks where it ends.
+  &--end {
+    margin: 2.5rem 0 3rem;
+
+    &::before,
+    &::after {
+      background: var(--border-subtle);
+    }
+
+    .update-divider__label {
+      color: color-mix(in srgb, var(--text-primary) 55%, transparent);
+      border-color: var(--border-subtle);
+      background: transparent;
+    }
+  }
 }
 
 // — Inline date chip (used in content to indicate a future publish date)

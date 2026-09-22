@@ -6,6 +6,7 @@ import PageHero from "../../../components/PageHero.astro";
 import BlogGrid from "../../../components/BlogGrid.astro";
 import MailingListCTA from "../../../components/MailingListCTA.astro";
 import { tagSlug, tagDescriptions } from "../../../utils/tags";
+import { coverObjectPosition } from "../../../utils/coverFocalPoint";
 import readingTime from "reading-time";
 
 export async function getStaticPaths() {
@@ -63,10 +64,19 @@ const relatedTags = [...relatedTagCounts.entries()]
         .find((t) => tagSlug(t) === slug) ?? slug,
   }));
 
-type CoverData = { image: { src: string }; alt: string };
+type CoverData = {
+  image: { src: string };
+  alt: string;
+  focalPoint?: { x: number; y: number };
+};
 const featuredCoverAlt = featuredPost?.data.cover
   ? (featuredPost.data.cover as unknown as CoverData).alt
   : "";
+const featuredCoverPosition = featuredPost?.data.cover
+  ? coverObjectPosition(
+      (featuredPost.data.cover as unknown as CoverData).focalPoint,
+    )
+  : undefined;
 
 const totalWords = allTagPosts.reduce(
   (acc, p) => acc + (p.body ? readingTime(p.body).words : 0),
@@ -154,6 +164,11 @@ const avgReadMinutes =
                   src={featuredPost.data.cover.image.src}
                   alt={featuredCoverAlt}
                   loading="eager"
+                  style={
+                    featuredCoverPosition
+                      ? `object-position: ${featuredCoverPosition};`
+                      : undefined
+                  }
                 />
                 <div class="featured-post__cover-overlay" aria-hidden="true" />
               </div>

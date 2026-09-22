@@ -19,6 +19,17 @@ const posts = defineCollection({
           image: image(),
           alt: z.string(),
           thumbnail: z.string().optional(),
+          // Where the subject sits in the source image (0-1, from top-left), so
+          // card/hero/OG crops can derive object-position without re-guessing it.
+          focalPoint: z
+            .object({
+              x: z.number().min(0).max(1),
+              y: z.number().min(0).max(1),
+            })
+            .optional(),
+          cropIntent: z
+            .enum(["subject-center", "top-weighted", "wide-context"])
+            .optional(),
         })
         .optional(),
       tags: z.array(z.string()),

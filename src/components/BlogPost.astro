@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getPublicationStatus } from "../utils/drafts";
+import { coverObjectPosition } from "../utils/coverFocalPoint";
 
 const {
   description,
@@ -31,6 +32,7 @@ const formattedDate = pubDate
       timeZoneName: "short",
     })
   : null;
+const coverPosition = coverObjectPosition(cover?.focalPoint);
 ---
 
 <a
@@ -62,6 +64,7 @@ const formattedDate = pubDate
           sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 1.5rem), 370px"
           loading="lazy"
           decoding="async"
+          style={`object-position: ${coverPosition};`}
         />
         <div class="card__cover-overlay" aria-hidden="true" />
       </div>
