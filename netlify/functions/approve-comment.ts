@@ -232,7 +232,9 @@ async function notifyParentAuthor(opts: {
 
   const submissions = (await submissionsRes.json()) as NetlifySubmission[];
   const parent = submissions.find(
-    (s) => s.data?.commentId === opts.parentId || s.id === opts.parentId,
+    (s) =>
+      s.data?.postSlug === opts.postSlug &&
+      (s.data?.commentId === opts.parentId || s.id === opts.parentId),
   );
 
   if (!parent?.data?.email) {
