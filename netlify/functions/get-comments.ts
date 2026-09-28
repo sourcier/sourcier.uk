@@ -10,6 +10,7 @@ import type { HandlerEvent } from "@netlify/functions";
 import crypto from "node:crypto";
 
 interface NetlifySubmission {
+  id: string;
   data: Record<string, string>;
   created_at: string;
 }
@@ -85,6 +86,11 @@ export const handler = async (event: HandlerEvent) => {
   const comments = submissions
     .filter((s) => s.data?.postSlug === slug)
     .map((s) => ({
+      // commentId is the original pending submission's id, carried through
+      // approval, so replies can reference a stable identifier — the
+      // approved submission's own id is not the same value.
+      id: s.data.commentId || s.id,
+      parentId: s.data.parentId || null,
       name: s.data.name,
       comment: s.data.comment,
       // Use the original submission date when available so ordering reflects

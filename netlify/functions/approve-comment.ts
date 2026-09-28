@@ -11,15 +11,22 @@
 //   2. Fetch the pending submission data from the Netlify API
 //   3. POST to the approved-comments form (Netlify edge intercepts it)
 //   4. Delete the pending submission from the queue
+//   5. If the approved comment is a reply, best-effort email the parent
+//      comment's author (only reached once the reply is actually live)
 //
 // Delete flow:
 //   1. Verify the HMAC token
 //   2. Delete the pending submission from the queue
+//
+// Reply notification requires the same RESEND_API_KEY / NOTIFY_FROM_EMAIL
+// used by comment-handler.ts, plus APPROVED_COMMENTS_FORM_ID (already used
+// by get-comments.ts) to look up the parent comment's stored email.
 
 import type { HandlerEvent } from "@netlify/functions";
 import crypto from "node:crypto";
 
 interface NetlifySubmission {
+  id: string;
   data: Record<string, string>;
   created_at: string;
 }
@@ -137,6 +144,11 @@ export const handler = async (event: HandlerEvent) => {
     email: data.email ?? "",
     comment: data.comment ?? "",
     originalDate: created_at ?? new Date().toISOString(),
+    // The pending submission's own id, so it stays stable across approval
+    // (the approved-comments submission gets a different id of its own) —
+    // this is what reply threads reference as parentId.
+    commentId: id,
+    parentId: data.parentId ?? "",
   });
 
   const postRes = await fetch(siteUrl + "/", {
@@ -164,12 +176,101 @@ export const handler = async (event: HandlerEvent) => {
     },
   );
 
+  if (data.parentId) {
+    // Best-effort: the reply is already live at this point, so a failure
+    // here should never turn the approval itself into an error response.
+    await notifyParentAuthor({
+      accessToken,
+      siteUrl,
+      parentId: data.parentId,
+      replyName: data.name ?? "anonymous",
+      replyComment: data.comment ?? "",
+      postSlug: data.postSlug ?? "",
+      replyCommentId: id,
+    }).catch((err) =>
+      console.error("approve-comment: reply notification failed", err),
+    );
+  }
+
   return htmlPage(
     200,
     "Comment Approved",
     `The comment from <strong>${escapeHtml(data.name ?? "anonymous")}</strong> is now live.`,
   );
 };
+
+async function notifyParentAuthor(opts: {
+  accessToken: string;
+  siteUrl: string;
+  parentId: string;
+  replyName: string;
+  replyComment: string;
+  postSlug: string;
+  replyCommentId: string;
+}) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.NOTIFY_FROM_EMAIL;
+  const approvedFormId = process.env.APPROVED_COMMENTS_FORM_ID;
+
+  if (!resendApiKey || !fromEmail || !approvedFormId) {
+    console.warn(
+      "approve-comment: missing Resend/form env vars — skipping reply notification",
+    );
+    return;
+  }
+
+  const submissionsRes = await fetch(
+    `https://api.netlify.com/api/v1/forms/${encodeURIComponent(approvedFormId)}/submissions`,
+    { headers: { Authorization: `Bearer ${opts.accessToken}` } },
+  );
+  if (!submissionsRes.ok) {
+    console.error(
+      `approve-comment: failed to list approved submissions ${submissionsRes.status}`,
+    );
+    return;
+  }
+
+  const submissions = (await submissionsRes.json()) as NetlifySubmission[];
+  const parent = submissions.find((s) => s.data?.commentId === opts.parentId);
+
+  if (!parent?.data?.email) {
+    // Parent comment not found, or its author didn't leave an email.
+    return;
+  }
+
+  const postUrl = opts.postSlug
+    ? `${opts.siteUrl}/blog/${opts.postSlug}/#comment-${opts.replyCommentId}`
+    : opts.siteUrl;
+
+  const emailHtml = `
+<p>${escapeHtml(opts.replyName)} replied to your comment on <strong>${escapeHtml(opts.postSlug || "a post")}</strong>:</p>
+
+<blockquote style="border-left:3px solid #e8006a;margin:1rem 0;padding:0.75rem 1.25rem;background:#f9f9f9;">
+  ${escapeHtml(opts.replyComment)}
+</blockquote>
+
+<p><a href="${postUrl}">View the reply</a></p>
+`.trim();
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${resendApiKey}`,
+    },
+    body: JSON.stringify({
+      from: fromEmail,
+      to: parent.data.email,
+      subject: `${opts.replyName} replied to your comment`,
+      html: emailHtml,
+    }),
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    console.error(`approve-comment: Resend API error ${res.status}: ${body}`);
+  }
+}
 
 function htmlPage(statusCode: number, heading: string, message: string) {
   const color = statusCode === 200 ? "#257942" : "#e8006a";

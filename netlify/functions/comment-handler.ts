@@ -26,6 +26,7 @@ interface WebhookPayload {
     email?: string;
     comment?: string;
     postSlug?: string;
+    parentId?: string;
   };
 }
 
@@ -75,6 +76,9 @@ export const handler = async (event: HandlerEvent) => {
   if (data.postSlug && data.postSlug.length > 200) {
     return { statusCode: 400, body: "Post slug too long" };
   }
+  if (data.parentId && data.parentId.length > 100) {
+    return { statusCode: 400, body: "Parent id too long" };
+  }
 
   const approveToken = hmac(id, "approve", secret);
   const deleteToken = hmac(id, "delete", secret);
@@ -86,14 +90,19 @@ export const handler = async (event: HandlerEvent) => {
     ? new Date(created_at).toLocaleString("en-GB", { timeZone: "UTC" }) + " UTC"
     : "unknown time";
 
+  const postUrl = data.postSlug ? `${siteUrl}/blog/${data.postSlug}/` : null;
+
   const emailHtml = `
-<p>New comment from <strong>${escapeHtml(data.name ?? "anonymous")}</strong>
+<p>New ${data.parentId ? "reply" : "comment"} from <strong>${escapeHtml(data.name ?? "anonymous")}</strong>
+${data.email ? `(<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>) ` : ""}
 on post <strong>${escapeHtml(data.postSlug ?? "(unknown)")}</strong>
 at ${submittedAt}:</p>
 
 <blockquote style="border-left:3px solid #e8006a;margin:1rem 0;padding:0.75rem 1.25rem;background:#f9f9f9;">
   ${escapeHtml(data.comment ?? "")}
 </blockquote>
+
+${postUrl ? `<p><a href="${postUrl}#comments">View the article and comments</a></p>` : ""}
 
 <p>
   <a href="${approveUrl}" style="background:#e8006a;color:#fff;padding:0.6rem 1.2rem;text-decoration:none;margin-right:0.5rem;">Approve</a>
@@ -111,7 +120,7 @@ at ${submittedAt}:</p>
     body: JSON.stringify({
       from: fromEmail,
       to: toEmail,
-      subject: `New comment: ${data.postSlug ?? "blog"} — ${data.name ?? "anonymous"}`,
+      subject: `New ${data.parentId ? "reply" : "comment"}: ${data.postSlug ?? "blog"} — ${data.name ?? "anonymous"}`,
       html: emailHtml,
     }),
   });

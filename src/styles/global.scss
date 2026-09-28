@@ -919,7 +919,7 @@ h6,
     background: linear-gradient(
       to right,
       transparent,
-      color-mix(in srgb, var(--accent-secondary) 35%, var(--border-subtle))
+      color-mix(in srgb, var(--color-success) 35%, var(--border-subtle))
     );
   }
 
@@ -927,7 +927,7 @@ h6,
     background: linear-gradient(
       to left,
       transparent,
-      color-mix(in srgb, var(--accent-secondary) 35%, var(--border-subtle))
+      color-mix(in srgb, var(--color-success) 35%, var(--border-subtle))
     );
   }
 
@@ -938,32 +938,60 @@ h6,
     text-transform: uppercase;
     letter-spacing: 0.12em;
     white-space: nowrap;
-    color: var(--accent-secondary);
-    border: 1px solid
-      color-mix(in srgb, var(--accent-secondary) 30%, transparent);
+    color: var(--color-success);
+    border: 1px solid color-mix(in srgb, var(--color-success) 30%, transparent);
     border-radius: var(--radius-pill);
     padding: 0.28rem 0.8rem;
     background: color-mix(
       in srgb,
-      var(--accent-secondary) 6%,
+      var(--color-success) 6%,
       var(--surface-page)
     );
   }
 
-  // Closing bookend for an added block — muted so the start marker (with the
-  // date) reads as the primary signal and this one just marks where it ends.
+  // Closing bookend for an added block — same green as the start marker so
+  // the pair reads as one bounded region, just placed after the content ends.
   &--end {
     margin: 2.5rem 0 3rem;
+  }
 
-    &::before,
+  [data-theme="dark"] & {
+    &::before {
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(
+          in srgb,
+          var(--color-success-bright) 35%,
+          var(--border-subtle)
+        )
+      );
+    }
+
     &::after {
-      background: var(--border-subtle);
+      background: linear-gradient(
+        to left,
+        transparent,
+        color-mix(
+          in srgb,
+          var(--color-success-bright) 35%,
+          var(--border-subtle)
+        )
+      );
     }
 
     .update-divider__label {
-      color: color-mix(in srgb, var(--text-primary) 55%, transparent);
-      border-color: var(--border-subtle);
-      background: transparent;
+      color: var(--color-success-bright);
+      border-color: color-mix(
+        in srgb,
+        var(--color-success-bright) 30%,
+        transparent
+      );
+      background: color-mix(
+        in srgb,
+        var(--color-success-bright) 10%,
+        var(--surface-page)
+      );
     }
   }
 }

@@ -26,7 +26,11 @@ const { postId } = Astro.props;
         <!--
         data-netlify="true" causes Netlify's build bot to register this form.
         The hidden form-name field is required for AJAX submissions.
-        The bot-field honeypot helps filter automated spam.
+        The bot-field honeypot helps filter automated spam. The hidden
+        parentId field is unused here (top-level comments have no parent) —
+        it only needs to exist so Netlify's build-time schema includes it,
+        since reply forms are created dynamically at runtime and reuse this
+        same registered "blog-comments" schema.
       -->
         <form
           id="comment-form"
@@ -38,6 +42,7 @@ const { postId } = Astro.props;
         >
           <input type="hidden" name="form-name" value="blog-comments" />
           <input type="hidden" name="postSlug" value={postId} />
+          <input type="hidden" name="parentId" value="" />
 
           <p class="is-hidden" aria-hidden="true">
             <label
@@ -63,9 +68,7 @@ const { postId } = Astro.props;
 
           <div class="field">
             <label class="label" for="comment-email">
-              Email <span class="comments__optional"
-                >(optional — never published)</span
-              >
+              Email <span class="comments__optional">(never published)</span>
             </label>
             <div class="control">
               <input
@@ -73,6 +76,7 @@ const { postId } = Astro.props;
                 type="email"
                 id="comment-email"
                 name="email"
+                required
                 placeholder="you@example.com"
                 autocomplete="email"
                 maxlength="254"
@@ -126,6 +130,8 @@ const { postId } = Astro.props;
     <input type="hidden" name="email" />
     <input type="hidden" name="comment" />
     <input type="hidden" name="originalDate" />
+    <input type="hidden" name="commentId" />
+    <input type="hidden" name="parentId" />
   </form>
 
   <script>
@@ -138,6 +144,19 @@ const { postId } = Astro.props;
       "comment-form-status",
     ) as HTMLElement;
     const postSlug = listEl?.dataset.postSlug ?? "";
+
+    interface Comment {
+      id: string;
+      parentId: string | null;
+      name: string;
+      comment: string;
+      date: string;
+      emailHash?: string | null;
+    }
+
+    interface CommentNode extends Comment {
+      replies: CommentNode[];
+    }
 
     function escapeHtml(str: string): string {
       return str
@@ -158,48 +177,70 @@ const { postId } = Astro.props;
       });
     }
 
-    function buildCommentsHtml(
-      comments: {
-        name: string;
-        comment: string;
-        date: string;
-        emailHash?: string | null;
-      }[],
-    ): string {
-      if (!comments.length) {
-        return '<p class="comments__empty">No comments yet — be the first.</p>';
-      }
-      return comments
-        .map((c) => {
-          const initial = escapeHtml(c.name.charAt(0).toUpperCase());
-          const avatarInner = c.emailHash
-            ? `<img class="comment__avatar-img" src="https://www.gravatar.com/avatar/${c.emailHash}?s=72&d=404" alt="" loading="lazy" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'" /><span class="comment__avatar-initial">${initial}</span>`
-            : `<span class="comment__avatar-initial">${initial}</span>`;
-          return `
-        <article class="comment" aria-label="${escapeHtml(c.name)}">
+    // Groups a flat, chronologically-sorted list into a tree keyed by
+    // parentId. Replies whose parent isn't in the list (e.g. the parent was
+    // later removed) are kept at the top level rather than dropped.
+    function buildCommentTree(comments: Comment[]): CommentNode[] {
+      const nodes = new Map<string, CommentNode>();
+      comments.forEach((c) => nodes.set(c.id, { ...c, replies: [] }));
+
+      const roots: CommentNode[] = [];
+      nodes.forEach((node) => {
+        const parent = node.parentId ? nodes.get(node.parentId) : undefined;
+        if (parent) {
+          parent.replies.push(node);
+        } else {
+          roots.push(node);
+        }
+      });
+      return roots;
+    }
+
+    function renderComment(c: CommentNode): string {
+      const initial = escapeHtml(c.name.charAt(0).toUpperCase());
+      const avatarInner = c.emailHash
+        ? `<img class="comment__avatar-img" src="https://www.gravatar.com/avatar/${c.emailHash}?s=72&d=404" alt="" loading="lazy" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'" /><span class="comment__avatar-initial">${initial}</span>`
+        : `<span class="comment__avatar-initial">${initial}</span>`;
+      const repliesHtml = c.replies.length
+        ? `<div class="comment__replies">${c.replies.map(renderComment).join("")}</div>`
+        : "";
+      return `
+        <article class="comment" id="comment-${escapeHtml(c.id)}" data-comment-id="${escapeHtml(c.id)}" aria-label="${escapeHtml(c.name)}">
           <div class="comment__avatar">${avatarInner}</div>
           <div class="comment__content">
             <div class="comment__meta">
               <span class="comment__author">${escapeHtml(c.name)}</span>
               <span class="comment__meta-sep" aria-hidden="true">&middot;</span>
               <time class="comment__date" datetime="${c.date}">${formatDate(c.date)}</time>
+              <span class="comment__meta-sep" aria-hidden="true">&middot;</span>
+              <button
+                type="button"
+                class="comment__link-btn"
+                data-comment-id="${escapeHtml(c.id)}"
+                aria-label="Copy link to this comment"
+              >Link</button>
             </div>
             <p class="comment__body">${escapeHtml(c.comment)}</p>
+            <button
+              type="button"
+              class="comment__reply-btn"
+              data-comment-id="${escapeHtml(c.id)}"
+              data-comment-name="${escapeHtml(c.name)}"
+            >Reply</button>
+            <div class="comment__reply-slot" data-comment-id="${escapeHtml(c.id)}"></div>
           </div>
-        </article>`;
-        })
-        .join("");
+        </article>
+        ${repliesHtml}`;
     }
 
-    function renderComments(
-      comments: {
-        name: string;
-        comment: string;
-        date: string;
-        emailHash?: string | null;
-      }[],
-      animate = false,
-    ) {
+    function buildCommentsHtml(comments: Comment[]): string {
+      if (!comments.length) {
+        return '<p class="comments__empty">No comments yet — be the first.</p>';
+      }
+      return buildCommentTree(comments).map(renderComment).join("");
+    }
+
+    function renderComments(comments: Comment[], animate = false) {
       if (!listEl) return;
       const html = buildCommentsHtml(comments);
       if (!animate) {
@@ -223,6 +264,201 @@ const { postId } = Astro.props;
       );
     }
 
+    // Posts a comment (top-level or reply) via Netlify's AJAX form pattern.
+    // Shared by the main form and every dynamically-created reply form so
+    // both follow the same submit / status / disable behaviour.
+    async function submitComment(
+      formEl: HTMLFormElement,
+      submitButton: HTMLButtonElement,
+      statusEl: HTMLElement,
+      statusClass: string,
+      onSuccess: () => void,
+    ) {
+      submitButton.disabled = true;
+      statusEl.textContent = "Posting…";
+      statusEl.className = statusClass;
+
+      try {
+        const data = new FormData(formEl);
+        const res = await fetch(window.location.pathname, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(
+            Array.from(data.entries(), ([key, value]) => [key, String(value)]),
+          ).toString(),
+        });
+
+        if (res.ok) {
+          statusEl.textContent =
+            "Thanks — your comment has been submitted and will appear once approved.";
+          statusEl.className = `${statusClass} is-success`;
+          onSuccess();
+          loadComments();
+        } else {
+          statusEl.textContent = "Something went wrong. Please try again.";
+          statusEl.className = `${statusClass} is-error`;
+          submitButton.disabled = false;
+        }
+      } catch {
+        statusEl.textContent = "Something went wrong. Please try again.";
+        statusEl.className = `${statusClass} is-error`;
+        submitButton.disabled = false;
+      }
+    }
+
+    // Builds a standalone reply form scoped to a single comment. It's a
+    // separate DOM tree (not a clone of the main form) so it can be inserted
+    // directly under the comment being replied to, keeping the main "Leave a
+    // comment" form untouched at the bottom of the page.
+    function buildReplyForm(commentId: string, name: string): HTMLElement {
+      const uid = commentId.replace(/[^a-zA-Z0-9_-]/g, "");
+      const wrapper = document.createElement("div");
+      wrapper.className = "comment-reply-form";
+      wrapper.dataset.commentId = commentId;
+      wrapper.innerHTML = `
+        <div class="comment-reply-form__heading">Replying to ${escapeHtml(name)}</div>
+        <form>
+          <input type="hidden" name="form-name" value="blog-comments" />
+          <input type="hidden" name="postSlug" value="${escapeHtml(postSlug)}" />
+          <input type="hidden" name="parentId" value="${escapeHtml(commentId)}" />
+          <p class="is-hidden" aria-hidden="true">
+            <label>Leave this blank: <input name="bot-field" tabindex="-1" /></label>
+          </p>
+          <div class="field">
+            <label class="label" for="reply-name-${uid}">Name</label>
+            <div class="control">
+              <input class="input" type="text" id="reply-name-${uid}" name="name" required placeholder="Your name" autocomplete="name" maxlength="100" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="reply-email-${uid}">
+              Email <span class="comments__optional">(never published)</span>
+            </label>
+            <div class="control">
+              <input class="input" type="email" id="reply-email-${uid}" name="email" required placeholder="you@example.com" autocomplete="email" maxlength="254" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="reply-body-${uid}">Reply</label>
+            <div class="control">
+              <textarea class="textarea" id="reply-body-${uid}" name="comment" required rows="4" placeholder="Write your reply…" maxlength="5000"></textarea>
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-primary" type="submit">Post reply</button>
+            </div>
+            <div class="control">
+              <button type="button" class="button is-light comment-reply-form__cancel">Cancel</button>
+            </div>
+            <p class="comment-reply-form__status" aria-live="polite"></p>
+          </div>
+        </form>
+      `;
+
+      const replyFormEl = wrapper.querySelector("form") as HTMLFormElement;
+      const replySubmitBtn = replyFormEl.querySelector(
+        "button[type='submit']",
+      ) as HTMLButtonElement;
+      const replyStatus = wrapper.querySelector(
+        ".comment-reply-form__status",
+      ) as HTMLElement;
+      const cancelBtn = wrapper.querySelector(
+        ".comment-reply-form__cancel",
+      ) as HTMLButtonElement;
+
+      cancelBtn.addEventListener("click", () => wrapper.remove());
+
+      replyFormEl.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!replyFormEl.reportValidity()) return;
+        await submitComment(
+          replyFormEl,
+          replySubmitBtn,
+          replyStatus,
+          "comment-reply-form__status",
+          () => wrapper.remove(),
+        );
+      });
+
+      return wrapper;
+    }
+
+    function toggleReplyForm(commentId: string, name: string) {
+      const openSlot = listEl?.querySelector(
+        ".comment__reply-slot:not(:empty)",
+      ) as HTMLElement | null;
+      const targetSlot = listEl?.querySelector(
+        `.comment__reply-slot[data-comment-id="${CSS.escape(commentId)}"]`,
+      ) as HTMLElement | null;
+
+      const wasAlreadyOpenForThis = openSlot === targetSlot;
+      if (openSlot) openSlot.innerHTML = "";
+      if (wasAlreadyOpenForThis || !targetSlot) return;
+
+      const replyForm = buildReplyForm(commentId, name);
+      targetSlot.appendChild(replyForm);
+      replyForm.scrollIntoView({ behavior: "smooth", block: "center" });
+      (
+        replyForm.querySelector("input[name='name']") as HTMLInputElement | null
+      )?.focus();
+    }
+
+    listEl?.addEventListener("click", (e) => {
+      const replyBtn = (e.target as HTMLElement).closest(
+        ".comment__reply-btn",
+      ) as HTMLButtonElement | null;
+      if (replyBtn) {
+        toggleReplyForm(
+          replyBtn.dataset.commentId ?? "",
+          replyBtn.dataset.commentName ?? "",
+        );
+        return;
+      }
+
+      const linkBtn = (e.target as HTMLElement).closest(
+        ".comment__link-btn",
+      ) as HTMLButtonElement | null;
+      if (linkBtn) {
+        copyCommentLink(linkBtn);
+      }
+    });
+
+    async function copyCommentLink(btn: HTMLButtonElement) {
+      const commentId = btn.dataset.commentId ?? "";
+      const url = `${window.location.origin}${window.location.pathname}#comment-${commentId}`;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        // Clipboard API may be unavailable (older browsers, insecure context);
+        // updating the URL bar's hash is still a usable fallback.
+      }
+      history.replaceState(null, "", `#comment-${commentId}`);
+      const original = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    }
+
+    // Scrolls to and briefly highlights the comment referenced by the URL
+    // hash (e.g. shared via the per-comment "Link" button). Comments render
+    // asynchronously, so this runs after loadComments() resolves rather than
+    // on DOMContentLoaded.
+    function scrollToHashComment() {
+      const hash = window.location.hash;
+      if (!hash.startsWith("#comment-")) return;
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return;
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.classList.add("is-highlighted");
+      target.addEventListener(
+        "animationend",
+        () => target.classList.remove("is-highlighted"),
+        { once: true },
+      );
+    }
+
     async function loadComments() {
       if (!postSlug || !listEl) return;
       try {
@@ -232,6 +468,7 @@ const { postId } = Astro.props;
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const { comments } = await res.json();
         renderComments(comments, true);
+        scrollToHashComment();
       } catch {
         if (listEl) {
           listEl.innerHTML =
@@ -243,37 +480,13 @@ const { postId } = Astro.props;
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
-
-      submitBtn.disabled = true;
-      formStatus.textContent = "Posting…";
-      formStatus.className = "comments__form-status";
-
-      try {
-        const data = new FormData(form);
-        const res = await fetch(window.location.pathname, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(
-            Array.from(data.entries(), ([key, value]) => [key, String(value)]),
-          ).toString(),
-        });
-
-        if (res.ok) {
-          form.reset();
-          formStatus.textContent =
-            "Thanks — your comment has been submitted and will appear once approved.";
-          formStatus.className = "comments__form-status is-success";
-          loadComments();
-        } else {
-          formStatus.textContent = "Something went wrong. Please try again.";
-          formStatus.className = "comments__form-status is-error";
-          submitBtn.disabled = false;
-        }
-      } catch {
-        formStatus.textContent = "Something went wrong. Please try again.";
-        formStatus.className = "comments__form-status is-error";
-        submitBtn.disabled = false;
-      }
+      await submitComment(
+        form,
+        submitBtn,
+        formStatus,
+        "comments__form-status",
+        () => form.reset(),
+      );
     });
 
     loadComments();
@@ -389,9 +602,166 @@ const { postId } = Astro.props;
       white-space: pre-wrap;
     }
 
+    :global(.comment__reply-btn) {
+      margin-top: 0.5rem;
+      padding: 0;
+      background: none;
+      border: none;
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-primary);
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    :global(.comment__link-btn) {
+      padding: 0;
+      background: none;
+      border: none;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--accent-primary);
+        text-decoration: underline;
+      }
+    }
+
+    :global(.comment.is-highlighted) {
+      animation: comment-highlight-fade 2.4s ease;
+    }
+
+    @keyframes comment-highlight-fade {
+      0%,
+      35% {
+        background-color: color-mix(
+          in srgb,
+          var(--accent-primary) 16%,
+          transparent
+        );
+      }
+      100% {
+        background-color: transparent;
+      }
+    }
+
+    :global(.comment__replies) {
+      margin-left: clamp(1.25rem, 4vw, 2.75rem);
+      margin-top: 1rem;
+    }
+
+    :global(.comment__replies .comment) {
+      border-left-color: var(--border-subtle);
+      background-color: var(--surface-elevated);
+    }
+
     .comments__status-line {
       font-size: 0.875rem;
       color: var(--text-muted);
+    }
+
+    :global(.comment__reply-slot:not(:empty)) {
+      margin-top: 1rem;
+    }
+
+    :global(.comment-reply-form) {
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    :global(.comment-reply-form__heading) {
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+      margin-bottom: 0.875rem;
+    }
+
+    :global(.comment-reply-form .field) {
+      margin-bottom: 0.75rem;
+    }
+
+    :global(.comment-reply-form .label) {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    :global(.comment-reply-form .input),
+    :global(.comment-reply-form .textarea) {
+      background-color: var(--surface-elevated);
+      border-color: var(--border-subtle);
+      color: var(--text-primary);
+      border-radius: var(--radius-tight);
+    }
+
+    :global(.comment-reply-form .input:focus),
+    :global(.comment-reply-form .textarea:focus) {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
+    }
+
+    :global(.comment-reply-form .button.is-primary) {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: var(--text-on-strong);
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: var(--radius-tight);
+    }
+
+    :global(.comment-reply-form .button.is-primary:hover) {
+      background-color: var(--accent-primary-deep);
+      border-color: var(--accent-primary-deep);
+    }
+
+    :global(.comment-reply-form .button.is-primary:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    :global(.comment-reply-form__status) {
+      font-size: 0.8125rem;
+      padding-left: 0.5rem;
+      align-self: center;
+
+      &.is-success {
+        color: var(--color-success);
+      }
+
+      &.is-error {
+        color: var(--accent-primary);
+      }
+    }
+
+    [data-theme="dark"] {
+      :global(.comment-reply-form .input),
+      :global(.comment-reply-form .textarea) {
+        background-color: var(--surface-page);
+        border-color: var(--border-subtle);
+        color: var(--text-primary);
+
+        &::placeholder {
+          color: var(--text-muted);
+        }
+      }
+
+      :global(.comment-reply-form__status.is-success) {
+        color: var(--color-success-bright);
+      }
     }
 
     @keyframes comments-fade-out {
