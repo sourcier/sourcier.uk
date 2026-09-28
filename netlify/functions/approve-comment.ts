@@ -67,6 +67,7 @@ export const handler = async (event: HandlerEvent) => {
   const secret = process.env.APPROVAL_SECRET;
   const accessToken = process.env.NETLIFY_PAT;
   const siteUrl = process.env.SITE_URL?.replace(/\/$/, "");
+  const approvedFormId = process.env.APPROVED_COMMENTS_FORM_ID;
 
   if (!secret || !accessToken || !siteUrl) {
     console.error("approve-comment: missing environment variables");
@@ -136,6 +137,42 @@ export const handler = async (event: HandlerEvent) => {
 
   const submission = (await submissionRes.json()) as NetlifySubmission;
   const { data, created_at } = submission;
+  let parentSubmission: NetlifySubmission | null = null;
+
+  if (data.parentId) {
+    if (!approvedFormId) {
+      console.error(
+        "approve-comment: missing APPROVED_COMMENTS_FORM_ID for reply validation",
+      );
+      return htmlPage(
+        500,
+        "Configuration Error",
+        "Server is not configured correctly.",
+      );
+    }
+
+    try {
+      parentSubmission = await findApprovedSubmission({
+        accessToken,
+        approvedFormId,
+        parentId: data.parentId,
+      });
+    } catch (error) {
+      console.error("approve-comment: failed to validate reply parent", error);
+      return htmlPage(502, "Error", "Could not validate the reply target.");
+    }
+
+    if (
+      parentSubmission &&
+      (parentSubmission.data?.postSlug ?? "") !== (data.postSlug ?? "")
+    ) {
+      return htmlPage(
+        400,
+        "Bad Request",
+        "Reply parent does not belong to this post.",
+      );
+    }
+  }
 
   const formPayload = new URLSearchParams({
     "form-name": "approved-comments",
@@ -180,13 +217,12 @@ export const handler = async (event: HandlerEvent) => {
     // Best-effort: the reply is already live at this point, so a failure
     // here should never turn the approval itself into an error response.
     await notifyParentAuthor({
-      accessToken,
       siteUrl,
-      parentId: data.parentId,
       replyName: data.name ?? "anonymous",
       replyComment: data.comment ?? "",
       postSlug: data.postSlug ?? "",
       replyCommentId: id,
+      parentEmail: parentSubmission?.data?.email ?? "",
     }).catch((err) =>
       console.error("approve-comment: reply notification failed", err),
     );
@@ -200,44 +236,24 @@ export const handler = async (event: HandlerEvent) => {
 };
 
 async function notifyParentAuthor(opts: {
-  accessToken: string;
   siteUrl: string;
-  parentId: string;
   replyName: string;
   replyComment: string;
   postSlug: string;
   replyCommentId: string;
+  parentEmail: string;
 }) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.NOTIFY_FROM_EMAIL;
-  const approvedFormId = process.env.APPROVED_COMMENTS_FORM_ID;
 
-  if (!resendApiKey || !fromEmail || !approvedFormId) {
+  if (!resendApiKey || !fromEmail) {
     console.warn(
       "approve-comment: missing Resend/form env vars — skipping reply notification",
     );
     return;
   }
 
-  const submissionsRes = await fetch(
-    `https://api.netlify.com/api/v1/forms/${encodeURIComponent(approvedFormId)}/submissions`,
-    { headers: { Authorization: `Bearer ${opts.accessToken}` } },
-  );
-  if (!submissionsRes.ok) {
-    console.error(
-      `approve-comment: failed to list approved submissions ${submissionsRes.status}`,
-    );
-    return;
-  }
-
-  const submissions = (await submissionsRes.json()) as NetlifySubmission[];
-  const parent = submissions.find(
-    (s) =>
-      s.data?.postSlug === opts.postSlug &&
-      (s.data?.commentId === opts.parentId || s.id === opts.parentId),
-  );
-
-  if (!parent?.data?.email) {
+  if (!opts.parentEmail) {
     // Parent comment not found, or its author didn't leave an email.
     return;
   }
@@ -264,7 +280,7 @@ async function notifyParentAuthor(opts: {
     },
     body: JSON.stringify({
       from: fromEmail,
-      to: parent.data.email,
+      to: opts.parentEmail,
       subject: `${opts.replyName} replied to your comment`,
       html: emailHtml,
     }),
@@ -273,6 +289,37 @@ async function notifyParentAuthor(opts: {
   if (!res.ok) {
     const body = await res.text();
     console.error(`approve-comment: Resend API error ${res.status}: ${body}`);
+  }
+}
+
+async function findApprovedSubmission(opts: {
+  accessToken: string;
+  approvedFormId: string;
+  parentId: string;
+}): Promise<NetlifySubmission | null> {
+  for (let page = 1; ; page += 1) {
+    const submissionsRes = await fetch(
+      `https://api.netlify.com/api/v1/forms/${encodeURIComponent(opts.approvedFormId)}/submissions?per_page=100&page=${page}`,
+      { headers: { Authorization: `Bearer ${opts.accessToken}` } },
+    );
+
+    if (!submissionsRes.ok) {
+      throw new Error(
+        `failed to list approved submissions ${submissionsRes.status}`,
+      );
+    }
+
+    const submissions = (await submissionsRes.json()) as NetlifySubmission[];
+    const parent = submissions.find(
+      (s) => s.data?.commentId === opts.parentId || s.id === opts.parentId,
+    );
+    if (parent) {
+      return parent;
+    }
+
+    if (submissions.length < 100) {
+      return null;
+    }
   }
 }
 

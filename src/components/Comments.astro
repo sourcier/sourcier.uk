@@ -749,7 +749,7 @@ const { postId } = Astro.props;
       }
     }
 
-    [data-theme="dark"] {
+    :global([data-theme="dark"]) {
       :global(.comment-reply-form .input),
       :global(.comment-reply-form .textarea) {
         background-color: var(--surface-page);
