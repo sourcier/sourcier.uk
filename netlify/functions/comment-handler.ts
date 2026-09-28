@@ -90,7 +90,9 @@ export const handler = async (event: HandlerEvent) => {
     ? new Date(created_at).toLocaleString("en-GB", { timeZone: "UTC" }) + " UTC"
     : "unknown time";
 
-  const postUrl = data.postSlug ? `${siteUrl}/blog/${data.postSlug}/` : null;
+  const postUrl = data.postSlug
+    ? `${siteUrl}/blog/${encodeURIComponent(data.postSlug)}/`
+    : null;
 
   const emailHtml = `
 <p>New ${data.parentId ? "reply" : "comment"} from <strong>${escapeHtml(data.name ?? "anonymous")}</strong>

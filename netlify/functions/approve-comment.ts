@@ -231,7 +231,9 @@ async function notifyParentAuthor(opts: {
   }
 
   const submissions = (await submissionsRes.json()) as NetlifySubmission[];
-  const parent = submissions.find((s) => s.data?.commentId === opts.parentId);
+  const parent = submissions.find(
+    (s) => s.data?.commentId === opts.parentId || s.id === opts.parentId,
+  );
 
   if (!parent?.data?.email) {
     // Parent comment not found, or its author didn't leave an email.
@@ -239,7 +241,7 @@ async function notifyParentAuthor(opts: {
   }
 
   const postUrl = opts.postSlug
-    ? `${opts.siteUrl}/blog/${opts.postSlug}/#comment-${opts.replyCommentId}`
+    ? `${opts.siteUrl}/blog/${encodeURIComponent(opts.postSlug)}/#comment-${encodeURIComponent(opts.replyCommentId)}`
     : opts.siteUrl;
 
   const emailHtml = `
