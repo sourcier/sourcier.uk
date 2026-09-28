@@ -469,7 +469,7 @@ const { postId } = Astro.props;
         );
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const { comments } = await res.json();
-renderComments(comments, !window.location.hash.startsWith("#comment-"));
+        renderComments(comments, !window.location.hash.startsWith("#comment-"));
         scrollToHashComment();
       } catch {
         if (listEl) {
