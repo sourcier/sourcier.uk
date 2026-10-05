@@ -277,6 +277,9 @@ async function notifyParentAuthor(opts: {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${resendApiKey}`,
+      // Keyed on the reply's comment id so retrying approval never sends the
+      // parent author a duplicate reply notification.
+      "Idempotency-Key": `reply-notify-${opts.replyCommentId}`,
     },
     body: JSON.stringify({
       from: fromEmail,

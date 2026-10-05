@@ -200,6 +200,47 @@ function buildText() {
     .join("\n");
 }
 
+// Resend's Idempotency-Key only covers POST /emails and /emails/batch, not
+// /broadcasts — so accidental double-sends of the same broadcast (e.g.
+// re-running this script for a post that was already announced) aren't
+// protected by the API itself. Guard against that here by checking for an
+// existing broadcast with the same name before creating a new one. The
+// list-broadcasts response only exposes `name` (what sendBroadcast() sets
+// from the post title), not `subject`, and defaults to 20 per page, so this
+// follows `has_more`/`after` pagination until a match is found or exhausted.
+async function findExistingBroadcast() {
+  let after;
+
+  do {
+    const url = `${RESEND_API}/broadcasts${after ? `?after=${after}` : ""}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+
+    if (!res.ok) {
+      console.error(
+        `\n⚠  Could not check for existing broadcasts (${res.status}) — aborting to avoid an unchecked duplicate send.`,
+      );
+      process.exit(1);
+    }
+
+    const { data: broadcasts = [], has_more: hasMore } = await res.json();
+    const match = broadcasts.find(
+      (b) =>
+        b.name === title &&
+        (b.status === "sent" ||
+          b.status === "queued" ||
+          b.status === "sending" ||
+          b.status === "scheduled"),
+    );
+    if (match) return match;
+
+    after = hasMore ? broadcasts.at(-1)?.id : undefined;
+  } while (after);
+
+  return null;
+}
+
 function printPreview() {
   const divider = "─".repeat(60);
   console.log("\n" + divider);
@@ -279,6 +320,21 @@ async function sendBroadcast() {
 }
 
 printPreview();
+
+const existing = await findExistingBroadcast();
+if (existing) {
+  console.warn(
+    `\n⚠  A broadcast with this exact subject was already ${existing.status} (id: ${existing.id}).`,
+  );
+  const sendAnyway = await confirm({
+    message: "This looks like a duplicate send. Send again anyway?",
+    default: false,
+  }).catch(() => process.exit(0));
+  if (!sendAnyway) {
+    console.log("Aborted — nothing was sent.");
+    process.exit(0);
+  }
+}
 
 const shouldSend = await confirm({
   message: "Send this to all subscribers?",
