@@ -204,29 +204,40 @@ function buildText() {
 // /broadcasts — so accidental double-sends of the same broadcast (e.g.
 // re-running this script for a post that was already announced) aren't
 // protected by the API itself. Guard against that here by checking for an
-// existing broadcast with the same subject before creating a new one.
+// existing broadcast with the same name before creating a new one. The
+// list-broadcasts response only exposes `name` (what sendBroadcast() sets
+// from the post title), not `subject`, and defaults to 20 per page, so this
+// follows `has_more`/`after` pagination until a match is found or exhausted.
 async function findExistingBroadcast() {
-  const res = await fetch(`${RESEND_API}/broadcasts`, {
-    headers: { Authorization: `Bearer ${apiKey}` },
-  });
+  let after;
 
-  if (!res.ok) {
-    console.warn(
-      `\n⚠  Could not check for existing broadcasts (${res.status}) — proceeding without a duplicate check.`,
-    );
-    return null;
-  }
+  do {
+    const url = `${RESEND_API}/broadcasts${after ? `?after=${after}` : ""}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
 
-  const { data: broadcasts = [] } = await res.json();
-  return (
-    broadcasts.find(
+    if (!res.ok) {
+      console.warn(
+        `\n⚠  Could not check for existing broadcasts (${res.status}) — proceeding without a duplicate check.`,
+      );
+      return null;
+    }
+
+    const { data: broadcasts = [], has_more: hasMore } = await res.json();
+    const match = broadcasts.find(
       (b) =>
-        b.subject === SUBJECT &&
+        b.name === title &&
         (b.status === "sent" ||
           b.status === "queued" ||
           b.status === "sending"),
-    ) ?? null
-  );
+    );
+    if (match) return match;
+
+    after = hasMore ? broadcasts.at(-1)?.id : undefined;
+  } while (after);
+
+  return null;
 }
 
 function printPreview() {

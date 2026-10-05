@@ -9,6 +9,7 @@
 //   RESEND_WELCOME_TEMPLATE_ID  — (optional) published Resend template ID for the welcome email.
 //                                 Run scripts/create-welcome-template.js once to create + publish it.
 
+import { createHash } from "node:crypto";
 import type { HandlerEvent } from "@netlify/functions";
 
 const ALLOWED_ORIGIN = process.env.SITE_URL?.replace(/\/$/, "") ?? "";
@@ -139,7 +140,9 @@ export const handler = async (event: HandlerEvent) => {
         "Content-Type": "application/json",
         // Stable per-recipient key so a retried request (network error, Netlify
         // function timeout, etc.) never results in a second welcome email.
-        "Idempotency-Key": `welcome-${email}`,
+        // Hashed (rather than the raw email) to stay under Resend's 256-char
+        // idempotency key limit regardless of email length.
+        "Idempotency-Key": `welcome-${createHash("sha256").update(email).digest("hex")}`,
       },
       body: JSON.stringify(emailPayload),
     }).catch((err) => console.error("subscribe: welcome email failed:", err));
