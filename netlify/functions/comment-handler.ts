@@ -118,6 +118,9 @@ ${postUrl ? `<p><a href="${postUrl}#comments">View the article and comments</a><
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${resendApiKey}`,
+      // Keyed on the Netlify form submission id so a webhook retry never
+      // produces a second moderator notification for the same comment.
+      "Idempotency-Key": `comment-notify-${id}`,
     },
     body: JSON.stringify({
       from: fromEmail,

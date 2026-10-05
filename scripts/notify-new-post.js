@@ -200,6 +200,35 @@ function buildText() {
     .join("\n");
 }
 
+// Resend's Idempotency-Key only covers POST /emails and /emails/batch, not
+// /broadcasts — so accidental double-sends of the same broadcast (e.g.
+// re-running this script for a post that was already announced) aren't
+// protected by the API itself. Guard against that here by checking for an
+// existing broadcast with the same subject before creating a new one.
+async function findExistingBroadcast() {
+  const res = await fetch(`${RESEND_API}/broadcasts`, {
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+
+  if (!res.ok) {
+    console.warn(
+      `\n⚠  Could not check for existing broadcasts (${res.status}) — proceeding without a duplicate check.`,
+    );
+    return null;
+  }
+
+  const { data: broadcasts = [] } = await res.json();
+  return (
+    broadcasts.find(
+      (b) =>
+        b.subject === SUBJECT &&
+        (b.status === "sent" ||
+          b.status === "queued" ||
+          b.status === "sending"),
+    ) ?? null
+  );
+}
+
 function printPreview() {
   const divider = "─".repeat(60);
   console.log("\n" + divider);
@@ -279,6 +308,21 @@ async function sendBroadcast() {
 }
 
 printPreview();
+
+const existing = await findExistingBroadcast();
+if (existing) {
+  console.warn(
+    `\n⚠  A broadcast with this exact subject was already ${existing.status} (id: ${existing.id}).`,
+  );
+  const sendAnyway = await confirm({
+    message: "This looks like a duplicate send. Send again anyway?",
+    default: false,
+  }).catch(() => process.exit(0));
+  if (!sendAnyway) {
+    console.log("Aborted — nothing was sent.");
+    process.exit(0);
+  }
+}
 
 const shouldSend = await confirm({
   message: "Send this to all subscribers?",

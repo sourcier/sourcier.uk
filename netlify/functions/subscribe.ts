@@ -137,6 +137,9 @@ export const handler = async (event: HandlerEvent) => {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
+        // Stable per-recipient key so a retried request (network error, Netlify
+        // function timeout, etc.) never results in a second welcome email.
+        "Idempotency-Key": `welcome-${email}`,
       },
       body: JSON.stringify(emailPayload),
     }).catch((err) => console.error("subscribe: welcome email failed:", err));
