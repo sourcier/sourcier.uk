@@ -218,10 +218,10 @@ async function findExistingBroadcast() {
     });
 
     if (!res.ok) {
-      console.warn(
-        `\n⚠  Could not check for existing broadcasts (${res.status}) — proceeding without a duplicate check.`,
+      console.error(
+        `\n⚠  Could not check for existing broadcasts (${res.status}) — aborting to avoid an unchecked duplicate send.`,
       );
-      return null;
+      process.exit(1);
     }
 
     const { data: broadcasts = [], has_more: hasMore } = await res.json();
@@ -230,7 +230,8 @@ async function findExistingBroadcast() {
         b.name === title &&
         (b.status === "sent" ||
           b.status === "queued" ||
-          b.status === "sending"),
+          b.status === "sending" ||
+          b.status === "scheduled"),
     );
     if (match) return match;
 
