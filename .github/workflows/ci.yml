@@ -54,7 +54,7 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - run: pnpm format:check
+      - run: pnpm format
 
       - run: pnpm lint
 

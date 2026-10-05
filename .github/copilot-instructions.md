@@ -39,7 +39,7 @@ pnpm dev:no-drafts    # Dev server without drafts
 pnpm build            # Production build to dist/
 pnpm test             # Vitest unit tests
 pnpm test:visual      # Playwright visual regression (native, darwin-arm64 locally)
-pnpm lint / format:check
+pnpm lint / format
 ```
 
 Requires Node.js (see `.nvmrc`), pnpm, and Netlify CLI.

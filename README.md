@@ -65,8 +65,8 @@ pnpm preview             # Preview the production build locally
 ```sh
 pnpm lint                # Run ESLint across Astro, JS, and TS files
 pnpm lint:fix            # Auto-fix lint issues where possible
-pnpm format              # Format the project with Prettier
-pnpm format:check        # Verify formatting without writing changes
+pnpm format              # Verify formatting without writing changes
+pnpm format:fix          # Format the project with Prettier
 ```
 
 `pnpm install` runs the `prepare` script to install Husky hooks. Pre-commit
