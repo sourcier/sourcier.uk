@@ -87,7 +87,7 @@ export function getSeriesNavigation(
         overview: overviewLink,
         order: post.data.seriesOrder!,
         total: parts.length,
-        previous: parts[index - 1] ? link(parts[index - 1]) : undefined,
+        previous: parts[index - 1] ? link(parts[index - 1]) : overviewLink,
         next: parts[index + 1] ? link(parts[index + 1]) : undefined,
       });
     });

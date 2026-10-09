@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getSeriesNavigation } from "./series";
 import { isPubliclyPublished } from "./drafts";
 
@@ -22,7 +22,7 @@ describe("series navigation", () => {
       post("first", 1),
     ]);
     expect(navigation.get("series")?.next?.id).toBe("first");
-    expect(navigation.get("first")?.previous).toBeUndefined();
+    expect(navigation.get("first")?.previous?.id).toBe("series");
     expect(navigation.get("first")?.next?.id).toBe("last");
     expect(navigation.get("last")?.previous?.id).toBe("first");
     expect(navigation.get("last")?.next).toBeUndefined();
@@ -58,7 +58,33 @@ describe("series navigation", () => {
     );
     expect(navigation.get("series")?.next?.status).toBe("draft");
     expect(navigation.get("draft")?.next?.status).toBe("scheduled");
+    expect(navigation.get("draft")?.previous?.id).toBe("series");
   });
+
+  it.each(["true", "false"])(
+    "uses SHOW_DRAFTS=%s for default navigation visibility",
+    async (showDrafts) => {
+      vi.stubEnv("SHOW_DRAFTS", showDrafts);
+      vi.resetModules();
+      try {
+        const { getSeriesNavigation: getNavigation } = await import("./series");
+        const navigation = getNavigation([
+          post("series", 0),
+          post("first", 1),
+          post("draft", 2, true),
+          post("scheduled", 3, false, new Date("2999-01-01")),
+        ]);
+        expect(navigation.get("first")?.previous?.id).toBe("series");
+        expect(navigation.get("first")?.next?.id).toBe(
+          showDrafts === "true" ? "draft" : undefined,
+        );
+        expect(navigation.has("scheduled")).toBe(showDrafts === "true");
+      } finally {
+        vi.unstubAllEnvs();
+        vi.resetModules();
+      }
+    },
+  );
 
   it("omits next when all remaining articles are unpublished", () => {
     const navigation = getSeriesNavigation(

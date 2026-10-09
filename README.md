@@ -58,7 +58,8 @@ whose post ID matches `series`; incomplete metadata and duplicate orders fail th
 Article pages show an overview link and previous/next links above the article body,
 replacing hand-written series kicker banners. Production navigation
 excludes drafts and scheduled posts; preview navigation includes them with explicit
-status labels. A hidden overview suppresses navigation for its series.
+status labels. The first visible article links back to the overview as its previous
+entry. A hidden overview suppresses navigation for its series.
 
 Cover downloads, thumbnails, SVG exports, notifications, and Dev.to cross-posting
 discover nested posts by their unchanged IDs. Public asset URLs stay flat:

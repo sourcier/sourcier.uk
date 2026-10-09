@@ -3,6 +3,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import SeriesNavigation from "./SeriesNavigation.astro";
 import { normalizeHtml } from "../test/helpers";
 import type { SeriesNavigationData } from "../utils/series";
+import { getSeriesNavigation } from "../utils/series";
 
 const navigation: SeriesNavigationData = {
   overview: { id: "series", title: "Example series", status: "published" },
@@ -54,6 +55,35 @@ describe("SeriesNavigation", () => {
     });
     expect(html).toContain("Draft");
     expect(html).toContain("Scheduled");
+  });
+
+  it("links the first draft article to its overview and next draft", async () => {
+    const posts = [
+      { id: "series", order: 0, title: "Example series" },
+      { id: "first", order: 1, title: "First article" },
+      { id: "second", order: 2, title: "Second article" },
+    ].map(({ id, order, title }) => ({
+      id,
+      data: {
+        title,
+        draft: true,
+        pubDate: new Date("2020-01-01"),
+        series: "series",
+        seriesOrder: order,
+      },
+    }));
+    const html = normalizeHtml(
+      await container.renderToString(SeriesNavigation, {
+        props: {
+          navigation: getSeriesNavigation(posts, () => true).get("first"),
+        },
+      }),
+    );
+    expect(html).toContain('href="/blog/series" rel="prev"');
+    expect(html).toContain('href="/blog/second" rel="next"');
+    expect(html).toContain("Previous");
+    expect(html).toContain("Next");
+    expect(html).toContain("Draft");
   });
 
   it("omits next navigation on the final article", async () => {
