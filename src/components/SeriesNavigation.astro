@@ -13,10 +13,17 @@ const { overview, order, total, previous, next } = navigation;
   <div class="series-nav__header">
     <h2 class="series-nav__title">
       {
-        order === 0 ? (
+order === 0 ? (
           overview.title
         ) : (
-          <a href={`/blog/${overview.id}`}>{overview.title}</a>
+          <>
+            <a href={`/blog/${overview.id}`}>{overview.title}</a>{" "}
+            {overview.status !== "published" && (
+              <span class="series-nav__status">
+                {overview.status === "draft" ? "Draft" : "Scheduled"}
+              </span>
+            )}
+          </>
         )
       }
     </h2>
