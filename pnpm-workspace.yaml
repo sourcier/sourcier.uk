@@ -1,5 +1,8 @@
-onlyBuiltDependencies:
-  - "@parcel/watcher"
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+  netlify-cli: true
+  unix-dgram: true
 patchedDependencies:
   expressive-code-color-chips: patches/expressive-code-color-chips.patch
 overrides:

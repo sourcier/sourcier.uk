@@ -31,7 +31,7 @@ RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions /home/n
 
 # Enable corepack and install pnpm (placed after git clones so a pnpm-only bump
 # doesn't invalidate the clone cache layers above)
-RUN corepack enable && corepack prepare pnpm@10.33.2 --activate
+RUN corepack enable && corepack prepare pnpm@12.11.1 --activate
 
 # Configure pnpm store outside the workspace so Vite doesn't watch it.
 # Without this, the store inside the project burns through all inotify

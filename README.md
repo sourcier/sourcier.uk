@@ -72,8 +72,18 @@ For an existing post, its ID alone locates its current directory.
 ### Prerequisites
 
 - Node.js (see [.nvmrc](.nvmrc) for version)
-- [pnpm](https://pnpm.io/)
+- [pnpm](https://pnpm.io/) 12.11.1
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm i -g netlify-cli`)
+
+### Install pnpm
+
+Install and enable Corepack, which uses the version pinned in `package.json`:
+
+```sh
+npm install --global corepack@0.34.5
+corepack enable pnpm
+pnpm --version            # Should print 12.11.1
+```
 
 ### Setup
 
@@ -158,7 +168,7 @@ The repo ships with a `.devcontainer` configuration for use with [VS Code Dev Co
 ### What's included
 
 - Node.js 24 (`lts/krypton`)
-- pnpm 10.33.2 (via corepack)
+- pnpm 12.11.1 (via corepack)
 - Netlify CLI
 - Playwright (Chromium + system dependencies)
 - GitHub Copilot (VS Code extensions pre-installed)
