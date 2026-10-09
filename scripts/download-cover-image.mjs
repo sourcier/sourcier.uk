@@ -16,9 +16,10 @@
  *   node scripts/download-cover-image.mjs <slug> <photo-url-or-id> --dry-run
  */
 
-import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { input, select } from "@inquirer/prompts";
+import { discoverPosts, resolvePostDirectory } from "./lib/posts.mjs";
 
 const POSTS_DIR = "./collections/posts";
 const UTM = "utm_source=sourcier_uk&utm_medium=referral";
@@ -42,9 +43,8 @@ const positional = args.filter((_, i) => !skipIndices.has(i));
 let [slug, photoInput] = positional;
 
 if (!slug) {
-  const postDirs = readdirSync(POSTS_DIR, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name)
+  const postDirs = discoverPosts(POSTS_DIR)
+    .map((post) => post.id)
     .sort();
 
   slug = await select({
@@ -52,6 +52,11 @@ if (!slug) {
     choices: postDirs.map((d) => ({ value: d })),
   }).catch(() => process.exit(0));
 }
+
+const { directory: postDir, id: postId } = resolvePostDirectory(
+  POSTS_DIR,
+  slug,
+);
 
 if (!photoInput) {
   photoInput = await input({
@@ -146,8 +151,7 @@ async function main() {
     );
   }
 
-  const postDir = join(POSTS_DIR, slug);
-  const outputPath = join(postDir, `${slug}-cover.webp`);
+  const outputPath = join(postDir, `${postId}-cover.webp`);
 
   if (existsSync(outputPath) && !isForce && !isDryRun) {
     console.error(
@@ -178,7 +182,7 @@ async function main() {
 
   const frontmatter = [
     `cover:`,
-    `  image: "./${slug}-cover.webp"`,
+    `  image: "./${postId}-cover.webp"`,
     `  alt: "${resolvedAlt}"`,
     `credits:`,
     `  - label: "Cover photo"`,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Cross-posts a blog post to Dev.to with a canonical URL pointing back to sourcier.uk.
 // Prepends an original-post link and converts unsupported SVG embeds into PNG fallbacks.
-// Reads post content from collections/posts/<slug>/index.md.
+// Discovers index.md posts recursively by their stable folder-derived IDs.
 //
 // Usage:
 //   node scripts/crosspost-devto.js
@@ -13,8 +13,9 @@
 //   SITE_URL       — public URL of the site, e.g. https://sourcier.uk
 
 import { select, confirm } from "@inquirer/prompts";
-import { readFileSync, readdirSync, existsSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join, resolve } from "path";
+import { discoverPosts, findPost } from "./lib/posts.mjs";
 
 const root = resolve(new URL(".", import.meta.url).pathname, "..");
 
@@ -331,13 +332,8 @@ function normaliseMarkdownForDevto(markdown, canonicalUrl, title) {
 }
 
 function loadPost(slug) {
-  const filePath = join(root, "collections", "posts", slug, "index.md");
-  let raw;
-  try {
-    raw = readFileSync(filePath, "utf8");
-  } catch {
-    throw new Error(`Post not found: collections/posts/${slug}/index.md`);
-  }
+  const { filePath } = findPost(join(root, "collections", "posts"), slug);
+  const raw = readFileSync(filePath, "utf8");
   const fm = parseFrontmatter(raw);
   if (!fm.title) throw new Error(`No title found in frontmatter for: ${slug}`);
 
@@ -364,26 +360,18 @@ function loadPost(slug) {
 
 function listPostIds() {
   const postsDir = join(root, "collections", "posts");
-  return readdirSync(postsDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => {
-      try {
-        const content = readFileSync(
-          join(postsDir, d.name, "index.md"),
-          "utf8",
-        );
-        const fm = parseFrontmatter(content);
-        return {
-          id: d.name,
-          pubDate: fm.pubDate ? new Date(fm.pubDate) : new Date(0),
-          isDraft: fm.draft === "true",
-          isFuture: fm.pubDate ? new Date(fm.pubDate) > new Date() : false,
-        };
-      } catch {
-        return null;
-      }
+  return discoverPosts(postsDir)
+    .map((post) => {
+      const content = readFileSync(post.filePath, "utf8");
+      const fm = parseFrontmatter(content);
+      return {
+        id: post.id,
+        pubDate: fm.pubDate ? new Date(fm.pubDate) : new Date(0),
+        isDraft: fm.draft === "true",
+        isFuture: fm.pubDate ? new Date(fm.pubDate) > new Date() : false,
+      };
     })
-    .filter((p) => p && !p.isDraft && !p.isFuture)
+    .filter((p) => !p.isDraft && !p.isFuture)
     .sort((a, b) => b.pubDate - a.pubDate)
     .map((p) => p.id);
 }
