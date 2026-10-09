@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Sends a "new post" broadcast email to all Resend subscribers.
-// Reads post details from the frontmatter in collections/posts/<id>/index.md.
+// Discovers index.md posts recursively by their stable folder-derived IDs.
 // Shows a console preview and asks for confirmation before sending.
 //
 // Usage:
@@ -11,8 +11,9 @@
 // precedence over the .env file.
 
 import { select, confirm } from "@inquirer/prompts";
-import { readFileSync, readdirSync, existsSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join, resolve } from "path";
+import { discoverPosts, findPost } from "./lib/posts.mjs";
 
 const root = resolve(new URL(".", import.meta.url).pathname, "..");
 
@@ -76,13 +77,8 @@ function parseFrontmatter(content) {
 }
 
 function loadPost(postId) {
-  const filePath = join(root, "collections", "posts", postId, "index.md");
-  let content;
-  try {
-    content = readFileSync(filePath, "utf8");
-  } catch {
-    throw new Error(`Post not found: collections/posts/${postId}/index.md`);
-  }
+  const { filePath } = findPost(join(root, "collections", "posts"), postId);
+  const content = readFileSync(filePath, "utf8");
   const fm = parseFrontmatter(content);
   if (!fm.title)
     throw new Error(`No title found in frontmatter for post: ${postId}`);
@@ -98,23 +94,17 @@ function listPostIds() {
   const postsDir = join(root, "collections", "posts");
   const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
 
-  return readdirSync(postsDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => {
-      try {
-        const content = readFileSync(
-          join(postsDir, d.name, "index.md"),
-          "utf8",
-        );
-        const fm = parseFrontmatter(content);
-        const pubDate = fm.pubDate ? new Date(fm.pubDate).getTime() : 0;
-        const isDraft = fm.draft === "true";
-        return { id: d.name, pubDate, isDraft };
-      } catch {
-        return null;
-      }
+  return discoverPosts(postsDir)
+    .map((post) => {
+      const content = readFileSync(post.filePath, "utf8");
+      const fm = parseFrontmatter(content);
+      const pubDate = fm.pubDate ? new Date(fm.pubDate).getTime() : 0;
+      const isDraft = fm.draft === "true";
+      return { id: post.id, pubDate, isDraft };
     })
-    .filter((p) => p && !p.isDraft && p.pubDate >= oneWeekAgo)
+    .filter(
+      (p) => !p.isDraft && p.pubDate >= oneWeekAgo && p.pubDate <= Date.now(),
+    )
     .sort((a, b) => b.pubDate - a.pubDate)
     .map((p) => p.id);
 }

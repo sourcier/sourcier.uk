@@ -9,9 +9,16 @@ import MailingListCTA from "../components/MailingListCTA.astro";
 import SupportCTA from "../components/SponsorCTA.astro";
 import SupportCheckoutModal from "../components/SupportCheckoutModal.astro";
 import { getPublicationStatus } from "../utils/drafts";
+import SeriesNavigation from "../components/SeriesNavigation.astro";
 
 import TagsSidebar from "../components/TagsSidebar.astro";
-const { frontmatter, postId, headings = [], readingTime } = Astro.props;
+const {
+  frontmatter,
+  postId,
+  headings = [],
+  readingTime,
+  seriesNavigation,
+} = Astro.props;
 const tocHeadings = (
   headings as { depth: number; slug: string; text: string }[]
 ).filter((h) => h.depth === 2 || h.depth === 3);
@@ -114,6 +121,11 @@ const supportPublishableKey =
     <div class="post__body">
       <div class="post__layout">
         <div class="post__layout__content">
+          {
+            seriesNavigation && (
+              <SeriesNavigation navigation={seriesNavigation} />
+            )
+          }
           <div class="post__content content" id="post-content">
             <slot />
           </div>

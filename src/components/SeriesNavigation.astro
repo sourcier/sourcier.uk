@@ -1,0 +1,150 @@
+---
+import type { SeriesNavigationData } from "../utils/series";
+
+interface Props {
+  navigation: SeriesNavigationData;
+}
+
+const { navigation } = Astro.props;
+const { overview, order, total, previous, next } = navigation;
+---
+
+<nav class="series-nav" aria-label="Article series" data-pagefind-ignore>
+  <div class="series-nav__header">
+    <h2 class="series-nav__title">
+      {
+        order === 0 ? (
+          overview.title
+        ) : (
+          <a href={`/blog/${overview.id}`}>{overview.title}</a>
+        )
+      }
+    </h2>
+    <p class="series-nav__eyebrow">
+      {order === 0 ? `${total} articles` : `Part ${order}`}
+    </p>
+  </div>
+  <div class="series-nav__links">
+    {
+      previous && (
+        <a class="series-nav__link" href={`/blog/${previous.id}`} rel="prev">
+          <span class="series-nav__direction">Previous</span>
+          <span class="series-nav__article">{previous.title}</span>
+          {previous.status !== "published" && (
+            <span class="series-nav__status">
+              {previous.status === "draft" ? "Draft" : "Scheduled"}
+            </span>
+          )}
+        </a>
+      )
+    }
+    {
+      next && (
+        <a class="series-nav__link" href={`/blog/${next.id}`} rel="next">
+          <span class="series-nav__direction">
+            {order === 0 ? "Start the series" : "Next"}
+          </span>
+          <span class="series-nav__article">{next.title}</span>
+          {next.status !== "published" && (
+            <span class="series-nav__status">
+              {next.status === "draft" ? "Draft" : "Scheduled"}
+            </span>
+          )}
+        </a>
+      )
+    }
+  </div>
+</nav>
+
+<style lang="scss">
+  .series-nav {
+    margin-bottom: var(--space-section-tight);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .series-nav__header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .series-nav__eyebrow,
+  .series-nav__direction {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .series-nav__eyebrow {
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .series-nav__title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+
+    a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  .series-nav__links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    > :only-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .series-nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    min-height: 44px;
+    padding: 0.25rem 0;
+    color: var(--text-primary);
+
+    &:hover {
+      color: var(--text-primary);
+
+      .series-nav__article {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+    }
+  }
+
+  .series-nav a:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+  }
+
+  .series-nav__article {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .series-nav__status {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-tight);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+</style>

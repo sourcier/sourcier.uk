@@ -9,9 +9,10 @@
  *   node scripts/process-thumbnails.mjs --dry-run          # preview without changes
  */
 
-import { readdirSync, existsSync, statSync } from "node:fs";
+import { readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
+import { discoverPosts } from "./lib/posts.mjs";
 
 const POSTS_DIR = "./collections/posts";
 const THUMB_SIZE = "96x96";
@@ -28,9 +29,7 @@ if (slugFilter) console.log(`Filtering to slug: ${slugFilter}\n`);
 let generated = 0;
 let skipped = 0;
 
-for (const slug of readdirSync(POSTS_DIR).sort()) {
-  const dir = join(POSTS_DIR, slug);
-  if (!statSync(dir).isDirectory()) continue;
+for (const { id: slug, directory: dir } of discoverPosts(POSTS_DIR)) {
   if (slugFilter && slug !== slugFilter) continue;
 
   const cover = readdirSync(dir).find((f) => /-cover\.webp$/i.test(f));
@@ -44,9 +43,18 @@ for (const slug of readdirSync(POSTS_DIR).sort()) {
 
   console.log(`${slug}: generating ${slug}-thumbnail.webp`);
   if (!dryRun) {
-    execSync(
-      `magick "${join(dir, cover)}" -resize ${THUMB_SIZE}^ -gravity Center -extent ${THUMB_SIZE} "${thumbPath}"`,
-
+    execFileSync(
+      "magick",
+      [
+        join(dir, cover),
+        "-resize",
+        `${THUMB_SIZE}^`,
+        "-gravity",
+        "Center",
+        "-extent",
+        THUMB_SIZE,
+        thumbPath,
+      ],
       { stdio: "inherit" },
     );
   }

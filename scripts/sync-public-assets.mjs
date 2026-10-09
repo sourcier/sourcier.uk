@@ -1,6 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
+import { join } from "node:path";
 import { select } from "@inquirer/prompts";
+import { discoverPosts } from "./lib/posts.mjs";
 
 import { rasterizePostImages } from "./rasterize-post-images.mjs";
 
@@ -9,14 +11,14 @@ const postsDir = "./collections/posts";
 const syncJobs = {
   thumbnails: {
     destinationDir: "./public/search-thumbnails",
-    includePatterns: ["*/", "*-thumbnail.webp"],
+    includePatterns: ["*-thumbnail.webp"],
     skipMessage:
       "No collections/posts directory found; skipping thumbnail copy.",
     successMessage: "Copied thumbnails to public/search-thumbnails/",
   },
   "post-images": {
     destinationDir: "./public/post-images",
-    includePatterns: ["*/", "*.svg"],
+    includePatterns: ["*.svg"],
     skipMessage:
       "No collections/posts directory found; skipping post image copy.",
     successMessage: "Copied post images to public/post-images/",
@@ -41,18 +43,32 @@ if (!existsSync(postsDir)) {
 
 mkdirSync(syncJob.destinationDir, { recursive: true });
 
-const rsyncArgs = [
-  "-a",
-  "--delete",
-  "--delete-excluded",
-  "--prune-empty-dirs",
-  ...syncJob.includePatterns.map((pattern) => `--include=${pattern}`),
-  "--exclude=*",
-  `${postsDir}/`,
-  `${syncJob.destinationDir}/`,
-];
-
-execFileSync("rsync", rsyncArgs, { stdio: "inherit" });
+const posts = discoverPosts(postsDir);
+const ids = new Set(posts.map((post) => post.id));
+for (const entry of readdirSync(syncJob.destinationDir, {
+  withFileTypes: true,
+})) {
+  if (entry.isDirectory() && !ids.has(entry.name)) {
+    rmSync(join(syncJob.destinationDir, entry.name), { recursive: true });
+  }
+}
+for (const post of posts) {
+  const destination = join(syncJob.destinationDir, post.id);
+  mkdirSync(destination, { recursive: true });
+  execFileSync(
+    "rsync",
+    [
+      "-a",
+      "--delete",
+      "--delete-excluded",
+      ...syncJob.includePatterns.map((pattern) => `--include=${pattern}`),
+      "--exclude=*",
+      `${post.directory}/`,
+      `${destination}/`,
+    ],
+    { stdio: "inherit" },
+  );
+}
 console.log(syncJob.successMessage);
 
 if (mode === "post-images") {

@@ -31,6 +31,41 @@ netlify/functions/       # Serverless functions (comments, subscriptions, schedu
 scripts/                 # One-off utility scripts (email templates, notifications)
 ```
 
+### Article series
+
+Posts can be grouped inside a series folder without changing their URLs:
+
+```text
+collections/posts/
+  how-this-blog-was-built/
+    index.md                    # Series overview
+    how-this-blog-was-built-cover.webp
+    choosing-the-tech-stack/
+      index.md
+      choosing-the-tech-stack-cover.webp
+```
+
+The directory containing `index.md` supplies the post ID, regardless of nesting.
+Post directory names must be globally unique lowercase, hyphenated slugs.
+Duplicate IDs fail discovery rather than replacing content. Only `index.md`
+files are articles; README files, hidden directories, and dependencies are excluded.
+
+Add `series: how-this-blog-was-built` and `seriesOrder: 0` to the overview.
+Use the same `series` ID and distinct positive `seriesOrder` values for articles.
+Reading order is independent of publication dates. Each series requires an overview
+whose post ID matches `series`; incomplete metadata and duplicate orders fail the build.
+
+Article pages show an overview link and previous/next links above the article body,
+replacing hand-written series kicker banners. Production navigation
+excludes drafts and scheduled posts; preview navigation includes them with explicit
+status labels. A hidden overview suppresses navigation for its series.
+
+Cover downloads, thumbnails, SVG exports, notifications, and Dev.to cross-posting
+discover nested posts by their unchanged IDs. Public asset URLs stay flat:
+`/search-thumbnails/<post-id>/` and `/post-images/<post-id>/`.
+For a new nested post, use `pnpm cover:download <series>/<post-id> <photo-url-or-id>`.
+For an existing post, its ID alone locates its current directory.
+
 ## Getting Started
 
 ### Prerequisites

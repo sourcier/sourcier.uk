@@ -3,14 +3,16 @@ import { getCollection, render } from "astro:content";
 import { isPublished } from "../../utils/drafts";
 import readingTime from "reading-time";
 import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
+import { getSeriesNavigation } from "../../utils/series";
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
+  const seriesNavigation = getSeriesNavigation(posts);
   return posts.filter(isPublished).map((post) => ({
     params: { id: post.id },
-    props: { post },
+    props: { post, seriesNavigation: seriesNavigation.get(post.id) },
   }));
 }
-const { post } = Astro.props;
+const { post, seriesNavigation } = Astro.props;
 const { Content, headings } = await render(post);
 const postReadingTime = readingTime(post.body ?? "").text;
 ---
@@ -20,6 +22,7 @@ const postReadingTime = readingTime(post.body ?? "").text;
   postId={post.id}
   headings={headings}
   readingTime={postReadingTime}
+  seriesNavigation={seriesNavigation}
 >
   <Content />
 </MarkdownPostLayout>
