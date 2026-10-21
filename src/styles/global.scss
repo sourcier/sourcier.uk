@@ -10,11 +10,6 @@
 @use "bulma/sass/utilities";
 @use "bulma/sass/themes";
 
-// Layout primitives
-@use "bulma/sass/layout/container";
-@use "bulma/sass/layout/section";
-@use "bulma/sass/layout/footer";
-
 // Navigation
 @use "bulma/sass/components/navbar";
 
@@ -193,6 +188,45 @@ html {
   min-width: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.container {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+
+  @media (min-width: 1024px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1216px) {
+    &:not(.is-max-desktop) {
+      max-width: 1152px;
+    }
+  }
+
+  @media (min-width: 1408px) {
+    &:not(.is-max-desktop) {
+      max-width: 1344px;
+    }
+  }
+}
+
+.container.is-max-desktop {
+  max-width: 960px;
+}
+
+.section {
+  padding: 3rem 1.5rem;
+
+  @media (min-width: 1024px) {
+    padding: 3rem;
+  }
+}
+
+.mt-auto {
+  margin-top: auto;
 }
 
 a {
