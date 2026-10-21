@@ -10,10 +10,6 @@
 @use "bulma/sass/utilities";
 @use "bulma/sass/themes";
 
-// Reset + base element styles
-@use "bulma/sass/base/minireset";
-@use "bulma/sass/base/generic";
-
 // Layout primitives
 @use "bulma/sass/layout/container";
 @use "bulma/sass/layout/section";
@@ -42,6 +38,8 @@
 @use "bulma/sass/helpers/spacing";
 
 :root {
+  color-scheme: light;
+
   // Brand accent tokens shared by the site theme and Bulma.
   --accent-primary-h: 330deg;
   --accent-primary-s: 100%;
@@ -158,6 +156,8 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
+
   --text-primary: #f0f0f0;
   --text-muted: #999999;
   --surface-page: #111111;
@@ -187,6 +187,17 @@
   --bulma-code: var(--text-inline-code);
   --bulma-border: var(--border-subtle);
   --bulma-link-text: var(--accent-primary);
+}
+
+html {
+  min-width: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
 }
 
 code:not(pre code) {
@@ -242,6 +253,7 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   background-color: var(--page-backdrop-bottom);
   background:
     radial-gradient(
