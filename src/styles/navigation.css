@@ -24,7 +24,7 @@
   top: 0;
   z-index: 100;
 
-  > .container {
+  > .layout-container {
     display: block;
 
     @media (min-width: 1024px) {

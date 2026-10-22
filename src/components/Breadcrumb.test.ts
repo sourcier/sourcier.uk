@@ -20,7 +20,9 @@ describe("Breadcrumb", () => {
     const html = await container.renderToString(Breadcrumb, {
       props: { crumbs },
     });
-    expect(normalizeHtml(html)).toContain('class="container is-max-desktop"');
+    expect(normalizeHtml(html)).toContain(
+      'class="layout-container layout-container-narrow"',
+    );
   });
 
   it("renders without container div when noContainer is true", async () => {
@@ -28,7 +30,7 @@ describe("Breadcrumb", () => {
       props: { crumbs, noContainer: true },
     });
     expect(normalizeHtml(html)).not.toContain(
-      'class="container is-max-desktop"',
+      'class="layout-container layout-container-narrow"',
     );
   });
 

@@ -56,7 +56,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
   data-tone={tone}
   data-has-cover={coverImage ? "true" : "false"}
 >
-  <div class="container">
+  <div class="layout-container">
     <div class="hero-content">
       {
         resolvedCrumbs.length > 0 && (
@@ -247,7 +247,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
       }
     }
 
-    .container {
+    .layout-container {
       position: relative;
       z-index: 1;
       width: 100%;

@@ -108,7 +108,7 @@ const avgReadMinutes =
     class="topic-overview flow-section flow-section--loose"
     aria-labelledby="topic-overview-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="layout-container layout-container-narrow">
       <div class="page-panel topic-overview__panel">
         <div class="topic-overview__copy">
           <p class="topic-overview__eyebrow">Topic archive</p>
@@ -155,7 +155,7 @@ const avgReadMinutes =
         class="featured-post flow-section flow-section--loose"
         aria-labelledby="featured-post-heading"
       >
-        <div class="container is-max-desktop">
+        <div class="layout-container layout-container-narrow">
           <p class="featured-post__eyebrow">Latest in this topic</p>
           <a href={`/blog/${featuredPost.id}/`} class="featured-post__card">
             {featuredPost.data.cover && (
@@ -211,7 +211,7 @@ const avgReadMinutes =
   {
     relatedTags.length > 0 && (
       <section class="related-tags flow-section" aria-label="Related topics">
-        <div class="container is-max-desktop">
+        <div class="layout-container layout-container-narrow">
           <p class="related-tags__label">Related topics</p>
           <ul class="related-tags__list" role="list">
             {relatedTags.map(({ slug, label: relLabel }) => (

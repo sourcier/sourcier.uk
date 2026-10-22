@@ -1,4 +1,4 @@
-.container {
+.layout-container {
   flex-grow: 1;
   position: relative;
   width: 100%;
@@ -9,19 +9,19 @@
   }
 
   @media (min-width: 1216px) {
-    &:not(.is-max-desktop) {
+    &:not(.layout-container-narrow) {
       max-width: 1152px;
     }
   }
 
   @media (min-width: 1408px) {
-    &:not(.is-max-desktop) {
+    &:not(.layout-container-narrow) {
       max-width: 1344px;
     }
   }
 }
 
-.container.is-max-desktop {
+.layout-container.layout-container-narrow {
   max-width: 960px;
 }
 
