@@ -129,7 +129,7 @@ const statusVariant: Record<string, string> = {
   }
 </article>
 
-<style lang="scss">
+<style>
   .project-card {
     position: relative;
     overflow: hidden;
@@ -150,7 +150,7 @@ const statusVariant: Record<string, string> = {
       box-shadow 0.2s ease,
       border-color 0.2s ease;
 
-    // Vertical accent stripe along the left edge
+    /* Vertical accent stripe along the left edge */
     &::before {
       content: "";
       position: absolute;
@@ -167,7 +167,7 @@ const statusVariant: Record<string, string> = {
       pointer-events: none;
     }
 
-    &--with-preview {
+    &:where(.project-card--with-preview) {
       @media (min-width: 768px) {
         grid-template-columns: 1fr 320px;
       }
@@ -181,7 +181,7 @@ const statusVariant: Record<string, string> = {
     }
   }
 
-  // Separate so reduced-motion users get the colour/shadow effect but no translate
+  /* Separate so reduced-motion users get the colour/shadow effect but no translate */
   @media (prefers-reduced-motion: no-preference) {
     .project-card {
       transition:
@@ -268,17 +268,17 @@ const statusVariant: Record<string, string> = {
     letter-spacing: 0.08em;
     text-transform: uppercase;
 
-    &--active {
+    &:where(.project-card__status--active) {
       color: var(--accent-secondary);
       background: color-mix(in srgb, var(--accent-secondary) 10%, transparent);
     }
 
-    &--wip {
+    &:where(.project-card__status--wip) {
       color: var(--accent-primary);
       background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
     }
 
-    &--archived {
+    &:where(.project-card__status--archived) {
       color: var(--text-muted);
       background: color-mix(in srgb, var(--text-muted) 10%, transparent);
     }
@@ -349,7 +349,7 @@ const statusVariant: Record<string, string> = {
       outline-offset: 3px;
     }
 
-    &--secondary {
+    &:where(.project-card__cta--secondary) {
       background: transparent;
       border-color: var(--border-subtle);
       color: var(--text-muted);
@@ -405,7 +405,7 @@ const statusVariant: Record<string, string> = {
     }
   }
 
-  // Fixed dark palette — intentionally theme-invariant to simulate a real desktop window.
+  /* Fixed dark palette — intentionally theme-invariant to simulate a real desktop window. */
   .project-card__window {
     width: 100%;
     border-radius: 10px;
@@ -432,20 +432,20 @@ const statusVariant: Record<string, string> = {
     border-radius: 50%;
     flex-shrink: 0;
 
-    &--close {
+    &:where(.project-card__dot--close) {
       background: #ff5f57;
     }
 
-    &--min {
+    &:where(.project-card__dot--min) {
       background: #febc2e;
     }
 
-    &--max {
+    &:where(.project-card__dot--max) {
       background: #28c840;
     }
   }
 
-  // Backlit ambience behind the licensed logo mark, echoing the real app's title screen
+  /* Backlit ambience behind the licensed logo mark, echoing the real app's title screen */
   .project-card__window-brand {
     display: flex;
     justify-content: center;

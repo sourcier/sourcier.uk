@@ -141,7 +141,7 @@ function pageUrl(n: number) {
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .blog-grid-section {
     padding-top: 0;
     padding-bottom: 0;
@@ -243,7 +243,7 @@ function pageUrl(n: number) {
       transform: translateY(-1px);
     }
 
-    &--active {
+    &:where(.pagination-nav__page--active) {
       background-color: var(--accent-secondary);
       border-color: var(--accent-secondary);
       color: var(--text-on-strong);
@@ -288,7 +288,7 @@ function pageUrl(n: number) {
       transform: translateY(-1px);
     }
 
-    &--disabled {
+    &:where(.pagination-nav__btn--disabled) {
       color: var(--text-muted);
       background-color: transparent;
       pointer-events: none;

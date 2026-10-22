@@ -91,13 +91,13 @@ const items = allCrumbs.map((crumb, index) => ({
   }
 </nav>
 
-<style lang="scss">
+<style>
   .breadcrumb-nav {
     padding: 0.6rem 1.5rem;
     background-color: var(--surface-elevated);
     border-bottom: 1px solid var(--border-subtle);
 
-    &--inverted {
+    &:where(.breadcrumb-nav--inverted) {
       padding: 0;
       background-color: transparent;
       border-bottom: none;

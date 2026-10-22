@@ -114,7 +114,7 @@
     max-width: 100%;
   }
 
-  // Post body typography and rich-text elements
+  /* Post body typography and rich-text elements */
   font-size: 1.125rem;
   line-height: 1.85;
   color: var(--text-primary);
@@ -357,30 +357,30 @@
   }
 }
 
-// — Expressive Code: 1px border outline on all code block frames
+/* — Expressive Code: 1px border outline on all code block frames */
 .expressive-code .frame {
   box-shadow: 0 0 0 1px var(--border-subtle) !important;
   border-radius: var(--radius-compact);
   overflow: hidden;
 }
 
-// — Expressive Code: spacing between consecutive collapsible blocks
+/* — Expressive Code: spacing between consecutive collapsible blocks */
 .expressive-code:has(.ec-collapsible) + .expressive-code:has(.ec-collapsible) {
   margin-top: 0.75rem;
 }
 
-// — Expressive Code: rounded corners when collapsed
+/* — Expressive Code: rounded corners when collapsed */
 .expressive-code .ec-collapsible.is-collapsed {
   border-radius: var(--radius-compact);
   overflow: hidden;
 }
 
-// — Expressive Code: center chevron vertically in the header bar
+/* — Expressive Code: center chevron vertically in the header bar */
 .expressive-code .ec-collapse-toggle {
   align-self: center;
 }
 
-// — Expressive Code: file icon size and alignment
+/* — Expressive Code: file icon size and alignment */
 .expressive-code figcaption .title {
   display: flex;
   align-items: center;
@@ -398,7 +398,7 @@
   filter: none;
 }
 
-// — Expressive Code: copy button with matching hover
+/* — Expressive Code: copy button with matching hover */
 .expressive-code .copy button {
   border-radius: var(--radius-tight) !important;
   width: 2rem !important;

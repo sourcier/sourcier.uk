@@ -1,4 +1,4 @@
-// — Blog cards
+/* — Blog cards */
 .card.card__blog {
   display: flex;
   flex-direction: column;

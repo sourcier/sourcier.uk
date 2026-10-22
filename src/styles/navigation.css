@@ -1,4 +1,4 @@
-// — Navbar: frosted glass with pink accent on hover
+/* — Navbar: frosted glass with pink accent on hover */
 .navbar {
   min-height: 3.25rem;
   background:
@@ -222,7 +222,7 @@
   position: relative;
 }
 
-// Show system/sun/moon icon based on the user's selected preference, not the resolved OS theme
+/* Show system/sun/moon icon based on the user's selected preference, not the resolved OS theme */
 .theme-toggle__trigger-icon {
   display: none;
   align-items: center;
@@ -349,7 +349,7 @@
   }
 }
 
-// — Navbar CTA button
+/* — Navbar CTA button */
 .navbar-cta {
   display: inline-flex;
   align-items: center;

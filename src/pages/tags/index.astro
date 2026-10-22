@@ -205,7 +205,7 @@ const ringStyle = (ringIdx: number) => {
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .tag-summary {
     padding: 0 1.5rem;
   }
@@ -322,7 +322,7 @@ const ringStyle = (ringIdx: number) => {
       var(--surface-elevated);
   }
 
-  // — Intro + legend
+  /* — Intro + legend */
   .cloud-intro {
     display: flex;
     flex-direction: column;
@@ -377,7 +377,7 @@ const ringStyle = (ringIdx: number) => {
     color: var(--accent-secondary);
   }
 
-  // — Circular cloud (≥ 640px)
+  /* — Circular cloud (≥ 640px) */
   .cloud-circle-wrap {
     display: none;
     justify-content: center;
@@ -393,7 +393,7 @@ const ringStyle = (ringIdx: number) => {
     width: min(88vw, 580px);
     aspect-ratio: 1;
 
-    // Outer decorative circle
+    /* Outer decorative circle */
     &::before {
       content: "";
       position: absolute;
@@ -403,7 +403,7 @@ const ringStyle = (ringIdx: number) => {
       pointer-events: none;
     }
 
-    // Inner accent ring
+    /* Inner accent ring */
     &::after {
       content: "";
       position: absolute;
@@ -437,13 +437,13 @@ const ringStyle = (ringIdx: number) => {
     }
   }
 
-  // Dim and gently float others away when one is hovered
+  /* Dim and gently float others away when one is hovered */
   .cloud-circle:has(.cloud-circle__tag:hover) .cloud-circle__tag:not(:hover) {
     opacity: 0.15 !important;
     transform: translate(-50%, -50%) scale(0.95);
   }
 
-  // — Accessible list (mobile visual + always SR-visible)
+  /* — Accessible list (mobile visual + always SR-visible) */
   .cloud-list {
     display: flex;
     flex-wrap: wrap;
@@ -454,7 +454,7 @@ const ringStyle = (ringIdx: number) => {
     margin: 1rem 0;
     padding: 0;
 
-    // Visually hidden on desktop, but remains in the SR accessibility tree
+    /* Visually hidden on desktop, but remains in the SR accessibility tree */
     @media (min-width: 640px) {
       position: absolute;
       width: 1px;

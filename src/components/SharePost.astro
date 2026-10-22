@@ -118,7 +118,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
     });
 </script>
 
-<style lang="scss">
+<style>
   .share-post {
     display: flex;
     align-items: center;
@@ -134,7 +134,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       gap: 0.75rem;
     }
 
-    &--vertical {
+    &:where(.share-post--vertical) {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
@@ -155,7 +155,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       }
     }
 
-    &--hero {
+    &:where(.share-post--hero) {
       align-items: flex-start;
       gap: 0.75rem;
       padding: 1.15rem 0 0;
@@ -210,7 +210,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       }
     }
 
-    &--sidebar {
+    &:where(.share-post--sidebar) {
       flex-direction: column;
       align-items: stretch;
       gap: 0.9rem;
@@ -274,7 +274,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       }
     }
 
-    &--menu {
+    &:where(.share-post--menu) {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;

@@ -78,7 +78,7 @@ const tags = [...tagCounts.entries()]
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .tag-cloud {
     padding: 0 1.5rem;
   }
@@ -224,20 +224,20 @@ const tags = [...tagCounts.entries()]
       transform: translateY(-1px);
     }
 
-    // Small: low-frequency tags
-    &--tier-1 {
+    /* Small: low-frequency tags */
+    &:where(.tag-cloud__pill--tier-1) {
       font-size: 0.74rem;
       padding: 0.3rem 0.6rem;
     }
 
-    // Medium: mid-frequency tags
-    &--tier-2 {
+    /* Medium: mid-frequency tags */
+    &:where(.tag-cloud__pill--tier-2) {
       font-size: 0.9rem;
       padding: 0.35rem 0.72rem;
     }
 
-    // Large: high-frequency tags
-    &--tier-3 {
+    /* Large: high-frequency tags */
+    &:where(.tag-cloud__pill--tier-3) {
       font-size: 1.04rem;
       padding: 0.42rem 0.82rem;
       border-width: 2px;

@@ -1,4 +1,4 @@
-// — Update divider (marks content added after original publication)
+/* — Update divider (marks content added after original publication) */
 .update-divider {
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@
     );
   }
 
-  &__label {
+  :where(.update-divider__label) {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -46,9 +46,9 @@
     );
   }
 
-  // Closing bookend for an added block — same green as the start marker so
-  // the pair reads as one bounded region, just placed after the content ends.
-  &--end {
+  /* Closing bookend for an added block — same green as the start marker so */
+  /* the pair reads as one bounded region, just placed after the content ends. */
+  &:where(.update-divider--end) {
     margin: 2.5rem 0 3rem;
   }
 
@@ -77,7 +77,7 @@
       );
     }
 
-    .update-divider__label {
+    :where(.update-divider__label) {
       color: var(--color-success-bright);
       border-color: color-mix(
         in srgb,
@@ -93,7 +93,7 @@
   }
 }
 
-// — Inline date chip (used in content to indicate a future publish date)
+/* — Inline date chip (used in content to indicate a future publish date) */
 .date-chip {
   display: inline-block;
   font-family: "Barlow Condensed", sans-serif;

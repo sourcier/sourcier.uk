@@ -83,7 +83,7 @@
   });
 </script>
 
-<style lang="scss">
+<style>
   .mailing-cta {
     padding: 0 1.5rem 3rem;
   }
@@ -304,11 +304,11 @@
     margin-top: 0.625rem;
     font-size: 0.875rem;
 
-    &--success {
+    &:where(.mailing-cta__feedback--success) {
       color: var(--color-success-bright);
     }
 
-    &--error {
+    &:where(.mailing-cta__feedback--error) {
       color: var(--color-danger-bright);
     }
   }

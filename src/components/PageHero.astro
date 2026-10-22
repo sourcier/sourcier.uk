@@ -99,7 +99,17 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
   </div>
 </header>
 
-<style lang="scss">
+<style>
+  @keyframes dot-grid-breathe {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   .page-hero {
     --page-hero-accent: var(--accent-primary);
     --page-hero-accent-alt: var(--accent-secondary);
@@ -174,16 +184,6 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
       );
       pointer-events: none;
       opacity: 0.8;
-    }
-
-    @keyframes dot-grid-breathe {
-      0%,
-      100% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 1;
-      }
     }
 
     &[data-has-cover="true"] {

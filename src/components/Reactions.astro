@@ -150,7 +150,7 @@ const reactions = [
   });
 </script>
 
-<style lang="scss">
+<style>
   @keyframes btn-pop {
     0% {
       transform: scale(1);
@@ -225,7 +225,7 @@ const reactions = [
       }
     }
 
-    &--active {
+    &:where(.reactions__btn--active) {
       border-color: var(--accent-primary);
       background-color: rgba(var(--accent-primary-rgb), 0.08);
 
@@ -237,7 +237,7 @@ const reactions = [
       }
     }
 
-    &--pop {
+    &:where(.reactions__btn--pop) {
       animation: btn-pop 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
   }

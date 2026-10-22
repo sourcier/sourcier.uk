@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
 
-  // Brand accent tokens shared across the site.
+  /* Brand accent tokens shared across the site. */
   --accent-primary-h: 330deg;
   --accent-primary-s: 100%;
   --accent-primary-l: 45%;

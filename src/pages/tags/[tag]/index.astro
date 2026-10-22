@@ -242,7 +242,7 @@ const avgReadMinutes =
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .topic-overview {
     padding: 0 1.5rem;
   }
@@ -305,7 +305,7 @@ const avgReadMinutes =
     margin: 1.1rem 0 0;
     padding: 0;
 
-    &__item {
+    :where(.topic-stats__item) {
       display: flex;
       flex-direction: column;
       gap: 0.15rem;

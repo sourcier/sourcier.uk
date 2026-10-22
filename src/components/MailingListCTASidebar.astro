@@ -61,7 +61,7 @@
   });
 </script>
 
-<style lang="scss">
+<style>
   .sidebar-subscribe {
     margin-top: 2rem;
     padding: 1.25rem;
@@ -165,11 +165,11 @@
     margin-top: 0.5rem;
     font-size: 0.8125rem;
 
-    &--success {
+    &:where(.sidebar-subscribe__feedback--success) {
       color: var(--color-success-bright);
     }
 
-    &--error {
+    &:where(.sidebar-subscribe__feedback--error) {
       color: var(--color-danger-bright);
     }
   }

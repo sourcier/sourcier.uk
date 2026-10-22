@@ -215,7 +215,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
   }
 </script>
 
-<style lang="scss">
+<style>
   .page-menu {
     position: fixed;
     bottom: 1.25rem;
@@ -277,7 +277,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
       outline-offset: 3px;
     }
 
-    &--top :global(svg) {
+    &:where(.page-menu__btn--top) :global(svg) {
       width: 20px;
       height: 20px;
     }
@@ -339,7 +339,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
   }
 
   .page-menu__actions {
-    &--with-sections {
+    &:where(.page-menu__actions--with-sections) {
       border-top: 1px solid var(--border-subtle);
       margin-top: 0.75rem;
       padding-top: 0.5rem;
@@ -386,7 +386,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     align-items: center;
   }
 
-  // Override TOC link padding for adequate touch targets inside the panel
+  /* Override TOC link padding for adequate touch targets inside the panel */
   :global(.page-menu__toc-link) {
     padding: 0.85rem 0.75rem 0.85rem 1rem;
     font-size: 1.0625rem;

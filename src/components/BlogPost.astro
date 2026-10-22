@@ -89,7 +89,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
   </div>
 </a>
 
-<style lang="scss">
+<style>
   .card__description {
     margin: 0;
     font-size: 0.93rem;
@@ -135,7 +135,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     letter-spacing: 0.1em;
     line-height: 1;
 
-    &--scheduled {
+    &:where(.card__status-badge--scheduled) {
       background-color: var(--accent-secondary);
     }
   }

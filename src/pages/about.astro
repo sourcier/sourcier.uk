@@ -349,7 +349,7 @@ const pageTitle = "About — Roger Rajaratnam";
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .about-intro {
     padding: 0 1.5rem;
   }
@@ -612,7 +612,7 @@ const pageTitle = "About — Roger Rajaratnam";
     box-shadow: var(--shadow-panel);
     padding: 1.25rem 1.5rem;
 
-    &--highlight {
+    &:where(.about-sidebar-card--highlight) {
       border-color: var(--accent-secondary-alpha-22);
       background:
         radial-gradient(

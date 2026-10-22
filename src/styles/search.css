@@ -1,4 +1,4 @@
-// — Search modal
+/* — Search modal */
 #search-modal {
   position: fixed;
   inset: 0;
@@ -147,7 +147,7 @@
   flex-shrink: 0;
   background-color: var(--border-subtle);
 
-  &--placeholder {
+  &:where(.search-result__thumb--placeholder) {
     opacity: 0.4;
   }
 }
@@ -204,13 +204,13 @@
   background-size: 400px 100%;
   animation: search-skeleton-shimmer 1.4s ease infinite;
 
-  &--title {
+  &:where(.search-skeleton--title) {
     height: 1rem;
     width: 55%;
     margin-bottom: 0.4rem;
   }
 
-  &--excerpt {
+  &:where(.search-skeleton--excerpt) {
     height: 0.75rem;
     width: 85%;
   }
