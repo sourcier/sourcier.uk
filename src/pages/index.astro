@@ -47,8 +47,8 @@ const communityOfferItems = [
 >
   <section class="hero-intro">
     <div class="container">
-      <div class="columns is-vcentered">
-        <div class="column">
+      <div class="hero-intro__layout">
+        <div class="hero-intro__content">
           <span class="hero-kicker"
             >Sourcier &middot; Mentoring, career growth, and better software
             delivery</span
@@ -107,34 +107,26 @@ const communityOfferItems = [
   <section class="section flow-section" aria-label="Recent Posts">
     <div class="container is-max-desktop">
       <p class="section-label section-label--secondary">Latest writing</p>
-      <div
-        class="fixed-grid has-1-cols-mobile has-3-cols-tablet has-3-cols-desktop"
-      >
-        <div class="grid">
-          {
-            allPosts.map((post) => (
-              <div class="cell">
-                <BlogPost
-                  title={post.data.title}
-                  subTitle={post.data.subTitle}
-                  description={post.data.description}
-                  url={`/blog/${post.id}`}
-                  cover={post.data.cover}
-                  pubDate={post.data.pubDate}
-                  draft={post.data.draft}
-                  readingTime={readingTime(post.body ?? "").text}
-                />
-              </div>
-            ))
-          }
-          {
-            Array.from({ length: placeholderCount }).map(() => (
-              <div class="cell">
-                <BlogCardPlaceholder />
-              </div>
-            ))
-          }
-        </div>
+      <div class="home-post-grid">
+        {
+          allPosts.map((post) => (
+            <BlogPost
+              title={post.data.title}
+              subTitle={post.data.subTitle}
+              description={post.data.description}
+              url={`/blog/${post.id}`}
+              cover={post.data.cover}
+              pubDate={post.data.pubDate}
+              draft={post.data.draft}
+              readingTime={readingTime(post.body ?? "").text}
+            />
+          ))
+        }
+        {
+          Array.from({ length: placeholderCount }).map(() => (
+            <BlogCardPlaceholder />
+          ))
+        }
       </div>
     </div>
   </section>
@@ -208,6 +200,27 @@ const communityOfferItems = [
   .audience-paths {
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .hero-intro__layout {
+    display: grid;
+    align-items: center;
+    margin: -0.75rem;
+  }
+
+  .hero-intro__content {
+    min-width: 0;
+    padding: 0.75rem;
+  }
+
+  .home-post-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+
+    @media (min-width: 769px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .audience-paths__heading {

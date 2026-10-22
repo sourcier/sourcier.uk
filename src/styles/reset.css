@@ -1,0 +1,103 @@
+/* 1. Establish predictable box sizing and remove default spacing. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Respect motion preferences for in-page navigation. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* 3. Normalize text defaults without imposing an application theme. */
+html {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color-scheme: light dark; /* Automatically supports dark mode */
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+}
+
+/* 4. Improve text wrapping without imposing a global measure. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* 5. Make replaced media block-level and responsive. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  block-size: auto;
+  max-inline-size: 100%;
+}
+
+/* 6. Make form controls inherit surrounding typography. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* 7. Keep keyboard focus visible without prescribing a theme color. */
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* 8. Remove list markers and iframe borders, and collapse table spacing. */
+ul {
+  list-style: none;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove default cell padding and keep alignment controlled by table styles. */
+td,
+th {
+  padding: 0;
+}
+
+td:not([align]),
+th:not([align]) {
+  text-align: inherit;
+}

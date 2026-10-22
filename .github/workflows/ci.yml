@@ -92,9 +92,16 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Fetch content
-        run: pnpm build:content:fetch
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+        uses: actions/checkout@v6
+        with:
+          repository: sourcier/sourcier.uk-content
+          ref: main
+          path: collections/posts
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: false
+
+      - name: Remove content repository metadata
+        run: rm -rf collections/posts/.git
 
       - run: pnpm assets:sync
 
@@ -151,9 +158,16 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Fetch content
-        run: pnpm build:content:fetch
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+        uses: actions/checkout@v6
+        with:
+          repository: sourcier/sourcier.uk-content
+          ref: main
+          path: collections/posts
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: false
+
+      - name: Remove content repository metadata
+        run: rm -rf collections/posts/.git
 
       - run: pnpm assets:sync
 
@@ -417,7 +431,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
       options: --ipc=host
     timeout-minutes: 30
     permissions:
@@ -453,7 +467,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
       options: --ipc=host
     timeout-minutes: 30
     permissions:
