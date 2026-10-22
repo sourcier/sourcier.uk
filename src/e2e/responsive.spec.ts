@@ -112,6 +112,26 @@ for (const width of [1279, 1280]) {
   });
 }
 
+test("article table of contents marks its current location", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await visit(page, "/blog/markdown-test");
+  const tocLink = page.locator(".toc__link").first();
+  const href = await tocLink.getAttribute("href");
+  if (!href) throw new Error("Expected a table-of-contents link.");
+  expect(href).toMatch(/^#/);
+  const heading = page.locator(href);
+  await heading.evaluate((element) => {
+    window.scrollTo(
+      0,
+      element.getBoundingClientRect().top + window.scrollY - 120,
+    );
+  });
+  await expect(tocLink).toHaveAttribute("aria-current", "location");
+  await expect(tocLink).not.toHaveClass(/is-active/);
+});
+
 test.describe("touch interactions", () => {
   test.use({ isMobile: true, hasTouch: true });
 

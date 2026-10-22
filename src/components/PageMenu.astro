@@ -45,25 +45,22 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     hasPanel ? (
       <>
         <button
-          class="page-menu__btn"
+          class="page-menu-toggle"
           id="page-menu-btn"
           aria-expanded="false"
           aria-controls="page-menu-panel"
           aria-label="Page menu"
         >
-          <span class="page-menu__btn-icon" set:html={plusIcon} />
+          <span class="page-menu-icon" set:html={plusIcon} />
         </button>
-        <div class="page-menu__panel" id="page-menu-panel" hidden>
+        <div class="page-menu-panel" id="page-menu-panel" hidden>
           {hasToc && (
-            <nav class="page-menu__section" aria-label="Table of contents">
-              <p class="page-menu__section-label">On this page</p>
+            <nav class="page-menu-section" aria-label="Table of contents">
+              <p class="page-menu-label">On this page</p>
               <ol class="toc__list">
                 {tocHeadings.map((h) => (
                   <li class={`toc__item toc__item--h${h.depth}`}>
-                    <a
-                      class="toc__link page-menu__toc-link"
-                      href={`#${h.slug}`}
-                    >
+                    <a class="toc__link page-menu-toc-link" href={`#${h.slug}`}>
                       {h.text}
                     </a>
                   </li>
@@ -72,48 +69,40 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
             </nav>
           )}
           {hasReactions && (
-            <section class="page-menu__section page-menu__section--engagement">
-              <p class="page-menu__section-label">React to this post</p>
-              <div class="page-menu__reactions">
+            <section class="page-menu-section page-menu-engagement">
+              <p class="page-menu-label">React to this post</p>
+              <div class="page-menu-reactions">
                 <Reactions postId={postId!} compact />
               </div>
             </section>
           )}
           {hasShare && (
-            <section class="page-menu__section page-menu__section--engagement">
+            <section class="page-menu-section page-menu-engagement">
               <SharePost title={shareTitle!} url={shareUrl!} variant="menu" />
             </section>
           )}
           {hasSupport && (
-            <section class="page-menu__section page-menu__section--engagement">
-              <p class="page-menu__section-label">Support the writing</p>
+            <section class="page-menu-section page-menu-engagement">
+              <p class="page-menu-label">Support the writing</p>
               <button
                 type="button"
-                class="page-menu__support-btn"
+                class="page-menu-support"
                 data-page-menu-support
                 data-support-modal-open
                 aria-label="Donate to support the writing"
               >
-                <span class="page-menu__support-icon" set:html={donateIcon} />
+                <span class="page-menu-support-icon" set:html={donateIcon} />
                 Donate
               </button>
             </section>
           )}
-          <div
-            class:list={[
-              "page-menu__actions",
-              {
-                "page-menu__actions--with-sections":
-                  hasToc || hasShare || hasReactions || hasSupport,
-              },
-            ]}
-          >
+          <div class="page-menu-actions" data-has-sections={hasPanel}>
             <button
-              class="page-menu__top-btn"
+              class="page-menu-top"
               id="page-menu-top-btn"
               aria-label="Back to top"
             >
-              <span class="page-menu__top-icon" set:html={arrowUpIcon} />
+              <span class="page-menu-top-icon" set:html={arrowUpIcon} />
               Back to top
             </button>
           </div>
@@ -121,11 +110,12 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
       </>
     ) : (
       <button
-        class="page-menu__btn page-menu__btn--top"
+        class="page-menu-toggle"
+        data-action="top"
         id="page-menu-btn"
         aria-label="Back to top"
       >
-        <span class="page-menu__btn-icon" set:html={arrowUpIcon} />
+        <span class="page-menu-icon" set:html={arrowUpIcon} />
       </button>
     )
   }
@@ -179,7 +169,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
         panel.hidden = isOpen;
       });
 
-      panel.querySelectorAll(".page-menu__toc-link").forEach((link) => {
+      panel.querySelectorAll(".page-menu-toc-link").forEach((link) => {
         link.addEventListener("click", close);
       });
 
@@ -250,7 +240,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     }
   }
 
-  .page-menu__btn {
+  .page-menu-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -264,7 +254,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     box-shadow: 0 4px 16px rgba(var(--overlay-rgb), 0.18);
     transition: opacity 0.15s ease;
 
-    &[aria-expanded="true"] .page-menu__btn-icon :global(svg) {
+    &[aria-expanded="true"] .page-menu-icon :global(svg) {
       transform: rotate(45deg);
     }
 
@@ -277,13 +267,13 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
       outline-offset: 3px;
     }
 
-    &:where(.page-menu__btn--top) :global(svg) {
+    &[data-action="top"] :global(svg) {
       width: 20px;
       height: 20px;
     }
   }
 
-  .page-menu__btn-icon {
+  .page-menu-icon {
     display: flex;
     align-items: center;
 
@@ -292,7 +282,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     }
   }
 
-  .page-menu__panel {
+  .page-menu-panel {
     position: absolute;
     bottom: calc(100% + 0.5rem);
     right: 0;
@@ -307,7 +297,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     padding: 1rem 0.75rem;
   }
 
-  .page-menu__section-label {
+  .page-menu-label {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
@@ -317,36 +307,36 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     margin: 0 0.25rem 0.5rem;
   }
 
-  .page-menu__section + .page-menu__section {
+  .page-menu-section + .page-menu-section {
     border-top: 1px solid var(--border-subtle);
     margin-top: 0.75rem;
     padding-top: 0.75rem;
   }
 
-  .page-menu__section--engagement {
+  .page-menu-engagement {
     display: grid;
     gap: 0.75rem;
   }
 
-  .page-menu__reactions :global(.reactions) {
+  .page-menu-reactions :global(.reactions) {
     margin: 0;
   }
 
-  .page-menu__reactions
+  .page-menu-reactions
     :global(.reactions.reactions--compact .reactions__buttons) {
     justify-content: center;
     gap: 0.45rem;
   }
 
-  .page-menu__actions {
-    &:where(.page-menu__actions--with-sections) {
+  .page-menu-actions {
+    &[data-has-sections] {
       border-top: 1px solid var(--border-subtle);
       margin-top: 0.75rem;
       padding-top: 0.5rem;
     }
   }
 
-  .page-menu__support-btn {
+  .page-menu-support {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -381,23 +371,23 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     }
   }
 
-  .page-menu__support-icon {
+  .page-menu-support-icon {
     display: inline-flex;
     align-items: center;
   }
 
   /* Override TOC link padding for adequate touch targets inside the panel */
-  :global(.page-menu__toc-link) {
+  :global(.page-menu-toc-link) {
     padding: 0.85rem 0.75rem 0.85rem 1rem;
     font-size: 1.0625rem;
   }
 
-  :global(.toc__item--h3 .page-menu__toc-link) {
+  :global(.toc__item--h3 .page-menu-toc-link) {
     padding-left: 1.75rem;
     font-size: 1rem;
   }
 
-  .page-menu__top-btn {
+  .page-menu-top {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -425,7 +415,7 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
     }
   }
 
-  .page-menu__top-icon {
+  .page-menu-top-icon {
     display: flex;
     align-items: center;
   }

@@ -91,7 +91,7 @@
     background-color: rgba(var(--accent-primary-rgb), 0.04);
   }
 
-  &.is-active {
+  &[aria-current="location"] {
     color: var(--accent-primary);
     border-left-color: var(--accent-primary);
     background-color: rgba(var(--accent-primary-rgb), 0.06);

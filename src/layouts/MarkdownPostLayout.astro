@@ -872,9 +872,13 @@ const supportPublishableKey =
   const tocLinks = document.querySelectorAll<HTMLAnchorElement>(".toc__link");
   if (tocLinks.length) {
     const setActive = (id: string) => {
-      tocLinks.forEach((l) =>
-        l.classList.toggle("is-active", l.getAttribute("href") === `#${id}`),
-      );
+      tocLinks.forEach((link) => {
+        if (link.getAttribute("href") === `#${id}`) {
+          link.setAttribute("aria-current", "location");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
     };
 
     const headingEls = document.querySelectorAll<HTMLElement>(
