@@ -17,7 +17,7 @@
   gap: 1.5rem;
 }
 
-.contact-form__row {
+:where(.contact-form) .row {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -27,13 +27,13 @@
   }
 }
 
-.contact-form__field {
+:where(.contact-form) .entry {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.contact-form__label {
+:where(.contact-form) .caption {
   font-family: "Barlow Condensed", sans-serif;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -42,8 +42,9 @@
   color: var(--text-muted);
 }
 
-.contact-form__input,
-.contact-form__textarea {
+:where(.contact-form) .textbox,
+:where(.contact-form) .select,
+:where(.contact-form) .message {
   width: 100%;
   padding: 0.75rem 1rem;
   background-color: var(--surface-elevated);
@@ -69,12 +70,12 @@
   }
 }
 
-.contact-form__textarea {
+:where(.contact-form) .message {
   resize: vertical;
   min-height: 160px;
 }
 
-.contact-form__submit {
+:where(.contact-form) .submit {
   align-self: flex-start;
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 700;
@@ -107,13 +108,13 @@
   margin-top: 1rem;
 }
 
-.contact-success__text {
+:where(.contact-success) .text {
   font-size: 0.9375rem;
   color: var(--text-primary);
   margin: 0;
 }
 
-.contact-success__close {
+:where(.contact-success) .close {
   background: none;
   border: none;
   font-size: 0.8125rem;
@@ -136,7 +137,7 @@
   }
 }
 
-.contact-sidebar__heading {
+:where(.contact-sidebar) .heading {
   font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -147,13 +148,13 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.contact-sidebar__links {
+:where(.contact-sidebar) .links {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.contact-sidebar__link {
+:where(.contact-sidebar) .anchor {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -164,13 +165,13 @@
   &:hover {
     padding-left: 0.5rem;
 
-    .contact-sidebar__link-label {
+    .caption {
       color: var(--accent-primary);
     }
   }
 }
 
-.contact-sidebar__link-label {
+:where(.contact-sidebar) .caption {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -183,18 +184,18 @@
   transition: color 0.15s ease;
 }
 
-.contact-sidebar__link-icon {
+:where(.contact-sidebar) .icon {
   display: flex;
   color: var(--text-muted);
   transition: color 0.15s ease;
   flex-shrink: 0;
-
-  .contact-sidebar__link:hover & {
-    color: var(--accent-primary);
-  }
 }
 
-.contact-sidebar__link-desc {
+:where(.contact-sidebar) .description {
   font-size: 0.875rem;
   color: var(--text-muted);
+}
+
+:where(.contact-sidebar) .anchor:hover .icon {
+  color: var(--accent-primary);
 }

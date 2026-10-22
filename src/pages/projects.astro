@@ -31,7 +31,7 @@ const projectsHero = await getImage({ src: projectsHeroSource, width: 2400 });
   >
     <div class="container" data-width="narrow">
       <p class="section-label" id="projects-grid-heading">Projects</p>
-      <div class="projects-grid__cards">
+      <div class="cards">
         {
           projects.map((project) => (
             <ProjectCard
@@ -60,7 +60,7 @@ const projectsHero = await getImage({ src: projectsHeroSource, width: 2400 });
     padding-bottom: 0;
   }
 
-  .projects-grid__cards {
+  :where(.projects-grid) .cards {
     display: grid;
     gap: 1.5rem;
 

@@ -86,7 +86,7 @@
     vertical-align: baseline;
   }
 
-  .hero-cycle__term {
+  :where(.hero-cycle) .term {
     display: inline-block;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.1rem;

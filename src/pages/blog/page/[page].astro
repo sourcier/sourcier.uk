@@ -50,23 +50,20 @@ const nextUrl =
     aria-labelledby="archive-overview-heading"
   >
     <div class="container" data-width="narrow">
-      <div class="panel archive-overview__panel">
-        <div class="archive-overview__copy">
-          <p class="archive-overview__eyebrow">Archive page</p>
-          <h2 class="archive-overview__title" id="archive-overview-heading">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">Archive page</p>
+          <h2 class="heading" id="archive-overview-heading">
             Page {currentPage} of {totalPages}
           </h2>
-          <p class="archive-overview__text">
+          <p class="text">
             You are browsing older writing from the archive. Jump back to the
             latest posts or browse by topic if you want a quicker way in.
           </p>
         </div>
-        <div class="archive-overview__actions">
-          <a href="/blog" class="archive-overview__link">Latest posts</a>
-          <a
-            href="/tags"
-            class="archive-overview__link archive-overview__link--secondary"
-          >
+        <div class="cta">
+          <a href="/blog" class="anchor">Latest posts</a>
+          <a href="/tags" class="anchor" data-variant="secondary">
             All topics
           </a>
         </div>
@@ -95,7 +92,7 @@ const nextUrl =
     padding: 0 1.5rem;
   }
 
-  .archive-overview__panel {
+  :where(.archive-overview) .surface {
     display: grid;
     gap: 1.25rem;
     align-items: center;
@@ -106,7 +103,7 @@ const nextUrl =
     }
   }
 
-  .archive-overview__eyebrow {
+  :where(.archive-overview) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -116,7 +113,7 @@ const nextUrl =
     color: var(--accent-secondary);
   }
 
-  .archive-overview__title {
+  :where(.archive-overview) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.9rem, 4vw, 2.7rem);
@@ -125,20 +122,20 @@ const nextUrl =
     color: var(--text-primary);
   }
 
-  .archive-overview__text {
+  :where(.archive-overview) .text {
     margin: 0.85rem 0 0;
     max-width: 56ch;
     line-height: 1.7;
     color: var(--text-muted);
   }
 
-  .archive-overview__actions {
+  :where(.archive-overview) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .archive-overview__link {
+  :where(.archive-overview) .anchor {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -168,7 +165,7 @@ const nextUrl =
     }
   }
 
-  .archive-overview__link--secondary {
+  :where(.archive-overview) .anchor[data-variant="secondary"] {
     border-color: var(--accent-primary-alpha-18);
     background: color-mix(
       in srgb,

@@ -47,8 +47,8 @@ const communityOfferItems = [
 >
   <section class="hero-intro">
     <div class="container">
-      <div class="hero-intro__layout">
-        <div class="hero-intro__content">
+      <div class="layout">
+        <div class="content">
           <span class="hero-kicker"
             >Sourcier &middot; Mentoring, career growth, and better software
             delivery</span
@@ -58,8 +58,7 @@ const communityOfferItems = [
             I help people transition into tech, engineers grow with confidence,
             and teams improve how they build software. Writing about
             <span class="hero-cycle" aria-live="polite" aria-atomic="true"
-              ><span class="hero-cycle__term" id="heroCycleTerm"
-                >Breaking into Tech</span
+              ><span class="term" id="heroCycleTerm">Breaking into Tech</span
               ></span
             >
           </p>
@@ -89,10 +88,10 @@ const communityOfferItems = [
   >
     <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Who this site is for</p>
-      <h2 class="audience-paths__heading" id="audience-paths-heading">
+      <h2 class="heading" id="audience-paths-heading">
         Choose the guide that matches where you are now
       </h2>
-      <div class="audience-paths__grid">
+      <div class="grid">
         {
           audienceGuides.map((guide) => (
             <GuideCard
@@ -145,26 +144,26 @@ const communityOfferItems = [
     aria-labelledby="community-offer-heading"
   >
     <div class="container" data-width="narrow">
-      <div class="community-offer__grid">
-        <div class="community-offer__main panel" data-tone="secondary">
-          <div class="community-offer__intro">
+      <div class="grid">
+        <div class="main panel" data-tone="secondary">
+          <div class="intro">
             <p class="section-label section-label--secondary">Community</p>
-            <div class="community-offer__chips" aria-label="Offer details">
-              <span class="community-offer__chip">1 day/month</span>
-              <span class="community-offer__chip">Free</span>
-              <span class="community-offer__chip">Clearly scoped</span>
+            <div class="chips" aria-label="Offer details">
+              <span class="chip">1 day/month</span>
+              <span class="chip">Free</span>
+              <span class="chip">Clearly scoped</span>
             </div>
-            <h2 class="community-offer__heading" id="community-offer-heading">
+            <h2 class="heading" id="community-offer-heading">
               One free day each month for a charity
             </h2>
-            <p class="community-offer__body">
+            <p class="body">
               The charity sector is close to my heart, so I set aside one day
               each month for a charity or community organisation that could use
               practical help moving a digital problem or piece of work forward.
             </p>
           </div>
-          <div class="community-offer__footer">
-            <div class="community-offer__actions">
+          <div class="bottom">
+            <div class="cta">
               <a
                 href="/charity-support"
                 class="button"
@@ -175,7 +174,7 @@ const communityOfferItems = [
               </a>
               <a
                 href="/contact?reason=charity-support#contact-form"
-                class="community-offer__link"
+                class="anchor"
               >
                 Ask if it is a fit
               </a>
@@ -183,17 +182,13 @@ const communityOfferItems = [
           </div>
         </div>
 
-        <aside class="community-offer__aside panel" data-tone="secondary">
-          <p class="community-offer__aside-label">What a day can cover</p>
-          <ul class="community-offer__list" role="list">
+        <aside class="aside panel" data-tone="secondary">
+          <p class="caption">What a day can cover</p>
+          <ul class="list" role="list">
             {
               communityOfferItems.map((item) => (
                 <li>
-                  <span
-                    class="community-offer__item-icon"
-                    aria-hidden="true"
-                    set:html={item.icon}
-                  />
+                  <span class="icon" aria-hidden="true" set:html={item.icon} />
                   <span>{item.label}</span>
                 </li>
               ))
@@ -214,13 +209,13 @@ const communityOfferItems = [
     padding-bottom: 0;
   }
 
-  .hero-intro__layout {
+  :where(.hero-intro) .layout {
     display: grid;
     align-items: center;
     margin: -0.75rem;
   }
 
-  .hero-intro__content {
+  :where(.hero-intro) .content {
     min-width: 0;
     padding: 0.75rem;
   }
@@ -235,7 +230,7 @@ const communityOfferItems = [
     }
   }
 
-  .audience-paths__heading {
+  :where(.audience-paths) .heading {
     margin: 0 0 1.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.75rem);
@@ -243,7 +238,7 @@ const communityOfferItems = [
     color: var(--text-primary);
   }
 
-  .audience-paths__grid {
+  :where(.audience-paths) .grid {
     display: grid;
     gap: 1rem;
 
@@ -257,7 +252,7 @@ const communityOfferItems = [
     padding-bottom: 0;
   }
 
-  .community-offer__grid {
+  :where(.community-offer) .grid {
     display: grid;
     gap: 1rem;
 
@@ -267,20 +262,20 @@ const communityOfferItems = [
     }
   }
 
-  .community-offer__main,
-  .community-offer__aside {
+  :where(.community-offer) .main,
+  :where(.community-offer) .aside {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .community-offer__main {
+  :where(.community-offer) .main {
     @media (min-width: 960px) {
       grid-column: span 2;
     }
   }
 
-  .community-offer__aside {
+  :where(.community-offer) .aside {
     justify-content: flex-start;
 
     @media (min-width: 960px) {
@@ -289,12 +284,12 @@ const communityOfferItems = [
     }
   }
 
-  .community-offer__intro {
+  :where(.community-offer) .intro {
     display: grid;
     gap: 0.95rem;
   }
 
-  .community-offer__heading {
+  :where(.community-offer) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.75rem);
@@ -302,21 +297,21 @@ const communityOfferItems = [
     color: var(--text-primary);
   }
 
-  .community-offer__body {
+  :where(.community-offer) .body {
     margin: 0;
     color: var(--text-muted);
     line-height: 1.75;
   }
 
-  .community-offer__chips {
+  :where(.community-offer) .chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     max-width: 34rem;
   }
 
-  .community-offer__chip,
-  .community-offer__aside-label {
+  :where(.community-offer) .chip,
+  :where(.community-offer) .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
@@ -324,7 +319,7 @@ const communityOfferItems = [
     text-transform: uppercase;
   }
 
-  .community-offer__chip {
+  :where(.community-offer) .chip {
     display: inline-flex;
     align-items: center;
     min-height: 1.85rem;
@@ -336,12 +331,12 @@ const communityOfferItems = [
     color: var(--accent-secondary);
   }
 
-  .community-offer__aside-label {
+  :where(.community-offer) .caption {
     margin: 0;
     color: var(--accent-secondary);
   }
 
-  .community-offer__footer {
+  :where(.community-offer) .bottom {
     display: grid;
     gap: 0.95rem;
     margin-top: auto;
@@ -350,7 +345,7 @@ const communityOfferItems = [
       color-mix(in srgb, var(--border-subtle) 78%, transparent);
   }
 
-  .community-offer__actions {
+  :where(.community-offer) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem 1rem;
@@ -366,7 +361,7 @@ const communityOfferItems = [
     }
   }
 
-  .community-offer__link {
+  :where(.community-offer) .anchor {
     display: inline-flex;
     align-items: center;
     min-height: 2.55rem;
@@ -387,7 +382,7 @@ const communityOfferItems = [
     }
   }
 
-  .community-offer__list {
+  :where(.community-offer) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -395,7 +390,7 @@ const communityOfferItems = [
     gap: 0.75rem;
   }
 
-  .community-offer__list li {
+  :where(.community-offer) .list li {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -403,7 +398,7 @@ const communityOfferItems = [
     line-height: 1.65;
   }
 
-  .community-offer__item-icon {
+  :where(.community-offer) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;

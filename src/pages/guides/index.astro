@@ -23,15 +23,15 @@ import GuideCard from "../../components/GuideCard.astro";
   >
     <div class="container" data-width="narrow">
       <p class="section-label">Guides</p>
-      <h2 class="guides-grid__heading" id="guides-grid-heading">
+      <h2 class="heading" id="guides-grid-heading">
         Three practical reading guides into the site
       </h2>
-      <p class="guides-grid__intro">
+      <p class="intro">
         Each guide groups the published articles for one audience and shows the
         next topics still to come, so you can decide what to read first before
         you commit to anything more structured.
       </p>
-      <div class="guides-grid__cards">
+      <div class="cards">
         {
           audienceGuides.map((guide) => (
             <GuideCard
@@ -57,7 +57,7 @@ import GuideCard from "../../components/GuideCard.astro";
     padding-bottom: 0;
   }
 
-  .guides-grid__heading {
+  :where(.guides-grid) .heading {
     margin: 0 0 1.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.75rem);
@@ -65,14 +65,14 @@ import GuideCard from "../../components/GuideCard.astro";
     color: var(--text-primary);
   }
 
-  .guides-grid__intro {
+  :where(.guides-grid) .intro {
     max-width: 64ch;
     margin: 0 0 1.5rem;
     color: var(--text-muted);
     line-height: 1.75;
   }
 
-  .guides-grid__cards {
+  :where(.guides-grid) .cards {
     display: grid;
     gap: 1rem;
 

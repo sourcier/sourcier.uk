@@ -146,27 +146,23 @@ const supportPublishableKey =
     aria-labelledby="uses-intro-heading"
   >
     <div class="container" data-width="narrow">
-      <div class="panel uses-intro__panel">
-        <div class="uses-intro__copy">
-          <p class="uses-intro__eyebrow">Setup philosophy</p>
-          <h2 class="uses-intro__title" id="uses-intro-heading">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">Setup philosophy</p>
+          <h2 class="heading" id="uses-intro-heading">
             A setup built for focus, portability, and low friction
           </h2>
-          <p class="uses-intro__text">
+          <p class="text">
             I optimise for tools that help me ship, teach, write, and debug
             without getting in the way. Nothing here is chosen for novelty. It
             all earns its place by being useful day after day.
           </p>
         </div>
-        <ul class="uses-intro__list" role="list">
+        <ul class="list" role="list">
           {
             setupPrinciples.map((item) => (
               <li>
-                <span
-                  class="uses-intro__list-icon"
-                  aria-hidden="true"
-                  set:html={item.icon}
-                />
+                <span class="icon" aria-hidden="true" set:html={item.icon} />
                 <span>{item.label}</span>
               </li>
             ))
@@ -180,12 +176,13 @@ const supportPublishableKey =
     <div class="container" data-width="narrow">
       <!-- Hardware -->
       <section
-        class="uses-section uses-section--hardware"
+        class="uses-section"
         aria-labelledby="hardware-heading"
+        data-kind="hardware"
       >
-        <div class="uses-section__header">
+        <div class="header">
           <p class="section-label" id="hardware-heading">Hardware</p>
-          <p class="uses-section__intro">
+          <p class="intro">
             The devices I rely on for development, writing, and day-to-day
             testing.
           </p>
@@ -194,14 +191,10 @@ const supportPublishableKey =
           {
             hardware.map(({ name, description, icon }) => (
               <li class="uses-card">
-                <span
-                  class="uses-card__icon"
-                  set:html={icon}
-                  aria-hidden="true"
-                />
-                <div class="uses-card__body">
-                  <h2 class="uses-card__name">{name}</h2>
-                  <p class="uses-card__desc">{description}</p>
+                <span class="icon" set:html={icon} aria-hidden="true" />
+                <div class="body">
+                  <h2 class="name">{name}</h2>
+                  <p class="description">{description}</p>
                 </div>
               </li>
             ))
@@ -211,12 +204,13 @@ const supportPublishableKey =
 
       <!-- Development -->
       <section
-        class="uses-section uses-section--development"
+        class="uses-section"
         aria-labelledby="dev-heading"
+        data-kind="development"
       >
-        <div class="uses-section__header">
+        <div class="header">
           <p class="section-label" id="dev-heading">Development</p>
-          <p class="uses-section__intro">
+          <p class="intro">
             The editor, terminal, and AI tools I use to write, test, and think
             through software work.
           </p>
@@ -225,13 +219,9 @@ const supportPublishableKey =
           {
             devTools.map(({ name, description, url, icon }) => (
               <li class="uses-card">
-                <span
-                  class="uses-card__icon"
-                  set:html={icon}
-                  aria-hidden="true"
-                />
-                <div class="uses-card__body">
-                  <h2 class="uses-card__name">
+                <span class="icon" set:html={icon} aria-hidden="true" />
+                <div class="body">
+                  <h2 class="name">
                     {url ? (
                       <a href={url} target="_blank" rel="noopener noreferrer">
                         {name}
@@ -240,7 +230,7 @@ const supportPublishableKey =
                       name
                     )}
                   </h2>
-                  <p class="uses-card__desc">{description}</p>
+                  <p class="description">{description}</p>
                 </div>
               </li>
             ))
@@ -250,12 +240,13 @@ const supportPublishableKey =
 
       <!-- macOS Apps -->
       <section
-        class="uses-section uses-section--apps"
+        class="uses-section"
         aria-labelledby="apps-heading"
+        data-kind="apps"
       >
-        <div class="uses-section__header">
+        <div class="header">
           <p class="section-label" id="apps-heading">macOS Apps</p>
-          <p class="uses-section__intro">
+          <p class="intro">
             Utility apps that remove friction from planning, window management,
             and daily navigation.
           </p>
@@ -264,13 +255,9 @@ const supportPublishableKey =
           {
             macosApps.map(({ name, description, url, icon }) => (
               <li class="uses-card">
-                <span
-                  class="uses-card__icon"
-                  set:html={icon}
-                  aria-hidden="true"
-                />
-                <div class="uses-card__body">
-                  <h2 class="uses-card__name">
+                <span class="icon" set:html={icon} aria-hidden="true" />
+                <div class="body">
+                  <h2 class="name">
                     {url ? (
                       <a href={url} target="_blank" rel="noopener noreferrer">
                         {name}
@@ -279,7 +266,7 @@ const supportPublishableKey =
                       name
                     )}
                   </h2>
-                  <p class="uses-card__desc">{description}</p>
+                  <p class="description">{description}</p>
                 </div>
               </li>
             ))
@@ -299,7 +286,7 @@ const supportPublishableKey =
     padding: 0 1.5rem;
   }
 
-  .uses-intro__panel {
+  :where(.uses-intro) .surface {
     display: grid;
     gap: 1.5rem;
     background:
@@ -322,7 +309,7 @@ const supportPublishableKey =
     }
   }
 
-  .uses-intro__eyebrow {
+  :where(.uses-intro) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -332,7 +319,7 @@ const supportPublishableKey =
     color: var(--accent-secondary);
   }
 
-  .uses-intro__title {
+  :where(.uses-intro) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(2rem, 4vw, 2.85rem);
@@ -341,14 +328,14 @@ const supportPublishableKey =
     color: var(--text-primary);
   }
 
-  .uses-intro__text {
+  :where(.uses-intro) .text {
     margin: 0.9rem 0 0;
     max-width: 58ch;
     line-height: 1.75;
     color: var(--text-muted);
   }
 
-  .uses-intro__list {
+  :where(.uses-intro) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -356,7 +343,7 @@ const supportPublishableKey =
     gap: 0.75rem;
   }
 
-  .uses-intro__list li {
+  :where(.uses-intro) .list li {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -376,7 +363,7 @@ const supportPublishableKey =
     color: var(--text-primary);
   }
 
-  .uses-intro__list-icon {
+  :where(.uses-intro) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -409,22 +396,22 @@ const supportPublishableKey =
     }
   }
 
-  .uses-section--development {
+  [data-kind="development"] {
     --uses-accent: var(--accent-secondary);
   }
 
-  .uses-section--apps {
+  [data-kind="apps"] {
     --uses-accent: var(--text-primary);
   }
 
-  .uses-section__header {
+  :where(.uses-section) .header {
     display: grid;
     gap: 0.55rem;
     max-width: 56ch;
     margin-bottom: 1.25rem;
   }
 
-  .uses-section__intro {
+  :where(.uses-section) .intro {
     margin: 0;
     line-height: 1.7;
     color: var(--text-muted);
@@ -470,7 +457,7 @@ const supportPublishableKey =
     }
   }
 
-  .uses-card__icon {
+  :where(.uses-card) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -487,12 +474,12 @@ const supportPublishableKey =
     }
   }
 
-  .uses-card__body {
+  :where(.uses-card) .body {
     display: grid;
     gap: 0.5rem;
   }
 
-  .uses-card__name {
+  :where(.uses-card) .name {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.2rem;
     font-weight: 800;
@@ -511,7 +498,7 @@ const supportPublishableKey =
     }
   }
 
-  .uses-card__desc {
+  :where(.uses-card) .description {
     font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.6;

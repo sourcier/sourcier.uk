@@ -118,25 +118,25 @@ const ringStyle = (ringIdx: number) => {
     aria-labelledby="tag-summary-heading"
   >
     <div class="container" data-width="narrow">
-      <div class="panel tag-summary__panel">
-        <div class="tag-summary__copy">
-          <p class="tag-summary__eyebrow">Topic map</p>
-          <h2 class="tag-summary__title" id="tag-summary-heading">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">Topic map</p>
+          <h2 class="heading" id="tag-summary-heading">
             Explore the writing by theme
           </h2>
-          <p class="tag-summary__text">
+          <p class="text">
             Jump straight into the ideas that show up most often across the
             blog, or skim the full map below if you want to browse more broadly.
           </p>
         </div>
-        <ul class="tag-summary__stats" role="list">
-          <li class="tag-summary__stat">
-            <span class="tag-summary__label">Published</span>
-            <span class="tag-summary__value">{publishedPostCount}</span>
+        <ul class="stats" role="list">
+          <li class="stat">
+            <span class="caption">Published</span>
+            <span class="value">{publishedPostCount}</span>
           </li>
-          <li class="tag-summary__stat">
-            <span class="tag-summary__label">Topics</span>
-            <span class="tag-summary__value">{totalTags}</span>
+          <li class="stat">
+            <span class="caption">Topics</span>
+            <span class="value">{totalTags}</span>
           </li>
         </ul>
       </div>
@@ -147,19 +147,15 @@ const ringStyle = (ringIdx: number) => {
     <div class="container" data-width="narrow">
       <div class="cloud-surface panel">
         <div class="cloud-intro">
-          <p class="cloud-intro__text">
+          <p class="text">
             Each topic links to a collection of related posts. Larger tags mean
             I write about that area more often, so the subjects I return to most
             sit closer to the centre.
           </p>
           <div class="cloud-legend" aria-label="Size guide">
-            <span class="cloud-legend__example cloud-legend__example--sm"
-              >fewer posts</span
-            >
-            <span class="cloud-legend__arrow" aria-hidden="true">→</span>
-            <span class="cloud-legend__example cloud-legend__example--lg"
-              >more posts</span
-            >
+            <span class="example" data-size="sm">fewer posts</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="example" data-size="lg">more posts</span>
           </div>
         </div>
 
@@ -170,7 +166,7 @@ const ringStyle = (ringIdx: number) => {
               positioned.map(({ tag, slug, fontSize, x, y, ringIdx }) => (
                 <a
                   href={`/tags/${slug}`}
-                  class="cloud-circle__tag"
+                  class="tag"
                   style={`left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;font-size:${fontSize.toFixed(3)}rem;${ringStyle(ringIdx)}`}
                   tabindex="-1"
                 >
@@ -188,7 +184,7 @@ const ringStyle = (ringIdx: number) => {
               <li>
                 <a
                   href={`/tags/${slug}`}
-                  class="cloud-list__tag"
+                  class="tag"
                   style={`font-size:${fontSize.toFixed(3)}rem`}
                   aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
                 >
@@ -210,7 +206,7 @@ const ringStyle = (ringIdx: number) => {
     padding: 0 1.5rem;
   }
 
-  .tag-summary__panel {
+  :where(.tag-summary) .surface {
     display: grid;
     gap: 1.25rem;
     border-top-color: var(--accent-secondary);
@@ -235,7 +231,7 @@ const ringStyle = (ringIdx: number) => {
     }
   }
 
-  .tag-summary__eyebrow {
+  :where(.tag-summary) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -245,7 +241,7 @@ const ringStyle = (ringIdx: number) => {
     color: var(--accent-secondary);
   }
 
-  .tag-summary__title {
+  :where(.tag-summary) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(2rem, 4vw, 2.8rem);
@@ -254,14 +250,14 @@ const ringStyle = (ringIdx: number) => {
     color: var(--text-primary);
   }
 
-  .tag-summary__text {
+  :where(.tag-summary) .text {
     margin: 0.85rem 0 0;
     max-width: 58ch;
     line-height: 1.7;
     color: var(--text-muted);
   }
 
-  .tag-summary__stats {
+  :where(.tag-summary) .stats {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -269,7 +265,7 @@ const ringStyle = (ringIdx: number) => {
     gap: 0.75rem;
   }
 
-  .tag-summary__stat {
+  :where(.tag-summary) .stat {
     display: grid;
     gap: 0.35rem;
     min-width: 9rem;
@@ -283,7 +279,7 @@ const ringStyle = (ringIdx: number) => {
     );
   }
 
-  .tag-summary__label {
+  :where(.tag-summary) .caption {
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -291,7 +287,7 @@ const ringStyle = (ringIdx: number) => {
     color: var(--text-muted);
   }
 
-  .tag-summary__value {
+  :where(.tag-summary) .value {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.55rem, 4vw, 2.1rem);
     font-weight: 800;
@@ -339,7 +335,7 @@ const ringStyle = (ringIdx: number) => {
     }
   }
 
-  .cloud-intro__text {
+  :where(.cloud-intro) .text {
     margin: 0;
     font-size: 1rem;
     line-height: 1.75;
@@ -354,12 +350,12 @@ const ringStyle = (ringIdx: number) => {
     gap: 1rem;
   }
 
-  .cloud-legend__arrow {
+  :where(.cloud-legend) .arrow {
     color: var(--accent-secondary);
     font-size: 1.25rem;
   }
 
-  .cloud-legend__example {
+  :where(.cloud-legend) .example {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 700;
     text-transform: uppercase;
@@ -367,12 +363,12 @@ const ringStyle = (ringIdx: number) => {
     color: var(--text-primary);
   }
 
-  .cloud-legend__example--sm {
+  :where(.cloud-legend) .example[data-size="sm"] {
     font-size: 0.875rem;
     opacity: 0.45;
   }
 
-  .cloud-legend__example--lg {
+  :where(.cloud-legend) .example[data-size="lg"] {
     font-size: 2rem;
     color: var(--accent-secondary);
   }
@@ -414,7 +410,7 @@ const ringStyle = (ringIdx: number) => {
     }
   }
 
-  .cloud-circle__tag {
+  :where(.cloud-circle) .tag {
     position: absolute;
     transform: translate(-50%, -50%) scale(1);
     font-family: "Barlow Condensed", sans-serif;
@@ -438,7 +434,7 @@ const ringStyle = (ringIdx: number) => {
   }
 
   /* Dim and gently float others away when one is hovered */
-  .cloud-circle:has(.cloud-circle__tag:hover) .cloud-circle__tag:not(:hover) {
+  .cloud-circle:has(.tag:hover) .tag:not(:hover) {
     opacity: 0.15 !important;
     transform: translate(-50%, -50%) scale(0.95);
   }
@@ -465,7 +461,7 @@ const ringStyle = (ringIdx: number) => {
     }
   }
 
-  .cloud-list__tag {
+  :where(.cloud-list) .tag {
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 700;
     text-transform: uppercase;
