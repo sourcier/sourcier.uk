@@ -1,5 +1,5 @@
 /* — Blog cards */
-.card.card__blog {
+.blog-card {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -27,15 +27,15 @@
       color-mix(in srgb, var(--accent-secondary) 16%, transparent);
     border-color: color-mix(in srgb, var(--accent-secondary) 22%, transparent);
 
-    .card__cover img {
+    .cover img {
       transform: scale(1.04);
     }
 
-    .card__cover-overlay {
+    .overlay {
       opacity: 1;
     }
 
-    .card__cta {
+    .cta {
       background-color: color-mix(
         in srgb,
         var(--accent-secondary) 14%,
@@ -46,7 +46,7 @@
   }
 }
 
-.card__cover {
+:where(.blog-card) .cover {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -60,7 +60,7 @@
   }
 }
 
-.card__cover-overlay {
+:where(.blog-card) .overlay {
   position: absolute;
   inset: 0;
   background-color: color-mix(
@@ -72,7 +72,7 @@
   transition: opacity 0.25s ease;
 }
 
-.card__body {
+:where(.blog-card) .body {
   flex: 1;
   display: grid;
   align-content: start;
@@ -80,7 +80,7 @@
   padding: 1.35rem 1.25rem 1.05rem;
 }
 
-.card__title {
+:where(.blog-card) .heading {
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 700;
   font-size: 1.28rem;
@@ -91,7 +91,7 @@
   color: var(--text-primary);
 }
 
-.card__subtitle {
+:where(.blog-card) .subtitle {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -101,7 +101,7 @@
   margin: 0;
 }
 
-.card__cta {
+:where(.blog-card) .cta {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,7 +124,7 @@
   margin-top: auto;
 }
 
-.card-meta {
+:where(.blog-card) .meta {
   font-size: 0.72rem;
   color: color-mix(
     in srgb,
@@ -138,15 +138,15 @@
 }
 
 @media (max-width: 639px) {
-  .card__body {
+  :where(.blog-card) .body {
     padding: 1.15rem 1rem 0.95rem;
   }
 
-  .card__title {
+  :where(.blog-card) .heading {
     font-size: 1.16rem;
   }
 
-  .card__cta {
+  :where(.blog-card) .cta {
     padding: 0.72rem 1rem;
   }
 }

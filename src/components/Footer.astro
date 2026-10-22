@@ -3,11 +3,11 @@
 ---
 
 <footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div class="footer__intro">
-        <p class="footer__eyebrow">Sourcier</p>
-        <p class="footer__summary">
+  <div class="inner">
+    <div class="top">
+      <div class="intro">
+        <p class="eyebrow">Sourcier</p>
+        <p class="summary">
           Practical software engineering guidance for people breaking into tech,
           engineers growing in confidence, and teams improving engineering
           practice.
@@ -15,17 +15,17 @@
       </div>
     </div>
 
-    <div class="footer__bottom">
-      <p class="footer__copy">&copy; 2026 Roger Rajaratnam</p>
-      <nav class="footer__links" aria-label="Footer links">
-        <a class="footer__link" href="/guides">Guides</a>
-        <a class="footer__link" href="/courses">Courses</a>
-        <a class="footer__link" href="/projects">Projects</a>
-        <a class="footer__link" href="/blog">Blog</a>
-        <a class="footer__link" href="/about">About</a>
-        <a class="footer__link" href="/charity-support">Charity support</a>
-        <a class="footer__link" href="/contact">Contact</a>
-        <a class="footer__link" href="/rss.xml">RSS feed</a>
+    <div class="bottom">
+      <p class="copy">&copy; 2026 Roger Rajaratnam</p>
+      <nav class="links" aria-label="Footer links">
+        <a class="link" href="/guides">Guides</a>
+        <a class="link" href="/courses">Courses</a>
+        <a class="link" href="/projects">Projects</a>
+        <a class="link" href="/blog">Blog</a>
+        <a class="link" href="/about">About</a>
+        <a class="link" href="/charity-support">Charity support</a>
+        <a class="link" href="/contact">Contact</a>
+        <a class="link" href="/rss.xml">RSS feed</a>
       </nav>
     </div>
   </div>
@@ -82,7 +82,7 @@
     }
   }
 
-  .footer__inner {
+  .inner {
     position: relative;
     z-index: 1;
     max-width: 75rem;
@@ -92,12 +92,12 @@
     gap: clamp(1rem, 2vw, 1.35rem);
   }
 
-  .footer__top {
+  .top {
     display: flex;
     justify-content: center;
   }
 
-  .footer__intro {
+  .intro {
     display: grid;
     gap: 0.6rem;
     max-width: 39rem;
@@ -105,7 +105,7 @@
     text-align: center;
   }
 
-  .footer__eyebrow {
+  .eyebrow {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
@@ -115,7 +115,7 @@
     color: var(--accent-primary);
   }
 
-  .footer__summary {
+  .summary {
     margin: 0;
     max-width: 36rem;
     margin-inline: auto;
@@ -124,7 +124,7 @@
     color: rgba(var(--text-on-strong-rgb), 0.76);
   }
 
-  .footer__bottom {
+  .bottom {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -140,7 +140,7 @@
     }
   }
 
-  .footer__bottom::before {
+  .bottom::before {
     content: "";
     position: absolute;
     top: 0;
@@ -152,14 +152,14 @@
     pointer-events: none;
   }
 
-  .footer__copy {
+  .copy {
     font-size: 0.82rem;
     color: rgba(var(--text-on-strong-rgb), 0.38);
     margin: 0;
     text-align: center;
   }
 
-  .footer__links {
+  .links {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,7 +167,7 @@
     flex-wrap: wrap;
   }
 
-  .footer__link {
+  .link {
     display: inline-flex;
     align-items: center;
     min-height: 2.4rem;
@@ -203,24 +203,24 @@
       padding-bottom: 6rem;
     }
 
-    .footer__inner {
+    .inner {
       gap: 1.35rem;
     }
 
-    .footer__intro {
+    .intro {
       gap: 0.7rem;
     }
 
-    .footer__bottom {
+    .bottom {
       gap: 0.9rem;
       padding-top: 1.05rem;
     }
 
-    .footer__links {
+    .links {
       width: 100%;
     }
 
-    .footer__link {
+    .link {
       min-height: 2.5rem;
     }
   }

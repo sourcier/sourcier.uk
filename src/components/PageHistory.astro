@@ -21,18 +21,15 @@ function formatDatetime(date: Date): string {
 ---
 
 <div class="page-history">
-  <p class="page-history__heading">Page history</p>
-  <ol class="page-history__log">
+  <p class="heading">Page history</p>
+  <ol class="log">
     {
       entries.map((entry) => (
-        <li class="page-history__entry">
-          <time
-            class="page-history__time"
-            datetime={entry.datetime.toISOString()}
-          >
+        <li class="entry">
+          <time class="time" datetime={entry.datetime.toISOString()}>
             {formatDatetime(entry.datetime)}
           </time>
-          <span class="page-history__note" set:html={entry.note} />
+          <span class="note" set:html={entry.note} />
         </li>
       ))
     }
@@ -44,7 +41,7 @@ function formatDatetime(date: Date): string {
     min-width: 0;
   }
 
-  .page-history__heading {
+  .heading {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -53,7 +50,7 @@ function formatDatetime(date: Date): string {
     margin: 0 0 0.75rem;
   }
 
-  .page-history__log {
+  .log {
     list-style: none;
     margin: 0;
     padding: 0 0 0 1rem;
@@ -63,7 +60,7 @@ function formatDatetime(date: Date): string {
     gap: 0;
   }
 
-  .page-history__entry {
+  .entry {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -87,7 +84,7 @@ function formatDatetime(date: Date): string {
     }
   }
 
-  .page-history__time {
+  .time {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -97,7 +94,7 @@ function formatDatetime(date: Date): string {
     opacity: 0.7;
   }
 
-  .page-history__note {
+  .note {
     font-size: 0.85rem;
     color: var(--text-muted);
     line-height: 1.5;

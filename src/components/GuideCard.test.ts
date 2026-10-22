@@ -23,14 +23,14 @@ describe("GuideCard", () => {
     const html = await container.renderToString(GuideCard, {
       props: baseProps,
     });
-    expect(normalizeHtml(html)).toContain("guide-card--primary");
+    expect(normalizeHtml(html)).toContain('data-variant="primary"');
   });
 
   it("renders secondary variant", async () => {
     const html = await container.renderToString(GuideCard, {
       props: { ...baseProps, variant: "secondary" },
     });
-    expect(normalizeHtml(html)).toContain("guide-card--secondary");
+    expect(normalizeHtml(html)).toContain('data-variant="secondary"');
   });
 
   it("hides meta row when hideMeta is true", async () => {
@@ -53,7 +53,7 @@ describe("GuideCard", () => {
       props: { ...baseProps, slug: "unknown-guide" },
     });
     const normalized = normalizeHtml(html);
-    expect(normalized).toContain("guide-card__icon");
+    expect(normalized).toContain('class="icon"');
     expect(normalized).toContain("<svg");
   });
 

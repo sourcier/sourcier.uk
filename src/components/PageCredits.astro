@@ -13,15 +13,15 @@ const { entries } = Astro.props;
 ---
 
 <div class="page-credits">
-  <p class="page-credits__heading">Credits</p>
-  <ul class="page-credits__list" role="list">
+  <p class="heading">Credits</p>
+  <ul class="list" role="list">
     {
       entries.map((entry) => (
-        <li class="page-credits__item">
-          <span class="page-credits__label">{entry.label}</span>
+        <li class="item">
+          <span class="caption">{entry.label}</span>
           {entry.url ? (
             <a
-              class="page-credits__value"
+              class="value"
               href={entry.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -29,7 +29,7 @@ const { entries } = Astro.props;
               {entry.text}
             </a>
           ) : (
-            <span class="page-credits__value">{entry.text}</span>
+            <span class="value">{entry.text}</span>
           )}
         </li>
       ))
@@ -42,7 +42,7 @@ const { entries } = Astro.props;
     min-width: 0;
   }
 
-  .page-credits__heading {
+  .heading {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -51,7 +51,7 @@ const { entries } = Astro.props;
     margin: 0 0 0.75rem;
   }
 
-  .page-credits__list {
+  .list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
@@ -60,7 +60,7 @@ const { entries } = Astro.props;
     padding: 0;
   }
 
-  .page-credits__item {
+  .item {
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.6rem;
@@ -81,7 +81,7 @@ const { entries } = Astro.props;
     }
   }
 
-  .page-credits__label {
+  .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.68rem;
     font-weight: 700;
@@ -96,11 +96,11 @@ const { entries } = Astro.props;
     }
   }
 
-  .page-credits__value {
+  .value {
     color: var(--text-muted);
     text-decoration: none;
 
-    .page-credits__item:has(a):hover & {
+    .item:has(a):hover & {
       color: var(--accent-primary);
     }
   }

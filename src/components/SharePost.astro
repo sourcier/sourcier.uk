@@ -24,65 +24,59 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
 ---
 
 <div
-  class:list={[
-    "share-post",
-    {
-      "share-post--vertical": vertical,
-      "share-post--hero": variant === "hero",
-      "share-post--sidebar": variant === "sidebar",
-      "share-post--menu": variant === "menu",
-    },
-  ]}
+  class="share-post"
+  data-variant={variant}
+  data-vertical={vertical || undefined}
 >
-  <span class="share-post__label">Share this post</span>
-  <div class="share-post__buttons">
+  <span class="caption">Share this post</span>
+  <div class="buttons">
     <a
       href={linkedinUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="share-post__btn"
+      class="share"
       aria-label="Share on LinkedIn"
       title="Share on LinkedIn"
     >
-      <span class="share-post__icon">
+      <span class="icon">
         <Fragment set:html={linkedinIcon} />
       </span>
-      <span class="share-post__text">LinkedIn</span>
+      <span class="text">LinkedIn</span>
     </a>
     <a
       href={redditUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="share-post__btn"
+      class="share"
       aria-label="Share on Reddit"
       title="Share on Reddit"
     >
-      <span class="share-post__icon">
+      <span class="icon">
         <Fragment set:html={redditIcon} />
       </span>
-      <span class="share-post__text">Reddit</span>
+      <span class="text">Reddit</span>
     </a>
     <a
       href={emailUrl}
-      class="share-post__btn"
+      class="share"
       aria-label="Share by email"
       title="Share by email"
     >
-      <span class="share-post__icon">
+      <span class="icon">
         <Fragment set:html={emailIcon} />
       </span>
-      <span class="share-post__text">Email</span>
+      <span class="text">Email</span>
     </a>
     <button
       type="button"
-      class="share-post__btn"
+      class="share"
       data-copy-link-btn
       aria-label="Copy link"
       data-url={url}
       title="Copy link"
     >
-      <span class="share-post__icon copy-link-icon" set:html={linkIcon} />
-      <span class="share-post__text copy-link-label">Copy link</span>
+      <span class="icon copy-link-icon" set:html={linkIcon} />
+      <span class="text copy-link-label">Copy link</span>
     </button>
   </div>
 </div>
@@ -134,7 +128,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       gap: 0.75rem;
     }
 
-    &:where(.share-post--vertical) {
+    &:where([data-vertical]) {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
@@ -144,18 +138,18 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       padding-bottom: 0;
       margin: 2rem 0 2rem;
 
-      .share-post__buttons {
+      .buttons {
         flex-direction: column;
         width: 100%;
       }
 
-      .share-post__btn {
+      .share {
         width: 100%;
         justify-content: flex-start;
       }
     }
 
-    &:where(.share-post--hero) {
+    &:where([data-variant="hero"]) {
       align-items: flex-start;
       gap: 0.75rem;
       padding: 1.15rem 0 0;
@@ -163,15 +157,15 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       border-top: 1px solid rgba(var(--overlay-rgb), 0.12);
       border-bottom: none;
 
-      .share-post__label {
+      .caption {
         color: color-mix(in srgb, var(--text-primary) 72%, transparent);
       }
 
-      .share-post__buttons {
+      .buttons {
         gap: 0.45rem;
       }
 
-      .share-post__btn {
+      .share {
         border-color: color-mix(
           in srgb,
           rgba(var(--overlay-rgb), 0.16) 35%,
@@ -204,13 +198,13 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
         flex-direction: column;
         align-items: flex-start;
 
-        .share-post__buttons {
+        .buttons {
           width: 100%;
         }
       }
     }
 
-    &:where(.share-post--sidebar) {
+    &:where([data-variant="sidebar"]) {
       flex-direction: column;
       align-items: stretch;
       gap: 0.9rem;
@@ -233,16 +227,16 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
         var(--surface-elevated);
       box-shadow: 0 14px 30px rgba(var(--shadow-rgb), 0.05);
 
-      .share-post__label {
+      .caption {
         color: var(--accent-secondary);
       }
 
-      .share-post__buttons {
+      .buttons {
         flex-direction: column;
         width: 100%;
       }
 
-      .share-post__btn {
+      .share {
         width: 100%;
         justify-content: flex-start;
         padding: 0.55rem 0.75rem;
@@ -274,7 +268,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       }
     }
 
-    &:where(.share-post--menu) {
+    &:where([data-variant="menu"]) {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
@@ -282,18 +276,18 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
       padding: 0;
       border: 0;
 
-      .share-post__label {
+      .caption {
         color: var(--accent-primary);
       }
 
-      .share-post__buttons {
+      .buttons {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         width: 100%;
         gap: 0.45rem;
       }
 
-      .share-post__btn {
+      .share {
         width: 100%;
         min-height: 2.3rem;
         justify-content: flex-start;
@@ -327,7 +321,7 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
     }
   }
 
-  .share-post__label {
+  .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
@@ -337,20 +331,20 @@ const emailIcon = faIcon(faEnvelope, { size: 16 });
     flex-shrink: 0;
   }
 
-  .share-post__buttons {
+  .buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .share-post__icon {
+  .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
-  .share-post__btn {
+  .share {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;

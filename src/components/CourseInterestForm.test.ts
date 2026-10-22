@@ -12,14 +12,14 @@ describe("CourseInterestForm", () => {
 
   it("renders without stacked layout by default", async () => {
     const html = await container.renderToString(CourseInterestForm);
-    expect(normalizeHtml(html)).not.toContain("course-interest-form--stacked");
+    expect(normalizeHtml(html)).not.toContain("data-stacked");
   });
 
   it("renders stacked layout", async () => {
     const html = await container.renderToString(CourseInterestForm, {
       props: { stackFields: true },
     });
-    expect(normalizeHtml(html)).toContain("course-interest-form--stacked");
+    expect(normalizeHtml(html)).toContain('data-stacked="true"');
   });
 
   it("uses custom idPrefix for form element IDs", async () => {

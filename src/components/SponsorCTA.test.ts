@@ -14,21 +14,21 @@ describe("SponsorCTA", () => {
     const normalized = normalizeHtml(
       await container.renderToString(SponsorCTA),
     );
-    expect(normalized).toContain("support-cta--article");
-    expect(normalized).toContain("support-cta--full");
+    expect(normalized).toContain('data-mode="article"');
+    expect(normalized).toContain('data-placement="full"');
   });
 
   it("renders support mode", async () => {
     const html = await container.renderToString(SponsorCTA, {
       props: { mode: "support" },
     });
-    expect(normalizeHtml(html)).toContain("support-cta--support");
+    expect(normalizeHtml(html)).toContain('data-mode="support"');
   });
 
   it("renders sidebar placement", async () => {
     const html = await container.renderToString(SponsorCTA, {
       props: { placement: "sidebar" },
     });
-    expect(normalizeHtml(html)).toContain("support-cta--sidebar");
+    expect(normalizeHtml(html)).toContain('data-placement="sidebar"');
   });
 });

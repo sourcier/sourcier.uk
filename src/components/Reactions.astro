@@ -17,34 +17,30 @@ const reactions = [
 ---
 
 <div
-  class:list={[
-    "reactions",
-    {
-      "reactions--hero": variant === "hero",
-      "reactions--compact": compact,
-    },
-  ]}
+  class="reactions"
+  data-variant={variant}
+  data-compact={compact || undefined}
   data-post-id={postId}
   aria-label="Post reactions"
 >
-  <p class="reactions__heading">{heading}</p>
-  <div class="reactions__buttons" role="group" aria-label="React to this post">
+  <p class="heading">{heading}</p>
+  <div class="buttons" role="group" aria-label="React to this post">
     {
       reactions.map((r) => (
         <button
-          class="reactions__btn"
+          class="reaction"
           data-reaction={r.key}
           aria-label={r.label}
           aria-pressed="false"
           type="button"
         >
-          <span class="reactions__emoji" aria-hidden="true">
+          <span class="emoji" aria-hidden="true">
             {r.emoji}
           </span>
-          <span class="reactions__count" aria-live="polite">
+          <span class="count" aria-live="polite">
             —
           </span>
-          <span class="reactions__label">{r.label}</span>
+          <span class="caption">{r.label}</span>
         </button>
       ))
     }
@@ -80,10 +76,9 @@ const reactions = [
     function updateButton(btn: HTMLButtonElement, count: number) {
       const reaction = btn.dataset.reaction;
       if (!reaction) return;
-      const countEl = btn.querySelector<HTMLElement>(".reactions__count")!;
+      const countEl = btn.querySelector<HTMLElement>(".count")!;
       countEl.textContent = count > 0 ? String(count) : "—";
       const hasReacted = reacted.has(reaction);
-      btn.classList.toggle("reactions__btn--active", hasReacted);
       btn.setAttribute("aria-pressed", hasReacted ? "true" : "false");
     }
 
@@ -93,11 +88,9 @@ const reactions = [
         const res = await fetch(`/.netlify/functions/reactions?post=${postId}`);
         if (!res.ok) return;
         const data: Record<string, number> = await res.json();
-        root
-          .querySelectorAll<HTMLButtonElement>(".reactions__btn")
-          .forEach((btn) => {
-            updateButton(btn, data[btn.dataset.reaction!] ?? 0);
-          });
+        root.querySelectorAll<HTMLButtonElement>(".reaction").forEach((btn) => {
+          updateButton(btn, data[btn.dataset.reaction!] ?? 0);
+        });
       } catch {}
     }
 
@@ -108,14 +101,13 @@ const reactions = [
 
       reacted.add(reaction);
       saveReacted();
-      btn.classList.add("reactions__btn--active");
       btn.setAttribute("aria-pressed", "true");
-      btn.classList.remove("reactions__btn--pop");
+      btn.removeAttribute("data-pop");
       void btn.offsetWidth; // force reflow to restart animation
-      btn.classList.add("reactions__btn--pop");
+      btn.setAttribute("data-pop", "");
 
       // Optimistic increment
-      const countEl = btn.querySelector<HTMLElement>(".reactions__count")!;
+      const countEl = btn.querySelector<HTMLElement>(".count")!;
       const current = parseInt(countEl.textContent ?? "0", 10) || 0;
       countEl.textContent = String(current + 1);
 
@@ -131,22 +123,18 @@ const reactions = [
         if (res.ok) {
           const data: Record<string, number> = await res.json();
           // Sync with server truth
-          root
-            .querySelectorAll<HTMLButtonElement>(".reactions__btn")
-            .forEach((b) => {
-              updateButton(b, data[b.dataset.reaction!] ?? 0);
-            });
+          root.querySelectorAll<HTMLButtonElement>(".reaction").forEach((b) => {
+            updateButton(b, data[b.dataset.reaction!] ?? 0);
+          });
         }
       } catch {}
     }
 
     fetchCounts();
 
-    root
-      .querySelectorAll<HTMLButtonElement>(".reactions__btn")
-      .forEach((btn) => {
-        btn.addEventListener("click", () => postReaction(btn));
-      });
+    root.querySelectorAll<HTMLButtonElement>(".reaction").forEach((btn) => {
+      btn.addEventListener("click", () => postReaction(btn));
+    });
   });
 </script>
 
@@ -170,15 +158,15 @@ const reactions = [
     margin-bottom: 2.5rem;
   }
 
-  .reactions--hero {
+  .reactions:where([data-variant="hero"]) {
     margin: 0;
   }
 
-  .reactions--compact {
+  .reactions:where([data-compact]) {
     margin: 0;
   }
 
-  .reactions__heading {
+  .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.25rem;
     font-weight: 800;
@@ -188,13 +176,13 @@ const reactions = [
     margin: 0 0 1.25rem;
   }
 
-  .reactions__buttons {
+  .buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .reactions__btn {
+  .reaction {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,29 +208,29 @@ const reactions = [
       background-color: rgba(var(--accent-primary-rgb), 0.04);
       transform: translateY(-2px);
 
-      .reactions__emoji {
+      .emoji {
         transform: scale(1.15);
       }
     }
 
-    &:where(.reactions__btn--active) {
+    &:where([aria-pressed="true"]) {
       border-color: var(--accent-primary);
       background-color: rgba(var(--accent-primary-rgb), 0.08);
 
-      .reactions__count {
+      .count {
         color: var(--accent-primary);
       }
-      .reactions__label {
+      .caption {
         color: var(--accent-primary);
       }
     }
 
-    &:where(.reactions__btn--pop) {
+    &:where([data-pop]) {
       animation: btn-pop 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
   }
 
-  .reactions__emoji {
+  .emoji {
     font-size: 1.75rem;
     line-height: 1;
     transition: transform 0.15s ease;
@@ -252,7 +240,7 @@ const reactions = [
     }
   }
 
-  .reactions__count {
+  .count {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.25rem;
     font-weight: 800;
@@ -261,7 +249,7 @@ const reactions = [
     transition: color 0.15s ease;
   }
 
-  .reactions__label {
+  .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -271,7 +259,7 @@ const reactions = [
     transition: color 0.15s ease;
   }
 
-  .reactions--compact .reactions__heading {
+  .reactions:where([data-compact]) .heading {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -283,12 +271,12 @@ const reactions = [
     border: 0;
   }
 
-  .reactions--compact .reactions__buttons {
+  .reactions:where([data-compact]) .buttons {
     gap: 0.45rem;
     justify-content: flex-end;
   }
 
-  .reactions--compact .reactions__btn {
+  .reactions:where([data-compact]) .reaction {
     flex-direction: row;
     justify-content: center;
     min-width: auto;
@@ -309,21 +297,21 @@ const reactions = [
     backdrop-filter: blur(8px);
   }
 
-  .reactions--compact .reactions__emoji {
+  .reactions:where([data-compact]) .emoji {
     font-size: 1rem;
   }
 
-  .reactions--compact .reactions__count {
+  .reactions:where([data-compact]) .count {
     min-width: 1ch;
     font-size: 0.95rem;
   }
 
-  .reactions--compact .reactions__label {
+  .reactions:where([data-compact]) .caption {
     display: none;
   }
 
   @media (max-width: 1023px) {
-    .reactions--compact.reactions--hero .reactions__heading {
+    .reactions[data-compact]:where([data-variant="hero"]) .heading {
       position: static;
       width: auto;
       height: auto;
@@ -338,24 +326,24 @@ const reactions = [
       color: color-mix(in srgb, var(--text-primary) 72%, transparent);
     }
 
-    .reactions--compact.reactions--hero .reactions__buttons {
+    .reactions[data-compact]:where([data-variant="hero"]) .buttons {
       justify-content: flex-start;
       gap: 0.5rem;
     }
   }
 
-  .reactions--hero .reactions__heading {
+  .reactions:where([data-variant="hero"]) .heading {
     margin-bottom: 0.75rem;
     font-size: 0.76rem;
     letter-spacing: 0.1em;
     color: color-mix(in srgb, var(--text-primary) 72%, transparent);
   }
 
-  .reactions--hero .reactions__buttons {
+  .reactions:where([data-variant="hero"]) .buttons {
     gap: 0.5rem;
   }
 
-  .reactions--hero .reactions__btn {
+  .reactions:where([data-variant="hero"]) .reaction {
     flex-direction: row;
     justify-content: center;
     min-width: auto;
@@ -376,21 +364,21 @@ const reactions = [
     backdrop-filter: blur(8px);
   }
 
-  .reactions--hero .reactions__emoji {
+  .reactions:where([data-variant="hero"]) .emoji {
     font-size: 1.1rem;
   }
 
-  .reactions--hero .reactions__count {
+  .reactions:where([data-variant="hero"]) .count {
     min-width: 1ch;
     font-size: 1rem;
   }
 
-  .reactions--hero .reactions__label {
+  .reactions:where([data-variant="hero"]) .caption {
     display: none;
   }
 
   @media (max-width: 639px) {
-    .reactions--hero .reactions__btn {
+    .reactions:where([data-variant="hero"]) .reaction {
       padding: 0.55rem 0.75rem;
     }
   }

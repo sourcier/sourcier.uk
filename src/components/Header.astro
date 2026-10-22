@@ -22,8 +22,8 @@ function isActive(href: string) {
 
 <nav class="site-nav" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="site-nav-brand">
-      <a class="site-nav-item" href="/">
+    <div class="brand">
+      <a class="item" href="/">
         <Image
           src={avatarImage}
           alt="Roger Rajaratnam avatar"
@@ -31,12 +31,12 @@ function isActive(href: string) {
           height={64}
           loading="eager"
         />
-        <span class="site-nav-name">Sourcier</span>
+        <span class="name">Sourcier</span>
       </a>
 
-      <div class="site-nav-brand-actions">
+      <div class="brand-actions">
         <button
-          class="social-icon site-nav-search-mobile"
+          class="social-icon search-mobile"
           aria-label="Open search"
           data-search-open
         >
@@ -44,7 +44,7 @@ function isActive(href: string) {
         </button>
 
         <button
-          class="site-nav-toggle"
+          class="toggle"
           aria-label="menu"
           aria-expanded="false"
           aria-controls="mobileMenu"
@@ -58,50 +58,50 @@ function isActive(href: string) {
       </div>
     </div>
 
-    <div id="mobileMenu" class="site-nav-menu">
-      <div class="site-nav-start">
+    <div id="mobileMenu" class="menu">
+      <div class="start">
         <a
-          class="site-nav-item"
+          class="item"
           href="/about"
           aria-current={isActive("/about") ? "page" : undefined}>About</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/blog"
           aria-current={isActive("/blog") ? "page" : undefined}>Blog</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/guides"
           aria-current={isActive("/guides") ? "page" : undefined}>Guides</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/courses"
           aria-current={isActive("/courses") ? "page" : undefined}>Courses</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/projects"
           aria-current={isActive("/projects") ? "page" : undefined}>Projects</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/uses"
           aria-current={isActive("/uses") ? "page" : undefined}>Uses</a
         >
         <a
-          class="site-nav-item"
+          class="item"
           href="/contact"
           aria-current={isActive("/contact") ? "page" : undefined}>Contact</a
         >
       </div>
 
-      <div class="site-nav-end">
-        <div class="site-nav-item">
+      <div class="end">
+        <div class="item">
           <div class="actions">
             <button
-              class="social-icon site-nav-search-desktop"
+              class="social-icon search-desktop"
               aria-label="Open search"
               data-search-open
             >
@@ -126,7 +126,7 @@ function isActive(href: string) {
               <Fragment set:html={linkedinIcon} />
             </a>
             <ThemeToggle />
-            <a href="/contact" class="site-nav-cta">Get guidance</a>
+            <a href="/contact" class="cta">Get guidance</a>
           </div>
         </div>
       </div>
@@ -136,15 +136,16 @@ function isActive(href: string) {
 
 <div
   id="search-modal"
+  class="site-search"
   role="dialog"
   aria-modal="true"
   aria-label="Site search"
   hidden
 >
-  <div class="search-backdrop" data-search-close></div>
-  <div class="search-panel">
-    <div class="search-input-wrap">
-      <span class="search-input-icon" aria-hidden="true">
+  <div class="backdrop" data-search-close></div>
+  <div class="surface">
+    <div class="query">
+      <span class="icon" aria-hidden="true">
         <Fragment set:html={searchIcon} />
       </span>
       <input
@@ -157,7 +158,7 @@ function isActive(href: string) {
         aria-controls="search-results"
         aria-label="Search query"
       />
-      <button class="search-close" aria-label="Close search" data-search-close>
+      <button class="close" aria-label="Close search" data-search-close>
         <Fragment set:html={closeIcon} />
       </button>
     </div>
@@ -214,33 +215,32 @@ function isActive(href: string) {
     function renderResults(results) {
       activeIndex = -1;
       if (!results.length) {
-        resultsList.innerHTML =
-          '<li class="search-no-results">No results found.</li>';
+        resultsList.innerHTML = '<li class="empty">No results found.</li>';
         return;
       }
       resultsList.innerHTML = results
         .map(
           (r, i) =>
-            `<li role="option" aria-selected="false" class="search-result" data-index="${i}">
-          <a href="${r.url}" class="search-result__link" tabindex="-1">
-            ${r.meta?.image ? `<img src="${r.meta.image}" alt="" class="search-result__thumb" aria-hidden="true" />` : '<div class="search-result__thumb search-result__thumb--placeholder"></div>'}
-            <div class="search-result__body">
-              <span class="search-result__breadcrumb">${resultBreadcrumb(r.url)}</span>
-              <span class="search-result__title">${r.meta?.title ?? "Untitled"}</span>
-              ${r.excerpt ? `<span class="search-result__excerpt">${r.excerpt}</span>` : ""}
+            `<li role="option" aria-selected="false" class="result" data-index="${i}">
+          <a href="${r.url}" class="link" tabindex="-1">
+            ${r.meta?.image ? `<img src="${r.meta.image}" alt="" class="thumb" aria-hidden="true" />` : '<div class="thumb" data-placeholder></div>'}
+            <div class="body">
+              <span class="breadcrumb">${resultBreadcrumb(r.url)}</span>
+              <span class="heading">${r.meta?.title ?? "Untitled"}</span>
+              ${r.excerpt ? `<span class="excerpt">${r.excerpt}</span>` : ""}
             </div>
           </a>
         </li>`,
         )
         .join("");
 
-      resultsList.querySelectorAll(".search-result__link").forEach((link) => {
+      resultsList.querySelectorAll(".link").forEach((link) => {
         link.addEventListener("click", closeModal);
       });
     }
 
     function setActive(index) {
-      const items = resultsList.querySelectorAll(".search-result");
+      const items = resultsList.querySelectorAll(".result");
       items.forEach((el, i) => {
         const active = i === index;
         el.setAttribute("aria-selected", String(active));
@@ -252,12 +252,12 @@ function isActive(href: string) {
       resultsList.innerHTML = Array.from({ length: 3 })
         .map(
           () =>
-            `<li class="search-result search-result--loading" aria-hidden="true">
-          <div class="search-result__link">
-            <div class="search-result__thumb search-skeleton"></div>
-            <div class="search-result__body">
-              <span class="search-skeleton search-skeleton--title"></span>
-              <span class="search-skeleton search-skeleton--excerpt"></span>
+            `<li class="result" data-loading aria-hidden="true">
+          <div class="link">
+            <div class="thumb skeleton"></div>
+            <div class="body">
+          <span class="skeleton" data-kind="title"></span>
+          <span class="skeleton" data-kind="excerpt"></span>
             </div>
           </div>
         </li>`,
@@ -287,8 +287,7 @@ function isActive(href: string) {
       renderLoading();
       const pf = await initPagefind();
       if (!pf) {
-        resultsList.innerHTML =
-          '<li class="search-no-results">Search unavailable.</li>';
+        resultsList.innerHTML = '<li class="empty">Search unavailable.</li>';
         return;
       }
       const search = await pf.search(query);
@@ -300,7 +299,7 @@ function isActive(href: string) {
     }
 
     input.addEventListener("keydown", (e) => {
-      const items = resultsList.querySelectorAll(".search-result");
+      const items = resultsList.querySelectorAll(".result");
       if (!items.length) return;
       if (e.key === "ArrowDown") {
         e.preventDefault();

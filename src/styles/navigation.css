@@ -33,14 +33,14 @@
     }
   }
 
-  .site-nav-brand {
+  .brand {
     display: flex;
     align-items: stretch;
     flex-shrink: 0;
     min-height: 3.25rem;
   }
 
-  .site-nav-item {
+  .item {
     display: flex;
     align-items: center;
     flex-grow: 0;
@@ -52,7 +52,7 @@
     color: var(--text-on-strong-alpha-85);
   }
 
-  .site-nav-menu {
+  .menu {
     display: none;
     padding: 0.5rem 0;
     background-color: transparent;
@@ -63,15 +63,15 @@
     }
   }
 
-  .site-nav-start {
+  .start {
     display: block;
   }
 
-  .site-nav-end {
+  .end {
     display: block;
   }
 
-  .site-nav-toggle {
+  .toggle {
     appearance: none;
     display: inline-flex;
     align-items: center;
@@ -136,52 +136,52 @@
     display: flex;
     align-items: stretch;
 
-    .site-nav-menu,
-    .site-nav-start,
-    .site-nav-end {
+    .menu,
+    .start,
+    .end {
       display: flex;
       align-items: stretch;
     }
 
-    .site-nav-menu {
+    .menu {
       flex-grow: 1;
       flex-shrink: 0;
       padding: 0;
     }
 
-    .site-nav-menu[data-open] {
+    .menu[data-open] {
       display: flex;
     }
 
-    .site-nav-start {
+    .start {
       justify-content: flex-start;
       margin-inline-end: auto;
     }
 
-    .site-nav-end {
+    .end {
       justify-content: flex-end;
       margin-inline-start: auto;
     }
 
-    .site-nav-toggle {
+    .toggle {
       display: none;
     }
   }
 
   @media (min-width: 1024px) and (max-width: 1215px) {
-    .site-nav-start .site-nav-item,
-    .site-nav-end > .site-nav-item {
+    .start .item,
+    .end > .item {
       padding-inline: 0.375rem;
     }
   }
 
-  .site-nav-item:hover,
-  .site-nav-item:focus,
-  .site-nav-item:focus-within {
+  .item:hover,
+  .item:focus,
+  .item:focus-within {
     background-color: transparent;
   }
 
-  .site-nav-item img {
+  .item img {
     width: 2rem;
     height: 2rem;
     max-height: 2rem;
@@ -190,25 +190,23 @@
     flex-shrink: 0;
   }
 
-  .site-nav-toggle span {
+  .toggle span {
     background-color: var(--text-on-strong);
   }
 
   @media (max-width: 1023px) {
-    .site-nav-item:not(.site-nav-item:has(img)):not(
-        .site-nav-item:has(.actions)
-      ) {
+    .item:not(.item:has(img)):not(.item:has(.actions)) {
       font-size: 1rem;
       padding: 0.75rem 1rem;
       text-align: center;
       justify-content: center;
     }
 
-    .site-nav-end {
+    .end {
       padding-top: 0;
     }
 
-    .site-nav-item:has(.actions) {
+    .item:has(.actions) {
       padding: 0.75rem 1rem;
       border-top: 1px solid var(--text-on-strong-alpha-10);
       margin-top: 0.75rem;
@@ -225,19 +223,22 @@
 }
 
 /* Show system/sun/moon icon based on the user's selected preference, not the resolved OS theme */
-.theme-toggle__trigger-icon {
+:where(.theme-toggle) .trigger-icon {
   display: none;
   align-items: center;
   justify-content: center;
 }
 
-.theme-toggle[data-theme-current="system"] .theme-toggle__trigger-icon--system,
-.theme-toggle[data-theme-current="light"] .theme-toggle__trigger-icon--light,
-.theme-toggle[data-theme-current="dark"] .theme-toggle__trigger-icon--dark {
+.theme-toggle[data-theme-current="system"]
+  .trigger-icon:where([data-theme-icon="system"]),
+.theme-toggle[data-theme-current="light"]
+  .trigger-icon:where([data-theme-icon="light"]),
+.theme-toggle[data-theme-current="dark"]
+  .trigger-icon:where([data-theme-icon="dark"]) {
   display: flex;
 }
 
-.theme-toggle__dropdown {
+:where(.theme-toggle) .dropdown {
   position: absolute;
   right: 0;
   top: calc(100% + 8px);
@@ -257,7 +258,7 @@
   }
 }
 
-.theme-toggle__option {
+:where(.theme-toggle) .option {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -292,7 +293,7 @@
   }
 }
 
-.site-nav-brand-actions {
+:where(.site-nav) .brand-actions {
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -302,13 +303,13 @@
   }
 }
 
-.site-nav-search-mobile {
+:where(.site-nav) .search-mobile {
   display: flex;
   align-items: center;
   color: rgba(var(--text-on-strong-rgb), 0.85);
 }
 
-.site-nav-name {
+:where(.site-nav) .name {
   font-weight: 600;
   font-size: 1rem;
   padding-left: 0.5rem;
@@ -317,7 +318,7 @@
   color: var(--text-on-strong);
 }
 
-.site-nav-item:not(.site-nav-item:has(img)):not(.site-nav-item:has(.actions)) {
+:where(.site-nav) .item:not(.item:has(img)):not(.item:has(.actions)) {
   text-transform: uppercase;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -352,7 +353,7 @@
 }
 
 /* — Navbar CTA button */
-.site-nav-cta {
+:where(.site-nav) .cta {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;

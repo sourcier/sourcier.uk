@@ -1,9 +1,6 @@
 interface SubscribeFormConfig {
   formId: string;
   emailId: string;
-  feedbackClass: string;
-  feedbackSuccessClass: string;
-  feedbackErrorClass: string;
   successLabel: string;
   defaultButtonLabel: string;
   source?: string;
@@ -30,7 +27,7 @@ export function bindSubscribeForm(config: SubscribeFormConfig): void {
     btn.disabled = true;
     btn.textContent = "Subscribing…";
     feedback.hidden = true;
-    feedback.className = config.feedbackClass;
+    feedback.removeAttribute("data-status");
 
     try {
       const res = await fetch("/.netlify/functions/subscribe", {
@@ -49,7 +46,7 @@ export function bindSubscribeForm(config: SubscribeFormConfig): void {
 
       if (res.ok) {
         feedback.textContent = config.successLabel;
-        feedback.classList.add(config.feedbackSuccessClass);
+        feedback.dataset.status = "success";
         form.reset();
         btn.textContent = "You're in";
         btn.disabled = true;
@@ -57,13 +54,13 @@ export function bindSubscribeForm(config: SubscribeFormConfig): void {
         feedback.textContent =
           (data as { error?: string }).error ??
           "Something went wrong. Please try again.";
-        feedback.classList.add(config.feedbackErrorClass);
+        feedback.dataset.status = "error";
         btn.disabled = false;
         btn.textContent = config.defaultButtonLabel;
       }
     } catch {
       feedback.textContent = "Something went wrong. Please try again.";
-      feedback.classList.add(config.feedbackErrorClass);
+      feedback.dataset.status = "error";
       btn.disabled = false;
       btn.textContent = config.defaultButtonLabel;
     } finally {

@@ -17,7 +17,7 @@ describe("PageHero", () => {
       }),
     );
     expect(normalized).toContain("About me");
-    expect(normalized).toContain('class="hero-title"');
+    expect(normalized).toContain('class="heading"');
   });
 
   it("sets the default primary tone", async () => {

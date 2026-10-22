@@ -4,16 +4,14 @@
 
 <section class="mailing-cta stack-space stack-space--tight">
   <div class="container" data-width="narrow">
-    <div class="mailing-cta__card" aria-labelledby="mailing-cta-heading">
-      <div class="mailing-cta__inner">
-        <div class="mailing-cta__copy">
-          <p class="mailing-cta__kicker">
-            Free · Practical · One email per post
-          </p>
-          <h2 class="mailing-cta__heading" id="mailing-cta-heading">
+    <div class="card" aria-labelledby="mailing-cta-heading">
+      <div class="inner">
+        <div class="copy">
+          <p class="kicker">Free · Practical · One email per post</p>
+          <h2 class="heading" id="mailing-cta-heading">
             Get practical engineering notes
           </h2>
-          <p class="mailing-cta__body">
+          <p class="body">
             One short email when a new article goes live. Useful if you are
             breaking into tech, growing as an engineer, or improving engineering
             practice on your team.
@@ -21,12 +19,12 @@
         </div>
 
         <form
-          class="mailing-cta__form"
+          class="form"
           id="mailing-cta-form"
           novalidate
           aria-label="Newsletter sign up"
         >
-          <p class="mailing-cta__honeypot" aria-hidden="true">
+          <p class="honeypot" aria-hidden="true">
             <label for="mailing-cta-website">Leave this blank</label>
             <input
               id="mailing-cta-website"
@@ -36,10 +34,10 @@
               autocomplete="off"
             />
           </p>
-          <div class="mailing-cta__field">
-            <label for="mailing-cta-email" class="mailing-cta__label">
-              <span class="mailing-cta__label-title">Email for new posts</span>
-              <span class="mailing-cta__label-note"
+          <div class="entry">
+            <label for="mailing-cta-email" class="caption">
+              <span class="caption-heading">Email for new posts</span>
+              <span class="note"
                 >One short email when something practical goes live.</span
               >
             </label>
@@ -47,17 +45,15 @@
               id="mailing-cta-email"
               name="email"
               type="email"
-              class="input mailing-cta__input"
+              class="input email"
               placeholder="you@example.com"
               autocomplete="email"
               required
             />
-            <button type="submit" class="button mailing-cta__btn">
-              Join the list
-            </button>
+            <button type="submit" class="button submit"> Join the list </button>
           </div>
           <p
-            class="mailing-cta__feedback"
+            class="feedback"
             id="mailing-cta-feedback"
             aria-live="polite"
             hidden
@@ -75,9 +71,6 @@
   bindSubscribeForm({
     formId: "mailing-cta-form",
     emailId: "mailing-cta-email",
-    feedbackClass: "mailing-cta__feedback",
-    feedbackSuccessClass: "mailing-cta__feedback--success",
-    feedbackErrorClass: "mailing-cta__feedback--error",
     successLabel: "You're subscribed! Check your inbox for a confirmation.",
     defaultButtonLabel: "Join the list",
   });
@@ -88,7 +81,7 @@
     padding: 0 1.5rem 3rem;
   }
 
-  .mailing-cta__card {
+  .card {
     --mailing-cta-surface-top: #121714;
     --mailing-cta-surface-bottom: #09100d;
     position: relative;
@@ -142,7 +135,7 @@
     }
   }
 
-  .mailing-cta__inner {
+  .inner {
     position: relative;
     z-index: 1;
     display: flex;
@@ -157,12 +150,12 @@
     }
   }
 
-  .mailing-cta__copy {
+  .copy {
     flex: 1;
     max-width: 40rem;
   }
 
-  .mailing-cta__kicker {
+  .kicker {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -176,7 +169,7 @@
     margin-bottom: 0.4rem;
   }
 
-  .mailing-cta__heading {
+  .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 800;
@@ -186,14 +179,14 @@
     margin-bottom: 0.5rem;
   }
 
-  .mailing-cta__body {
+  .body {
     color: rgba(var(--text-on-strong-rgb), 0.72);
     font-size: 0.9375rem;
     line-height: 1.6;
     margin: 0;
   }
 
-  .mailing-cta__form {
+  .form {
     flex-shrink: 0;
     width: 100%;
     padding: 1rem;
@@ -207,19 +200,19 @@
     }
   }
 
-  .mailing-cta__field {
+  .entry {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .mailing-cta__label {
+  .caption {
     display: grid;
     gap: 0.2rem;
     margin: 0;
   }
 
-  .mailing-cta__label-title {
+  .caption-heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
@@ -228,13 +221,13 @@
     color: var(--text-on-strong);
   }
 
-  .mailing-cta__label-note {
+  .note {
     font-size: 0.8rem;
     line-height: 1.45;
     color: rgba(var(--text-on-strong-rgb), 0.68);
   }
 
-  .mailing-cta__input {
+  .email {
     flex: 1;
     min-width: 0;
     min-height: 3rem;
@@ -256,7 +249,7 @@
     }
   }
 
-  .mailing-cta__btn {
+  .submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -290,7 +283,7 @@
     }
   }
 
-  .mailing-cta__honeypot {
+  .honeypot {
     position: absolute;
     left: -9999px;
     width: 1px;
@@ -300,15 +293,15 @@
     pointer-events: none;
   }
 
-  .mailing-cta__feedback {
+  .feedback {
     margin-top: 0.625rem;
     font-size: 0.875rem;
 
-    &:where(.mailing-cta__feedback--success) {
+    &:where([data-status="success"]) {
       color: var(--color-success-bright);
     }
 
-    &:where(.mailing-cta__feedback--error) {
+    &:where([data-status="error"]) {
       color: var(--color-danger-bright);
     }
   }

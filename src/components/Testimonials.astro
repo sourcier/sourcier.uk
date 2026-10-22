@@ -55,7 +55,7 @@ const testimonials = [
   aria-labelledby="testimonials-heading"
 >
   <div class="container" data-width="narrow">
-    <div class="testimonials__header">
+    <div class="header">
       <p
         class="section-label section-label--secondary"
         id="testimonials-heading"
@@ -63,50 +63,50 @@ const testimonials = [
         Growth, mentoring, and team impact
       </p>
       <button
-        class="testimonials__pause-btn"
+        class="pause-btn"
         type="button"
         aria-label="Pause slideshow"
         aria-pressed="false"
       >
-        <span class="testimonials__pause-icon" set:html={pauseIcon} />
-        <span class="testimonials__play-icon" set:html={playIcon} />
+        <span class="pause-icon" set:html={pauseIcon} />
+        <span class="play-icon" set:html={playIcon} />
       </button>
     </div>
 
-    <p class="testimonials__intro">
+    <p class="intro">
       The feedback I hear most often is about calm leadership, helping engineers
       grow, and making teams work better together.
     </p>
 
     <div
-      class="testimonials__carousel"
+      class="carousel"
       role="region"
       aria-roledescription="carousel"
       aria-label="Testimonials"
     >
-      <div class="testimonials__track-wrapper">
-        <div class="testimonials__track">
+      <div class="track-wrapper">
+        <div class="track">
           {
             testimonials.map((t, i) => (
               <div
-                class="testimonials__item"
+                class="item"
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${i + 1} of ${testimonials.length}`}
               >
-                <blockquote class="testimonials__quote">
+                <blockquote class="quote">
                   <p>&ldquo;{t.quote}&rdquo;</p>
                 </blockquote>
-                <footer class="testimonials__footer">
-                  <div class="testimonials__attribution">
+                <footer class="byline">
+                  <div class="attribution">
                     <div>
-                      <p class="testimonials__name">
-                        <span class="testimonials__name-group">
+                      <p class="name">
+                        <span class="name-group">
                           <a
                             href={t.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="testimonials__name-link"
+                            class="name-link"
                           >
                             {t.name}
                           </a>
@@ -114,13 +114,13 @@ const testimonials = [
                             href={t.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="testimonials__linkedin"
+                            class="linkedin"
                             aria-label={`${t.name} on LinkedIn`}
                             set:html={linkedinIcon}
                           />
                         </span>
                       </p>
-                      <p class="testimonials__meta">
+                      <p class="meta">
                         {t.title && t.company
                           ? `${t.title} · ${t.company}`
                           : (t.title ?? t.company)}
@@ -131,13 +131,13 @@ const testimonials = [
                         href={t.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="testimonials__logo-link"
+                        class="logo-link"
                         aria-label={`Visit ${t.company} website`}
                       >
                         <img
                           src={t.logo.src}
                           alt={t.company}
-                          class="testimonials__logo"
+                          class="logo"
                           width="64"
                           height="64"
                           loading="lazy"
@@ -152,15 +152,11 @@ const testimonials = [
         </div>
       </div>
 
-      <div
-        class="testimonials__dots"
-        role="group"
-        aria-label="Slide navigation"
-      >
+      <div class="dots" role="group" aria-label="Slide navigation">
         {
           testimonials.map((t, i) => (
             <button
-              class="testimonials__dot"
+              class="dot"
               type="button"
               aria-label={`Go to slide ${i + 1}: ${t.name}`}
               aria-current={i === 0 ? "true" : "false"}
@@ -176,15 +172,10 @@ const testimonials = [
 <script>
   const section = document.querySelector<HTMLElement>(".testimonials");
   if (section) {
-    const track = section.querySelector<HTMLElement>(".testimonials__track")!;
-    const dots =
-      section.querySelectorAll<HTMLButtonElement>(".testimonials__dot");
-    const pauseBtn = section.querySelector<HTMLButtonElement>(
-      ".testimonials__pause-btn",
-    )!;
-    const carousel = section.querySelector<HTMLElement>(
-      ".testimonials__carousel",
-    )!;
+    const track = section.querySelector<HTMLElement>(".track")!;
+    const dots = section.querySelectorAll<HTMLButtonElement>(".dot");
+    const pauseBtn = section.querySelector<HTMLButtonElement>(".pause-btn")!;
+    const carousel = section.querySelector<HTMLElement>(".carousel")!;
     const total = dots.length;
     let current = 0;
     let paused = false;
@@ -192,7 +183,7 @@ const testimonials = [
 
     function getLayout() {
       const wrapper = track.parentElement as HTMLElement;
-      const items = track.querySelectorAll<HTMLElement>(".testimonials__item");
+      const items = track.querySelectorAll<HTMLElement>(".item");
       const wrapperWidth = wrapper.getBoundingClientRect().width;
       const itemWidth = items[0]?.getBoundingClientRect().width ?? wrapperWidth;
       let stepPct = 100;
@@ -301,7 +292,7 @@ const testimonials = [
       color-mix(in srgb, var(--border-subtle) 72%, transparent);
   }
 
-  .testimonials__header {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -312,14 +303,14 @@ const testimonials = [
     }
   }
 
-  .testimonials__intro {
+  .intro {
     max-width: 62ch;
     margin: 0 0 1.5rem;
     color: var(--text-muted);
     line-height: 1.7;
   }
 
-  .testimonials__pause-btn {
+  .pause-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -336,15 +327,15 @@ const testimonials = [
       color 0.15s ease,
       border-color 0.15s ease;
 
-    .testimonials__play-icon {
+    .play-icon {
       display: none;
     }
 
     &[aria-pressed="true"] {
-      .testimonials__pause-icon {
+      .pause-icon {
         display: none;
       }
-      .testimonials__play-icon {
+      .play-icon {
         display: flex;
       }
     }
@@ -359,15 +350,15 @@ const testimonials = [
     }
   }
 
-  .testimonials__carousel {
+  .carousel {
     position: relative;
   }
 
-  .testimonials__track-wrapper {
+  .track-wrapper {
     overflow: hidden;
   }
 
-  .testimonials__track {
+  .track {
     display: flex;
     gap: 1.25rem;
     list-style: none;
@@ -381,7 +372,7 @@ const testimonials = [
     }
   }
 
-  .testimonials__item {
+  .item {
     flex: 0 0 100%;
     min-width: 0;
     box-sizing: border-box;
@@ -404,7 +395,7 @@ const testimonials = [
     }
   }
 
-  .testimonials__quote {
+  .quote {
     flex: 1;
     margin: 0 0 1.5rem;
 
@@ -417,25 +408,25 @@ const testimonials = [
     }
   }
 
-  .testimonials__footer {
+  .byline {
     border-top: 1px solid var(--border-subtle);
     padding-top: 1rem;
   }
 
-  .testimonials__attribution {
+  .attribution {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
   }
 
-  .testimonials__logo-link {
+  .logo-link {
     display: flex;
     align-items: center;
     flex-shrink: 0;
   }
 
-  .testimonials__logo {
+  .logo {
     flex-shrink: 0;
     max-width: 64px;
     max-height: 32px;
@@ -453,7 +444,7 @@ const testimonials = [
     }
   }
 
-  .testimonials__item:hover .testimonials__logo {
+  .item:hover .logo {
     opacity: 1;
     filter: grayscale(0);
 
@@ -462,7 +453,7 @@ const testimonials = [
     }
   }
 
-  .testimonials__name {
+  .name {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1rem;
     font-weight: 800;
@@ -472,27 +463,27 @@ const testimonials = [
     margin: 0 0 0.2rem;
   }
 
-  .testimonials__name-group {
+  .name-group {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
 
-    &:hover .testimonials__name-link {
+    &:hover .name-link {
       color: var(--accent-secondary);
     }
 
-    &:hover .testimonials__linkedin {
+    &:hover .linkedin {
       color: var(--accent-secondary);
     }
   }
 
-  .testimonials__name-link {
+  .name-link {
     color: inherit;
     text-decoration: none;
     transition: color 0.15s ease;
   }
 
-  .testimonials__linkedin {
+  .linkedin {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -503,13 +494,13 @@ const testimonials = [
     flex-shrink: 0;
   }
 
-  .testimonials__meta {
+  .meta {
     font-size: 0.8125rem;
     color: var(--text-muted);
     margin: 0;
   }
 
-  .testimonials__dots {
+  .dots {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -517,7 +508,7 @@ const testimonials = [
     padding-top: 1.5rem;
   }
 
-  .testimonials__dot {
+  .dot {
     position: relative;
     width: 2.75rem;
     height: 2.75rem;

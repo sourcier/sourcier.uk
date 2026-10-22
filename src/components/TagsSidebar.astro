@@ -18,15 +18,15 @@ const tags = [...tagCounts.entries()]
 ---
 
 <nav class="tags-sidebar" aria-labelledby="tags-sidebar-heading">
-  <p class="tags-sidebar__heading" id="tags-sidebar-heading">Browse topics</p>
-  <ul class="tags-sidebar__list" role="list">
+  <p class="heading" id="tags-sidebar-heading">Browse topics</p>
+  <ul class="list" role="list">
     {
       tags.map(({ tag, count, slug }) => (
         <li>
-          <a href={`/tags/${slug}`} class="tags-sidebar__tag">
-            <span class="tags-sidebar__name">{tag}</span>
+          <a href={`/tags/${slug}`} class="tag">
+            <span class="name">{tag}</span>
             <span
-              class="tags-sidebar__count"
+              class="count"
               aria-label={`${count} post${count === 1 ? "" : "s"}`}
             >
               {count}
@@ -36,7 +36,7 @@ const tags = [...tagCounts.entries()]
       ))
     }
   </ul>
-  <a href="/tags" class="tags-sidebar__all">All tags →</a>
+  <a href="/tags" class="all">All tags →</a>
 </nav>
 
 <style>
@@ -45,7 +45,7 @@ const tags = [...tagCounts.entries()]
     margin-bottom: 2rem;
   }
 
-  .tags-sidebar__heading {
+  .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
@@ -57,7 +57,7 @@ const tags = [...tagCounts.entries()]
     margin-bottom: 0.75rem;
   }
 
-  .tags-sidebar__list {
+  .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -66,7 +66,7 @@ const tags = [...tagCounts.entries()]
     gap: 0;
   }
 
-  .tags-sidebar__tag {
+  .tag {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -85,7 +85,7 @@ const tags = [...tagCounts.entries()]
     }
   }
 
-  .tags-sidebar__name {
+  .name {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.875rem;
     font-weight: 700;
@@ -93,7 +93,7 @@ const tags = [...tagCounts.entries()]
     letter-spacing: 0.06em;
   }
 
-  .tags-sidebar__count {
+  .count {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -107,13 +107,13 @@ const tags = [...tagCounts.entries()]
       background-color 0.15s ease,
       color 0.15s ease;
 
-    .tags-sidebar__tag:hover & {
+    .tag:hover & {
       background-color: rgba(var(--accent-primary-rgb), 0.12);
       color: var(--accent-primary);
     }
   }
 
-  .tags-sidebar__all {
+  .all {
     display: block;
     margin-top: 1rem;
     font-family: "Barlow Condensed", sans-serif;

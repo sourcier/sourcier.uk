@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggles = document.querySelectorAll(".site-nav-toggle");
+  const menuToggles = document.querySelectorAll(".site-nav .toggle");
 
   menuToggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {

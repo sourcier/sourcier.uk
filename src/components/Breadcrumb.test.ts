@@ -34,11 +34,11 @@ describe("Breadcrumb", () => {
     );
   });
 
-  it("adds inverted modifier class", async () => {
+  it("marks inverted breadcrumbs", async () => {
     const html = await container.renderToString(Breadcrumb, {
       props: { crumbs, inverted: true },
     });
-    expect(normalizeHtml(html)).toContain("breadcrumb-nav--inverted");
+    expect(normalizeHtml(html)).toContain('data-inverted="true"');
   });
 
   it("renders multiple crumb levels with schema markup", async () => {

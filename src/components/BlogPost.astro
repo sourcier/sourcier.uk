@@ -35,19 +35,12 @@ const formattedDate = pubDate
 const coverPosition = coverObjectPosition(cover?.focalPoint);
 ---
 
-<a
-  href={url}
-  class={`card card__blog${isPreview ? " card__blog--preview" : ""}`}
->
+<a href={url} class="blog-card" data-preview={isPreview || undefined}>
   {
     previewLabel && (
       <span
-        class:list={[
-          "card__status-badge",
-          {
-            "card__status-badge--scheduled": publicationStatus === "scheduled",
-          },
-        ]}
+        class="status"
+        data-status={publicationStatus}
         aria-label={previewLabel}
       >
         {previewLabel}
@@ -56,7 +49,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
   }
   {
     cover && (
-      <div class="card__cover">
+      <div class="cover">
         <Image
           src={cover.image}
           alt={cover.alt ?? ""}
@@ -66,31 +59,31 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
           decoding="async"
           style={`object-position: ${coverPosition};`}
         />
-        <div class="card__cover-overlay" aria-hidden="true" />
+        <div class="overlay" aria-hidden="true" />
       </div>
     )
   }
-  <div class="card__body">
+  <div class="body">
     {
       formattedDate && (
-        <p class="card-meta">
+        <p class="meta">
           {formattedDate}
           {readingTime && ` · ${readingTime}`}
         </p>
       )
     }
-    <p class="card__title">{title}</p>
-    {subTitle && <p class="card__subtitle">{subTitle}</p>}
-    <p class="card__description">{description}</p>
+    <p class="heading">{title}</p>
+    {subTitle && <p class="subtitle">{subTitle}</p>}
+    <p class="description">{description}</p>
   </div>
-  <div class="card__cta">
+  <div class="cta">
     <span>Read Post</span>
     <span aria-hidden="true">&rarr;</span>
   </div>
 </a>
 
 <style>
-  .card__description {
+  .description {
     margin: 0;
     font-size: 0.93rem;
     line-height: 1.65;
@@ -103,14 +96,14 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     -webkit-box-orient: vertical;
   }
 
-  .card__title {
+  .heading {
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 
-  .card__subtitle {
+  .subtitle {
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -120,7 +113,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     -webkit-box-orient: vertical;
   }
 
-  .card__status-badge {
+  .status {
     position: absolute;
     top: 0.625rem;
     left: 0.625rem;
@@ -135,12 +128,12 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     letter-spacing: 0.1em;
     line-height: 1;
 
-    &:where(.card__status-badge--scheduled) {
+    &:where([data-status="scheduled"]) {
       background-color: var(--accent-secondary);
     }
   }
 
-  .card__blog--preview {
+  .blog-card:where([data-preview]) {
     position: relative;
 
     &::after {
@@ -155,7 +148,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
   }
 
   @media (max-width: 639px) {
-    .card__description {
+    .description {
       -webkit-line-clamp: 4;
     }
   }

@@ -13,30 +13,25 @@ const moonIcon = faIcon(faMoon, { size: 14 });
 
 <div class="theme-toggle">
   <button
-    class="theme-toggle__trigger social-icon"
+    class="trigger social-icon"
     aria-label="Theme preference"
     aria-expanded="false"
     aria-haspopup="true"
   >
-    <span class="theme-toggle__trigger-icon theme-toggle__trigger-icon--system"
+    <span class="trigger-icon" data-theme-icon="system"
       ><Fragment set:html={systemIcon} /></span
     >
-    <span class="theme-toggle__trigger-icon theme-toggle__trigger-icon--light"
+    <span class="trigger-icon" data-theme-icon="light"
       ><Fragment set:html={sunIcon} /></span
     >
-    <span class="theme-toggle__trigger-icon theme-toggle__trigger-icon--dark"
+    <span class="trigger-icon" data-theme-icon="dark"
       ><Fragment set:html={moonIcon} /></span
     >
   </button>
 
-  <div
-    class="theme-toggle__dropdown"
-    role="menu"
-    aria-label="Theme preference"
-    hidden
-  >
+  <div class="dropdown" role="menu" aria-label="Theme preference" hidden>
     <button
-      class="theme-toggle__option"
+      class="option"
       data-theme-select="system"
       role="menuitem"
       aria-pressed="true"
@@ -45,7 +40,7 @@ const moonIcon = faIcon(faMoon, { size: 14 });
       <span>System</span>
     </button>
     <button
-      class="theme-toggle__option"
+      class="option"
       data-theme-select="light"
       role="menuitem"
       aria-pressed="false"
@@ -54,7 +49,7 @@ const moonIcon = faIcon(faMoon, { size: 14 });
       <span>Light</span>
     </button>
     <button
-      class="theme-toggle__option"
+      class="option"
       data-theme-select="dark"
       role="menuitem"
       aria-pressed="false"
@@ -67,12 +62,8 @@ const moonIcon = faIcon(faMoon, { size: 14 });
 
 <script>
   const wrapper = document.querySelector<HTMLElement>(".theme-toggle")!;
-  const trigger = wrapper.querySelector<HTMLButtonElement>(
-    ".theme-toggle__trigger",
-  )!;
-  const dropdown = wrapper.querySelector<HTMLElement>(
-    ".theme-toggle__dropdown",
-  )!;
+  const trigger = wrapper.querySelector<HTMLButtonElement>(".trigger")!;
+  const dropdown = wrapper.querySelector<HTMLElement>(".dropdown")!;
   const options = wrapper.querySelectorAll<HTMLButtonElement>(
     "[data-theme-select]",
   );

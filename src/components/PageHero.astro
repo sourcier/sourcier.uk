@@ -57,30 +57,28 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
   data-has-cover={coverImage ? "true" : "false"}
 >
   <div class="container">
-    <div class="hero-content">
+    <div class="content">
       {
         resolvedCrumbs.length > 0 && (
           <Breadcrumb crumbs={resolvedCrumbs} inverted />
         )
       }
-      {kicker && <p class="hero-kicker">{kicker}</p>}
-      <h1 class="hero-title">{title}</h1>
-      {subtitle && <p class="hero-subtitle">{subtitle}</p>}
+      {kicker && <p class="kicker">{kicker}</p>}
+      <h1 class="heading">{title}</h1>
+      {subtitle && <p class="subtitle">{subtitle}</p>}
       {
         (author || date || readingTime || (tags && tags.length > 0)) && (
-          <div class="hero-meta">
-            {author && <span class="hero-author">By {author}</span>}
-            {date && <span class="hero-date">{date}</span>}
-            {readingTime && (
-              <span class="hero-reading-time">{readingTime}</span>
-            )}
+          <div class="meta">
+            {author && <span class="author">By {author}</span>}
+            {date && <span class="date">{date}</span>}
+            {readingTime && <span class="reading-time">{readingTime}</span>}
             {(date || readingTime) && tags && tags.length > 0 && (
-              <span class="hero-divider" aria-hidden="true" />
+              <span class="divider" aria-hidden="true" />
             )}
             {tags && tags.length > 0 && (
-              <div class="hero-tags">
+              <div class="tags">
                 {tags.map((tag: string) => (
-                  <a href={`/tags/${tagSlug(tag)}`} class="hero-tag">
+                  <a href={`/tags/${tagSlug(tag)}`} class="tag">
                     {tag}
                   </a>
                 ))}
@@ -91,7 +89,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
       }
       {
         shareUrl && shareTitle && (
-          <div class="hero-share">
+          <div class="share">
             <SharePost url={shareUrl} title={shareTitle} />
           </div>
         )
@@ -283,39 +281,40 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     );
   }
 
-  .hero-content {
+  .content {
     max-width: 760px;
   }
 
-  .page-hero:not([data-has-cover="true"]) :global(.breadcrumb-nav--inverted) {
+  .page-hero:not([data-has-cover="true"])
+    :global(.breadcrumb-nav:where([data-inverted])) {
     margin-bottom: 1rem;
   }
 
   .page-hero:not([data-has-cover="true"])
-    :global(.breadcrumb-nav--inverted .breadcrumb__link) {
+    :global(.breadcrumb-nav:where([data-inverted]) .link) {
     color: color-mix(in srgb, var(--text-primary) 62%, transparent);
   }
 
   .page-hero:not([data-has-cover="true"])
-    :global(.breadcrumb-nav--inverted .breadcrumb__link:hover),
+    :global(.breadcrumb-nav:where([data-inverted]) .link:hover),
   .page-hero:not([data-has-cover="true"])
-    :global(.breadcrumb-nav--inverted .breadcrumb__link:focus-visible) {
+    :global(.breadcrumb-nav:where([data-inverted]) .link:focus-visible) {
     color: var(--page-hero-accent);
   }
 
   .page-hero:not([data-has-cover="true"])
-    :global(.breadcrumb-nav--inverted .breadcrumb__current) {
+    :global(.breadcrumb-nav:where([data-inverted]) .current) {
     color: var(--text-primary);
   }
 
   .page-hero:not([data-has-cover="true"])
     :global(
-      .breadcrumb-nav--inverted .breadcrumb__item:not(:last-child)::after
+      .breadcrumb-nav:where([data-inverted]) .item:not(:last-child)::after
     ) {
     color: color-mix(in srgb, var(--text-primary) 28%, transparent);
   }
 
-  .hero-title {
+  .heading {
     font-size: clamp(2.15rem, 5vw, 3.75rem);
     font-weight: 700;
     line-height: 1.02;
@@ -324,11 +323,11 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     color: var(--page-hero-ink);
   }
 
-  .page-hero[data-has-cover="true"] .hero-title {
+  .page-hero[data-has-cover="true"] .heading {
     font-size: clamp(2.35rem, 6vw, 4rem);
   }
 
-  .hero-subtitle {
+  .subtitle {
     max-width: 60ch;
     font-size: clamp(1.02rem, 1.65vw, 1.16rem);
     line-height: 1.72;
@@ -337,7 +336,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     font-weight: 400;
   }
 
-  .hero-meta {
+  .meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -349,12 +348,12 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     color: var(--page-hero-soft);
   }
 
-  .hero-author {
+  .author {
     color: var(--page-hero-ink);
     font-weight: 600;
   }
 
-  .hero-date {
+  .date {
     &::before {
       content: "·";
       margin-right: 1rem;
@@ -362,7 +361,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .hero-divider {
+  .divider {
     &::before {
       content: "·";
       color: var(--accent-primary);
@@ -373,13 +372,13 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .hero-tags {
+  .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .hero-tag {
+  .tag {
     display: inline-block;
     font-family: "Barlow", sans-serif;
     font-size: 0.82rem;
@@ -415,7 +414,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .hero-kicker {
+  .kicker {
     display: inline-block;
     padding: 0.3rem 0.75rem;
     font-size: 0.8125rem;
@@ -429,7 +428,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     margin-bottom: 0.75rem;
   }
 
-  .hero-share {
+  .share {
     margin-top: 1.5rem;
 
     :global(.share-post) {
@@ -439,11 +438,11 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
       margin: 0;
     }
 
-    :global(.share-post__label) {
+    :global(:where(.share-post) .caption) {
       color: var(--page-hero-soft);
     }
 
-    :global(.share-post__btn) {
+    :global(:where(.share-post) .share) {
       color: var(--page-hero-soft);
       border-color: var(--page-hero-tag-border);
       background-color: var(--page-hero-tag-bg);

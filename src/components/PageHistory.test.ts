@@ -35,7 +35,7 @@ describe("PageHistory", () => {
     const normalized = normalizeHtml(
       await container.renderToString(PageHistory, { props: { entries: [] } }),
     );
-    expect(normalized).toContain("page-history__log");
-    expect(normalized).not.toContain("page-history__entry");
+    expect(normalized).toContain('class="log"');
+    expect(normalized).not.toContain('class="entry"');
   });
 });

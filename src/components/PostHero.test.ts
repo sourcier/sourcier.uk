@@ -25,7 +25,7 @@ describe("PostHero", () => {
         props: { title: "Test" },
       }),
     );
-    expect(normalized).not.toContain("post-hero--with-cover");
+    expect(normalized).not.toContain("data-has-cover");
   });
 
   it("renders fact row for date when provided", async () => {

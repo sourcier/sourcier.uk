@@ -27,36 +27,32 @@ const launchSignals = [
   aria-labelledby="course-launch-heading"
 >
   <div class="container" data-width="narrow">
-    <p
-      class="section-label section-label--secondary course-launch__section-label"
-    >
-      Courses
-    </p>
-    <div class="course-launch__card">
-      <div class="course-launch__intro">
-        <div class="course-launch__meta">
-          <div class="course-launch__signals" aria-label="Launch details">
+    <p class="section-label section-label--secondary eyebrow">Courses</p>
+    <div class="card">
+      <div class="intro">
+        <div class="meta">
+          <div class="signals" aria-label="Launch details">
             {
               launchSignals.map((signal) => (
-                <span class="course-launch__signal">{signal}</span>
+                <span class="signal">{signal}</span>
               ))
             }
           </div>
-          <p class="course-launch__status">{courseLaunchLabel}</p>
+          <p class="status">{courseLaunchLabel}</p>
         </div>
-        <p class="course-launch__kicker">
+        <p class="kicker">
           For career switchers and engineers building confidence
         </p>
-        <h2 class="course-launch__heading" id="course-launch-heading">
+        <h2 class="heading" id="course-launch-heading">
           Choose the full bundle or start with one course
         </h2>
-        <p class="course-launch__body">
+        <p class="body">
           Founding enrolment opens soon. Take the full bundle for end-to-end
           context, or pick up the single course that matches what you need right
           now. 1:1 support is included whether you start with one course or take
           the full bundle. {courseSupportOffer.additionalSessionsDetail}
         </p>
-        <div class="course-launch__actions">
+        <div class="links">
           <a
             href="/courses"
             class="button"
@@ -65,44 +61,37 @@ const launchSignals = [
           >
             See the launch details
           </a>
-          <a
-            href="/contact?reason=course-enquiry#contact-form"
-            class="course-launch__link"
-          >
+          <a href="/contact?reason=course-enquiry#contact-form" class="link">
             Ask about the launch and support
           </a>
         </div>
       </div>
 
-      <ul
-        class="course-launch__modules"
-        role="list"
-        aria-label="Course modules"
-      >
+      <ul class="modules" role="list" aria-label="Course modules">
         {
           launchModules.map((module) => (
             <li>
               <a
-                class="course-launch__module"
+                class="module"
                 href={`/courses#course-${module.slug}`}
                 aria-label={`Jump to ${module.title} details`}
               >
-                <div class="course-launch__module-header">
+                <div class="module-header">
                   <span
-                    class="course-launch__module-icon"
+                    class="module-icon"
                     aria-hidden="true"
                     set:html={module.icon}
                   />
-                  <p class="course-launch__module-title">{module.title}</p>
+                  <p class="module-heading">{module.title}</p>
                 </div>
-                <p class="course-launch__module-copy">{module.teaser}</p>
+                <p class="module-copy">{module.teaser}</p>
               </a>
             </li>
           ))
         }
       </ul>
 
-      <div class="course-launch__form">
+      <div class="form">
         <CourseInterestForm
           idPrefix="course-launch"
           source="course-launch-home"
@@ -121,11 +110,11 @@ const launchSignals = [
     padding: 0 1.5rem;
   }
 
-  .course-launch__section-label {
+  .eyebrow {
     margin-bottom: 1.5rem;
   }
 
-  .course-launch__card {
+  .card {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
@@ -155,11 +144,11 @@ const launchSignals = [
     }
   }
 
-  .course-launch__intro {
+  .intro {
     margin-bottom: 1rem;
   }
 
-  .course-launch__meta {
+  .meta {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
@@ -167,14 +156,14 @@ const launchSignals = [
     margin-bottom: 0.85rem;
   }
 
-  .course-launch__actions {
+  .links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1rem;
   }
 
-  .course-launch__signals {
+  .signals {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
@@ -182,7 +171,7 @@ const launchSignals = [
     margin: 0;
   }
 
-  .course-launch__signal {
+  .signal {
     display: inline-flex;
     align-items: center;
     min-height: 1.85rem;
@@ -203,7 +192,7 @@ const launchSignals = [
     color: color-mix(in srgb, var(--text-primary) 84%, var(--accent-secondary));
   }
 
-  .course-launch__link {
+  .link {
     display: inline-flex;
     align-items: center;
     min-height: 2.85rem;
@@ -216,7 +205,7 @@ const launchSignals = [
     color: var(--accent-secondary);
   }
 
-  .course-launch__status {
+  .status {
     display: inline-flex;
     align-items: center;
     justify-self: end;
@@ -234,7 +223,7 @@ const launchSignals = [
       color-mix(in srgb, var(--accent-secondary) 24%, transparent);
   }
 
-  .course-launch__kicker {
+  .kicker {
     margin: 0 0 0.35rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
@@ -244,20 +233,20 @@ const launchSignals = [
     color: var(--accent-secondary);
   }
 
-  .course-launch__heading {
+  .heading {
     margin: 0;
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     line-height: 1;
     color: var(--text-primary);
   }
 
-  .course-launch__body {
+  .body {
     margin: 0.65rem 0 0;
     color: var(--text-muted);
     max-width: 60ch;
   }
 
-  .course-launch__modules {
+  .modules {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -268,11 +257,11 @@ const launchSignals = [
     align-items: stretch;
   }
 
-  .course-launch__modules li {
+  .modules li {
     display: flex;
   }
 
-  .course-launch__module {
+  .module {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -305,19 +294,19 @@ const launchSignals = [
     }
   }
 
-  .course-launch__modules li:nth-child(2) .course-launch__module {
+  .modules li:nth-child(2) .module {
     animation-delay: 80ms;
   }
 
-  .course-launch__modules li:nth-child(3) .course-launch__module {
+  .modules li:nth-child(3) .module {
     animation-delay: 160ms;
   }
 
-  .course-launch__modules li:nth-child(4) .course-launch__module {
+  .modules li:nth-child(4) .module {
     animation-delay: 240ms;
   }
 
-  .course-launch__module-title {
+  .module-heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.95rem;
@@ -327,13 +316,13 @@ const launchSignals = [
     font-weight: 700;
   }
 
-  .course-launch__module-header {
+  .module-header {
     display: flex;
     align-items: center;
     gap: 0.7rem;
   }
 
-  .course-launch__module-icon {
+  .module-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -353,14 +342,14 @@ const launchSignals = [
     }
   }
 
-  .course-launch__module-copy {
+  .module-copy {
     margin: 0.35rem 0 0;
     font-size: 0.92rem;
     color: var(--text-muted);
     line-height: 1.45;
   }
 
-  .course-launch__form {
+  .form {
     margin-top: 1rem;
   }
 
@@ -376,19 +365,19 @@ const launchSignals = [
   }
 
   @media (min-width: 768px) {
-    .course-launch__modules {
+    .modules {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (min-width: 1100px) {
-    .course-launch__modules {
+    .modules {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .course-launch__module {
+    .module {
       animation: none;
     }
   }

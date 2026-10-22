@@ -25,16 +25,11 @@ const formId = `${idPrefix}-form`;
 const feedbackId = `${idPrefix}-feedback`;
 const emailId = `${idPrefix}-email`;
 const websiteId = `${idPrefix}-website`;
-const formClassName = [
-  "course-interest-form",
-  stackFields ? "course-interest-form--stacked" : "",
-]
-  .filter(Boolean)
-  .join(" ");
 ---
 
 <form
-  class={formClassName}
+  class="course-interest-form"
+  data-stacked={stackFields || undefined}
   id={formId}
   novalidate
   aria-label={ariaLabel}
@@ -43,8 +38,8 @@ const formClassName = [
   data-success={successMessage}
   data-button-label={buttonLabel}
 >
-  <p class="course-interest-form__fineprint">{fineprint}</p>
-  <p class="course-interest-form__honeypot" aria-hidden="true">
+  <p class="fineprint">{fineprint}</p>
+  <p class="honeypot" aria-hidden="true">
     <label for={websiteId}>Leave this blank</label>
     <input
       id={websiteId}
@@ -54,33 +49,27 @@ const formClassName = [
       autocomplete="off"
     />
   </p>
-  <div class="course-interest-form__field">
+  <div class="entry">
     <label for={emailId} class="visually-hidden">Email address</label>
     <input
       id={emailId}
       name="email"
       type="email"
-      class="course-interest-form__input"
+      class="email"
       placeholder={placeholder}
       autocomplete="email"
       required
     />
     <button
       type="submit"
-      class="button course-interest-form__btn"
+      class="button submit"
       data-variant="ink"
       data-size="large"
     >
       {buttonLabel}
     </button>
   </div>
-  <p
-    class="course-interest-form__feedback"
-    id={feedbackId}
-    aria-live="polite"
-    hidden
-  >
-  </p>
+  <p class="feedback" id={feedbackId} aria-live="polite" hidden></p>
 </form>
 
 <script>
@@ -94,9 +83,6 @@ const formClassName = [
       bindSubscribeForm({
         formId: form.id,
         emailId: form.dataset.emailId!,
-        feedbackClass: "course-interest-form__feedback",
-        feedbackSuccessClass: "course-interest-form__feedback--success",
-        feedbackErrorClass: "course-interest-form__feedback--error",
         successLabel: form.dataset.success!,
         defaultButtonLabel: form.dataset.buttonLabel!,
         source: form.dataset.source,
@@ -109,7 +95,7 @@ const formClassName = [
     width: 100%;
   }
 
-  .course-interest-form__fineprint {
+  .fineprint {
     margin: 0 0 0.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.72rem;
@@ -119,7 +105,7 @@ const formClassName = [
     color: var(--text-muted);
   }
 
-  .course-interest-form__honeypot {
+  .honeypot {
     position: absolute;
     left: -9999px;
     width: 1px;
@@ -129,13 +115,13 @@ const formClassName = [
     pointer-events: none;
   }
 
-  .course-interest-form__field {
+  .entry {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .course-interest-form__input {
+  .email {
     width: 100%;
     min-height: 2.85rem;
     padding: 0.75rem 1rem;
@@ -168,7 +154,7 @@ const formClassName = [
     }
   }
 
-  .course-interest-form__btn {
+  .submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -181,34 +167,34 @@ const formClassName = [
     }
   }
 
-  .course-interest-form__feedback {
+  .feedback {
     margin-top: 0.6rem;
     font-size: 0.875rem;
 
-    &:where(.course-interest-form__feedback--success) {
+    &:where([data-status="success"]) {
       color: var(--color-success);
     }
 
-    &:where(.course-interest-form__feedback--error) {
+    &:where([data-status="error"]) {
       color: var(--color-danger);
     }
   }
 
   @media (min-width: 768px) {
-    .course-interest-form__field {
+    .entry {
       align-items: stretch;
       flex-direction: row;
     }
 
-    .course-interest-form__btn {
+    .submit {
       min-width: 13.5rem;
     }
 
-    .course-interest-form--stacked .course-interest-form__field {
+    .course-interest-form:where([data-stacked]) .entry {
       flex-direction: column;
     }
 
-    .course-interest-form--stacked .course-interest-form__btn {
+    .course-interest-form:where([data-stacked]) .submit {
       min-width: 0;
     }
   }

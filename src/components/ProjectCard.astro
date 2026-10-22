@@ -38,53 +38,47 @@ const {
 const githubIcon = faIcon(faGithub, { size: 16 });
 
 const statusVariant: Record<string, string> = {
-  Active: "project-card__status--active",
-  "In development": "project-card__status--wip",
-  Archived: "project-card__status--archived",
+  Active: "active",
+  "In development": "wip",
+  Archived: "archived",
 };
 ---
 
 <article
-  class:list={[
-    "project-card",
-    { "project-card--with-preview": previewCards?.length },
-  ]}
+  class="project-card"
+  data-has-preview={Boolean(previewCards?.length) || undefined}
 >
-  <div class="project-card__content">
-    <div class="project-card__header">
+  <div class="content">
+    <div class="header">
       <span
-        class="project-card__icon"
+        class="icon"
         aria-hidden="true"
         set:html={getProjectIcon(slug, 20)}
       />
-      <div class="project-card__heading-group">
-        <div class="project-card__title-row">
-          <h3 class="project-card__title">{name}</h3>
-          <span class:list={["project-card__status", statusVariant[status]]}
+      <div class="heading-group">
+        <div class="title-row">
+          <h3 class="heading">{name}</h3>
+          <span class="status" data-status={statusVariant[status]}
             >{status}</span
           >
         </div>
-        {tagline && <p class="project-card__tagline">{tagline}</p>}
+        {tagline && <p class="tagline">{tagline}</p>}
       </div>
     </div>
-    <p class="project-card__body">{summary}</p>
-    <ul class="project-card__tags" role="list">
+    <p class="body">{summary}</p>
+    <ul class="tags" role="list">
       {techStack.map((tech) => <li>{tech}</li>)}
     </ul>
-    <div class="project-card__links">
-      <a
-        class="project-card__cta"
-        href={repoUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+    <div class="links">
+      <a class="cta" href={repoUrl} target="_blank" rel="noopener noreferrer">
         <Fragment set:html={githubIcon} />
         <span>View on GitHub</span>
       </a>
       {
         homepageUrl && (
           <a
-            class="project-card__cta project-card__cta--secondary"
+            class="cta"
+            data-variant="secondary"
             href={homepageUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -98,28 +92,28 @@ const statusVariant: Record<string, string> = {
 
   {
     previewCards && previewCards.length > 0 && (
-      <div class="project-card__preview" aria-hidden="true">
-        <div class="project-card__window">
-          <div class="project-card__window-chrome">
-            <span class="project-card__dot project-card__dot--close" />
-            <span class="project-card__dot project-card__dot--min" />
-            <span class="project-card__dot project-card__dot--max" />
-            <span class="project-card__window-title">{name}</span>
+      <div class="preview" aria-hidden="true">
+        <div class="window">
+          <div class="window-chrome">
+            <span class="dot" data-action="close" />
+            <span class="dot" data-action="min" />
+            <span class="dot" data-action="max" />
+            <span class="window-heading">{name}</span>
           </div>
           {slug === "nioh2-save-editor" && (
-            <div class="project-card__window-brand">
+            <div class="window-brand">
               <Image src={niohLogo} alt="" width={220} loading="lazy" />
             </div>
           )}
-          <div class="project-card__window-body">
+          <div class="window-body">
             {previewCards.map((card) => (
               <div
-                class="project-card__game-card"
+                class="game-card"
                 style={`background: linear-gradient(145deg, ${card.accentColor} 0%, ${card.accentColor}88 100%);`}
               >
-                <span class="project-card__game-title">{card.label}</span>
-                <span class="project-card__game-sub">{card.sublabel}</span>
-                <span class="project-card__game-cta">Select →</span>
+                <span class="game-heading">{card.label}</span>
+                <span class="game-sub">{card.sublabel}</span>
+                <span class="game-cta">Select →</span>
               </div>
             ))}
           </div>
@@ -167,7 +161,7 @@ const statusVariant: Record<string, string> = {
       pointer-events: none;
     }
 
-    &:where(.project-card--with-preview) {
+    &:where([data-has-preview]) {
       @media (min-width: 768px) {
         grid-template-columns: 1fr 320px;
       }
@@ -195,20 +189,20 @@ const statusVariant: Record<string, string> = {
     }
   }
 
-  .project-card__content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
     padding: 1.75rem 1.5rem 1.75rem 2rem;
   }
 
-  .project-card__header {
+  .header {
     display: flex;
     align-items: flex-start;
     gap: 0.85rem;
   }
 
-  .project-card__icon {
+  .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -225,7 +219,7 @@ const statusVariant: Record<string, string> = {
     color: var(--accent-primary);
   }
 
-  .project-card__heading-group {
+  .heading-group {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -233,14 +227,14 @@ const statusVariant: Record<string, string> = {
     min-width: 0;
   }
 
-  .project-card__title-row {
+  .title-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.55rem;
   }
 
-  .project-card__title {
+  .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.45rem;
@@ -251,13 +245,13 @@ const statusVariant: Record<string, string> = {
     color: var(--text-primary);
   }
 
-  .project-card__tagline {
+  .tagline {
     margin: 0;
     font-size: 0.83rem;
     color: var(--text-muted);
   }
 
-  .project-card__status {
+  .status {
     flex-shrink: 0;
     padding: 0.22rem 0.6rem;
     border-radius: var(--radius-pill);
@@ -268,30 +262,30 @@ const statusVariant: Record<string, string> = {
     letter-spacing: 0.08em;
     text-transform: uppercase;
 
-    &:where(.project-card__status--active) {
+    &:where([data-status="active"]) {
       color: var(--accent-secondary);
       background: color-mix(in srgb, var(--accent-secondary) 10%, transparent);
     }
 
-    &:where(.project-card__status--wip) {
+    &:where([data-status="wip"]) {
       color: var(--accent-primary);
       background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
     }
 
-    &:where(.project-card__status--archived) {
+    &:where([data-status="archived"]) {
       color: var(--text-muted);
       background: color-mix(in srgb, var(--text-muted) 10%, transparent);
     }
   }
 
-  .project-card__body {
+  .body {
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.65;
     color: var(--text-primary);
   }
 
-  .project-card__tags {
+  .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
@@ -313,14 +307,14 @@ const statusVariant: Record<string, string> = {
     }
   }
 
-  .project-card__links {
+  .links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
     margin-top: auto;
   }
 
-  .project-card__cta {
+  .cta {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -349,7 +343,7 @@ const statusVariant: Record<string, string> = {
       outline-offset: 3px;
     }
 
-    &:where(.project-card__cta--secondary) {
+    &:where([data-variant="secondary"]) {
       background: transparent;
       border-color: var(--border-subtle);
       color: var(--text-muted);
@@ -364,7 +358,7 @@ const statusVariant: Record<string, string> = {
   }
 
   /* ── Mini app-window preview (decorative, aria-hidden) ── */
-  .project-card__preview {
+  .preview {
     position: relative;
     display: flex;
     align-items: center;
@@ -406,7 +400,7 @@ const statusVariant: Record<string, string> = {
   }
 
   /* Fixed dark palette — intentionally theme-invariant to simulate a real desktop window. */
-  .project-card__window {
+  .window {
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -417,7 +411,7 @@ const statusVariant: Record<string, string> = {
       inset 0 0 0 0.5px rgba(255, 255, 255, 0.06);
   }
 
-  .project-card__window-chrome {
+  .window-chrome {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -426,27 +420,27 @@ const statusVariant: Record<string, string> = {
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  .project-card__dot {
+  .dot {
     width: 9px;
     height: 9px;
     border-radius: 50%;
     flex-shrink: 0;
 
-    &:where(.project-card__dot--close) {
+    &:where([data-action="close"]) {
       background: #ff5f57;
     }
 
-    &:where(.project-card__dot--min) {
+    &:where([data-action="min"]) {
       background: #febc2e;
     }
 
-    &:where(.project-card__dot--max) {
+    &:where([data-action="max"]) {
       background: #28c840;
     }
   }
 
   /* Backlit ambience behind the licensed logo mark, echoing the real app's title screen */
-  .project-card__window-brand {
+  .window-brand {
     display: flex;
     justify-content: center;
     padding: 14px 16px 4px;
@@ -464,7 +458,7 @@ const statusVariant: Record<string, string> = {
     }
   }
 
-  .project-card__window-title {
+  .window-heading {
     margin-left: 4px;
     overflow: hidden;
     white-space: nowrap;
@@ -474,14 +468,14 @@ const statusVariant: Record<string, string> = {
     letter-spacing: 0.02em;
   }
 
-  .project-card__window-body {
+  .window-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     padding: 16px;
   }
 
-  .project-card__game-card {
+  .game-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -492,7 +486,7 @@ const statusVariant: Record<string, string> = {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .project-card__game-title {
+  .game-heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
     font-weight: 800;
@@ -501,13 +495,13 @@ const statusVariant: Record<string, string> = {
     color: rgba(255, 255, 255, 0.9);
   }
 
-  .project-card__game-sub {
+  .game-sub {
     font-size: 0.6rem;
     line-height: 1.35;
     color: rgba(255, 255, 255, 0.45);
   }
 
-  .project-card__game-cta {
+  .game-cta {
     display: block;
     margin-top: 6px;
     font-size: 0.65rem;
