@@ -50,29 +50,29 @@
   }
 }
 
-.field:not(:last-child) {
+.form-field:not(:last-child) {
   margin-bottom: 0.75rem;
 }
 
-.field.is-grouped {
+.form-field-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
 }
 
-.label {
+.form-label {
   display: block;
   margin-bottom: 0.5em;
   font-weight: 600;
 }
 
-.control {
+.form-control {
   position: relative;
 }
 
-.input,
-.textarea {
+.text-input,
+.text-area {
   display: block;
   width: 100%;
   border: 1px solid var(--border-subtle);
@@ -104,12 +104,12 @@
   }
 }
 
-.input {
+.text-input {
   height: 2.5em;
   padding: calc(0.5em - 1px) calc(0.75em - 1px);
 }
 
-.textarea {
+.text-area {
   min-width: 100%;
   max-width: 100%;
   min-height: 8em;

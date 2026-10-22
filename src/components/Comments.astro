@@ -53,11 +53,11 @@ const { postId } = Astro.props;
             >
           </p>
 
-          <div class="field">
-            <label class="label" for="comment-name">Name</label>
-            <div class="control">
+          <div class="form-field">
+            <label class="form-label" for="comment-name">Name</label>
+            <div class="form-control">
               <input
-                class="input"
+                class="text-input"
                 type="text"
                 id="comment-name"
                 name="name"
@@ -69,13 +69,13 @@ const { postId } = Astro.props;
             </div>
           </div>
 
-          <div class="field">
-            <label class="label" for="comment-email">
+          <div class="form-field">
+            <label class="form-label" for="comment-email">
               Email <span class="comments__optional">(never published)</span>
             </label>
-            <div class="control">
+            <div class="form-control">
               <input
-                class="input"
+                class="text-input"
                 type="email"
                 id="comment-email"
                 name="email"
@@ -87,11 +87,11 @@ const { postId } = Astro.props;
             </div>
           </div>
 
-          <div class="field">
-            <label class="label" for="comment-body">Comment</label>
-            <div class="control">
+          <div class="form-field">
+            <label class="form-label" for="comment-body">Comment</label>
+            <div class="form-control">
               <textarea
-                class="textarea"
+                class="text-area"
                 id="comment-body"
                 name="comment"
                 required
@@ -101,8 +101,8 @@ const { postId } = Astro.props;
             </div>
           </div>
 
-          <div class="field is-grouped">
-            <div class="control">
+          <div class="form-field-row">
+            <div class="form-control">
               <button
                 class="action-button"
                 data-variant="primary"
@@ -328,34 +328,34 @@ const { postId } = Astro.props;
           <p class="is-hidden" aria-hidden="true">
             <label>Leave this blank: <input name="bot-field" tabindex="-1" /></label>
           </p>
-          <div class="field">
-            <label class="label" for="reply-name-${uid}">Name</label>
-            <div class="control">
-              <input class="input" type="text" id="reply-name-${uid}" name="name" required placeholder="Your name" autocomplete="name" maxlength="100" />
+          <div class="form-field">
+            <label class="form-label" for="reply-name-${uid}">Name</label>
+            <div class="form-control">
+              <input class="text-input" type="text" id="reply-name-${uid}" name="name" required placeholder="Your name" autocomplete="name" maxlength="100" />
             </div>
           </div>
-          <div class="field">
-            <label class="label" for="reply-email-${uid}">
+          <div class="form-field">
+            <label class="form-label" for="reply-email-${uid}">
               Email <span class="comments__optional">(never published)</span>
             </label>
-            <div class="control">
-              <input class="input" type="email" id="reply-email-${uid}" name="email" required placeholder="you@example.com" autocomplete="email" maxlength="254" />
+            <div class="form-control">
+              <input class="text-input" type="email" id="reply-email-${uid}" name="email" required placeholder="you@example.com" autocomplete="email" maxlength="254" />
             </div>
           </div>
-          <div class="field">
-            <label class="label" for="reply-body-${uid}">Reply</label>
-            <div class="control">
-              <textarea class="textarea" id="reply-body-${uid}" name="comment" required rows="4" placeholder="Write your reply…" maxlength="5000"></textarea>
+          <div class="form-field">
+            <label class="form-label" for="reply-body-${uid}">Reply</label>
+            <div class="form-control">
+              <textarea class="text-area" id="reply-body-${uid}" name="comment" required rows="4" placeholder="Write your reply…" maxlength="5000"></textarea>
             </div>
           </div>
-          <div class="field is-grouped">
-            <div class="control">
+          <div class="form-field-row">
+            <div class="form-control">
               <button
                 class="action-button"
                 data-variant="primary"
                 type="submit">Post reply</button>
             </div>
-            <div class="control">
+            <div class="form-control">
               <button
                 type="button"
                 class="action-button comment-reply-form__cancel"
@@ -698,11 +698,11 @@ const { postId } = Astro.props;
       margin-bottom: 0.875rem;
     }
 
-    :global(.comment-reply-form .field) {
+    :global(.comment-reply-form .form-field) {
       margin-bottom: 0.75rem;
     }
 
-    :global(.comment-reply-form .label) {
+    :global(.comment-reply-form .form-label) {
       color: var(--text-primary);
       font-weight: 600;
       font-size: 0.8125rem;
@@ -710,16 +710,16 @@ const { postId } = Astro.props;
       letter-spacing: 0.05em;
     }
 
-    :global(.comment-reply-form .input),
-    :global(.comment-reply-form .textarea) {
+    :global(.comment-reply-form .text-input),
+    :global(.comment-reply-form .text-area) {
       background-color: var(--surface-elevated);
       border-color: var(--border-subtle);
       color: var(--text-primary);
       border-radius: var(--radius-tight);
     }
 
-    :global(.comment-reply-form .input:focus),
-    :global(.comment-reply-form .textarea:focus) {
+    :global(.comment-reply-form .text-input:focus),
+    :global(.comment-reply-form .text-area:focus) {
       border-color: var(--accent-primary);
       box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
     }
@@ -762,8 +762,8 @@ const { postId } = Astro.props;
     }
 
     :global([data-theme="dark"]) {
-      :global(.comment-reply-form .input),
-      :global(.comment-reply-form .textarea) {
+      :global(.comment-reply-form .text-input),
+      :global(.comment-reply-form .text-area) {
         background-color: var(--surface-page);
         border-color: var(--border-subtle);
         color: var(--text-primary);
@@ -811,7 +811,7 @@ const { postId } = Astro.props;
     .comments__form-wrapper {
       padding-top: 0.5rem;
 
-      .label {
+      .form-label {
         color: var(--text-primary);
         font-weight: 600;
         font-size: 0.875rem;
@@ -819,8 +819,8 @@ const { postId } = Astro.props;
         letter-spacing: 0.05em;
       }
 
-      .input,
-      .textarea {
+      .text-input,
+      .text-area {
         background-color: var(--surface-elevated);
         border-color: var(--border-subtle);
         color: var(--text-primary);
@@ -884,8 +884,8 @@ const { postId } = Astro.props;
       }
 
       .comments__form-wrapper {
-        .input,
-        .textarea {
+        .text-input,
+        .text-area {
           background-color: var(--surface-elevated);
           border-color: var(--border-subtle);
           color: var(--text-primary);
