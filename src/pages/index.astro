@@ -63,11 +63,18 @@ const communityOfferItems = [
               ></span
             >
           </p>
-          <div class="buttons">
-            <a href="/guides" class="button is-primary is-medium"
-              >Choose a guide</a
+          <div class="action-group">
+            <a
+              href="/guides"
+              class="action-button"
+              data-variant="primary"
+              data-size="large">Choose a guide</a
             >
-            <a href="/contact" class="button is-light is-medium">Get guidance</a
+            <a
+              href="/contact"
+              class="action-button"
+              data-variant="subtle"
+              data-size="large">Get guidance</a
             >
           </div>
         </div>
@@ -158,7 +165,12 @@ const communityOfferItems = [
           </div>
           <div class="community-offer__footer">
             <div class="community-offer__actions">
-              <a href="/charity-support" class="button is-ink is-medium">
+              <a
+                href="/charity-support"
+                class="action-button"
+                data-variant="ink"
+                data-size="large"
+              >
                 See how it works
               </a>
               <a
@@ -347,7 +359,7 @@ const communityOfferItems = [
     @media (max-width: 639px) {
       align-items: stretch;
 
-      > .button {
+      > .action-button {
         width: 100%;
         justify-content: center;
       }

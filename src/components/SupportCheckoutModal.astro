@@ -198,7 +198,13 @@ const tipOptions: TipOption[] = [
             >
               Secure payment is handled by Stripe.
             </p>
-            <button class="button is-ink is-medium" type="submit" data-launch>
+            <button
+              class="action-button"
+              data-variant="ink"
+              data-size="large"
+              type="submit"
+              data-launch
+            >
               Continue to payment
             </button>
           </div>
@@ -267,7 +273,13 @@ const tipOptions: TipOption[] = [
             >
               Payments are handled securely by Stripe.
             </p>
-            <button class="button is-ink is-medium" type="submit" data-pay>
+            <button
+              class="action-button"
+              data-variant="ink"
+              data-size="large"
+              type="submit"
+              data-pay
+            >
               Pay {defaultTipLabel}
             </button>
           </div>
@@ -305,7 +317,9 @@ const tipOptions: TipOption[] = [
           <button
             type="button"
             data-support-modal-finish
-            class="button is-ink is-medium"
+            class="action-button"
+            data-variant="ink"
+            data-size="large"
           >
             Back to the page
           </button>
@@ -2483,7 +2497,8 @@ const tipOptions: TipOption[] = [
       0 10px 24px rgba(var(--overlay-rgb), 0.22);
   }
 
-  .support-modal :global(.button.is-ink.is-medium) {
+  .support-modal
+    :global(.action-button[data-variant="ink"][data-size="large"]) {
     min-height: 2.6rem;
     padding: 0.7rem 1rem;
     font-size: 0.9rem;

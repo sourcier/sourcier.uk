@@ -104,7 +104,8 @@ const { postId } = Astro.props;
           <div class="field is-grouped">
             <div class="control">
               <button
-                class="button is-primary"
+                class="action-button"
+                data-variant="primary"
                 type="submit"
                 id="comment-submit"
               >
@@ -349,10 +350,16 @@ const { postId } = Astro.props;
           </div>
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-primary" type="submit">Post reply</button>
+              <button
+                class="action-button"
+                data-variant="primary"
+                type="submit">Post reply</button>
             </div>
             <div class="control">
-              <button type="button" class="button is-light comment-reply-form__cancel">Cancel</button>
+              <button
+                type="button"
+                class="action-button comment-reply-form__cancel"
+                data-variant="subtle">Cancel</button>
             </div>
             <p class="comment-reply-form__status" aria-live="polite"></p>
           </div>
@@ -717,7 +724,7 @@ const { postId } = Astro.props;
       box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
     }
 
-    :global(.comment-reply-form .button.is-primary) {
+    :global(.comment-reply-form .action-button[data-variant="primary"]) {
       background-color: var(--accent-primary);
       border-color: var(--accent-primary);
       color: var(--text-on-strong);
@@ -728,12 +735,14 @@ const { postId } = Astro.props;
       border-radius: var(--radius-tight);
     }
 
-    :global(.comment-reply-form .button.is-primary:hover) {
+    :global(.comment-reply-form .action-button[data-variant="primary"]:hover) {
       background-color: var(--accent-primary-deep);
       border-color: var(--accent-primary-deep);
     }
 
-    :global(.comment-reply-form .button.is-primary:disabled) {
+    :global(
+      .comment-reply-form .action-button[data-variant="primary"]:disabled
+    ) {
       opacity: 0.5;
       cursor: not-allowed;
     }
@@ -823,7 +832,7 @@ const { postId } = Astro.props;
         }
       }
 
-      .button.is-primary {
+      .action-button[data-variant="primary"] {
         background-color: var(--accent-primary);
         border-color: var(--accent-primary);
         color: var(--text-on-strong);
