@@ -1,5 +1,5 @@
 /* — Navbar: frosted glass with pink accent on hover */
-.navbar {
+.site-nav {
   min-height: 3.25rem;
   background:
     radial-gradient(
@@ -33,14 +33,14 @@
     }
   }
 
-  .navbar-brand {
+  .site-nav-brand {
     display: flex;
     align-items: stretch;
     flex-shrink: 0;
     min-height: 3.25rem;
   }
 
-  .navbar-item {
+  .site-nav-item {
     display: flex;
     align-items: center;
     flex-grow: 0;
@@ -52,26 +52,26 @@
     color: var(--text-on-strong-alpha-85);
   }
 
-  .navbar-menu {
+  .site-nav-menu {
     display: none;
     padding: 0.5rem 0;
     background-color: transparent;
     box-shadow: 0 0.5em 1em rgba(var(--overlay-rgb), 0.1);
 
-    &.is-active {
+    &[data-open] {
       display: block;
     }
   }
 
-  .navbar-start {
+  .site-nav-start {
     display: block;
   }
 
-  .navbar-end {
+  .site-nav-end {
     display: block;
   }
 
-  .navbar-burger {
+  .site-nav-toggle {
     appearance: none;
     display: inline-flex;
     align-items: center;
@@ -116,7 +116,7 @@
       }
     }
 
-    &.is-active span {
+    &[aria-expanded="true"] span {
       &:nth-child(1) {
         transform: rotate(-45deg);
       }
@@ -136,52 +136,52 @@
     display: flex;
     align-items: stretch;
 
-    .navbar-menu,
-    .navbar-start,
-    .navbar-end {
+    .site-nav-menu,
+    .site-nav-start,
+    .site-nav-end {
       display: flex;
       align-items: stretch;
     }
 
-    .navbar-menu {
+    .site-nav-menu {
       flex-grow: 1;
       flex-shrink: 0;
       padding: 0;
     }
 
-    .navbar-menu.is-active {
+    .site-nav-menu[data-open] {
       display: flex;
     }
 
-    .navbar-start {
+    .site-nav-start {
       justify-content: flex-start;
       margin-inline-end: auto;
     }
 
-    .navbar-end {
+    .site-nav-end {
       justify-content: flex-end;
       margin-inline-start: auto;
     }
 
-    .navbar-burger {
+    .site-nav-toggle {
       display: none;
     }
   }
 
   @media (min-width: 1024px) and (max-width: 1215px) {
-    .navbar-start .navbar-item,
-    .navbar-end > .navbar-item {
+    .site-nav-start .site-nav-item,
+    .site-nav-end > .site-nav-item {
       padding-inline: 0.375rem;
     }
   }
 
-  .navbar-item:hover,
-  .navbar-item:focus,
-  .navbar-item:focus-within {
+  .site-nav-item:hover,
+  .site-nav-item:focus,
+  .site-nav-item:focus-within {
     background-color: transparent;
   }
 
-  .navbar-item img {
+  .site-nav-item img {
     width: 2rem;
     height: 2rem;
     max-height: 2rem;
@@ -190,23 +190,25 @@
     flex-shrink: 0;
   }
 
-  .navbar-burger span {
+  .site-nav-toggle span {
     background-color: var(--text-on-strong);
   }
 
   @media (max-width: 1023px) {
-    .navbar-item:not(.navbar-item:has(img)):not(.navbar-item:has(.buttons)) {
+    .site-nav-item:not(.site-nav-item:has(img)):not(
+        .site-nav-item:has(.buttons)
+      ) {
       font-size: 1rem;
       padding: 0.75rem 1rem;
       text-align: center;
       justify-content: center;
     }
 
-    .navbar-end {
+    .site-nav-end {
       padding-top: 0;
     }
 
-    .navbar-item:has(.buttons) {
+    .site-nav-item:has(.buttons) {
       padding: 0.75rem 1rem;
       border-top: 1px solid var(--text-on-strong-alpha-10);
       margin-top: 0.75rem;
@@ -290,7 +292,7 @@
   }
 }
 
-.navbar-brand-actions {
+.site-nav-brand-actions {
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -300,13 +302,13 @@
   }
 }
 
-.navbar-search-mobile {
+.site-nav-search-mobile {
   display: flex;
   align-items: center;
   color: rgba(var(--text-on-strong-rgb), 0.85);
 }
 
-.navbar-brand-name {
+.site-nav-name {
   font-weight: 600;
   font-size: 1rem;
   padding-left: 0.5rem;
@@ -315,7 +317,7 @@
   color: var(--text-on-strong);
 }
 
-.navbar-item:not(.navbar-item:has(img)):not(.navbar-item:has(.buttons)) {
+.site-nav-item:not(.site-nav-item:has(img)):not(.site-nav-item:has(.buttons)) {
   text-transform: uppercase;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -350,7 +352,7 @@
 }
 
 /* — Navbar CTA button */
-.navbar-cta {
+.site-nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;

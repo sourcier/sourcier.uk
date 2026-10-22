@@ -92,7 +92,7 @@ for (const width of [1215, 1216, 1407, 1408]) {
   test(`container width at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
-    await expect(page.locator(".navbar > .container")).toHaveCSS(
+    await expect(page.locator(".site-nav > .container")).toHaveCSS(
       "max-width",
       `${width < 1216 ? 960 : width < 1408 ? 1152 : 1344}px`,
     );
@@ -126,10 +126,12 @@ test.describe("touch interactions", () => {
         await expect(menu).toBeHidden();
         await burger.tap();
         await expect(burger).toHaveAttribute("aria-expanded", "true");
+        await expect(menu).toHaveAttribute("data-open", "");
         await expect(menu).toBeVisible();
         await expectWithinViewport(menu, width);
         await burger.tap();
         await expect(burger).toHaveAttribute("aria-expanded", "false");
+        await expect(menu).not.toHaveAttribute("data-open");
         await expect(menu).toBeHidden();
       } else {
         await expect(burger).toBeHidden();
@@ -214,7 +216,7 @@ for (const path of [
     await visit(page, path);
     expect(await page.evaluate(() => window.innerWidth)).toBe(320);
     await expectWithinViewport(page.locator("h1").first(), 320);
-    await expectWithinViewport(page.locator(".navbar-brand"), 320);
+    await expectWithinViewport(page.locator(".site-nav-brand"), 320);
     await expectWithinViewport(page.locator(".footer"), 320);
     const overflow = await page.locator("main").evaluate((main) => {
       const width = document.documentElement.clientWidth;

@@ -37,7 +37,7 @@
   }
 }
 
-.navbar .social-icon {
+.site-nav .social-icon {
   color: var(--text-on-strong-alpha-70);
 
   &:hover {

@@ -20,24 +20,23 @@ function isActive(href: string) {
 }
 ---
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="site-nav" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+    <div class="site-nav-brand">
+      <a class="site-nav-item" href="/">
         <Image
           src={avatarImage}
           alt="Roger Rajaratnam avatar"
           width={64}
           height={64}
-          class="is-rounded"
           loading="eager"
         />
-        <span class="navbar-brand-name">Sourcier</span>
+        <span class="site-nav-name">Sourcier</span>
       </a>
 
-      <div class="navbar-brand-actions">
+      <div class="site-nav-brand-actions">
         <button
-          class="social-icon navbar-search-mobile"
+          class="social-icon site-nav-search-mobile"
           aria-label="Open search"
           data-search-open
         >
@@ -45,7 +44,7 @@ function isActive(href: string) {
         </button>
 
         <button
-          class="navbar-burger"
+          class="site-nav-toggle"
           aria-label="menu"
           aria-expanded="false"
           aria-controls="mobileMenu"
@@ -59,50 +58,50 @@ function isActive(href: string) {
       </div>
     </div>
 
-    <div id="mobileMenu" class="navbar-menu">
-      <div class="navbar-start">
+    <div id="mobileMenu" class="site-nav-menu">
+      <div class="site-nav-start">
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/about"
           aria-current={isActive("/about") ? "page" : undefined}>About</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/blog"
           aria-current={isActive("/blog") ? "page" : undefined}>Blog</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/guides"
           aria-current={isActive("/guides") ? "page" : undefined}>Guides</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/courses"
           aria-current={isActive("/courses") ? "page" : undefined}>Courses</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/projects"
           aria-current={isActive("/projects") ? "page" : undefined}>Projects</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/uses"
           aria-current={isActive("/uses") ? "page" : undefined}>Uses</a
         >
         <a
-          class="navbar-item"
+          class="site-nav-item"
           href="/contact"
           aria-current={isActive("/contact") ? "page" : undefined}>Contact</a
         >
       </div>
 
-      <div class="navbar-end">
-        <div class="navbar-item">
+      <div class="site-nav-end">
+        <div class="site-nav-item">
           <div class="buttons">
             <button
-              class="social-icon navbar-search-desktop"
+              class="social-icon site-nav-search-desktop"
               aria-label="Open search"
               data-search-open
             >
@@ -127,7 +126,7 @@ function isActive(href: string) {
               <Fragment set:html={linkedinIcon} />
             </a>
             <ThemeToggle />
-            <a href="/contact" class="navbar-cta">Get guidance</a>
+            <a href="/contact" class="site-nav-cta">Get guidance</a>
           </div>
         </div>
       </div>
