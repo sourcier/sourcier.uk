@@ -370,7 +370,7 @@
 }
 
 /* — Expressive Code: rounded corners when collapsed */
-.expressive-code .ec-collapsible.is-collapsed {
+.expressive-code .ec-collapsible:has([aria-expanded="false"]) {
   border-radius: var(--radius-compact);
   overflow: hidden;
 }
