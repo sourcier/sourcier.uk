@@ -251,16 +251,16 @@ const { postId } = Astro.props;
         listEl.innerHTML = html;
         return;
       }
-      listEl.classList.add("is-fading");
+      listEl.classList.add("fading");
       listEl.addEventListener(
         "animationend",
         () => {
           listEl.innerHTML = html;
-          listEl.classList.remove("is-fading");
-          listEl.classList.add("is-entering");
+          listEl.classList.remove("fading");
+          listEl.classList.add("entering");
           listEl.addEventListener(
             "animationend",
-            () => listEl.classList.remove("is-entering"),
+            () => listEl.classList.remove("entering"),
             { once: true },
           );
         },
@@ -281,6 +281,7 @@ const { postId } = Astro.props;
       submitButton.disabled = true;
       statusEl.textContent = "Posting…";
       statusEl.className = statusClass;
+      statusEl.removeAttribute("data-status");
 
       try {
         const data = new FormData(formEl);
@@ -295,17 +296,17 @@ const { postId } = Astro.props;
         if (res.ok) {
           statusEl.textContent =
             "Thanks — your comment has been submitted and will appear once approved.";
-          statusEl.className = `${statusClass} is-success`;
+          statusEl.dataset.status = "success";
           onSuccess();
           loadComments();
         } else {
           statusEl.textContent = "Something went wrong. Please try again.";
-          statusEl.className = `${statusClass} is-error`;
+          statusEl.dataset.status = "error";
           submitButton.disabled = false;
         }
       } catch {
         statusEl.textContent = "Something went wrong. Please try again.";
-        statusEl.className = `${statusClass} is-error`;
+        statusEl.dataset.status = "error";
         submitButton.disabled = false;
       }
     }
@@ -463,10 +464,10 @@ const { postId } = Astro.props;
       const target = document.getElementById(hash.slice(1));
       if (!target) return;
       target.scrollIntoView({ behavior: "smooth", block: "center" });
-      target.classList.add("is-highlighted");
+      target.classList.add("highlighted");
       target.addEventListener(
         "animationend",
-        () => target.classList.remove("is-highlighted"),
+        () => target.classList.remove("highlighted"),
         { once: true },
       );
     }
@@ -646,7 +647,7 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(.comment.is-highlighted) {
+    :global(.comment.highlighted) {
       animation: comment-highlight-fade 2.4s ease;
     }
 
@@ -751,14 +752,14 @@ const { postId } = Astro.props;
       font-size: 0.8125rem;
       padding-left: 0.5rem;
       align-self: center;
+    }
 
-      &.is-success {
-        color: var(--color-success);
-      }
+    :global(.comment-reply-form__status[data-status="success"]) {
+      color: var(--color-success);
+    }
 
-      &.is-error {
-        color: var(--accent-primary);
-      }
+    :global(.comment-reply-form__status[data-status="error"]) {
+      color: var(--accent-primary);
     }
 
     :global([data-theme="dark"]) {
@@ -773,7 +774,7 @@ const { postId } = Astro.props;
         }
       }
 
-      :global(.comment-reply-form__status.is-success) {
+      :global(.comment-reply-form__status[data-status="success"]) {
         color: var(--color-success-bright);
       }
     }
@@ -800,11 +801,11 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(#comments-list.is-fading) {
+    :global(#comments-list.fading) {
       animation: comments-fade-out 0.2s ease forwards;
     }
 
-    :global(#comments-list.is-entering) {
+    :global(#comments-list.entering) {
       animation: comments-fade-in 0.25s ease forwards;
     }
 
@@ -866,14 +867,14 @@ const { postId } = Astro.props;
       align-self: center;
       font-size: 0.875rem;
       padding-left: 0.5rem;
+    }
 
-      &.is-success {
-        color: var(--color-success);
-      }
+    .comments__form-status[data-status="success"] {
+      color: var(--color-success);
+    }
 
-      &.is-error {
-        color: var(--accent-primary);
-      }
+    .comments__form-status[data-status="error"] {
+      color: var(--accent-primary);
     }
 
     [data-theme="dark"] {
@@ -896,7 +897,7 @@ const { postId } = Astro.props;
         }
       }
 
-      .comments__form-status.is-success {
+      .comments__form-status[data-status="success"] {
         color: var(--color-success-bright);
       }
     }
