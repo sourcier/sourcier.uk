@@ -14,7 +14,7 @@ describe("BlogCardPlaceholder", () => {
     const normalized = normalizeHtml(
       await container.renderToString(BlogCardPlaceholder),
     );
-    expect(normalized).toContain("card__blog--placeholder");
+    expect(normalized).toContain('class="blog-card" data-placeholder');
     expect(normalized).toContain('aria-hidden="true"');
     expect(normalized).toContain("More posts coming soon");
   });

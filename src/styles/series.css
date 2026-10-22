@@ -1,0 +1,39 @@
+/* — Series callout banner (used at the top of series posts) */
+.series-callout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-compact);
+  padding: 0.875rem 1.25rem;
+  margin-bottom: 2rem;
+  background: rgba(var(--accent-primary-rgb), 0.07);
+
+  :where(.series-callout__label) {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  :where(.series-callout__text) {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+
+    a {
+      color: var(--accent-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

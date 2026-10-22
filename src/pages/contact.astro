@@ -42,39 +42,39 @@ const pageTitle = "Contact — Sourcier";
 
   <!-- Contact reasons -->
   <div class="contact-reasons flow-section flow-section--loose">
-    <div class="container is-max-desktop">
-      <ul class="contact-reasons__list" role="list">
-        <li class="contact-reasons__item" id="team-guidance">
-          <span class="contact-reasons__icon-wrap">
-            <span class="contact-reasons__icon" set:html={projectsIcon} />
+    <div class="container" data-width="narrow">
+      <ul class="list" role="list">
+        <li class="item" id="team-guidance">
+          <span class="frame">
+            <span class="icon" set:html={projectsIcon} />
           </span>
           <div>
-            <p class="contact-reasons__title">Engineering practice</p>
-            <p class="contact-reasons__desc">
+            <p class="heading">Engineering practice</p>
+            <p class="description">
               Help for teams that want better delivery, maintainability, and
               engineering habits.
             </p>
           </div>
         </li>
-        <li class="contact-reasons__item">
-          <span class="contact-reasons__icon-wrap">
-            <span class="contact-reasons__icon" set:html={growthIcon} />
+        <li class="item">
+          <span class="frame">
+            <span class="icon" set:html={growthIcon} />
           </span>
           <div>
-            <p class="contact-reasons__title">Career growth</p>
-            <p class="contact-reasons__desc">
+            <p class="heading">Career growth</p>
+            <p class="description">
               Support for engineers who want to grow their confidence, judgment,
               and impact.
             </p>
           </div>
         </li>
-        <li class="contact-reasons__item">
-          <span class="contact-reasons__icon-wrap">
-            <span class="contact-reasons__icon" set:html={mentoringIcon} />
+        <li class="item">
+          <span class="frame">
+            <span class="icon" set:html={mentoringIcon} />
           </span>
           <div>
-            <p class="contact-reasons__title">Transition into tech</p>
-            <p class="contact-reasons__desc">
+            <p class="heading">Transition into tech</p>
+            <p class="description">
               Guidance for people changing careers and trying to build the
               skills, context, and confidence to get started.
             </p>
@@ -85,11 +85,11 @@ const pageTitle = "Contact — Sourcier";
   </div>
 
   <section class="section flow-section flow-section--tight">
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <div class="contact-layout">
         <div class="contact-form-col">
-          <div class="contact-form__panel page-panel page-panel--secondary">
-            <p class="contact-form__intro">
+          <div class="sheet panel" data-tone="secondary">
+            <p class="intro">
               If you want to ask about the courses, are changing careers, trying
               to level up as an engineer, need help improving how your team
               builds software, or you work with a charity or community
@@ -105,13 +105,11 @@ const pageTitle = "Contact — Sourcier";
               data-netlify="true"
               netlify-honeypot="bot-field"
             >
-              <div class="contact-form__row">
-                <div class="contact-form__field">
-                  <label class="contact-form__label" for="contact-name"
-                    >Name</label
-                  >
+              <div class="row">
+                <div class="entry">
+                  <label class="caption" for="contact-name">Name</label>
                   <input
-                    class="contact-form__input"
+                    class="textbox"
                     id="contact-name"
                     type="text"
                     placeholder="Your name"
@@ -119,12 +117,10 @@ const pageTitle = "Contact — Sourcier";
                     required
                   />
                 </div>
-                <div class="contact-form__field">
-                  <label class="contact-form__label" for="contact-email"
-                    >Email</label
-                  >
+                <div class="entry">
+                  <label class="caption" for="contact-email">Email</label>
                   <input
-                    class="contact-form__input"
+                    class="textbox"
                     id="contact-email"
                     type="email"
                     placeholder="your@email.com"
@@ -134,12 +130,10 @@ const pageTitle = "Contact — Sourcier";
                 </div>
               </div>
 
-              <div class="contact-form__field">
-                <label class="contact-form__label" for="contact-reason"
-                  >Reason</label
-                >
+              <div class="entry">
+                <label class="caption" for="contact-reason">Reason</label>
                 <select
-                  class="contact-form__input"
+                  class="select"
                   id="contact-reason"
                   name="reason"
                   style={`--contact-select-caret-icon: ${selectCaretIcon}`}
@@ -164,15 +158,12 @@ const pageTitle = "Contact — Sourcier";
                 </select>
               </div>
 
-              <div
-                class="contact-form__field is-hidden"
-                id="other-reason-field"
-              >
-                <label class="contact-form__label" for="contact-other-reason"
+              <div class="entry hidden" id="other-reason-field">
+                <label class="caption" for="contact-other-reason"
                   >Please specify</label
                 >
                 <input
-                  class="contact-form__input"
+                  class="textbox"
                   id="contact-other-reason"
                   type="text"
                   placeholder="Please specify your reason…"
@@ -180,12 +171,10 @@ const pageTitle = "Contact — Sourcier";
                 />
               </div>
 
-              <div class="contact-form__field">
-                <label class="contact-form__label" for="contact-message"
-                  >Message</label
-                >
+              <div class="entry">
+                <label class="caption" for="contact-message">Message</label>
                 <textarea
-                  class="contact-form__textarea"
+                  class="message"
                   id="contact-message"
                   placeholder="Tell me about your situation, your goals, or the team challenge you want to solve…"
                   name="message"
@@ -193,62 +182,52 @@ const pageTitle = "Contact — Sourcier";
                   required></textarea>
               </div>
 
-              <div class="field is-hidden" aria-hidden="true">
+              <div class="entry hidden" aria-hidden="true">
                 <input name="bot-field" type="text" />
               </div>
 
-              <button class="contact-form__submit" type="submit"
-                >Send Message &rarr;</button
-              >
+              <button class="submit" type="submit">Send Message &rarr;</button>
             </form>
 
-            <div class="contact-success is-hidden" data-success-message>
-              <p class="contact-success__text">
+            <div class="contact-success hidden" data-success-message>
+              <p class="text">
                 &#10003; Message sent — I'll get back to you soon.
               </p>
-              <button class="contact-success__close" type="button"
-                >Dismiss</button
-              >
+              <button class="close" type="button">Dismiss</button>
             </div>
           </div>
         </div>
 
         <aside class="contact-sidebar">
-          <div class="contact-sidebar__panel page-panel">
-            <h2 class="contact-sidebar__heading">Find me online</h2>
-            <div class="contact-sidebar__links">
+          <div class="surface panel">
+            <h2 class="heading">Find me online</h2>
+            <div class="links">
               <a
-                class="contact-sidebar__link"
+                class="anchor"
                 href="https://www.linkedin.com/in/roger-rajaratnam"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span class="contact-sidebar__link-label">
-                  <span
-                    class="contact-sidebar__link-icon"
-                    set:html={linkedinIcon}
-                  />
+                <span class="caption">
+                  <span class="icon" set:html={linkedinIcon} />
                   LinkedIn
                 </span>
-                <span class="contact-sidebar__link-desc"
+                <span class="description"
                   >Mentoring, growth, and engineering leadership</span
                 >
               </a>
 
               <a
-                class="contact-sidebar__link"
+                class="anchor"
                 href="https://github.com/sourcier"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span class="contact-sidebar__link-label">
-                  <span
-                    class="contact-sidebar__link-icon"
-                    set:html={githubIcon}
-                  />
+                <span class="caption">
+                  <span class="icon" set:html={githubIcon} />
                   GitHub
                 </span>
-                <span class="contact-sidebar__link-desc"
+                <span class="description"
                   >Blog code, tooling, and experiments</span
                 >
               </a>
@@ -262,7 +241,7 @@ const pageTitle = "Contact — Sourcier";
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   :global(.page-hero) {
     min-height: clamp(220px, 28vw, 290px);
     padding-bottom: clamp(1.9rem, 4vw, 2.5rem);
@@ -276,7 +255,7 @@ const pageTitle = "Contact — Sourcier";
     z-index: 1;
   }
 
-  .contact-reasons__list {
+  :where(.contact-reasons) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -289,7 +268,7 @@ const pageTitle = "Contact — Sourcier";
     }
   }
 
-  .contact-reasons__item {
+  :where(.contact-reasons) .item {
     --contact-reason-accent: var(--accent-secondary);
     display: flex;
     gap: 1rem;
@@ -345,7 +324,7 @@ const pageTitle = "Contact — Sourcier";
     }
   }
 
-  .contact-reasons__icon-wrap {
+  :where(.contact-reasons) .frame {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -361,24 +340,15 @@ const pageTitle = "Contact — Sourcier";
     transition:
       background-color 0.18s ease,
       transform 0.18s ease;
-
-    .contact-reasons__item:hover & {
-      background-color: color-mix(
-        in srgb,
-        var(--contact-reason-accent) 16%,
-        var(--surface-elevated)
-      );
-      transform: translateY(-2px);
-    }
   }
 
-  .contact-reasons__icon {
+  :where(.contact-reasons) .icon {
     color: var(--contact-reason-accent);
     line-height: 1;
     display: flex;
   }
 
-  .contact-reasons__title {
+  :where(.contact-reasons) .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.25rem;
     font-weight: 800;
@@ -388,7 +358,7 @@ const pageTitle = "Contact — Sourcier";
     margin-bottom: 0.25rem;
   }
 
-  .contact-reasons__desc {
+  :where(.contact-reasons) .description {
     font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--text-muted);
@@ -396,7 +366,7 @@ const pageTitle = "Contact — Sourcier";
   }
 
   /* ── Form intro ────────────────────────────────────────────── */
-  .contact-form__intro {
+  :where(.contact-layout) .intro {
     margin: 0;
     max-width: 60ch;
     font-size: 1rem;
@@ -404,7 +374,7 @@ const pageTitle = "Contact — Sourcier";
     color: var(--text-primary);
   }
 
-  .contact-form__panel {
+  :where(.contact-layout) .sheet {
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
@@ -424,7 +394,7 @@ const pageTitle = "Contact — Sourcier";
   }
 
   /* ── Select styling ────────────────────────────────────────── */
-  select.contact-form__input {
+  :where(.contact-form) select.select {
     appearance: none;
     background-color: var(--surface-elevated);
     background-image: var(--contact-select-caret-icon);
@@ -434,7 +404,7 @@ const pageTitle = "Contact — Sourcier";
     padding-right: 2.75rem;
     cursor: pointer;
 
-    &.is-placeholder {
+    &[data-placeholder] {
       color: var(--text-muted);
     }
 
@@ -455,23 +425,23 @@ const pageTitle = "Contact — Sourcier";
     }
   }
 
-  .contact-sidebar__panel {
+  :where(.contact-sidebar) .surface {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .contact-sidebar__heading {
+  :where(.contact-sidebar) .heading {
     margin-bottom: 0.25rem;
   }
 
-  .contact-sidebar__links {
+  :where(.contact-sidebar) .links {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .contact-sidebar__link {
+  :where(.contact-sidebar) .anchor {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -493,14 +463,23 @@ const pageTitle = "Contact — Sourcier";
       );
       background: color-mix(in srgb, var(--accent-secondary) 5%, transparent);
 
-      .contact-sidebar__link-label {
+      .caption {
         color: var(--accent-secondary);
       }
 
-      .contact-sidebar__link-icon {
+      .icon {
         color: var(--accent-secondary);
       }
     }
+  }
+
+  :where(.contact-reasons) .item:hover .iconbox {
+    background-color: color-mix(
+      in srgb,
+      var(--contact-reason-accent) 16%,
+      var(--surface-elevated)
+    );
+    transform: translateY(-2px);
   }
 </style>
 
@@ -524,7 +503,7 @@ const pageTitle = "Contact — Sourcier";
         const successEl = document.querySelector(
           "[data-success-message]",
         ) as HTMLElement | null;
-        successEl?.classList.remove("is-hidden");
+        successEl?.classList.remove("hidden");
         successEl?.setAttribute("tabindex", "-1");
         successEl?.focus();
       })
@@ -540,7 +519,7 @@ const pageTitle = "Contact — Sourcier";
     ) as HTMLElement;
 
     form.style.display = "";
-    successMessage.classList.add("is-hidden");
+    successMessage.classList.add("hidden");
   };
 
   document
@@ -563,11 +542,11 @@ const pageTitle = "Contact — Sourcier";
     }
 
     const isOther = reasonSelect.value === "other";
-    otherReasonField?.classList.toggle("is-hidden", !isOther);
+    otherReasonField?.classList.toggle("hidden", !isOther);
     if (otherReasonInput) {
       otherReasonInput.required = isOther;
     }
-    reasonSelect.classList.toggle("is-placeholder", reasonSelect.value === "");
+    reasonSelect.toggleAttribute("data-placeholder", reasonSelect.value === "");
   };
 
   reasonSelect?.addEventListener("change", syncReasonState);
@@ -591,6 +570,6 @@ const pageTitle = "Contact — Sourcier";
   }
 
   document
-    .querySelector("[data-success-message] .contact-success__close")
+    .querySelector("[data-success-message] .close")
     ?.addEventListener("click", handleSuccessMessageClose);
 </script>

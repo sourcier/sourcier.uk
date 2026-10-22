@@ -26,23 +26,31 @@ const corePages = [
   description="The page you're looking for doesn't exist."
 >
   <div class="not-found flow-section flow-section--loose">
-    <div class="container is-max-desktop">
-      <section class="not-found__hero" aria-labelledby="not-found-heading">
-        <div class="page-panel not-found__panel">
-          <div class="not-found__number" aria-hidden="true">404</div>
-          <div class="not-found__copy">
-            <p class="not-found__eyebrow">Page not found</p>
-            <h1 class="not-found__heading" id="not-found-heading">
-              Nothing here.
-            </h1>
-            <p class="not-found__sub">
+    <div class="container" data-width="narrow">
+      <section class="hero" aria-labelledby="not-found-heading">
+        <div class="panel surface">
+          <div class="number" aria-hidden="true">404</div>
+          <div class="copy">
+            <p class="eyebrow">Page not found</p>
+            <h1 class="heading" id="not-found-heading">Nothing here.</h1>
+            <p class="subtitle">
               That URL may have moved, been deleted, or never existed. Start
               from the homepage, jump into the latest writing, or pick the guide
               that matches where you are now.
             </p>
-            <div class="not-found__actions">
-              <a href="/" class="button is-primary is-medium">Home</a>
-              <a href="/blog" class="button is-light is-medium">
+            <div class="cta">
+              <a
+                href="/"
+                class="button"
+                data-variant="primary"
+                data-size="large">Home</a
+              >
+              <a
+                href="/blog"
+                class="button"
+                data-variant="subtle"
+                data-size="large"
+              >
                 Browse the blog
               </a>
             </div>
@@ -50,22 +58,19 @@ const corePages = [
         </div>
       </section>
 
-      <section
-        class="not-found__paths"
-        aria-labelledby="not-found-paths-heading"
-      >
+      <section class="paths" aria-labelledby="not-found-paths-heading">
         <p class="section-label">Try these instead</p>
-        <h2 class="not-found__paths-heading" id="not-found-paths-heading">
+        <h2 class="subheading" id="not-found-paths-heading">
           Start from a guide or a core page
         </h2>
-        <div class="not-found__grid">
+        <div class="grid">
           {
             audienceGuides.map((guide) => (
-              <article class="not-found-card not-found-card--guide">
-                <p class="not-found-card__eyebrow">Guide</p>
-                <h3 class="not-found-card__title">{guide.title}</h3>
-                <p class="not-found-card__body">{guide.summary}</p>
-                <a href={guide.href} class="not-found-card__cta">
+              <article class="not-found-card" data-kind="guide">
+                <p class="eyebrow">Guide</p>
+                <h3 class="heading">{guide.title}</h3>
+                <p class="body">{guide.summary}</p>
+                <a href={guide.href} class="cta">
                   Open the guide
                 </a>
               </article>
@@ -74,10 +79,10 @@ const corePages = [
           {
             corePages.map((page) => (
               <article class="not-found-card">
-                <p class="not-found-card__eyebrow">Page</p>
-                <h3 class="not-found-card__title">{page.label}</h3>
-                <p class="not-found-card__body">{page.description}</p>
-                <a href={page.href} class="not-found-card__cta">
+                <p class="eyebrow">Page</p>
+                <h3 class="heading">{page.label}</h3>
+                <p class="body">{page.description}</p>
+                <a href={page.href} class="cta">
                   Open {page.label}
                 </a>
               </article>
@@ -89,12 +94,12 @@ const corePages = [
   </div>
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .not-found {
     padding: clamp(3.5rem, 7vw, 4.5rem) 1.5rem var(--space-section-loose);
   }
 
-  .not-found__panel {
+  :where(.not-found) .surface {
     display: grid;
     gap: 1.5rem;
     align-items: center;
@@ -118,7 +123,7 @@ const corePages = [
     }
   }
 
-  .not-found__number {
+  :where(.not-found) .number {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(6rem, 18vw, 12rem);
     font-weight: 900;
@@ -140,7 +145,7 @@ const corePages = [
     }
   }
 
-  .not-found__eyebrow {
+  :where(.not-found) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -150,7 +155,7 @@ const corePages = [
     color: var(--accent-secondary);
   }
 
-  .not-found__heading {
+  :where(.not-found) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -159,21 +164,21 @@ const corePages = [
     color: var(--text-primary);
   }
 
-  .not-found__sub {
+  :where(.not-found) .subtitle {
     margin: 0.95rem 0 0;
     max-width: 58ch;
     line-height: 1.75;
     color: var(--text-muted);
   }
 
-  .not-found__actions {
+  :where(.not-found) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1.4rem;
   }
 
-  .not-found__paths-heading {
+  :where(.not-found) .subheading {
     margin: 0 0 1.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -182,7 +187,7 @@ const corePages = [
     color: var(--text-primary);
   }
 
-  .not-found__grid {
+  :where(.not-found) .grid {
     display: grid;
     gap: 1rem;
 
@@ -219,7 +224,7 @@ const corePages = [
     }
   }
 
-  .not-found-card--guide {
+  [data-kind="guide"] {
     border-top-color: var(--accent-secondary);
     background:
       radial-gradient(
@@ -235,7 +240,7 @@ const corePages = [
       var(--surface-elevated);
   }
 
-  .not-found-card__eyebrow {
+  :where(.not-found-card) .eyebrow {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
@@ -245,11 +250,11 @@ const corePages = [
     color: var(--text-muted);
   }
 
-  .not-found-card--guide .not-found-card__eyebrow {
+  [data-kind="guide"] .eyebrow {
     color: var(--accent-secondary);
   }
 
-  .not-found-card__title {
+  :where(.not-found-card) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.15rem;
@@ -258,13 +263,13 @@ const corePages = [
     color: var(--text-primary);
   }
 
-  .not-found-card__body {
+  :where(.not-found-card) .body {
     margin: 0;
     line-height: 1.65;
     color: var(--text-muted);
   }
 
-  .not-found-card__cta {
+  :where(.not-found-card) .cta {
     margin-top: auto;
     display: inline-flex;
     align-items: center;
@@ -278,7 +283,7 @@ const corePages = [
     text-decoration: none;
   }
 
-  .not-found-card--guide .not-found-card__cta {
+  [data-kind="guide"] .cta {
     color: var(--accent-secondary);
   }
 </style>

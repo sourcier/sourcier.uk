@@ -22,32 +22,25 @@ const items = allCrumbs.map((crumb, index) => ({
 
 <nav
   aria-label="Breadcrumb"
-  class:list={["breadcrumb-nav", { "breadcrumb-nav--inverted": inverted }]}
+  class="breadcrumb-nav"
+  data-inverted={inverted || undefined}
 >
   {
     noContainer ? (
-      <ol
-        class="breadcrumb__list"
-        itemscope
-        itemtype="https://schema.org/BreadcrumbList"
-      >
+      <ol class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
         {items.map(({ label, href, isLast, position }) => (
           <li
-            class="breadcrumb__item"
+            class="item"
             itemprop="itemListElement"
             itemscope
             itemtype="https://schema.org/ListItem"
           >
             {!isLast && href ? (
-              <a href={href} class="breadcrumb__link" itemprop="item">
+              <a href={href} class="link" itemprop="item">
                 <span itemprop="name">{label}</span>
               </a>
             ) : (
-              <span
-                class="breadcrumb__current"
-                aria-current="page"
-                itemprop="name"
-              >
+              <span class="current" aria-current="page" itemprop="name">
                 {label}
               </span>
             )}
@@ -56,29 +49,21 @@ const items = allCrumbs.map((crumb, index) => ({
         ))}
       </ol>
     ) : (
-      <div class="container is-max-desktop">
-        <ol
-          class="breadcrumb__list"
-          itemscope
-          itemtype="https://schema.org/BreadcrumbList"
-        >
+      <div class="container" data-width="narrow">
+        <ol class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
           {items.map(({ label, href, isLast, position }) => (
             <li
-              class="breadcrumb__item"
+              class="item"
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
             >
               {!isLast && href ? (
-                <a href={href} class="breadcrumb__link" itemprop="item">
+                <a href={href} class="link" itemprop="item">
                   <span itemprop="name">{label}</span>
                 </a>
               ) : (
-                <span
-                  class="breadcrumb__current"
-                  aria-current="page"
-                  itemprop="name"
-                >
+                <span class="current" aria-current="page" itemprop="name">
                   {label}
                 </span>
               )}
@@ -91,19 +76,19 @@ const items = allCrumbs.map((crumb, index) => ({
   }
 </nav>
 
-<style lang="scss">
+<style>
   .breadcrumb-nav {
     padding: 0.6rem 1.5rem;
     background-color: var(--surface-elevated);
     border-bottom: 1px solid var(--border-subtle);
 
-    &--inverted {
+    &:where([data-inverted]) {
       padding: 0;
       background-color: transparent;
       border-bottom: none;
       margin-bottom: 1.25rem;
 
-      .breadcrumb__link {
+      .link {
         color: var(--text-on-strong-alpha-45);
 
         &:hover,
@@ -112,17 +97,17 @@ const items = allCrumbs.map((crumb, index) => ({
         }
       }
 
-      .breadcrumb__current {
+      .current {
         color: var(--text-on-strong-alpha-75);
       }
 
-      .breadcrumb__item:not(:last-child)::after {
+      .item:not(:last-child)::after {
         color: var(--text-on-strong-alpha-25);
       }
     }
   }
 
-  .breadcrumb__list {
+  .list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -138,7 +123,7 @@ const items = allCrumbs.map((crumb, index) => ({
     letter-spacing: 0.06em;
   }
 
-  .breadcrumb__item {
+  .item {
     display: flex;
     align-items: center;
 
@@ -150,7 +135,7 @@ const items = allCrumbs.map((crumb, index) => ({
     }
   }
 
-  .breadcrumb__link {
+  .link {
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.15s ease;
@@ -161,7 +146,7 @@ const items = allCrumbs.map((crumb, index) => ({
     }
   }
 
-  .breadcrumb__current {
+  .current {
     color: var(--text-primary);
   }
 </style>

@@ -2,20 +2,20 @@
 // The skeleton is visible the instant the HTML arrives, before any JS runs.
 // The client-side script finds these containers via [data-mermaid] and renders them.
 const SKELETON =
-  `<div class="mermaid-skeleton" aria-hidden="true">` +
-  `<div class="mermaid-skeleton__row">` +
-  `<div class="mermaid-skeleton__node mermaid-skeleton__node--wide"></div>` +
+  `<div class="skeleton" aria-hidden="true">` +
+  `<div class="row">` +
+  `<div class="node" data-kind="wide"></div>` +
   `</div>` +
-  `<div class="mermaid-skeleton__connector"></div>` +
-  `<div class="mermaid-skeleton__row">` +
-  `<div class="mermaid-skeleton__node"></div>` +
-  `<div class="mermaid-skeleton__node"></div>` +
+  `<div class="connector"></div>` +
+  `<div class="row">` +
+  `<div class="node"></div>` +
+  `<div class="node"></div>` +
   `</div>` +
-  `<div class="mermaid-skeleton__connector"></div>` +
-  `<div class="mermaid-skeleton__row">` +
-  `<div class="mermaid-skeleton__node mermaid-skeleton__node--narrow"></div>` +
-  `<div class="mermaid-skeleton__node mermaid-skeleton__node--narrow"></div>` +
-  `<div class="mermaid-skeleton__node mermaid-skeleton__node--narrow"></div>` +
+  `<div class="connector"></div>` +
+  `<div class="row">` +
+  `<div class="node" data-kind="narrow"></div>` +
+  `<div class="node" data-kind="narrow"></div>` +
+  `<div class="node" data-kind="narrow"></div>` +
   `</div>` +
   `</div>`;
 

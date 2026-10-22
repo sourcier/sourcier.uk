@@ -38,19 +38,21 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
 ---
 
 <section
-  class={`support-cta stack-space support-cta--${mode} support-cta--${placement}`}
+  class="support-cta stack-space"
+  data-mode={mode}
+  data-placement={placement}
   aria-labelledby={headingId}
 >
-  <div class="container is-max-desktop">
-    <div class="support-cta__panel">
-      <div class="support-cta__content">
-        <p class="support-cta__eyebrow">{eyebrow}</p>
-        <h2 class="support-cta__title" id={headingId}>{title}</h2>
-        <p class="support-cta__text">{body}</p>
+  <div class="container" data-width="narrow">
+    <div class="surface">
+      <div class="content">
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 class="heading" id={headingId}>{title}</h2>
+        <p class="text">{body}</p>
 
         {
           showHighlights && (
-            <ul class="support-cta__highlights" role="list">
+            <ul class="highlights" role="list">
               <li>Engineering practice review</li>
               <li>Hands-on delivery</li>
               <li>Team mentoring</li>
@@ -59,10 +61,10 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
         }
       </div>
 
-      <div class="support-cta__actions">
+      <div class="links">
         {
           showWorkButton && (
-            <a href="/contact" class="support-cta__btn support-cta__btn--work">
+            <a href="/contact" class="cta" data-kind="work">
               Get guidance
             </a>
           )
@@ -72,14 +74,15 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
           showSupportButton && (
             <>
               {showSupportIntro && (
-                <p class="support-cta__aside">
+                <p class="aside">
                   If this has been useful, you can back the writing with a
                   one-off tip through a secure Stripe checkout.
                 </p>
               )}
               <button
                 type="button"
-                class="support-cta__btn support-cta__btn--support"
+                class="cta"
+                data-kind="support"
                 data-support-modal-open
               >
                 {supportButtonLabel}
@@ -92,17 +95,17 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .support-cta {
     padding: 0 1.5rem;
   }
 
-  .support-cta--sidebar {
+  .support-cta:where([data-placement="sidebar"]) {
     margin: 1rem 0;
     padding: 0;
   }
 
-  .support-cta__panel {
+  .surface {
     position: relative;
     overflow: hidden;
     display: grid;
@@ -130,15 +133,15 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     }
   }
 
-  .support-cta__panel::before,
-  .support-cta__panel::after {
+  .surface::before,
+  .surface::after {
     content: "";
     position: absolute;
     border-radius: var(--radius-pill);
     pointer-events: none;
   }
 
-  .support-cta__panel::before {
+  .surface::before {
     width: 16rem;
     height: 16rem;
     right: -6rem;
@@ -146,7 +149,7 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     background: rgba(var(--accent-primary-rgb), 0.08);
   }
 
-  .support-cta__panel::after {
+  .surface::after {
     width: 10rem;
     height: 10rem;
     right: 12%;
@@ -154,7 +157,7 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     border: 1px solid rgba(var(--accent-primary-rgb), 0.12);
   }
 
-  :global([data-theme="dark"]) .support-cta__panel {
+  :global([data-theme="dark"]) .surface {
     --support-cta-surface-top: rgba(18, 18, 18, 0.98);
     --support-cta-surface-bottom: rgba(26, 20, 24, 0.98);
     border-color: rgba(var(--accent-primary-rgb), 0.24);
@@ -172,13 +175,13 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     box-shadow: 0 24px 80px rgba(var(--overlay-rgb), 0.28);
   }
 
-  .support-cta__content,
-  .support-cta__actions {
+  .content,
+  .links {
     position: relative;
     z-index: 1;
   }
 
-  .support-cta__eyebrow {
+  .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -191,7 +194,7 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     color: var(--accent-primary);
   }
 
-  .support-cta__title {
+  .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(2rem, 4vw, 3rem);
@@ -203,11 +206,11 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     max-width: 14ch;
   }
 
-  .support-cta--support .support-cta__title {
+  .support-cta:where([data-mode="support"]) .heading {
     max-width: 16ch;
   }
 
-  .support-cta__text {
+  .text {
     margin: 0.9rem 0 0;
     max-width: 58ch;
     font-size: 1rem;
@@ -215,7 +218,7 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     color: var(--text-muted);
   }
 
-  .support-cta__highlights {
+  .highlights {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -224,7 +227,7 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     padding: 0;
   }
 
-  .support-cta__highlights li {
+  .highlights li {
     padding: 0.5rem 0.75rem;
     border: 1px solid rgba(var(--accent-primary-rgb), 0.16);
     border-radius: var(--radius-pill);
@@ -237,19 +240,19 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     color: var(--text-primary);
   }
 
-  :global([data-theme="dark"]) .support-cta__highlights li {
+  :global([data-theme="dark"]) .highlights li {
     background: rgba(var(--text-on-strong-rgb), 0.04);
     border-color: rgba(var(--accent-primary-rgb), 0.22);
   }
 
-  .support-cta__actions {
+  .links {
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
     justify-content: center;
   }
 
-  .support-cta--sidebar .support-cta__panel {
+  .support-cta:where([data-placement="sidebar"]) .surface {
     gap: 0.8rem;
     padding: 1rem 0.9rem;
     border-radius: var(--radius-soft);
@@ -257,56 +260,56 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
   }
 
   @media (min-width: 768px) {
-    .support-cta--sidebar .support-cta__panel {
+    .support-cta:where([data-placement="sidebar"]) .surface {
       grid-template-columns: 1fr;
       gap: 0.8rem;
       padding: 1rem 0.9rem;
     }
   }
 
-  .support-cta--sidebar .support-cta__panel::before {
+  .support-cta:where([data-placement="sidebar"]) .surface::before {
     width: 8rem;
     height: 8rem;
     right: -3rem;
     bottom: -4rem;
   }
 
-  .support-cta--sidebar .support-cta__panel::after {
+  .support-cta:where([data-placement="sidebar"]) .surface::after {
     width: 5.5rem;
     height: 5.5rem;
     right: -0.5rem;
     top: -2rem;
   }
 
-  .support-cta--sidebar .support-cta__title {
+  .support-cta:where([data-placement="sidebar"]) .heading {
     max-width: none;
     font-size: clamp(1.35rem, 2.5vw, 1.7rem);
   }
 
-  .support-cta--sidebar .support-cta__text {
+  .support-cta:where([data-placement="sidebar"]) .text {
     max-width: none;
     margin-top: 0.45rem;
     font-size: 0.9rem;
     line-height: 1.5;
   }
 
-  .support-cta--sidebar .support-cta__actions {
+  .support-cta:where([data-placement="sidebar"]) .links {
     gap: 0.55rem;
   }
 
-  .support-cta--sidebar .support-cta__btn {
+  .support-cta:where([data-placement="sidebar"]) .cta {
     width: 100%;
     min-height: 2.65rem;
     padding: 0.7rem 0.95rem;
     font-size: 0.82rem;
   }
 
-  .support-cta--sidebar .support-cta__eyebrow {
+  .support-cta:where([data-placement="sidebar"]) .eyebrow {
     margin-bottom: 0.45rem;
     font-size: 0.72rem;
   }
 
-  .support-cta__btn {
+  .cta {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -330,16 +333,16 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
       color 0.18s ease;
   }
 
-  .support-cta__btn:hover {
+  .cta:hover {
     transform: translateY(-2px);
   }
 
-  .support-cta__btn:focus-visible {
+  .cta:focus-visible {
     outline: 2px solid var(--accent-primary);
     outline-offset: 3px;
   }
 
-  .support-cta__btn--work {
+  .cta:where([data-kind="work"]) {
     background: linear-gradient(
       135deg,
       var(--accent-primary),
@@ -349,18 +352,18 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     box-shadow: 0 12px 30px rgba(var(--accent-primary-rgb), 0.22);
   }
 
-  .support-cta__btn--work:hover {
+  .cta:where([data-kind="work"]):hover {
     box-shadow: 0 16px 36px rgba(var(--accent-primary-rgb), 0.28);
   }
 
-  .support-cta__btn--support {
+  .cta:where([data-kind="support"]) {
     border: 1px solid rgba(var(--accent-primary-rgb), 0.16);
     background: rgba(var(--text-on-strong-rgb), 0.82);
     color: var(--text-primary);
     box-shadow: 0 10px 24px rgba(var(--shadow-rgb), 0.05);
   }
 
-  .support-cta__btn--support:hover {
+  .cta:where([data-kind="support"]):hover {
     border-color: rgba(var(--accent-primary-rgb), 0.32);
     background: color-mix(
       in srgb,
@@ -370,30 +373,32 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     box-shadow: 0 16px 32px rgba(var(--shadow-rgb), 0.08);
   }
 
-  :global([data-theme="dark"]) .support-cta__btn--support {
+  :global([data-theme="dark"]) .cta:where([data-kind="support"]) {
     border-color: rgba(var(--accent-primary-rgb), 0.24);
     background: rgba(var(--text-on-strong-rgb), 0.04);
     color: var(--text-on-strong);
     box-shadow: none;
   }
 
-  :global([data-theme="dark"]) .support-cta__btn--support:hover {
+  :global([data-theme="dark"]) .cta:where([data-kind="support"]):hover {
     border-color: rgba(var(--accent-primary-rgb), 0.34);
     background: rgba(var(--accent-primary-rgb), 0.08);
   }
 
-  .support-cta__aside {
+  .aside {
     margin: 0;
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--text-muted);
   }
 
-  .support-cta--support {
+  .support-cta:where([data-mode="support"]) {
     padding-bottom: 0;
   }
 
-  .support-cta--sidebar.support-cta--support {
+  .support-cta:where([data-placement="sidebar"]).support-cta:where(
+      [data-mode="support"]
+    ) {
     padding-bottom: 0;
   }
 </style>

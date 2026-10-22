@@ -1,0 +1,55 @@
+/* — Social icon buttons */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+
+  svg {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  @media (max-width: 1023px) {
+    width: 2.75rem;
+    height: 2.75rem;
+
+    svg {
+      width: 1.375rem;
+      height: 1.375rem;
+    }
+  }
+
+  &:hover {
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+}
+
+.site-nav .social-icon {
+  color: var(--text-on-strong-alpha-70);
+
+  &:hover {
+    color: var(--accent-primary);
+  }
+}
+
+.footer .social-icon {
+  color: var(--text-muted);
+
+  &:hover {
+    color: var(--accent-primary);
+  }
+}

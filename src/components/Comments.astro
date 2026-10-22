@@ -6,22 +6,22 @@ const { postId } = Astro.props;
 ---
 
 <section class="section comments stack-space stack-space--tight" id="comments">
-  <div class="container is-max-desktop">
-    <div class="comments__inner">
-      <div class="comments__list-section">
-        <h2 class="comments__heading">Comments</h2>
+  <div class="container" data-width="narrow">
+    <div class="inner">
+      <div class="list-section">
+        <h2 class="heading">Comments</h2>
         <div
-          class="comments__list"
+          class="list"
           id="comments-list"
           data-post-slug={postId}
           aria-live="polite"
         >
-          <p class="comments__status-line">Loading comments…</p>
+          <p class="status-line">Loading comments…</p>
         </div>
       </div>
 
-      <div class="comments__form-wrapper">
-        <h2 class="comments__heading">Leave a comment</h2>
+      <div class="form">
+        <h2 class="heading">Leave a comment</h2>
 
         <!--
         data-netlify="true" causes Netlify's build bot to register this form.
@@ -44,7 +44,7 @@ const { postId } = Astro.props;
           <input type="hidden" name="postSlug" value={postId} />
           <input type="hidden" name="parentId" value="" />
 
-          <p class="is-hidden" aria-hidden="true">
+          <p class="hidden" aria-hidden="true">
             <label
               >Leave this blank: <input name="bot-field" tabindex="-1" /></label
             >
@@ -68,7 +68,7 @@ const { postId } = Astro.props;
 
           <div class="field">
             <label class="label" for="comment-email">
-              Email <span class="comments__optional">(never published)</span>
+              Email <span class="optional">(never published)</span>
             </label>
             <div class="control">
               <input
@@ -98,21 +98,18 @@ const { postId } = Astro.props;
             </div>
           </div>
 
-          <div class="field is-grouped">
+          <div class="fields">
             <div class="control">
               <button
-                class="button is-primary"
+                class="button"
+                data-variant="primary"
                 type="submit"
                 id="comment-submit"
               >
                 Post comment
               </button>
             </div>
-            <p
-              class="comments__form-status"
-              id="comment-form-status"
-              aria-live="polite"
-            >
+            <p class="form-status" id="comment-form-status" aria-live="polite">
             </p>
           </div>
         </form>
@@ -199,35 +196,35 @@ const { postId } = Astro.props;
     function renderComment(c: CommentNode): string {
       const initial = escapeHtml(c.name.charAt(0).toUpperCase());
       const avatarInner = c.emailHash
-        ? `<img class="comment__avatar-img" src="https://www.gravatar.com/avatar/${c.emailHash}?s=72&d=404" alt="" loading="lazy" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'" /><span class="comment__avatar-initial">${initial}</span>`
-        : `<span class="comment__avatar-initial">${initial}</span>`;
+        ? `<img class="avatar-img" src="https://www.gravatar.com/avatar/${c.emailHash}?s=72&d=404" alt="" loading="lazy" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'" /><span class="initial">${initial}</span>`
+        : `<span class="initial">${initial}</span>`;
       const repliesHtml = c.replies.length
-        ? `<div class="comment__replies">${c.replies.map(renderComment).join("")}</div>`
+        ? `<div class="replies">${c.replies.map(renderComment).join("")}</div>`
         : "";
       return `
         <article class="comment" id="comment-${escapeHtml(c.id)}" data-comment-id="${escapeHtml(c.id)}" aria-label="${escapeHtml(c.name)}">
-          <div class="comment__avatar">${avatarInner}</div>
-          <div class="comment__content">
-            <div class="comment__meta">
-              <span class="comment__author">${escapeHtml(c.name)}</span>
-              <span class="comment__meta-sep" aria-hidden="true">&middot;</span>
-              <time class="comment__date" datetime="${c.date}">${formatDate(c.date)}</time>
-              <span class="comment__meta-sep" aria-hidden="true">&middot;</span>
+          <div class="avatar">${avatarInner}</div>
+          <div class="content">
+            <div class="meta">
+              <span class="author">${escapeHtml(c.name)}</span>
+              <span class="separator" aria-hidden="true">&middot;</span>
+              <time class="date" datetime="${c.date}">${formatDate(c.date)}</time>
+              <span class="separator" aria-hidden="true">&middot;</span>
               <button
                 type="button"
-                class="comment__link-btn"
+                class="link-btn"
                 data-comment-id="${escapeHtml(c.id)}"
                 aria-label="Copy link to this comment"
               >Link</button>
             </div>
-            <p class="comment__body">${escapeHtml(c.comment)}</p>
+            <p class="body">${escapeHtml(c.comment)}</p>
             <button
               type="button"
-              class="comment__reply-btn"
+              class="reply-btn"
               data-comment-id="${escapeHtml(c.id)}"
               data-comment-name="${escapeHtml(c.name)}"
             >Reply</button>
-            <div class="comment__reply-slot" data-comment-id="${escapeHtml(c.id)}"></div>
+            <div class="reply-slot" data-comment-id="${escapeHtml(c.id)}"></div>
           </div>
         </article>
         ${repliesHtml}`;
@@ -235,7 +232,7 @@ const { postId } = Astro.props;
 
     function buildCommentsHtml(comments: Comment[]): string {
       if (!comments.length) {
-        return '<p class="comments__empty">No comments yet — be the first.</p>';
+        return '<p class="empty">No comments yet — be the first.</p>';
       }
       return buildCommentTree(comments).map(renderComment).join("");
     }
@@ -247,16 +244,16 @@ const { postId } = Astro.props;
         listEl.innerHTML = html;
         return;
       }
-      listEl.classList.add("is-fading");
+      listEl.classList.add("fading");
       listEl.addEventListener(
         "animationend",
         () => {
           listEl.innerHTML = html;
-          listEl.classList.remove("is-fading");
-          listEl.classList.add("is-entering");
+          listEl.classList.remove("fading");
+          listEl.classList.add("entering");
           listEl.addEventListener(
             "animationend",
-            () => listEl.classList.remove("is-entering"),
+            () => listEl.classList.remove("entering"),
             { once: true },
           );
         },
@@ -277,6 +274,7 @@ const { postId } = Astro.props;
       submitButton.disabled = true;
       statusEl.textContent = "Posting…";
       statusEl.className = statusClass;
+      statusEl.removeAttribute("data-status");
 
       try {
         const data = new FormData(formEl);
@@ -291,17 +289,17 @@ const { postId } = Astro.props;
         if (res.ok) {
           statusEl.textContent =
             "Thanks — your comment has been submitted and will appear once approved.";
-          statusEl.className = `${statusClass} is-success`;
+          statusEl.dataset.status = "success";
           onSuccess();
           loadComments();
         } else {
           statusEl.textContent = "Something went wrong. Please try again.";
-          statusEl.className = `${statusClass} is-error`;
+          statusEl.dataset.status = "error";
           submitButton.disabled = false;
         }
       } catch {
         statusEl.textContent = "Something went wrong. Please try again.";
-        statusEl.className = `${statusClass} is-error`;
+        statusEl.dataset.status = "error";
         submitButton.disabled = false;
       }
     }
@@ -313,15 +311,15 @@ const { postId } = Astro.props;
     function buildReplyForm(commentId: string, name: string): HTMLElement {
       const uid = commentId.replace(/[^a-zA-Z0-9_-]/g, "");
       const wrapper = document.createElement("div");
-      wrapper.className = "comment-reply-form";
+      wrapper.className = "reply-form";
       wrapper.dataset.commentId = commentId;
       wrapper.innerHTML = `
-        <div class="comment-reply-form__heading">Replying to ${escapeHtml(name)}</div>
+        <div class="reply-heading">Replying to ${escapeHtml(name)}</div>
         <form>
           <input type="hidden" name="form-name" value="blog-comments" />
           <input type="hidden" name="postSlug" value="${escapeHtml(postSlug)}" />
           <input type="hidden" name="parentId" value="${escapeHtml(commentId)}" />
-          <p class="is-hidden" aria-hidden="true">
+          <p class="hidden" aria-hidden="true">
             <label>Leave this blank: <input name="bot-field" tabindex="-1" /></label>
           </p>
           <div class="field">
@@ -332,7 +330,7 @@ const { postId } = Astro.props;
           </div>
           <div class="field">
             <label class="label" for="reply-email-${uid}">
-              Email <span class="comments__optional">(never published)</span>
+              Email <span class="optional">(never published)</span>
             </label>
             <div class="control">
               <input class="input" type="email" id="reply-email-${uid}" name="email" required placeholder="you@example.com" autocomplete="email" maxlength="254" />
@@ -344,14 +342,20 @@ const { postId } = Astro.props;
               <textarea class="textarea" id="reply-body-${uid}" name="comment" required rows="4" placeholder="Write your reply…" maxlength="5000"></textarea>
             </div>
           </div>
-          <div class="field is-grouped">
+          <div class="fields">
             <div class="control">
-              <button class="button is-primary" type="submit">Post reply</button>
+              <button
+                class="button"
+                data-variant="primary"
+                type="submit">Post reply</button>
             </div>
             <div class="control">
-              <button type="button" class="button is-light comment-reply-form__cancel">Cancel</button>
+              <button
+                type="button"
+                class="button reply-cancel"
+                data-variant="subtle">Cancel</button>
             </div>
-            <p class="comment-reply-form__status" aria-live="polite"></p>
+            <p class="reply-status" aria-live="polite"></p>
           </div>
         </form>
       `;
@@ -360,11 +364,9 @@ const { postId } = Astro.props;
       const replySubmitBtn = replyFormEl.querySelector(
         "button[type='submit']",
       ) as HTMLButtonElement;
-      const replyStatus = wrapper.querySelector(
-        ".comment-reply-form__status",
-      ) as HTMLElement;
+      const replyStatus = wrapper.querySelector(".reply-status") as HTMLElement;
       const cancelBtn = wrapper.querySelector(
-        ".comment-reply-form__cancel",
+        ".reply-cancel",
       ) as HTMLButtonElement;
 
       cancelBtn.addEventListener("click", () => wrapper.remove());
@@ -376,7 +378,7 @@ const { postId } = Astro.props;
           replyFormEl,
           replySubmitBtn,
           replyStatus,
-          "comment-reply-form__status",
+          "reply-status",
           () => wrapper.remove(),
         );
       });
@@ -386,10 +388,10 @@ const { postId } = Astro.props;
 
     function toggleReplyForm(commentId: string, name: string) {
       const openSlot = listEl?.querySelector(
-        ".comment__reply-slot:not(:empty)",
+        ".reply-slot:not(:empty)",
       ) as HTMLElement | null;
       const targetSlot = listEl?.querySelector(
-        `.comment__reply-slot[data-comment-id="${CSS.escape(commentId)}"]`,
+        `.reply-slot[data-comment-id="${CSS.escape(commentId)}"]`,
       ) as HTMLElement | null;
 
       const wasAlreadyOpenForThis = openSlot === targetSlot;
@@ -406,7 +408,7 @@ const { postId } = Astro.props;
 
     listEl?.addEventListener("click", (e) => {
       const replyBtn = (e.target as HTMLElement).closest(
-        ".comment__reply-btn",
+        ".reply-btn",
       ) as HTMLButtonElement | null;
       if (replyBtn) {
         toggleReplyForm(
@@ -417,7 +419,7 @@ const { postId } = Astro.props;
       }
 
       const linkBtn = (e.target as HTMLElement).closest(
-        ".comment__link-btn",
+        ".link-btn",
       ) as HTMLButtonElement | null;
       if (linkBtn) {
         copyCommentLink(linkBtn);
@@ -453,10 +455,10 @@ const { postId } = Astro.props;
       const target = document.getElementById(hash.slice(1));
       if (!target) return;
       target.scrollIntoView({ behavior: "smooth", block: "center" });
-      target.classList.add("is-highlighted");
+      target.classList.add("highlighted");
       target.addEventListener(
         "animationend",
-        () => target.classList.remove("is-highlighted"),
+        () => target.classList.remove("highlighted"),
         { once: true },
       );
     }
@@ -474,7 +476,7 @@ const { postId } = Astro.props;
       } catch {
         if (listEl) {
           listEl.innerHTML =
-            '<p class="comments__empty">Comments unavailable right now.</p>';
+            '<p class="empty">Comments unavailable right now.</p>';
         }
       }
     }
@@ -482,31 +484,27 @@ const { postId } = Astro.props;
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
-      await submitComment(
-        form,
-        submitBtn,
-        formStatus,
-        "comments__form-status",
-        () => form.reset(),
+      await submitComment(form, submitBtn, formStatus, "form-status", () =>
+        form.reset(),
       );
     });
 
     loadComments();
   </script>
 
-  <style lang="scss">
+  <style>
     .comments {
       padding: clamp(3rem, 5vw, 3.75rem) 1.5rem;
       border-top: 1px solid var(--border-subtle);
       background-color: var(--surface-elevated);
 
-      .comments__inner {
+      .inner {
         margin-left: auto;
         margin-right: auto;
       }
     }
 
-    .comments__heading {
+    .heading {
       font-family: "Barlow Condensed", sans-serif;
       font-weight: 800;
       font-size: 1.75rem;
@@ -516,11 +514,11 @@ const { postId } = Astro.props;
       margin-bottom: 2rem;
     }
 
-    .comments__list-section {
+    .list-section {
       margin-bottom: 3.5rem;
     }
 
-    :global(.comment) {
+    :global(:where(.comments) .comment) {
       display: flex;
       gap: 1rem;
       padding: 1.5rem;
@@ -530,7 +528,7 @@ const { postId } = Astro.props;
       border-left: 3px solid var(--accent-primary);
     }
 
-    :global(.comment__avatar) {
+    :global(:where(.comments) .avatar) {
       flex-shrink: 0;
       position: relative;
       width: 2.75rem;
@@ -545,14 +543,14 @@ const { postId } = Astro.props;
       user-select: none;
     }
 
-    :global(.comment__avatar-initial) {
+    :global(:where(.comments) .initial) {
       font-family: "Barlow Condensed", sans-serif;
       font-weight: 800;
       font-size: 1.25rem;
       line-height: 1;
     }
 
-    :global(.comment__avatar-img) {
+    :global(:where(.comments) .avatar-img) {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -561,19 +559,19 @@ const { postId } = Astro.props;
       border-radius: 50%;
     }
 
-    :global(.comment__content) {
+    :global(:where(.comments .comment) .content) {
       flex: 1;
       min-width: 0;
     }
 
-    :global(.comment__meta) {
+    :global(:where(.comments .comment) .meta) {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.625rem;
     }
 
-    :global(.comment__author) {
+    :global(:where(.comments .comment) .author) {
       font-family: "Barlow Condensed", sans-serif;
       font-weight: 700;
       font-size: 1rem;
@@ -582,19 +580,19 @@ const { postId } = Astro.props;
       color: var(--text-primary);
     }
 
-    :global(.comment__meta-sep) {
+    :global(:where(.comments .comment) .separator) {
       color: var(--accent-primary);
       font-size: 0.875rem;
       line-height: 1;
     }
 
-    :global(.comment__date) {
+    :global(:where(.comments .comment) .date) {
       font-size: 0.8125rem;
       color: var(--text-muted);
       letter-spacing: 0.02em;
     }
 
-    :global(.comment__body) {
+    :global(:where(.comments .comment) .body) {
       margin: 0;
       padding: 0;
       border: none;
@@ -604,7 +602,7 @@ const { postId } = Astro.props;
       white-space: pre-wrap;
     }
 
-    :global(.comment__reply-btn) {
+    :global(:where(.comments) .reply-btn) {
       margin-top: 0.5rem;
       padding: 0;
       background: none;
@@ -622,7 +620,7 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(.comment__link-btn) {
+    :global(:where(.comments) .link-btn) {
       padding: 0;
       background: none;
       border: none;
@@ -636,7 +634,7 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(.comment.is-highlighted) {
+    :global(:where(.comments) .comment.highlighted) {
       animation: comment-highlight-fade 2.4s ease;
     }
 
@@ -654,31 +652,31 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(.comment__replies) {
+    :global(:where(.comments) .replies) {
       margin-left: clamp(1.25rem, 4vw, 2.75rem);
       margin-top: 1rem;
     }
 
-    :global(.comment__replies .comment) {
+    :global(:where(.comments) .replies .comment) {
       border-left-color: var(--border-subtle);
       background-color: var(--surface-elevated);
     }
 
-    .comments__status-line {
+    .status-line {
       font-size: 0.875rem;
       color: var(--text-muted);
     }
 
-    :global(.comment__reply-slot:not(:empty)) {
+    :global(:where(.comments) .reply-slot:not(:empty)) {
       margin-top: 1rem;
     }
 
-    :global(.comment-reply-form) {
+    :global(:where(.comments) .reply-form) {
       padding-top: 1rem;
       border-top: 1px dashed var(--border-subtle);
     }
 
-    :global(.comment-reply-form__heading) {
+    :global(:where(.comments) .reply-heading) {
       font-family: "Barlow Condensed", sans-serif;
       font-weight: 700;
       font-size: 0.8125rem;
@@ -688,11 +686,11 @@ const { postId } = Astro.props;
       margin-bottom: 0.875rem;
     }
 
-    :global(.comment-reply-form .field) {
+    :global(:where(.comments) .reply-form .field) {
       margin-bottom: 0.75rem;
     }
 
-    :global(.comment-reply-form .label) {
+    :global(:where(.comments) .reply-form .label) {
       color: var(--text-primary);
       font-weight: 600;
       font-size: 0.8125rem;
@@ -700,21 +698,21 @@ const { postId } = Astro.props;
       letter-spacing: 0.05em;
     }
 
-    :global(.comment-reply-form .input),
-    :global(.comment-reply-form .textarea) {
+    :global(:where(.comments) .reply-form .input),
+    :global(:where(.comments) .reply-form .textarea) {
       background-color: var(--surface-elevated);
       border-color: var(--border-subtle);
       color: var(--text-primary);
       border-radius: var(--radius-tight);
     }
 
-    :global(.comment-reply-form .input:focus),
-    :global(.comment-reply-form .textarea:focus) {
+    :global(:where(.comments) .reply-form .input:focus),
+    :global(:where(.comments) .reply-form .textarea:focus) {
       border-color: var(--accent-primary);
       box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
     }
 
-    :global(.comment-reply-form .button.is-primary) {
+    :global(:where(.comments) .reply-form .button[data-variant="primary"]) {
       background-color: var(--accent-primary);
       border-color: var(--accent-primary);
       color: var(--text-on-strong);
@@ -725,33 +723,37 @@ const { postId } = Astro.props;
       border-radius: var(--radius-tight);
     }
 
-    :global(.comment-reply-form .button.is-primary:hover) {
+    :global(
+      :where(.comments) .reply-form .button[data-variant="primary"]:hover
+    ) {
       background-color: var(--accent-primary-deep);
       border-color: var(--accent-primary-deep);
     }
 
-    :global(.comment-reply-form .button.is-primary:disabled) {
+    :global(
+      :where(.comments) .reply-form .button[data-variant="primary"]:disabled
+    ) {
       opacity: 0.5;
       cursor: not-allowed;
     }
 
-    :global(.comment-reply-form__status) {
+    :global(:where(.comments) .reply-status) {
       font-size: 0.8125rem;
       padding-left: 0.5rem;
       align-self: center;
+    }
 
-      &.is-success {
-        color: var(--color-success);
-      }
+    :global(:where(.comments) .reply-status[data-status="success"]) {
+      color: var(--color-success);
+    }
 
-      &.is-error {
-        color: var(--accent-primary);
-      }
+    :global(:where(.comments) .reply-status[data-status="error"]) {
+      color: var(--accent-primary);
     }
 
     :global([data-theme="dark"]) {
-      :global(.comment-reply-form .input),
-      :global(.comment-reply-form .textarea) {
+      :global(:where(.comments) .reply-form .input),
+      :global(:where(.comments) .reply-form .textarea) {
         background-color: var(--surface-page);
         border-color: var(--border-subtle);
         color: var(--text-primary);
@@ -761,7 +763,7 @@ const { postId } = Astro.props;
         }
       }
 
-      :global(.comment-reply-form__status.is-success) {
+      :global(:where(.comments) .reply-status[data-status="success"]) {
         color: var(--color-success-bright);
       }
     }
@@ -788,15 +790,15 @@ const { postId } = Astro.props;
       }
     }
 
-    :global(#comments-list.is-fading) {
+    :global(#comments-list.fading) {
       animation: comments-fade-out 0.2s ease forwards;
     }
 
-    :global(#comments-list.is-entering) {
+    :global(#comments-list.entering) {
       animation: comments-fade-in 0.25s ease forwards;
     }
 
-    .comments__form-wrapper {
+    .form {
       padding-top: 0.5rem;
 
       .label {
@@ -820,7 +822,7 @@ const { postId } = Astro.props;
         }
       }
 
-      .button.is-primary {
+      .button[data-variant="primary"] {
         background-color: var(--accent-primary);
         border-color: var(--accent-primary);
         color: var(--text-on-strong);
@@ -842,7 +844,7 @@ const { postId } = Astro.props;
       }
     }
 
-    .comments__optional {
+    .optional {
       font-size: 0.8125rem;
       font-weight: 400;
       text-transform: none;
@@ -850,18 +852,18 @@ const { postId } = Astro.props;
       color: var(--text-muted);
     }
 
-    .comments__form-status {
+    .form-status {
       align-self: center;
       font-size: 0.875rem;
       padding-left: 0.5rem;
+    }
 
-      &.is-success {
-        color: var(--color-success);
-      }
+    .form-status[data-status="success"] {
+      color: var(--color-success);
+    }
 
-      &.is-error {
-        color: var(--accent-primary);
-      }
+    .form-status[data-status="error"] {
+      color: var(--accent-primary);
     }
 
     [data-theme="dark"] {
@@ -871,7 +873,7 @@ const { postId } = Astro.props;
         border-left-color: var(--accent-primary);
       }
 
-      .comments__form-wrapper {
+      .form {
         .input,
         .textarea {
           background-color: var(--surface-elevated);
@@ -884,7 +886,7 @@ const { postId } = Astro.props;
         }
       }
 
-      .comments__form-status.is-success {
+      .form-status[data-status="success"] {
         color: var(--color-success-bright);
       }
     }

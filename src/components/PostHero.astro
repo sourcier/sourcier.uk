@@ -57,14 +57,14 @@ const hasEngagement = Boolean(postId || hasShare);
 const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 ---
 
-<header class:list={["post-hero", { "post-hero--with-cover": hasCover }]}>
+<header class="post-hero" data-has-cover={hasCover || undefined}>
   <div class="container">
-    <div class="post-hero__frame">
+    <div class="frame">
       {
         hasCover && (
-          <div class="post-hero__cover-shell" aria-hidden="true">
+          <div class="cover-shell" aria-hidden="true">
             <Image
-              class="post-hero__cover"
+              class="cover"
               src={coverImage!.image}
               alt=""
               widths={[640, 1024, 1440, 1920]}
@@ -78,20 +78,20 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
         )
       }
       <div
-        class="post-hero__inner"
+        class="inner"
         style={postId
           ? "--hero-utility-space: clamp(12rem, 26vw, 18rem);"
           : undefined}
       >
         {
           hasTopBar && (
-            <div class="post-hero__topbar">
+            <div class="topbar">
               <Breadcrumb crumbs={crumbs} noContainer />
             </div>
           )
         }
 
-        <div class="post-hero__content">
+        <div class="content">
           {
             hasCover && coverImage?.alt && (
               <span class="visually-hidden">Cover image: {coverImage.alt}</span>
@@ -100,9 +100,9 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 
           {
             tags && tags.length > 0 && (
-              <div class="post-hero__tags" aria-label="Post topics">
+              <div class="tags" aria-label="Post topics">
                 {tags.map((tag: string) => (
-                  <a href={`/tags/${tagSlug(tag)}`} class="post-hero__tag">
+                  <a href={`/tags/${tagSlug(tag)}`} class="tag">
                     {tag}
                   </a>
                 ))}
@@ -110,16 +110,16 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
             )
           }
 
-          <h1 class="post-hero__title">{title}</h1>
-          {subtitle && <p class="post-hero__subtitle">{subtitle}</p>}
+          <h1 class="heading">{title}</h1>
+          {subtitle && <p class="subtitle">{subtitle}</p>}
 
           {
             facts.length > 0 && (
-              <dl class="post-hero__facts">
+              <dl class="facts">
                 {facts.map((fact) => (
-                  <div class="post-hero__fact">
-                    <dt class="post-hero__fact-label">{fact.label}</dt>
-                    <dd class="post-hero__fact-value">{fact.value}</dd>
+                  <div class="fact">
+                    <dt class="caption">{fact.label}</dt>
+                    <dd class="value">{fact.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -129,9 +129,9 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 
         {
           hasEngagement && (
-            <div class="post-hero__engagement">
+            <div class="engagement">
               {postId && (
-                <div class="post-hero__utility">
+                <div class="utility">
                   <Reactions postId={postId} variant="hero" compact />
                 </div>
               )}
@@ -146,7 +146,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
   </div>
 </header>
 
-<style lang="scss">
+<style>
   .post-hero {
     padding: clamp(1.4rem, 3vw, 2.4rem) 0 0;
   }
@@ -163,7 +163,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__frame {
+  .frame {
     position: relative;
     overflow: hidden;
     border: 1px solid
@@ -224,7 +224,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__cover-shell {
+  .cover-shell {
     position: absolute;
     top: 0;
     right: 0;
@@ -236,19 +236,19 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 38%);
   }
 
-  .post-hero__cover {
+  .cover {
     width: 100%;
     height: 100%;
     object-fit: cover;
     /* object-position is set inline, derived from the cover's focal point */
   }
 
-  .post-hero__inner {
+  .inner {
     position: relative;
     padding: clamp(1.35rem, 3vw, 2.35rem);
   }
 
-  .post-hero__topbar {
+  .topbar {
     position: relative;
     z-index: 1;
     display: flex;
@@ -259,14 +259,14 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     margin-bottom: 1rem;
   }
 
-  .post-hero__content {
+  .content {
     min-width: 0;
     max-width: min(48rem, 100%);
     position: relative;
     z-index: 1;
   }
 
-  .post-hero__topbar :global(.breadcrumb-nav) {
+  .topbar :global(.breadcrumb-nav) {
     flex: 1 1 18rem;
     min-width: 0;
     margin-bottom: 0;
@@ -279,20 +279,20 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__topbar :global(.breadcrumb__list) {
+  .topbar :global(:where(.breadcrumb-nav) .list) {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
   }
 
-  .post-hero__topbar :global(.breadcrumb__item:not(:last-child)::after) {
+  .topbar :global(:where(.breadcrumb-nav) .item:not(:last-child)::after) {
     content: "/";
     margin: 0 0.5rem;
     color: color-mix(in srgb, var(--text-primary) 28%, transparent);
     font-weight: 400;
   }
 
-  .post-hero__topbar :global(.breadcrumb__link) {
+  .topbar :global(:where(.breadcrumb-nav) .link) {
     color: color-mix(in srgb, var(--text-primary) 74%, transparent);
 
     &:hover,
@@ -301,11 +301,11 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__topbar :global(.breadcrumb__current) {
+  .topbar :global(:where(.breadcrumb-nav) .current) {
     color: var(--text-primary);
   }
 
-  .post-hero__title {
+  .heading {
     margin: 0;
     max-width: 14.5ch;
     font-family: "Barlow Condensed", sans-serif;
@@ -363,7 +363,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__subtitle {
+  .subtitle {
     margin: 1rem 0 0;
     max-width: 34ch;
     position: relative;
@@ -419,7 +419,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__facts {
+  .facts {
     display: flex;
     flex-wrap: wrap;
     gap: 0.85rem 1.15rem;
@@ -429,7 +429,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     border-top: 1px solid rgba(var(--overlay-rgb), 0.12);
   }
 
-  .post-hero__fact {
+  .fact {
     display: flex;
     flex-direction: column;
     gap: 0.22rem;
@@ -448,7 +448,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__fact-label {
+  .caption {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.72rem;
@@ -458,7 +458,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     color: var(--accent-secondary);
   }
 
-  .post-hero__fact-value {
+  .value {
     margin: 0;
     font-size: 0.96rem;
     font-weight: 600;
@@ -466,14 +466,14 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     color: var(--text-primary);
   }
 
-  .post-hero__tags {
+  .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.55rem;
     margin: 0 0 0.95rem;
   }
 
-  .post-hero__engagement {
+  .engagement {
     max-width: min(48rem, 100%);
     margin-top: 1rem;
     padding-top: 1rem;
@@ -483,16 +483,16 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     gap: 1rem;
   }
 
-  .post-hero__utility {
+  .utility {
     position: relative;
     z-index: 1;
   }
 
-  .post-hero__utility :global(.reactions) {
+  .utility :global(.reactions) {
     margin: 0;
   }
 
-  .post-hero__engagement :global(.share-post--hero) {
+  .engagement :global(.share-post:where([data-variant="hero"])) {
     position: relative;
     z-index: 1;
     margin: 0;
@@ -501,11 +501,11 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
   }
 
   @media (min-width: 1024px) {
-    .post-hero__engagement {
+    .engagement {
       gap: 0;
     }
 
-    .post-hero__utility {
+    .utility {
       position: absolute;
       top: clamp(1.35rem, 3vw, 2.35rem);
       right: clamp(1.35rem, 3vw, 2.35rem);
@@ -513,7 +513,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero__tag {
+  .tag {
     display: inline-flex;
     align-items: center;
     min-height: 2rem;
@@ -553,53 +553,53 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     }
   }
 
-  .post-hero:not(.post-hero--with-cover) .post-hero__title {
+  .post-hero:not(.post-hero:where([data-has-cover])) .heading {
     max-width: 16ch;
   }
 
-  .post-hero:not(.post-hero--with-cover) .post-hero__frame {
+  .post-hero:not(.post-hero:where([data-has-cover])) .frame {
     background-position: center;
   }
 
-  .post-hero:not(.post-hero--with-cover) .post-hero__cover {
+  .post-hero:not(.post-hero:where([data-has-cover])) .cover {
     display: none;
   }
 
   @media (max-width: 767px) {
-    .post-hero__frame {
+    .frame {
       border-radius: var(--radius-panel);
     }
 
-    .post-hero__cover-shell {
+    .cover-shell {
       width: 100%;
     }
 
-    .post-hero__title {
+    .heading {
       max-width: none;
     }
 
-    .post-hero__facts {
+    .facts {
       gap: 0.75rem;
       padding-top: 0.85rem;
     }
 
-    .post-hero__topbar {
+    .topbar {
       gap: 0.75rem;
       margin-bottom: 0.9rem;
     }
 
-    .post-hero__topbar :global(.breadcrumb-nav) {
+    .topbar :global(.breadcrumb-nav) {
       flex-basis: auto;
       width: 100%;
     }
 
-    .post-hero__engagement {
+    .engagement {
       margin-top: 0.85rem;
       padding-top: 0.85rem;
       gap: 0.85rem;
     }
 
-    .post-hero__fact {
+    .fact {
       width: 100%;
       padding-right: 0;
 

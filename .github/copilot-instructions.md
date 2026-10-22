@@ -1,6 +1,7 @@
 # Copilot Instructions — sourcier.uk
 
-Personal tech blog and engineering consultancy site built with Astro 6, Sass/Bulma, hosted on Netlify. Live at [sourcier.uk](https://sourcier.uk).
+Personal tech blog and engineering consultancy site built with Astro 6 and
+native CSS, hosted on Netlify. Live at [sourcier.uk](https://sourcier.uk).
 
 ## Multi-repo setup
 
@@ -54,6 +55,15 @@ Requires Node.js (see `.nvmrc`), pnpm, and Netlify CLI.
 
 ## Quick facts worth knowing before making changes
 
+- Styling uses native CSS: `src/styles/global.css` is the ordered global
+  entrypoint, `src/styles/theme.css` holds shared CSS variables, and focused
+  purpose files are imported from the entrypoint. Use plain scoped `<style>`
+  blocks in Astro components. Bulma and Sass are not required.
+- Prefer short, single-word component parts scoped to their owner, retaining
+  descriptive roots where needed. Reserve shared utility names for their
+  shared behavior, preserve vendor/content contracts, and update markup,
+  generated HTML, CSS, scripts, and test selectors together. See the
+  project Astro instructions for naming and variant conventions.
 - Draft posts controlled by `SHOW_DRAFTS` env var and the `isPublished()` / `isPubliclyPublished()` utilities in `src/utils/drafts.ts`.
 - CI (`.github/workflows/ci.yml`) always builds and tests the **preview** path (content with drafts) before the **prod** path (content without drafts) — the prod `build` job waits on `build-preview` and `visual-regression-preview` succeeding or being legitimately skipped, so a broken preview never wastes a redundant prod build.
 - Visual regression baselines: `linux-x64` (used by CI, regenerated only via the manual `update-visual-baselines.yml` workflow) and `darwin-arm64` (local dev sanity check, never compared in CI) — never compare screenshots across architectures.

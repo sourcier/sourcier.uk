@@ -8,7 +8,7 @@ applyTo: "**/*.astro, **/*.ts, **/*.js, **/*.md, **/*.mdx"
 ## Tech Stack
 
 - **Astro 6** with Islands Architecture and Content Layer API
-- **Styling:** Sass + Bulma CSS framework — `<style lang="scss">` in components, global styles in `src/styles/global.scss`
+- **Styling:** Native CSS — scoped plain `<style>` blocks in components and an ordered global entrypoint at `src/styles/global.css`; no Bulma dependency or Sass preprocessor is required
 - **Content:** Markdown in `collections/posts/` (separate git repo), loaded via `glob()` in `src/content.config.ts`
 - **Hosting:** Netlify (serverless functions, edge functions, scheduled builds)
 - **Search:** Pagefind static site search, indexed after build
@@ -30,8 +30,34 @@ pnpm post-images:copy     # Mirror SVG files to public/post-images/<slug>/ and g
 
 ## Project-Specific Styling
 
-- Scoped styles use `<style lang="scss">`
-- Global utilities (`.visually-hidden`, search modal styles) live in `src/styles/global.scss`
+- `src/styles/global.css` is the ordered global entrypoint imported by
+  `BaseLayout.astro` after `reset.css`.
+- Its imports are ordered by purpose: `theme.css`, `base.css`,
+  `navigation.css`, `home-hero.css`, `controls.css`, `panels.css`,
+  `series.css`, `post-markers.css`, `blog-cards.css`, `social-icons.css`,
+  `contact.css`, `article.css`, and `search.css`.
+- Shared color, surface, spacing, radius, and shadow tokens live in
+  `src/styles/theme.css`; light and dark values are selected with
+  `[data-theme="dark"]`.
+- Use plain scoped `<style>` blocks for component-specific rules. Put styles
+  for markup injected through `innerHTML` in the appropriate global CSS file,
+  because Astro scoping does not reach injected elements.
+- Global utilities such as `.visually-hidden` live in `src/styles/base.css`.
+- The styles use native CSS; neither Bulma nor Sass is a project dependency.
+- Prefer single-word component parts such as `.heading`, `.body`, and
+  `.icon`, scoped to their owner. Keep descriptive roots when needed;
+  do not replace meaningful words with opaque abbreviations.
+- Reserve global utility names such as `.button`, `.label`, `.input`,
+  `.actions`, `.container`, `.section`, and `.panel` for their shared
+  behavior. A scoped class still receives matching global rules.
+- Qualify global part selectors with their owning root, using `:where()`
+  where necessary to preserve specificity. Guard nested component boundaries.
+- Use native or existing ARIA state rather than duplicate state classes;
+  use data attributes for presentation variants. Container width uses
+  `data-width="narrow"`; panel tone uses `data-tone="secondary"`.
+- Rename markup, generated HTML, styles, scripts, and test selectors together.
+  Preserve vendor classes and content contracts such as `date-chip`,
+  `update-divider`, and `series-callout`.
 - Breakpoints: 640px (mobile/tablet), 768px (tablet/desktop)
 - Primary colour: `--color-pink: #e8006a`
 - `cover.thumbnail` in content schema is a plain string (not an Astro image) — bypasses filename hashing so the path stays stable

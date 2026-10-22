@@ -108,40 +108,37 @@ const avgReadMinutes =
     class="topic-overview flow-section flow-section--loose"
     aria-labelledby="topic-overview-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="page-panel topic-overview__panel">
-        <div class="topic-overview__copy">
-          <p class="topic-overview__eyebrow">Topic archive</p>
-          <h2 class="topic-overview__title" id="topic-overview-heading">
+    <div class="container" data-width="narrow">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">Topic archive</p>
+          <h2 class="heading" id="topic-overview-heading">
             {postCountLabel} about {label}
           </h2>
-          <p class="topic-overview__text">
+          <p class="text">
             {
               description ??
                 "This archive keeps every article filed under this topic in one place, newest first, so you can stay with one theme without jumping around the rest of the site."
             }
           </p>
           <dl class="topic-stats">
-            <div class="topic-stats__item">
+            <div class="item">
               <dt>Posts</dt>
               <dd>{allTagPosts.length}</dd>
             </div>
-            <div class="topic-stats__item">
+            <div class="item">
               <dt>Avg read</dt>
               <dd>~{avgReadMinutes} min</dd>
             </div>
-            <div class="topic-stats__item">
+            <div class="item">
               <dt>Total read</dt>
               <dd>~{totalReadMinutes} min</dd>
             </div>
           </dl>
         </div>
-        <div class="topic-overview__actions">
-          <a href="/tags" class="topic-overview__link">All topics</a>
-          <a
-            href="/blog"
-            class="topic-overview__link topic-overview__link--secondary"
-          >
+        <div class="cta">
+          <a href="/tags" class="anchor">All topics</a>
+          <a href="/blog" class="anchor" data-variant="secondary">
             Latest writing
           </a>
         </div>
@@ -155,11 +152,11 @@ const avgReadMinutes =
         class="featured-post flow-section flow-section--loose"
         aria-labelledby="featured-post-heading"
       >
-        <div class="container is-max-desktop">
-          <p class="featured-post__eyebrow">Latest in this topic</p>
-          <a href={`/blog/${featuredPost.id}/`} class="featured-post__card">
+        <div class="container" data-width="narrow">
+          <p class="eyebrow">Latest in this topic</p>
+          <a href={`/blog/${featuredPost.id}/`} class="card">
             {featuredPost.data.cover && (
-              <div class="featured-post__cover">
+              <div class="cover">
                 <img
                   src={featuredPost.data.cover.image.src}
                   alt={featuredCoverAlt}
@@ -170,11 +167,11 @@ const avgReadMinutes =
                       : undefined
                   }
                 />
-                <div class="featured-post__cover-overlay" aria-hidden="true" />
+                <div class="overlay" aria-hidden="true" />
               </div>
             )}
-            <div class="featured-post__body">
-              <p class="featured-post__meta">
+            <div class="body">
+              <p class="meta">
                 {new Date(featuredPost.data.pubDate).toLocaleDateString(
                   "en-GB",
                   {
@@ -187,18 +184,14 @@ const avgReadMinutes =
                 {featuredPost.body &&
                   ` · ${readingTime(featuredPost.body).text}`}
               </p>
-              <h2 class="featured-post__title" id="featured-post-heading">
+              <h2 class="heading" id="featured-post-heading">
                 {featuredPost.data.title}
               </h2>
               {featuredPost.data.subTitle && (
-                <p class="featured-post__subtitle">
-                  {featuredPost.data.subTitle}
-                </p>
+                <p class="subtitle">{featuredPost.data.subTitle}</p>
               )}
-              <p class="featured-post__description">
-                {featuredPost.data.description}
-              </p>
-              <span class="featured-post__cta">
+              <p class="description">{featuredPost.data.description}</p>
+              <span class="cta">
                 Read post <span aria-hidden="true">&rarr;</span>
               </span>
             </div>
@@ -211,12 +204,12 @@ const avgReadMinutes =
   {
     relatedTags.length > 0 && (
       <section class="related-tags flow-section" aria-label="Related topics">
-        <div class="container is-max-desktop">
-          <p class="related-tags__label">Related topics</p>
-          <ul class="related-tags__list" role="list">
+        <div class="container" data-width="narrow">
+          <p class="caption">Related topics</p>
+          <ul class="list" role="list">
             {relatedTags.map(({ slug, label: relLabel }) => (
               <li>
-                <a href={`/tags/${slug}`} class="related-tags__pill">
+                <a href={`/tags/${slug}`} class="pill">
                   {relLabel}
                 </a>
               </li>
@@ -242,12 +235,12 @@ const avgReadMinutes =
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .topic-overview {
     padding: 0 1.5rem;
   }
 
-  .topic-overview__panel {
+  :where(.topic-overview) .surface {
     display: grid;
     gap: 1.25rem;
     border-top-color: var(--accent-secondary);
@@ -272,7 +265,7 @@ const avgReadMinutes =
     }
   }
 
-  .topic-overview__eyebrow {
+  :where(.topic-overview) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -282,7 +275,7 @@ const avgReadMinutes =
     color: var(--accent-secondary);
   }
 
-  .topic-overview__title {
+  :where(.topic-overview) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.9rem, 4vw, 2.7rem);
@@ -291,7 +284,7 @@ const avgReadMinutes =
     color: var(--text-primary);
   }
 
-  .topic-overview__text {
+  :where(.topic-overview) .text {
     margin: 0.85rem 0 0;
     max-width: 58ch;
     line-height: 1.7;
@@ -305,7 +298,7 @@ const avgReadMinutes =
     margin: 1.1rem 0 0;
     padding: 0;
 
-    &__item {
+    :where(.item) {
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
@@ -329,13 +322,13 @@ const avgReadMinutes =
     }
   }
 
-  .topic-overview__actions {
+  :where(.topic-overview) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .topic-overview__link {
+  :where(.topic-overview) .anchor {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -365,7 +358,7 @@ const avgReadMinutes =
     }
   }
 
-  .topic-overview__link--secondary {
+  :where(.topic-overview) .anchor[data-variant="secondary"] {
     border-color: var(--accent-primary-alpha-22);
     background: color-mix(
       in srgb,
@@ -379,7 +372,7 @@ const avgReadMinutes =
     padding: 0 1.5rem;
   }
 
-  .featured-post__eyebrow {
+  :where(.featured-post) .eyebrow {
     margin: 0 0 0.9rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -389,7 +382,7 @@ const avgReadMinutes =
     color: var(--accent-primary);
   }
 
-  .featured-post__card {
+  :where(.featured-post) .card {
     display: grid;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
@@ -410,7 +403,7 @@ const avgReadMinutes =
     }
   }
 
-  .featured-post__cover {
+  :where(.featured-post) .cover {
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -426,13 +419,9 @@ const avgReadMinutes =
       object-fit: cover;
       transition: transform 0.4s ease;
     }
-
-    .featured-post__card:hover & img {
-      transform: scale(1.03);
-    }
   }
 
-  .featured-post__cover-overlay {
+  :where(.featured-post) .overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -442,20 +431,20 @@ const avgReadMinutes =
     );
   }
 
-  .featured-post__body {
+  :where(.featured-post) .body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 1.75rem 2rem;
   }
 
-  .featured-post__meta {
+  :where(.featured-post) .meta {
     margin: 0;
     font-size: 0.8rem;
     color: var(--text-muted);
   }
 
-  .featured-post__title {
+  :where(.featured-post) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -465,13 +454,13 @@ const avgReadMinutes =
     color: var(--text-primary);
   }
 
-  .featured-post__subtitle {
+  :where(.featured-post) .subtitle {
     margin: 0;
     font-size: 0.95rem;
     color: var(--text-secondary);
   }
 
-  .featured-post__description {
+  :where(.featured-post) .description {
     margin: 0.25rem 0 0;
     font-size: 0.93rem;
     line-height: 1.65;
@@ -482,7 +471,7 @@ const avgReadMinutes =
     overflow: hidden;
   }
 
-  .featured-post__cta {
+  :where(.featured-post) .cta {
     margin-top: auto;
     padding-top: 1rem;
     font-family: "Barlow Condensed", sans-serif;
@@ -497,7 +486,7 @@ const avgReadMinutes =
     padding: 0 1.5rem;
   }
 
-  .related-tags__label {
+  :where(.related-tags) .caption {
     margin: 0 0 0.75rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -507,7 +496,7 @@ const avgReadMinutes =
     color: var(--text-muted);
   }
 
-  .related-tags__list {
+  :where(.related-tags) .list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -516,7 +505,7 @@ const avgReadMinutes =
     list-style: none;
   }
 
-  .related-tags__pill {
+  :where(.related-tags) .pill {
     display: inline-flex;
     align-items: center;
     padding: 0.35rem 0.85rem;
@@ -536,5 +525,9 @@ const avgReadMinutes =
       color: var(--accent-secondary);
       transform: translateY(-1px);
     }
+  }
+
+  :where(.featured-post) .card:hover .cover img {
+    transform: scale(1.03);
   }
 </style>

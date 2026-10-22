@@ -16,8 +16,8 @@ describe("Reactions", () => {
         props: { postId: "my-post" },
       }),
     );
-    expect(normalized).not.toContain("reactions--hero");
-    expect(normalized).not.toContain("reactions--compact");
+    expect(normalized).not.toContain('data-variant="hero"');
+    expect(normalized).not.toContain("data-compact");
   });
 
   it("renders hero variant", async () => {
@@ -26,7 +26,7 @@ describe("Reactions", () => {
         props: { postId: "my-post", variant: "hero" },
       }),
     );
-    expect(normalized).toContain("reactions--hero");
+    expect(normalized).toContain('data-variant="hero"');
   });
 
   it("renders compact modifier", async () => {
@@ -35,7 +35,7 @@ describe("Reactions", () => {
         props: { postId: "my-post", compact: true },
       }),
     );
-    expect(normalized).toContain("reactions--compact");
+    expect(normalized).toContain('data-compact="true"');
   });
 
   it("changes heading text for hero variant", async () => {

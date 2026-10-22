@@ -20,7 +20,9 @@ describe("Breadcrumb", () => {
     const html = await container.renderToString(Breadcrumb, {
       props: { crumbs },
     });
-    expect(normalizeHtml(html)).toContain('class="container is-max-desktop"');
+    expect(normalizeHtml(html)).toContain(
+      'class="container" data-width="narrow"',
+    );
   });
 
   it("renders without container div when noContainer is true", async () => {
@@ -28,15 +30,15 @@ describe("Breadcrumb", () => {
       props: { crumbs, noContainer: true },
     });
     expect(normalizeHtml(html)).not.toContain(
-      'class="container is-max-desktop"',
+      'class="container" data-width="narrow"',
     );
   });
 
-  it("adds inverted modifier class", async () => {
+  it("marks inverted breadcrumbs", async () => {
     const html = await container.renderToString(Breadcrumb, {
       props: { crumbs, inverted: true },
     });
-    expect(normalizeHtml(html)).toContain("breadcrumb-nav--inverted");
+    expect(normalizeHtml(html)).toContain('data-inverted="true"');
   });
 
   it("renders multiple crumb levels with schema markup", async () => {

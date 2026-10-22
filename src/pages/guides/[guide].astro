@@ -67,28 +67,20 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     class="section guide-intro flow-section flow-section--loose"
     aria-labelledby="guide-intro-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="guide-intro__panel page-panel">
-        <p class="section-label guide-intro__label">
-          <span
-            class="guide-intro__label-icon"
-            aria-hidden="true"
-            set:html={overviewIcon}
-          />
+    <div class="container" data-width="narrow">
+      <div class="surface panel">
+        <p class="section-label caption">
+          <span class="marker" aria-hidden="true" set:html={overviewIcon} />
           <span>Overview</span>
         </p>
-        <div class="guide-intro__heading-row">
-          <span
-            class="guide-intro__icon"
-            aria-hidden="true"
-            set:html={guidePageIcon}
-          />
-          <h2 class="guide-intro__heading" id="guide-intro-heading">
+        <div class="group">
+          <span class="icon" aria-hidden="true" set:html={guidePageIcon} />
+          <h2 class="heading" id="guide-intro-heading">
             A practical reading guide, not a course syllabus
           </h2>
         </div>
-        <p class="guide-intro__body">{guide.intro}</p>
-        <p class="guide-intro__body">
+        <p class="body">{guide.intro}</p>
+        <p class="body">
           Use this guide when you want a curated set of articles, examples, and
           next topics in a sensible order. It is the free reading path through
           the subject, not the structured teaching product.
@@ -101,36 +93,28 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     class="section guide-panels flow-section"
     aria-labelledby="guide-panels-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="guide-panels__grid">
+    <div class="container" data-width="narrow">
+      <div class="grid">
         <article class="guide-panel">
-          <p class="guide-panel__kicker">
-            <span
-              class="guide-panel__kicker-icon"
-              aria-hidden="true"
-              set:html={audienceIcon}
-            />
+          <p class="kicker">
+            <span class="icon" aria-hidden="true" set:html={audienceIcon} />
             <span>Who this is for</span>
           </p>
-          <h2 class="guide-panel__title" id="guide-panels-heading">
+          <h2 class="heading" id="guide-panels-heading">
             Start here if this sounds like you
           </h2>
-          <ul class="guide-panel__list" role="list">
+          <ul class="list" role="list">
             {guide.whoItsFor.map((item) => <li>{item}</li>)}
           </ul>
         </article>
 
         <article class="guide-panel">
-          <p class="guide-panel__kicker">
-            <span
-              class="guide-panel__kicker-icon"
-              aria-hidden="true"
-              set:html={coverageIcon}
-            />
+          <p class="kicker">
+            <span class="icon" aria-hidden="true" set:html={coverageIcon} />
             <span>What you will get</span>
           </p>
-          <h2 class="guide-panel__title">What this guide will cover</h2>
-          <ul class="guide-panel__list" role="list">
+          <h2 class="heading">What this guide will cover</h2>
+          <ul class="list" role="list">
             {guide.whatYouWillGet.map((item) => <li>{item}</li>)}
           </ul>
         </article>
@@ -142,12 +126,10 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     class="section guide-current flow-section"
     aria-labelledby="guide-current-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label">Published now</p>
-      <h2 class="guide-current__heading" id="guide-current-heading">
-        Read these first
-      </h2>
-      <div class="guide-current__grid">
+      <h2 class="heading" id="guide-current-heading">Read these first</h2>
+      <div class="grid">
         {
           guidePosts.map((post) => (
             <BlogPost
@@ -170,29 +152,25 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     class="section guide-planned flow-section"
     aria-labelledby="guide-planned-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label">Coming next</p>
-      <h2 class="guide-planned__heading" id="guide-planned-heading">
+      <h2 class="heading" id="guide-planned-heading">
         Planned articles for this path
       </h2>
-      <p class="guide-planned__intro">
+      <p class="intro">
         These are the topics I plan to add next so this path becomes more useful
         over time.
       </p>
-      <div class="guide-planned__grid">
+      <div class="grid">
         {
           guide.plannedArticles.map((article) => (
             <article class="planned-article-card">
-              <p class="planned-article-card__status">
-                <span
-                  class="planned-article-card__status-icon"
-                  aria-hidden="true"
-                  set:html={plannedIcon}
-                />
+              <p class="status">
+                <span class="icon" aria-hidden="true" set:html={plannedIcon} />
                 <span>Planned</span>
               </p>
-              <h3 class="planned-article-card__title">{article.title}</h3>
-              <p class="planned-article-card__body">{article.description}</p>
+              <h3 class="heading">{article.title}</h3>
+              <p class="body">{article.description}</p>
             </article>
           ))
         }
@@ -204,24 +182,24 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     class="section guide-cta flow-section"
     aria-labelledby="guide-cta-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="guide-cta__panel">
+    <div class="container" data-width="narrow">
+      <div class="surface">
         <div>
-          <p class="guide-cta__kicker">Next step</p>
-          <h2 class="guide-cta__title" id="guide-cta-heading">
+          <p class="kicker">Next step</p>
+          <h2 class="heading" id="guide-cta-heading">
             Want help beyond the articles?
           </h2>
-          <p class="guide-cta__body">
+          <p class="body">
             If this guide matches where you are now and you want help beyond the
             free articles, you can either get in touch directly or subscribe so
             you hear about new pieces as this guide grows.
           </p>
         </div>
-        <div class="guide-cta__actions">
-          <a href={guide.supportHref} class="guide-cta__primary">
+        <div class="cta">
+          <a href={guide.supportHref} class="primary">
             {guide.supportLabel}
           </a>
-          <a href="/blog" class="guide-cta__secondary">Browse the blog</a>
+          <a href="/blog" class="secondary">Browse the blog</a>
         </div>
       </div>
     </div>
@@ -230,13 +208,13 @@ const plannedIcon = faIcon(faClock, { size: 14 });
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .guide-intro {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  .guide-current__grid {
+  :where(.guide-current) .grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
@@ -255,20 +233,20 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     padding-bottom: 0;
   }
 
-  .guide-intro__panel {
+  :where(.guide-intro) .surface {
     padding-top: 1.5rem;
   }
 
-  .guide-intro__label {
+  :where(.guide-intro) .caption {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
   }
 
-  .guide-intro__label-icon,
-  .guide-panel__kicker-icon,
-  .planned-article-card__status-icon,
-  .guide-intro__icon {
+  :where(.guide-intro) .marker,
+  :where(.guide-panel) .icon,
+  :where(.planned-article-card) .icon,
+  :where(.guide-intro) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -279,13 +257,13 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     }
   }
 
-  .guide-intro__heading-row {
+  :where(.guide-intro) .group {
     display: flex;
     align-items: flex-start;
     gap: 0.85rem;
   }
 
-  .guide-intro__icon {
+  :where(.guide-intro) .icon {
     width: 2.4rem;
     height: 2.4rem;
     border-radius: var(--radius-pill);
@@ -297,9 +275,9 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     color: var(--accent-primary);
   }
 
-  .guide-intro__heading,
-  .guide-current__heading,
-  .guide-planned__heading {
+  :where(.guide-intro) .heading,
+  :where(.guide-current) .heading,
+  :where(.guide-planned) .heading {
     margin: 0 0 1rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -308,21 +286,21 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     color: var(--text-primary);
   }
 
-  .guide-intro__body,
-  .guide-planned__intro,
-  .guide-cta__body {
+  :where(.guide-intro) .body,
+  :where(.guide-planned) .intro,
+  :where(.guide-cta) .body {
     max-width: 64ch;
     margin: 0;
     line-height: 1.75;
     color: var(--text-muted);
   }
 
-  .guide-intro__body + .guide-intro__body {
+  :where(.guide-intro) .body + .body {
     margin-top: 1rem;
   }
 
-  .guide-panels__grid,
-  .guide-planned__grid {
+  :where(.guide-panels) .grid,
+  :where(.guide-planned) .grid {
     display: grid;
     gap: 1rem;
 
@@ -333,7 +311,7 @@ const plannedIcon = faIcon(faClock, { size: 14 });
 
   .guide-panel,
   .planned-article-card,
-  .guide-cta__panel {
+  :where(.guide-cta) .surface {
     border: 1px solid var(--border-subtle);
     border-top: 3px solid var(--accent-primary);
     border-radius: 10px;
@@ -352,9 +330,9 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     padding: 1.5rem;
   }
 
-  .guide-panel__kicker,
-  .planned-article-card__status,
-  .guide-cta__kicker {
+  :where(.guide-panel) .kicker,
+  :where(.planned-article-card) .status,
+  :where(.guide-cta) .kicker {
     margin: 0 0 0.6rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
@@ -364,22 +342,22 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     color: var(--accent-primary);
   }
 
-  .guide-panel__kicker,
-  .planned-article-card__status {
+  :where(.guide-panel) .kicker,
+  :where(.planned-article-card) .status {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
   }
 
-  .guide-panel__kicker-icon,
-  .planned-article-card__status-icon,
-  .guide-intro__label-icon {
+  :where(.guide-panel) .icon,
+  :where(.planned-article-card) .icon,
+  :where(.guide-intro) .marker {
     color: var(--accent-primary);
   }
 
-  .guide-panel__title,
-  .planned-article-card__title,
-  .guide-cta__title {
+  :where(.guide-panel) .heading,
+  :where(.planned-article-card) .heading,
+  :where(.guide-cta) .heading {
     margin: 0 0 0.75rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.2rem;
@@ -388,7 +366,7 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     color: var(--text-primary);
   }
 
-  .guide-panel__list {
+  :where(.guide-panel) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -415,13 +393,13 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     }
   }
 
-  .planned-article-card__body {
+  :where(.planned-article-card) .body {
     margin: 0;
     line-height: 1.7;
     color: var(--text-muted);
   }
 
-  .guide-cta__panel {
+  :where(.guide-cta) .surface {
     display: grid;
     gap: 1.5rem;
     padding: 1.5rem;
@@ -432,14 +410,14 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     }
   }
 
-  .guide-cta__actions {
+  :where(.guide-cta) .cta {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .guide-cta__primary,
-  .guide-cta__secondary {
+  :where(.guide-cta) .primary,
+  :where(.guide-cta) .secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -454,12 +432,12 @@ const plannedIcon = faIcon(faClock, { size: 14 });
     text-decoration: none;
   }
 
-  .guide-cta__primary {
+  :where(.guide-cta) .primary {
     background: var(--accent-primary);
     color: var(--text-on-strong);
   }
 
-  .guide-cta__secondary {
+  :where(.guide-cta) .secondary {
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
     background: transparent;

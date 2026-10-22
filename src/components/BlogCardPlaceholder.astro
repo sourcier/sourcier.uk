@@ -2,14 +2,14 @@
 
 ---
 
-<div class="card card__blog card__blog--placeholder" aria-hidden="true">
-  <div class="card__blog--placeholder-inner">
-    <span class="card__blog--placeholder-label">More posts coming soon</span>
+<div class="blog-card" data-placeholder aria-hidden="true">
+  <div class="inner">
+    <span class="caption">More posts coming soon</span>
   </div>
 </div>
 
-<style lang="scss">
-  .card.card__blog--placeholder {
+<style>
+  .blog-card:where([data-placeholder]) {
     pointer-events: none;
     border: 2px dashed var(--accent-secondary-alpha-22);
     border-top-color: var(--accent-secondary-alpha-32);
@@ -21,7 +21,7 @@
     box-shadow: none;
   }
 
-  .card__blog--placeholder-inner {
+  .inner {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
     padding: 2rem 1.5rem;
   }
 
-  .card__blog--placeholder-label {
+  .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8125rem;
     font-weight: 700;

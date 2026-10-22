@@ -10,8 +10,8 @@ const { overview, order, total, previous, next } = navigation;
 ---
 
 <nav class="series-nav" aria-label="Article series" data-pagefind-ignore>
-  <div class="series-nav__header">
-    <h2 class="series-nav__title">
+  <div class="header">
+    <h2 class="heading">
       {
         order === 0 ? (
           overview.title
@@ -19,7 +19,7 @@ const { overview, order, total, previous, next } = navigation;
           <>
             <a href={`/blog/${overview.id}`}>{overview.title}</a>{" "}
             {overview.status !== "published" && (
-              <span class="series-nav__status">
+              <span class="status">
                 {overview.status === "draft" ? "Draft" : "Scheduled"}
               </span>
             )}
@@ -27,18 +27,18 @@ const { overview, order, total, previous, next } = navigation;
         )
       }
     </h2>
-    <p class="series-nav__eyebrow">
+    <p class="eyebrow">
       {order === 0 ? `${total} articles` : `Part ${order}`}
     </p>
   </div>
-  <div class="series-nav__links">
+  <div class="links">
     {
       previous && (
-        <a class="series-nav__link" href={`/blog/${previous.id}`} rel="prev">
-          <span class="series-nav__direction">Previous</span>
-          <span class="series-nav__article">{previous.title}</span>
+        <a class="link" href={`/blog/${previous.id}`} rel="prev">
+          <span class="direction">Previous</span>
+          <span class="article">{previous.title}</span>
           {previous.status !== "published" && (
-            <span class="series-nav__status">
+            <span class="status">
               {previous.status === "draft" ? "Draft" : "Scheduled"}
             </span>
           )}
@@ -47,13 +47,13 @@ const { overview, order, total, previous, next } = navigation;
     }
     {
       next && (
-        <a class="series-nav__link" href={`/blog/${next.id}`} rel="next">
-          <span class="series-nav__direction">
+        <a class="link" href={`/blog/${next.id}`} rel="next">
+          <span class="direction">
             {order === 0 ? "Start the series" : "Next"}
           </span>
-          <span class="series-nav__article">{next.title}</span>
+          <span class="article">{next.title}</span>
           {next.status !== "published" && (
-            <span class="series-nav__status">
+            <span class="status">
               {next.status === "draft" ? "Draft" : "Scheduled"}
             </span>
           )}
@@ -63,14 +63,14 @@ const { overview, order, total, previous, next } = navigation;
   </div>
 </nav>
 
-<style lang="scss">
+<style>
   .series-nav {
     margin-bottom: var(--space-section-tight);
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  .series-nav__header {
+  .header {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -78,8 +78,8 @@ const { overview, order, total, previous, next } = navigation;
     margin-bottom: 0.5rem;
   }
 
-  .series-nav__eyebrow,
-  .series-nav__direction {
+  .eyebrow,
+  .direction {
     color: var(--text-muted);
     font-size: 0.75rem;
     font-weight: 600;
@@ -87,12 +87,12 @@ const { overview, order, total, previous, next } = navigation;
     text-transform: uppercase;
   }
 
-  .series-nav__eyebrow {
+  .eyebrow {
     color: var(--text-primary);
     white-space: nowrap;
   }
 
-  .series-nav__title {
+  .heading {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
@@ -105,7 +105,7 @@ const { overview, order, total, previous, next } = navigation;
     }
   }
 
-  .series-nav__links {
+  .links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
@@ -115,7 +115,7 @@ const { overview, order, total, previous, next } = navigation;
     }
   }
 
-  .series-nav__link {
+  .link {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -127,7 +127,7 @@ const { overview, order, total, previous, next } = navigation;
     &:hover {
       color: var(--text-primary);
 
-      .series-nav__article {
+      .article {
         text-decoration: underline;
         text-underline-offset: 0.2em;
       }
@@ -139,14 +139,14 @@ const { overview, order, total, previous, next } = navigation;
     outline-offset: 4px;
   }
 
-  .series-nav__article {
+  .article {
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.4;
     overflow-wrap: anywhere;
   }
 
-  .series-nav__status {
+  .status {
     padding: 0.2rem 0.5rem;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-tight);

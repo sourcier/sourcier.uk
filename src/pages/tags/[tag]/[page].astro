@@ -77,26 +77,21 @@ const postCountLabel =
     class="topic-overview flow-section flow-section--loose"
     aria-labelledby="topic-overview-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="page-panel topic-overview__panel">
-        <div class="topic-overview__copy">
-          <p class="topic-overview__eyebrow">Topic archive</p>
-          <h2 class="topic-overview__title" id="topic-overview-heading">
+    <div class="container" data-width="narrow">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">Topic archive</p>
+          <h2 class="heading" id="topic-overview-heading">
             Page {currentPage} of {totalPages}
           </h2>
-          <p class="topic-overview__text">
+          <p class="text">
             {postCountLabel} filed under {label}. This page keeps you inside the
             same topic while you move through older entries in the archive.
           </p>
         </div>
-        <div class="topic-overview__actions">
-          <a href={`/tags/${tag}`} class="topic-overview__link">
-            Topic overview
-          </a>
-          <a
-            href="/blog"
-            class="topic-overview__link topic-overview__link--secondary"
-          >
+        <div class="cta">
+          <a href={`/tags/${tag}`} class="anchor"> Topic overview </a>
+          <a href="/blog" class="anchor" data-variant="secondary">
             Latest writing
           </a>
         </div>
@@ -119,12 +114,12 @@ const postCountLabel =
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .topic-overview {
     padding: 0 1.5rem;
   }
 
-  .topic-overview__panel {
+  :where(.topic-overview) .surface {
     display: grid;
     gap: 1.25rem;
     border-top-color: var(--accent-secondary);
@@ -149,7 +144,7 @@ const postCountLabel =
     }
   }
 
-  .topic-overview__eyebrow {
+  :where(.topic-overview) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -159,7 +154,7 @@ const postCountLabel =
     color: var(--accent-secondary);
   }
 
-  .topic-overview__title {
+  :where(.topic-overview) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.9rem, 4vw, 2.7rem);
@@ -168,20 +163,20 @@ const postCountLabel =
     color: var(--text-primary);
   }
 
-  .topic-overview__text {
+  :where(.topic-overview) .text {
     margin: 0.85rem 0 0;
     max-width: 58ch;
     line-height: 1.7;
     color: var(--text-muted);
   }
 
-  .topic-overview__actions {
+  :where(.topic-overview) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .topic-overview__link {
+  :where(.topic-overview) .anchor {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -211,7 +206,7 @@ const postCountLabel =
     }
   }
 
-  .topic-overview__link--secondary {
+  :where(.topic-overview) .anchor[data-variant="secondary"] {
     border-color: var(--accent-primary-alpha-22);
     background: color-mix(
       in srgb,

@@ -30,7 +30,7 @@ for (const width of [639, 640, 1023, 1024]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/blog");
     await expectColumns(
-      page.locator(".blog-grid__layout"),
+      page.locator(".blog-grid-section .layout"),
       width < 640 ? 1 : width < 1024 ? 2 : 3,
     );
   });
@@ -41,7 +41,7 @@ for (const width of [767, 768, 769]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
     await expectColumns(
-      page.locator(".audience-paths__grid"),
+      page.locator(".audience-paths .grid"),
       width < 768 ? 1 : 3,
     );
     await expectColumns(page.locator(".home-post-grid"), width < 769 ? 1 : 3);
@@ -53,7 +53,7 @@ for (const width of [959, 960]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
     await expectColumns(
-      page.locator(".community-offer__grid"),
+      page.locator(".community-offer .grid"),
       width < 960 ? 1 : 3,
     );
   });
@@ -62,7 +62,7 @@ for (const width of [959, 960]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/courses");
     await expectColumns(
-      page.locator(".courses-bundle__course-grid"),
+      page.locator(".courses-bundle .courses"),
       width < 960 ? 2 : 4,
     );
   });
@@ -71,7 +71,7 @@ for (const width of [959, 960]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/charity-support");
     await expectColumns(
-      page.locator(".charity-intro__grid"),
+      page.locator(".charity-intro .grid"),
       width < 960 ? 1 : 2,
     );
   });
@@ -82,7 +82,7 @@ for (const width of [1099, 1100]) {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
     await expectColumns(
-      page.locator(".course-launch__modules"),
+      page.locator(".course-launch .modules"),
       width < 1100 ? 2 : 4,
     );
   });
@@ -92,7 +92,7 @@ for (const width of [1215, 1216, 1407, 1408]) {
   test(`container width at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
-    await expect(page.locator(".navbar > .container")).toHaveCSS(
+    await expect(page.locator(".site-nav > .container")).toHaveCSS(
       "max-width",
       `${width < 1216 ? 960 : width < 1408 ? 1152 : 1344}px`,
     );
@@ -103,7 +103,7 @@ for (const width of [1279, 1280]) {
   test(`article sidebar at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/blog/markdown-test");
-    const sidebar = page.locator(".post__sidebar");
+    const sidebar = page.locator(".post .sidebar");
     if (width < 1280) {
       await expect(sidebar).toBeHidden();
     } else {
@@ -111,6 +111,54 @@ for (const width of [1279, 1280]) {
     }
   });
 }
+
+test("article table of contents marks its current location", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await visit(page, "/blog/markdown-test");
+  const tocLink = page.locator(".toc .link").first();
+  const href = await tocLink.getAttribute("href");
+  if (!href) throw new Error("Expected a table-of-contents link.");
+  expect(href).toMatch(/^#/);
+  const heading = page.locator(href);
+  await heading.evaluate((element) => {
+    window.scrollTo(
+      0,
+      element.getBoundingClientRect().top + window.scrollY - 120,
+    );
+  });
+  await expect(tocLink).toHaveAttribute("aria-current", "location");
+  await expect(tocLink).not.toHaveClass(/is-active/);
+});
+
+test("subscription feedback retains its styling through failure and retry", async ({
+  page,
+}) => {
+  let succeed = false;
+  await page.route("**/.netlify/functions/subscribe", async (route) => {
+    await route.fulfill({
+      status: succeed ? 200 : 503,
+      json: succeed ? { success: true } : { error: "Please try again." },
+    });
+  });
+  await visit(page, "/courses");
+  const form = page.locator("form[data-email-id]").first();
+  const feedback = form.locator("[aria-live]");
+  const originalClass = await feedback.getAttribute("class");
+  await form
+    .getByRole("textbox", { name: "Email address" })
+    .fill("reader@example.com");
+  await form.getByRole("button").click();
+  await expect(feedback).toHaveAttribute("data-status", "error");
+  await expect(feedback).toHaveAttribute("class", originalClass ?? "");
+  await expect(form.getByRole("button")).toBeEnabled();
+  succeed = true;
+  await form.getByRole("button").click();
+  await expect(feedback).toHaveAttribute("data-status", "success");
+  await expect(feedback).toHaveAttribute("class", originalClass ?? "");
+  await expect(form.getByRole("button")).toBeDisabled();
+});
 
 test.describe("touch interactions", () => {
   test.use({ isMobile: true, hasTouch: true });
@@ -126,10 +174,12 @@ test.describe("touch interactions", () => {
         await expect(menu).toBeHidden();
         await burger.tap();
         await expect(burger).toHaveAttribute("aria-expanded", "true");
+        await expect(menu).toHaveAttribute("data-open", "");
         await expect(menu).toBeVisible();
         await expectWithinViewport(menu, width);
         await burger.tap();
         await expect(burger).toHaveAttribute("aria-expanded", "false");
+        await expect(menu).not.toHaveAttribute("data-open");
         await expect(menu).toBeHidden();
       } else {
         await expect(burger).toBeHidden();
@@ -145,7 +195,7 @@ test.describe("touch interactions", () => {
       await expect(
         page.getByRole("searchbox", { name: "Search query" }),
       ).toBeFocused();
-      await expectWithinViewport(page.locator(".search-panel"), width);
+      await expectWithinViewport(page.locator(".site-search .surface"), width);
       await page.getByRole("button", { name: "Close search" }).tap();
       await expect(search).toBeHidden();
     });
@@ -214,7 +264,7 @@ for (const path of [
     await visit(page, path);
     expect(await page.evaluate(() => window.innerWidth)).toBe(320);
     await expectWithinViewport(page.locator("h1").first(), 320);
-    await expectWithinViewport(page.locator(".navbar-brand"), 320);
+    await expectWithinViewport(page.locator(".site-nav .brand"), 320);
     await expectWithinViewport(page.locator(".footer"), 320);
     const overflow = await page.locator("main").evaluate((main) => {
       const width = document.documentElement.clientWidth;

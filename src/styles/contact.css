@@ -1,0 +1,201 @@
+/* — Contact page */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding: clamp(1.25rem, 2vw, 1.5rem) 0 0;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 280px;
+    gap: 3rem;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+:where(.contact-form) .row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+:where(.contact-form) .entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+:where(.contact-form) .caption {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+:where(.contact-form) .textbox,
+:where(.contact-form) .select,
+:where(.contact-form) .message {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-tight);
+  color: var(--text-primary);
+  font-family: "Barlow", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.15s ease;
+
+  &::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    border-color: var(--accent-primary);
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 0;
+  }
+}
+
+:where(.contact-form) .message {
+  resize: vertical;
+  min-height: 160px;
+}
+
+:where(.contact-form) .submit {
+  align-self: flex-start;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--accent-primary);
+  color: var(--text-on-strong);
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-tight);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background-color: var(--accent-primary-deep);
+    transform: translateY(-2px);
+  }
+}
+
+.contact-success {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent-primary);
+  background-color: var(--surface-elevated);
+  margin-top: 1rem;
+}
+
+:where(.contact-success) .text {
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+:where(.contact-success) .close {
+  background: none;
+  border: none;
+  font-size: 0.8125rem;
+  font-family: "Barlow Condensed", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 0;
+
+  &:hover {
+    color: var(--accent-primary);
+  }
+}
+
+.contact-sidebar {
+  padding-top: 0;
+
+  @media (min-width: 768px) {
+    padding-top: 0.25rem;
+  }
+}
+
+:where(.contact-sidebar) .heading {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+:where(.contact-sidebar) .links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+:where(.contact-sidebar) .anchor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: padding-left 0.15s ease;
+
+  &:hover {
+    padding-left: 0.5rem;
+
+    .caption {
+      color: var(--accent-primary);
+    }
+  }
+}
+
+:where(.contact-sidebar) .caption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  transition: color 0.15s ease;
+}
+
+:where(.contact-sidebar) .icon {
+  display: flex;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+:where(.contact-sidebar) .description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+:where(.contact-sidebar) .anchor:hover .icon {
+  color: var(--accent-primary);
+}

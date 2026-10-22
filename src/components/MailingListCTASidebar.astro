@@ -3,17 +3,17 @@
 ---
 
 <div class="sidebar-subscribe" aria-labelledby="sidebar-subscribe-heading">
-  <p class="sidebar-subscribe__kicker">Free · Practical · One email per post</p>
-  <p class="sidebar-subscribe__heading" id="sidebar-subscribe-heading">
+  <p class="kicker">Free · Practical · One email per post</p>
+  <p class="heading" id="sidebar-subscribe-heading">
     Get practical software engineering notes
   </p>
-  <p class="sidebar-subscribe__body">
+  <p class="body">
     Useful if you are transitioning into tech, trying to grow as an engineer, or
     working on stronger engineering practice across your team.
   </p>
 
   <form id="sidebar-subscribe-form" novalidate aria-label="Newsletter sign up">
-    <p class="sidebar-subscribe__honeypot" aria-hidden="true">
+    <p class="honeypot" aria-hidden="true">
       <label for="sidebar-subscribe-website">Leave this blank</label>
       <input
         id="sidebar-subscribe-website"
@@ -23,22 +23,21 @@
         autocomplete="off"
       />
     </p>
-    <label for="sidebar-subscribe-email" class="is-sr-only">Email address</label
+    <label for="sidebar-subscribe-email" class="visually-hidden"
+      >Email address</label
     >
     <input
       id="sidebar-subscribe-email"
       name="email"
       type="email"
-      class="sidebar-subscribe__input"
+      class="email"
       placeholder="your@email.com"
       autocomplete="email"
       required
     />
-    <button type="submit" class="sidebar-subscribe__btn">
-      Join the list
-    </button>
+    <button type="submit" class="submit"> Join the list </button>
     <p
-      class="sidebar-subscribe__feedback"
+      class="feedback"
       id="sidebar-subscribe-feedback"
       aria-live="polite"
       hidden
@@ -53,15 +52,12 @@
   bindSubscribeForm({
     formId: "sidebar-subscribe-form",
     emailId: "sidebar-subscribe-email",
-    feedbackClass: "sidebar-subscribe__feedback",
-    feedbackSuccessClass: "sidebar-subscribe__feedback--success",
-    feedbackErrorClass: "sidebar-subscribe__feedback--error",
     successLabel: "You're subscribed! Check your inbox for a confirmation.",
     defaultButtonLabel: "Join the list",
   });
 </script>
 
-<style lang="scss">
+<style>
   .sidebar-subscribe {
     margin-top: 2rem;
     padding: 1.25rem;
@@ -73,7 +69,7 @@
     border-bottom: 1px solid var(--text-on-strong-alpha-06);
   }
 
-  .sidebar-subscribe__kicker {
+  .kicker {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -83,7 +79,7 @@
     margin-bottom: 0.4rem;
   }
 
-  .sidebar-subscribe__heading {
+  .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.2rem;
     font-weight: 800;
@@ -94,14 +90,14 @@
     margin-bottom: 0.6rem;
   }
 
-  .sidebar-subscribe__body {
+  .body {
     font-size: 0.8125rem;
     color: rgba(var(--text-on-strong-rgb), 0.55);
     line-height: 1.5;
     margin-bottom: 0.9rem;
   }
 
-  .sidebar-subscribe__input {
+  .email {
     display: block;
     width: 100%;
     padding: 0.4rem 0.6rem;
@@ -126,7 +122,7 @@
     }
   }
 
-  .sidebar-subscribe__btn {
+  .submit {
     display: block;
     width: 100%;
     padding: 0.45rem 0.75rem;
@@ -151,7 +147,7 @@
     }
   }
 
-  .sidebar-subscribe__honeypot {
+  .honeypot {
     position: absolute;
     left: -9999px;
     width: 1px;
@@ -161,15 +157,15 @@
     pointer-events: none;
   }
 
-  .sidebar-subscribe__feedback {
+  .feedback {
     margin-top: 0.5rem;
     font-size: 0.8125rem;
 
-    &--success {
+    &:where([data-status="success"]) {
       color: var(--color-success-bright);
     }
 
-    &--error {
+    &:where([data-status="error"]) {
       color: var(--color-danger-bright);
     }
   }

@@ -92,28 +92,24 @@ const pageTitle = "About — Roger Rajaratnam";
     class="about-intro flow-section flow-section--loose"
     aria-labelledby="about-intro-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="page-panel about-intro__panel">
-        <div class="about-intro__copy">
-          <p class="about-intro__eyebrow">What I focus on</p>
-          <h2 class="about-intro__title" id="about-intro-heading">
+    <div class="container" data-width="narrow">
+      <div class="panel surface">
+        <div class="copy">
+          <p class="eyebrow">What I focus on</p>
+          <h2 class="heading" id="about-intro-heading">
             Practical engineering improvement for people, teams, and products
           </h2>
-          <p class="about-intro__text">
+          <p class="text">
             The work I keep coming back to is the work that makes engineering
             clearer: better habits, better delivery, and more confidence for the
             people doing the work.
           </p>
         </div>
-        <ul class="about-intro__list" role="list">
+        <ul class="list" role="list">
           {
             focusAreas.map(({ label, icon }) => (
               <li>
-                <span
-                  class="about-intro__list-icon"
-                  aria-hidden="true"
-                  set:html={icon}
-                />
+                <span class="icon" aria-hidden="true" set:html={icon} />
                 <span>{label}</span>
               </li>
             ))
@@ -125,23 +121,23 @@ const pageTitle = "About — Roger Rajaratnam";
 
   <!-- Stats bar -->
   <div class="about-stats flow-section">
-    <div class="container is-max-desktop">
-      <ul class="about-stats__list" role="list">
-        <li class="about-stats__item">
-          <span class="about-stats__label">Years in software</span>
-          <span class="about-stats__value">20+</span>
+    <div class="container" data-width="narrow">
+      <ul class="list" role="list">
+        <li class="item">
+          <span class="caption">Years in software</span>
+          <span class="value">20+</span>
         </li>
-        <li class="about-stats__item">
-          <span class="about-stats__label">Current domain</span>
-          <span class="about-stats__value">Fintech</span>
+        <li class="item">
+          <span class="caption">Current domain</span>
+          <span class="value">Fintech</span>
         </li>
-        <li class="about-stats__item">
-          <span class="about-stats__label">Teaching experience</span>
-          <span class="about-stats__value">Bootcamps</span>
+        <li class="item">
+          <span class="caption">Teaching experience</span>
+          <span class="value">Bootcamps</span>
         </li>
-        <li class="about-stats__item">
-          <span class="about-stats__label">Career focus</span>
-          <span class="about-stats__value">Mentoring</span>
+        <li class="item">
+          <span class="caption">Career focus</span>
+          <span class="value">Mentoring</span>
         </li>
       </ul>
     </div>
@@ -149,20 +145,16 @@ const pageTitle = "About — Roger Rajaratnam";
 
   <!-- Bio sections -->
   <section class="section about-bio flow-section" aria-labelledby="bio-heading">
-    <div class="container is-max-desktop">
-      <div class="about-bio__grid">
+    <div class="container" data-width="narrow">
+      <div class="grid">
         <!-- Left: labelled narrative blocks -->
-        <div class="about-bio__main">
-          <div class="about-bio__block">
-            <h2 class="about-bio__kicker">
-              <span
-                class="about-bio__kicker-icon"
-                aria-hidden="true"
-                set:html={howIWorkIcon}
-              />
+        <div class="main">
+          <div class="block">
+            <h2 class="kicker">
+              <span class="icon" aria-hidden="true" set:html={howIWorkIcon} />
               <span>How I work</span>
             </h2>
-            <p class="about-bio__text">
+            <p class="text">
               I am a software engineer based in London with more than 20 years
               of experience across product engineering, delivery, mentoring, and
               team leadership. The thread that runs through all of it is
@@ -171,16 +163,16 @@ const pageTitle = "About — Roger Rajaratnam";
             </p>
           </div>
 
-          <div class="about-bio__block" id="career-support">
-            <h2 class="about-bio__kicker">
+          <div class="block" id="career-support">
+            <h2 class="kicker">
               <span
-                class="about-bio__kicker-icon"
+                class="icon"
                 aria-hidden="true"
                 set:html={transitionIntoTechIcon}
               />
               <span>For people transitioning into tech</span>
             </h2>
-            <p class="about-bio__text">
+            <p class="text">
               I teach the parts that often stay fuzzy when you are new: how the
               web stack fits together, how to think about trade-offs, how to go
               from tutorials to real projects, and how to build enough context
@@ -190,16 +182,16 @@ const pageTitle = "About — Roger Rajaratnam";
             </p>
           </div>
 
-          <div class="about-bio__block" id="career-growth-support">
-            <h2 class="about-bio__kicker">
+          <div class="block" id="career-growth-support">
+            <h2 class="kicker">
               <span
-                class="about-bio__kicker-icon"
+                class="icon"
                 aria-hidden="true"
                 set:html={engineeringGrowthIcon}
               />
               <span>For engineers growing in confidence</span>
             </h2>
-            <p class="about-bio__text">
+            <p class="text">
               A lot of career progression comes down to better habits rather
               than flashy knowledge: debugging clearly, writing maintainable
               code, communicating trade-offs, and learning how to own outcomes.
@@ -208,16 +200,16 @@ const pageTitle = "About — Roger Rajaratnam";
             </p>
           </div>
 
-          <div class="about-bio__block" id="team-standards-support">
-            <h2 class="about-bio__kicker">
+          <div class="block" id="team-standards-support">
+            <h2 class="kicker">
               <span
-                class="about-bio__kicker-icon"
+                class="icon"
                 aria-hidden="true"
                 set:html={engineeringPracticeIcon}
               />
               <span>For teams improving engineering practice</span>
             </h2>
-            <p class="about-bio__text">
+            <p class="text">
               Most teams do not need more process. They need clearer
               expectations, healthier delivery habits, better testing, more
               thoughtful mentoring, and pragmatic technical direction. I work
@@ -228,23 +220,21 @@ const pageTitle = "About — Roger Rajaratnam";
         </div>
 
         <!-- Right: sidebar cards -->
-        <aside class="about-bio__sidebar" aria-label="Quick facts">
-          <div class="about-sidebar-card about-sidebar-card--highlight">
-            <p class="about-sidebar-card__label">Currently</p>
-            <p class="about-sidebar-card__title">Staff Engineer</p>
-            <p class="about-sidebar-card__sub">NewDay · London</p>
+        <aside class="sidebar" aria-label="Quick facts">
+          <div class="about-sidebar-card" data-tone="highlight">
+            <p class="caption">Currently</p>
+            <p class="heading">Staff Engineer</p>
+            <p class="subtitle">NewDay · London</p>
           </div>
 
           <div class="about-sidebar-card">
-            <p class="about-sidebar-card__label">Teaching background</p>
-            <p class="about-sidebar-card__title">
-              Full-Stack Bootcamp Instructor
-            </p>
-            <p class="about-sidebar-card__sub">The Jump Digital School</p>
+            <p class="caption">Teaching background</p>
+            <p class="heading">Full-Stack Bootcamp Instructor</p>
+            <p class="subtitle">The Jump Digital School</p>
           </div>
 
           <div class="about-sidebar-card">
-            <p class="about-sidebar-card__label">Who I help</p>
+            <p class="caption">Who I help</p>
             <ul class="about-tag-list" role="list">
               <li>Career changers</li>
               <li>Engineers building confidence</li>
@@ -255,7 +245,7 @@ const pageTitle = "About — Roger Rajaratnam";
           </div>
 
           <div class="about-sidebar-card">
-            <p class="about-sidebar-card__label">Focus areas</p>
+            <p class="caption">Focus areas</p>
             <ul class="about-tag-list" role="list">
               <li>Mentoring and coaching</li>
               <li>Engineering practice</li>
@@ -272,8 +262,8 @@ const pageTitle = "About — Roger Rajaratnam";
 
   <!-- Pullquote -->
   <div class="about-pullquote stack-space" aria-hidden="false">
-    <div class="container is-max-desktop">
-      <blockquote class="about-pullquote__inner page-panel">
+    <div class="container" data-width="narrow">
+      <blockquote class="inner panel">
         <p>
           I write for people getting into tech, engineers figuring out their
           next level, and teams that want practical engineering practice rather
@@ -288,12 +278,12 @@ const pageTitle = "About — Roger Rajaratnam";
     class="section about-stack flow-section"
     aria-labelledby="stack-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label" id="stack-heading">Tech stack</p>
-      <div class="about-stack__grid">
-        <div class="about-stack__group">
-          <h2 class="about-stack__category">Frontend</h2>
-          <ul class="about-stack__list" role="list">
+      <div class="grid">
+        <div class="group">
+          <h2 class="category">Frontend</h2>
+          <ul class="list" role="list">
             {
               frontendStack.map(({ label, icon }) => (
                 <li>
@@ -303,8 +293,8 @@ const pageTitle = "About — Roger Rajaratnam";
               ))
             }
           </ul>
-          <h3 class="about-stack__subcategory">Frameworks</h3>
-          <ul class="about-stack__list" role="list">
+          <h3 class="subtopic">Frameworks</h3>
+          <ul class="list" role="list">
             {
               frameworksStack.map(({ label, icon }) => (
                 <li>
@@ -315,9 +305,9 @@ const pageTitle = "About — Roger Rajaratnam";
             }
           </ul>
         </div>
-        <div class="about-stack__group">
-          <h2 class="about-stack__category">Backend</h2>
-          <ul class="about-stack__list" role="list">
+        <div class="group">
+          <h2 class="category">Backend</h2>
+          <ul class="list" role="list">
             {
               backendStack.map(({ label, icon }) => (
                 <li>
@@ -328,9 +318,9 @@ const pageTitle = "About — Roger Rajaratnam";
             }
           </ul>
         </div>
-        <div class="about-stack__group">
-          <h2 class="about-stack__category">Tooling &amp; Infrastructure</h2>
-          <ul class="about-stack__list" role="list">
+        <div class="group">
+          <h2 class="category">Tooling &amp; Infrastructure</h2>
+          <ul class="list" role="list">
             {
               toolingStack.map(({ label, icon }) => (
                 <li>
@@ -349,12 +339,12 @@ const pageTitle = "About — Roger Rajaratnam";
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .about-intro {
     padding: 0 1.5rem;
   }
 
-  .about-intro__panel {
+  :where(.about-intro) .surface {
     display: grid;
     gap: 1.5rem;
     background:
@@ -377,7 +367,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-intro__eyebrow {
+  :where(.about-intro) .eyebrow {
     margin: 0 0 0.65rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -387,7 +377,7 @@ const pageTitle = "About — Roger Rajaratnam";
     color: var(--accent-secondary);
   }
 
-  .about-intro__title {
+  :where(.about-intro) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(2rem, 4vw, 2.9rem);
@@ -396,14 +386,14 @@ const pageTitle = "About — Roger Rajaratnam";
     color: var(--text-primary);
   }
 
-  .about-intro__text {
+  :where(.about-intro) .text {
     margin: 0.9rem 0 0;
     max-width: 58ch;
     line-height: 1.75;
     color: var(--text-muted);
   }
 
-  .about-intro__list {
+  :where(.about-intro) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -411,7 +401,7 @@ const pageTitle = "About — Roger Rajaratnam";
     gap: 0.75rem;
   }
 
-  .about-intro__list li {
+  :where(.about-intro) .list li {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -431,7 +421,7 @@ const pageTitle = "About — Roger Rajaratnam";
     color: var(--text-primary);
   }
 
-  .about-intro__list-icon {
+  :where(.about-intro) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -456,7 +446,7 @@ const pageTitle = "About — Roger Rajaratnam";
     padding: 0 1.5rem;
   }
 
-  .about-stats__list {
+  :where(.about-stats) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -469,7 +459,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-stats__item {
+  :where(.about-stats) .item {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -514,7 +504,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-stats__value {
+  :where(.about-stats) .value {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 800;
@@ -524,7 +514,7 @@ const pageTitle = "About — Roger Rajaratnam";
     line-height: 1;
   }
 
-  .about-stats__label {
+  :where(.about-stats) .caption {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -538,7 +528,7 @@ const pageTitle = "About — Roger Rajaratnam";
     padding-bottom: 0;
   }
 
-  .about-bio__grid {
+  :where(.about-bio) .grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -550,18 +540,18 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-bio__main {
+  :where(.about-bio) .main {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
   }
 
-  .about-bio__block {
+  :where(.about-bio) .block {
     padding-left: 1.25rem;
     border-left: 3px solid var(--accent-primary);
   }
 
-  .about-bio__kicker {
+  :where(.about-bio) .kicker {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -574,7 +564,7 @@ const pageTitle = "About — Roger Rajaratnam";
     margin-bottom: 0.75rem;
   }
 
-  .about-bio__kicker-icon {
+  :where(.about-bio) .icon {
     display: inline-flex;
     align-items: center;
     color: var(--accent-secondary);
@@ -585,7 +575,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-bio__text {
+  :where(.about-bio) .text {
     font-size: 1.0625rem;
     line-height: 1.8;
     color: var(--text-primary);
@@ -593,7 +583,7 @@ const pageTitle = "About — Roger Rajaratnam";
   }
 
   /* ── Sidebar cards ─────────────────────────────────────────── */
-  .about-bio__sidebar {
+  :where(.about-bio) .sidebar {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -612,7 +602,7 @@ const pageTitle = "About — Roger Rajaratnam";
     box-shadow: var(--shadow-panel);
     padding: 1.25rem 1.5rem;
 
-    &--highlight {
+    &:where([data-tone="highlight"]) {
       border-color: var(--accent-secondary-alpha-22);
       background:
         radial-gradient(
@@ -626,21 +616,22 @@ const pageTitle = "About — Roger Rajaratnam";
           var(--accent-secondary)
         );
 
-      .about-sidebar-card__label {
+      .caption {
         color: var(--text-on-strong-alpha-65);
       }
 
-      .about-sidebar-card__title {
+      .heading {
         color: var(--text-on-strong);
       }
 
-      .about-sidebar-card__sub {
+      .subtitle {
         color: var(--text-on-strong-alpha-70);
       }
     }
   }
 
-  :global([data-theme="dark"]) .about-sidebar-card--highlight {
+  :global([data-theme="dark"])
+    :where(.about-sidebar-card)[data-tone="highlight"] {
     background:
       radial-gradient(
         circle at top right,
@@ -654,7 +645,7 @@ const pageTitle = "About — Roger Rajaratnam";
       );
   }
 
-  .about-sidebar-card__label {
+  :where(.about-sidebar-card) .caption {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -663,7 +654,7 @@ const pageTitle = "About — Roger Rajaratnam";
     margin-bottom: 0.5rem;
   }
 
-  .about-sidebar-card__title {
+  :where(.about-sidebar-card) .heading {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.1rem;
     font-weight: 800;
@@ -674,7 +665,7 @@ const pageTitle = "About — Roger Rajaratnam";
     margin-bottom: 0.25rem;
   }
 
-  .about-sidebar-card__sub {
+  :where(.about-sidebar-card) .subtitle {
     font-size: 0.8125rem;
     color: var(--text-muted);
   }
@@ -712,7 +703,7 @@ const pageTitle = "About — Roger Rajaratnam";
     padding-bottom: 0;
   }
 
-  .about-stack__grid {
+  :where(.about-stack) .grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -722,7 +713,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-stack__group {
+  :where(.about-stack) .group {
     padding: 1.75rem 1.5rem;
     background-color: var(--surface-elevated);
     border: 1px solid var(--border-subtle);
@@ -762,7 +753,7 @@ const pageTitle = "About — Roger Rajaratnam";
     }
   }
 
-  .about-stack__category {
+  :where(.about-stack) .category {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
@@ -772,7 +763,7 @@ const pageTitle = "About — Roger Rajaratnam";
     margin-bottom: 1.25rem;
   }
 
-  .about-stack__subcategory {
+  :where(.about-stack) .subtopic {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -783,7 +774,7 @@ const pageTitle = "About — Roger Rajaratnam";
     margin-bottom: 1rem;
   }
 
-  .about-stack__list {
+  :where(.about-stack) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -817,7 +808,7 @@ const pageTitle = "About — Roger Rajaratnam";
     padding: 0 1.5rem;
   }
 
-  .about-pullquote__inner {
+  :where(.about-pullquote) .inner {
     margin: 0;
     padding: clamp(1.75rem, 4vw, 2.5rem);
     position: relative;

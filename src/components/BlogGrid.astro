@@ -41,28 +41,26 @@ function pageUrl(n: number) {
 ---
 
 <section class="section blog-grid-section flow-section">
-  <div class="container is-max-desktop">
+  <div class="container" data-width="narrow">
     {
       (Astro.props.sectionLabel || Astro.props.sectionTitle) && (
-        <div class="blog-grid__header">
+        <div class="header">
           {Astro.props.sectionLabel && (
             <p class="section-label">{Astro.props.sectionLabel}</p>
           )}
           {Astro.props.sectionTitle && (
-            <h2 class="blog-grid__title">{Astro.props.sectionTitle}</h2>
+            <h2 class="heading">{Astro.props.sectionTitle}</h2>
           )}
           {Astro.props.sectionDescription && (
-            <p class="blog-grid__description">
-              {Astro.props.sectionDescription}
-            </p>
+            <p class="description">{Astro.props.sectionDescription}</p>
           )}
         </div>
       )
     }
-    <div class="blog-grid__layout">
+    <div class="layout">
       {
         posts.map((post) => (
-          <div class="blog-grid__cell">
+          <div class="cell">
             <BlogPost
               title={post.data.title}
               subTitle={post.data.subTitle}
@@ -78,21 +76,21 @@ function pageUrl(n: number) {
       }
       {
         Array.from({ length: sharedGhostCount }).map(() => (
-          <div class="blog-grid__cell blog-grid__ghost-cell blog-grid__ghost-cell--tablet-up">
+          <div class="cell ghost" data-viewport="tablet-up">
             <BlogCardPlaceholder />
           </div>
         ))
       }
       {
         Array.from({ length: tabletOnlyGhostCount }).map(() => (
-          <div class="blog-grid__cell blog-grid__ghost-cell blog-grid__ghost-cell--tablet-only">
+          <div class="cell ghost" data-viewport="tablet-only">
             <BlogCardPlaceholder />
           </div>
         ))
       }
       {
         Array.from({ length: desktopOnlyGhostCount }).map(() => (
-          <div class="blog-grid__cell blog-grid__ghost-cell blog-grid__ghost-cell--desktop-only">
+          <div class="cell ghost" data-viewport="desktop-only">
             <BlogCardPlaceholder />
           </div>
         ))
@@ -104,21 +102,21 @@ function pageUrl(n: number) {
         <nav class="pagination-nav" aria-label="Blog pagination">
           <a
             href={prevUrl}
-            class={`pagination-nav__btn${!prevUrl ? " pagination-nav__btn--disabled" : ""}`}
+            class="step"
             aria-disabled={!prevUrl}
             tabindex={!prevUrl ? -1 : 0}
           >
             &larr; Previous
           </a>
 
-          <div class="pagination-nav__pages" role="list">
+          <div class="pages" role="list">
             {Array.from({ length: totalPages }).map((_, i) => {
               const n = i + 1;
               return (
                 <a
                   href={pageUrl(n)}
                   role="listitem"
-                  class={`pagination-nav__page${n === currentPage ? " pagination-nav__page--active" : ""}`}
+                  class="page"
                   aria-current={n === currentPage ? "page" : undefined}
                 >
                   {n}
@@ -129,7 +127,7 @@ function pageUrl(n: number) {
 
           <a
             href={nextUrl}
-            class={`pagination-nav__btn${!nextUrl ? " pagination-nav__btn--disabled" : ""}`}
+            class="step"
             aria-disabled={!nextUrl}
             tabindex={!nextUrl ? -1 : 0}
           >
@@ -141,19 +139,19 @@ function pageUrl(n: number) {
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .blog-grid-section {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  .blog-grid__header {
+  .header {
     display: grid;
     gap: 0.6rem;
     margin-bottom: 1.5rem;
   }
 
-  .blog-grid__title {
+  .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -162,14 +160,14 @@ function pageUrl(n: number) {
     color: var(--text-primary);
   }
 
-  .blog-grid__description {
+  .description {
     margin: 0;
     max-width: 60ch;
     color: var(--text-muted);
     line-height: 1.7;
   }
 
-  .blog-grid__layout {
+  .layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
@@ -182,7 +180,7 @@ function pageUrl(n: number) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    > .blog-grid__cell {
+    > .cell {
       min-width: 0;
 
       > * {
@@ -205,7 +203,7 @@ function pageUrl(n: number) {
       color-mix(in srgb, var(--border-subtle) 82%, transparent);
   }
 
-  .pagination-nav__pages {
+  .pages {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -213,7 +211,7 @@ function pageUrl(n: number) {
     gap: 0.5rem;
   }
 
-  .pagination-nav__page {
+  .page {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -243,7 +241,7 @@ function pageUrl(n: number) {
       transform: translateY(-1px);
     }
 
-    &--active {
+    &:where([aria-current="page"]) {
       background-color: var(--accent-secondary);
       border-color: var(--accent-secondary);
       color: var(--text-on-strong);
@@ -257,7 +255,7 @@ function pageUrl(n: number) {
     }
   }
 
-  .pagination-nav__btn {
+  .step {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -288,7 +286,7 @@ function pageUrl(n: number) {
       transform: translateY(-1px);
     }
 
-    &--disabled {
+    &:where([aria-disabled="true"]) {
       color: var(--text-muted);
       background-color: transparent;
       pointer-events: none;
@@ -296,24 +294,24 @@ function pageUrl(n: number) {
     }
   }
 
-  .blog-grid__ghost-cell {
+  .ghost {
     display: none;
   }
 
   @media (min-width: 640px) {
-    .blog-grid__ghost-cell--tablet-only,
-    .blog-grid__ghost-cell--tablet-up {
+    .ghost:where([data-viewport="tablet-only"]),
+    .ghost:where([data-viewport="tablet-up"]) {
       display: block;
     }
   }
 
   @media (min-width: 1024px) {
-    .blog-grid__ghost-cell--tablet-only {
+    .ghost:where([data-viewport="tablet-only"]) {
       display: none;
     }
 
-    .blog-grid__ghost-cell--desktop-only,
-    .blog-grid__ghost-cell--tablet-up {
+    .ghost:where([data-viewport="desktop-only"]),
+    .ghost:where([data-viewport="tablet-up"]) {
       display: block;
     }
   }
@@ -323,12 +321,12 @@ function pageUrl(n: number) {
       align-items: stretch;
     }
 
-    .pagination-nav__pages {
+    .pages {
       order: 3;
       width: 100%;
     }
 
-    .pagination-nav__btn {
+    .step {
       flex: 1 1 10rem;
     }
   }

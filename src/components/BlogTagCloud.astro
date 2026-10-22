@@ -35,38 +35,33 @@ const tags = [...tagCounts.entries()]
 ---
 
 <section class="tag-cloud stack-space" aria-labelledby="tag-cloud-heading">
-  <div class="container is-max-desktop">
-    <div class="tag-cloud__panel page-panel">
-      <div class="tag-cloud__header">
-        <div class="tag-cloud__intro">
+  <div class="container" data-width="narrow">
+    <div class="surface panel">
+      <div class="header">
+        <div class="intro">
           <p class="section-label">Topics</p>
-          <h2 class="tag-cloud__title" id="tag-cloud-heading">
-            Browse by topic
-          </h2>
-          <p class="tag-cloud__description">
+          <h2 class="heading" id="tag-cloud-heading">Browse by topic</h2>
+          <p class="description">
             Jump straight into the subjects you care about without paging
             through the full archive first.
           </p>
         </div>
-        <a
-          href="/tags"
-          class="tag-cloud__all-link"
-          aria-label="View all topics"
-        >
+        <a href="/tags" class="all" aria-label="View all topics">
           All topics &rarr;
         </a>
       </div>
-      <ul class="tag-cloud__list" role="list">
+      <ul class="list" role="list">
         {
           tags.map(({ tag, count, slug, tier }) => (
             <li>
               <a
                 href={`/tags/${slug}`}
-                class={`tag-cloud__pill tag-cloud__pill--tier-${tier}`}
+                class="pill"
+                data-tier={tier}
                 aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
               >
                 {tag}
-                <span class="tag-cloud__count" aria-hidden="true">
+                <span class="count" aria-hidden="true">
                   {count}
                 </span>
               </a>
@@ -78,12 +73,12 @@ const tags = [...tagCounts.entries()]
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .tag-cloud {
     padding: 0 1.5rem;
   }
 
-  .tag-cloud__panel {
+  .surface {
     position: relative;
     overflow: hidden;
     padding: clamp(1.75rem, 3.5vw, 2.35rem);
@@ -109,7 +104,7 @@ const tags = [...tagCounts.entries()]
       );
   }
 
-  .tag-cloud__header {
+  .header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -122,11 +117,11 @@ const tags = [...tagCounts.entries()]
     }
   }
 
-  .tag-cloud__intro {
+  .intro {
     min-width: 0;
   }
 
-  .tag-cloud__title {
+  .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -135,14 +130,14 @@ const tags = [...tagCounts.entries()]
     color: var(--text-primary);
   }
 
-  .tag-cloud__description {
+  .description {
     margin: 0.5rem 0 0;
     max-width: 48ch;
     line-height: 1.65;
     color: var(--text-muted);
   }
 
-  .tag-cloud__all-link {
+  .all {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,7 +174,7 @@ const tags = [...tagCounts.entries()]
     }
   }
 
-  .tag-cloud__list {
+  .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -189,7 +184,7 @@ const tags = [...tagCounts.entries()]
     align-items: center;
   }
 
-  .tag-cloud__pill {
+  .pill {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -224,20 +219,20 @@ const tags = [...tagCounts.entries()]
       transform: translateY(-1px);
     }
 
-    // Small: low-frequency tags
-    &--tier-1 {
+    /* Small: low-frequency tags */
+    &:where([data-tier="1"]) {
       font-size: 0.74rem;
       padding: 0.3rem 0.6rem;
     }
 
-    // Medium: mid-frequency tags
-    &--tier-2 {
+    /* Medium: mid-frequency tags */
+    &:where([data-tier="2"]) {
       font-size: 0.9rem;
       padding: 0.35rem 0.72rem;
     }
 
-    // Large: high-frequency tags
-    &--tier-3 {
+    /* Large: high-frequency tags */
+    &:where([data-tier="3"]) {
       font-size: 1.04rem;
       padding: 0.42rem 0.82rem;
       border-width: 2px;
@@ -246,7 +241,7 @@ const tags = [...tagCounts.entries()]
     }
   }
 
-  .tag-cloud__count {
+  .count {
     font-size: 0.65em;
     font-weight: 700;
     color: var(--accent-secondary);
@@ -261,7 +256,7 @@ const tags = [...tagCounts.entries()]
       background-color 0.15s ease,
       color 0.15s ease;
 
-    .tag-cloud__pill:hover & {
+    .pill:hover & {
       background-color: var(--accent-secondary-alpha-16);
       color: var(--accent-secondary);
     }

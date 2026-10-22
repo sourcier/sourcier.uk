@@ -29,9 +29,9 @@ const projectsHero = await getImage({ src: projectsHeroSource, width: 2400 });
     class="section projects-grid flow-section flow-section--loose"
     aria-labelledby="projects-grid-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label" id="projects-grid-heading">Projects</p>
-      <div class="projects-grid__cards">
+      <div class="cards">
         {
           projects.map((project) => (
             <ProjectCard
@@ -54,13 +54,13 @@ const projectsHero = await getImage({ src: projectsHeroSource, width: 2400 });
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .projects-grid {
     padding-top: 0;
     padding-bottom: 0;
   }
 
-  .projects-grid__cards {
+  :where(.projects-grid) .cards {
     display: grid;
     gap: 1.5rem;
 

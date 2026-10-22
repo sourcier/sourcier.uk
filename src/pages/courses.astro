@@ -74,29 +74,26 @@ const supportInclusions = [
     class="section courses-bundle flow-section"
     aria-labelledby="courses-bundle-section-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="courses-bundle__section-header">
+    <div class="container" data-width="narrow">
+      <div class="subheading">
         <p class="section-label section-label--secondary">Choose your path</p>
-        <h2
-          class="courses-bundle__section-heading"
-          id="courses-bundle-section-heading"
-        >
+        <h2 class="heading" id="courses-bundle-section-heading">
           Pick the structured path that matches what you need next
         </h2>
       </div>
 
-      <div class="courses-bundle__panel" data-course-tabs>
-        <div class="courses-bundle__section-intro">
+      <div class="surface" data-course-tabs>
+        <div class="preface">
           <p class="section-label section-label--secondary">
             Why this offer works
           </p>
-          <p class="courses-bundle__section-body">
+          <p class="text">
             AI makes it easier to generate code, but not to judge tradeoffs,
             debug bad assumptions, or connect the stack end to end. These
             courses are built to strengthen the fundamentals and decision-making
             that still matter.
           </p>
-          <p class="courses-bundle__section-body">
+          <p class="text">
             If you want free, article-led orientation, start with the <a
               href="/guides">guides</a
             >. Choose a course when you want a more structured path through the
@@ -105,15 +102,11 @@ const supportInclusions = [
           </p>
         </div>
 
-        <div
-          class="courses-bundle__tab-list"
-          role="tablist"
-          aria-label="Course purchase options"
-        >
+        <div class="tabs" role="tablist" aria-label="Course purchase options">
           <button
             type="button"
             id="courses-bundle-tab"
-            class="courses-bundle__tab is-active"
+            class="tab"
             role="tab"
             aria-selected="true"
             aria-controls="courses-bundle-panel"
@@ -125,7 +118,7 @@ const supportInclusions = [
           <button
             type="button"
             id="course-catalogue-tab"
-            class="courses-bundle__tab"
+            class="tab"
             role="tab"
             aria-selected="false"
             aria-controls="course-catalogue"
@@ -137,43 +130,43 @@ const supportInclusions = [
         </div>
 
         <div
-          class="courses-bundle__tab-panel"
+          class="pane"
           id="courses-bundle-panel"
           role="tabpanel"
           aria-labelledby="courses-bundle-tab"
           tabindex="0"
           data-course-panel="bundle"
         >
-          <div class="courses-bundle__panel-grid">
-            <div class="courses-bundle__intro">
-              <p class="courses-bundle__kicker">Full bundle</p>
-              <div class="courses-bundle__chips" aria-label="Bundle details">
-                <span class="courses-bundle__chip courses-bundle__chip--status">
+          <div class="panels">
+            <div class="intro">
+              <p class="kicker">Full bundle</p>
+              <div class="chips" aria-label="Bundle details">
+                <span class="chip" data-tone="status">
                   {courseLaunchLabel}
                 </span>
-                <span class="courses-bundle__chip">4 courses</span>
-                <span class="courses-bundle__chip">Self-paced</span>
-                <span class="courses-bundle__chip"
-                  >{courseSupportOffer.bundleShort}</span
-                >
+                <span class="chip">4 courses</span>
+                <span class="chip">Self-paced</span>
+                <span class="chip">{courseSupportOffer.bundleShort}</span>
               </div>
-              <h3 class="courses-bundle__title" id="courses-bundle-heading">
+              <h3 class="bundle" id="courses-bundle-heading">
                 {courseBundle.title}
               </h3>
-              <p class="courses-bundle__body">{courseBundle.summary}</p>
-              <ul class="courses-bundle__benefits" role="list">
+              <p class="body">{courseBundle.summary}</p>
+              <ul class="benefits" role="list">
                 {courseBundle.benefits.map((benefit) => <li>{benefit}</li>)}
               </ul>
-              <div class="courses-bundle__actions">
+              <div class="cta">
                 <a
                   href="/contact?reason=course-enquiry#contact-form"
-                  class="button is-ink is-medium"
+                  class="button"
+                  data-variant="ink"
+                  data-size="large"
                 >
                   Ask about the full bundle
                 </a>
                 <a
                   href="#course-catalogue"
-                  class="courses-bundle__link"
+                  class="anchor"
                   data-course-switch="catalogue"
                 >
                   Open the course catalogue
@@ -181,50 +174,46 @@ const supportInclusions = [
               </div>
             </div>
 
-            <div class="courses-bundle__aside page-panel page-panel--secondary">
-              <p class="courses-bundle__aside-label">Good fit for</p>
-              <ul class="courses-bundle__audience" role="list">
+            <div class="aside panel" data-tone="secondary">
+              <p class="caption">Good fit for</p>
+              <ul class="audience" role="list">
                 {courseBundle.audience.map((item) => <li>{item}</li>)}
               </ul>
-              <div class="courses-bundle__support">
-                <p class="courses-bundle__support-label">Included support</p>
-                <p class="courses-bundle__support-copy">
+              <div class="support">
+                <p class="eyebrow">Included support</p>
+                <p class="detail">
                   {courseSupportOffer.singleDetail}
                 </p>
-                <p class="courses-bundle__support-copy">
+                <p class="detail">
                   {courseSupportOffer.bundleDetail}
                 </p>
-                <p class="courses-bundle__support-copy">
+                <p class="detail">
                   {courseSupportOffer.additionalSessionsDetail}
                 </p>
               </div>
             </div>
 
-            <div class="courses-bundle__course-grid">
+            <div class="courses">
               {
                 courseOffers.map((course) => (
                   <a
-                    class="courses-bundle__course-card"
+                    class="card"
                     href={`#course-${course.slug}`}
                     aria-label={`Show ${course.title} in the course catalogue`}
                     data-course-switch="catalogue"
                   >
-                    <div class="courses-bundle__course-header">
+                    <div class="header">
                       <span
-                        class="courses-bundle__course-icon"
+                        class="icon"
                         aria-hidden="true"
                         set:html={getCourseIcon(course.slug, 18)}
                       />
-                      <div class="courses-bundle__course-heading">
-                        <p class="courses-bundle__course-focus">
-                          {course.focus}
-                        </p>
-                        <h4 class="courses-bundle__course-title">
-                          {course.title}
-                        </h4>
+                      <div class="group">
+                        <p class="focus">{course.focus}</p>
+                        <h4 class="name">{course.title}</h4>
                       </div>
                     </div>
-                    <p class="courses-bundle__course-copy">{course.teaser}</p>
+                    <p class="copy">{course.teaser}</p>
                   </a>
                 ))
               }
@@ -233,61 +222,62 @@ const supportInclusions = [
         </div>
 
         <div
-          class="courses-bundle__tab-panel courses-bundle__tab-panel--catalogue"
+          class="pane"
           id="course-catalogue"
           role="tabpanel"
           aria-labelledby="course-catalogue-tab"
           tabindex="0"
           data-course-panel="catalogue"
           hidden
+          data-kind="catalogue"
         >
-          <div class="courses-bundle__catalogue-intro">
+          <div class="overview">
             <p class="section-label section-label--secondary">
               Course catalogue
             </p>
-            <h3 class="course-catalogue__heading" id="course-catalogue-heading">
+            <h3 class="heading" id="course-catalogue-heading">
               Four focused courses you can take on their own or as one connected
               bundle
             </h3>
-            <p class="courses-bundle__catalogue-body">
+            <p class="description">
               Choose the one that matches the gap you need to close now, or use
               the bundle if you want the whole stack to connect from foundations
               to delivery.
             </p>
           </div>
-          <div class="course-catalogue__grid">
+          <div class="offerings">
             {
               courseOffers.map((course) => (
                 <article class="course-card" id={`course-${course.slug}`}>
-                  <div class="course-card__top">
-                    <div class="course-card__header">
+                  <div class="top">
+                    <div class="header">
                       <span
-                        class="course-card__icon"
+                        class="icon"
                         aria-hidden="true"
                         set:html={getCourseIcon(course.slug, 20)}
                       />
-                      <div class="course-card__heading">
-                        <p class="course-card__eyebrow">{course.focus}</p>
-                        <h3 class="course-card__title">{course.title}</h3>
+                      <div class="group">
+                        <p class="eyebrow">{course.focus}</p>
+                        <h3 class="heading">{course.title}</h3>
                       </div>
                     </div>
-                    <p class="course-card__status">{courseLaunchLabel}</p>
+                    <p class="status">{courseLaunchLabel}</p>
                   </div>
-                  <p class="course-card__summary">{course.summary}</p>
+                  <p class="summary">{course.summary}</p>
 
-                  <div class="course-card__details">
-                    <div class="course-card__detail-block">
-                      <p class="course-card__label">Topics</p>
-                      <ul class="course-card__list" role="list">
+                  <div class="details">
+                    <div class="detail">
+                      <p class="caption">Topics</p>
+                      <ul class="list" role="list">
                         {course.topics.map((topic) => (
                           <li>{topic}</li>
                         ))}
                       </ul>
                     </div>
 
-                    <div class="course-card__detail-block">
-                      <p class="course-card__label">You will leave with</p>
-                      <ul class="course-card__list" role="list">
+                    <div class="detail">
+                      <p class="caption">You will leave with</p>
+                      <ul class="list" role="list">
                         {course.outcomes.map((outcome) => (
                           <li>{outcome}</li>
                         ))}
@@ -297,7 +287,7 @@ const supportInclusions = [
 
                   <a
                     href="/contact?reason=course-enquiry#contact-form"
-                    class="course-card__cta"
+                    class="cta"
                   >
                     Ask about this course
                   </a>
@@ -314,24 +304,20 @@ const supportInclusions = [
     class="section courses-model flow-section flow-section--loose"
     aria-labelledby="courses-model-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Why this format</p>
-      <h2 class="courses-model__heading" id="courses-model-heading">
+      <h2 class="heading" id="courses-model-heading">
         Why this setup fits how people actually learn now
       </h2>
-      <div class="courses-model__grid">
+      <div class="grid">
         {
           learningModel.map((item) => (
-            <article class="courses-model__card">
-              <div class="courses-model__card-header">
-                <span
-                  class="courses-model__card-icon"
-                  aria-hidden="true"
-                  set:html={item.icon}
-                />
-                <h3 class="courses-model__card-title">{item.title}</h3>
+            <article class="card">
+              <div class="header">
+                <span class="icon" aria-hidden="true" set:html={item.icon} />
+                <h3 class="name">{item.title}</h3>
               </div>
-              <p class="courses-model__card-body">{item.body}</p>
+              <p class="body">{item.body}</p>
             </article>
           ))
         }
@@ -343,46 +329,37 @@ const supportInclusions = [
     class="section course-support flow-section"
     aria-labelledby="course-support-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">1:1 support</p>
-      <h2 class="course-support__section-heading" id="course-support-heading">
+      <h2 class="heading" id="course-support-heading">
         1:1 that feels usable, not token
       </h2>
-      <article
-        class="course-support__panel course-support__panel--solo page-panel page-panel--secondary"
-      >
-        <p class="course-support__kicker">Included support</p>
-        <p class="course-support__body">
+      <article class="surface panel" data-tone="secondary" data-layout="solo">
+        <p class="kicker">Included support</p>
+        <p class="body">
           Having taught at boot camps, I know one of the hardest things is
           giving each student the attention they need at the exact moment they
           are stuck. The recorded material and notes here make self-paced study
           possible, and the included 1:1 support is there to restore that
           missing attention without forcing everyone through the same timetable.
         </p>
-        <div class="course-support__included-grid" role="list">
+        <div class="grid" role="list">
           {
             supportInclusions.map((item) => (
-              <div class="course-support__included-card" role="listitem">
-                <div class="course-support__included-header">
-                  <span
-                    class="course-support__included-icon"
-                    aria-hidden="true"
-                    set:html={item.icon}
-                  />
-                  <p class="course-support__included-title">{item.title}</p>
+              <div class="card" role="listitem">
+                <div class="header">
+                  <span class="icon" aria-hidden="true" set:html={item.icon} />
+                  <p class="name">{item.title}</p>
                 </div>
-                <p class="course-support__included-body">{item.body}</p>
+                <p class="description">{item.body}</p>
               </div>
             ))
           }
         </div>
-        <ul class="course-support__list" role="list">
+        <ul class="list" role="list">
           {supportMoments.map((item) => <li>{item}</li>)}
         </ul>
-        <a
-          href="/contact?reason=course-enquiry#contact-form"
-          class="course-support__link"
-        >
+        <a href="/contact?reason=course-enquiry#contact-form" class="anchor">
           Ask about the included support pack
         </a>
       </article>
@@ -393,29 +370,31 @@ const supportInclusions = [
     class="section course-interest flow-section flow-section--loose"
     aria-labelledby="course-interest-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="course-interest__panel page-panel page-panel--secondary">
-        <div class="course-interest__copy">
-          <p class="course-interest__kicker">Next step</p>
-          <h2 class="course-interest__title" id="course-interest-heading">
+    <div class="container" data-width="narrow">
+      <div class="surface panel" data-tone="secondary">
+        <div class="copy">
+          <p class="kicker">Next step</p>
+          <h2 class="heading" id="course-interest-heading">
             If this feels like the right fit, join the launch list or ask about
             enrolment
           </h2>
-          <p class="course-interest__body">
+          <p class="body">
             If you want this mix of self-paced material and targeted 1:1
             support, leave your email for launch updates, pricing, and earliest
             enrolment details, or send a message directly.
           </p>
-          <div class="course-interest__actions">
+          <div class="cta">
             <a
               href="/contact?reason=course-enquiry#contact-form"
-              class="button is-ink is-medium"
+              class="button"
+              data-variant="ink"
+              data-size="large"
             >
               Send a message
             </a>
           </div>
         </div>
-        <div class="course-interest__form-wrap">
+        <div class="slot">
           <CourseInterestForm
             idPrefix="courses-interest"
             source="courses-page"
@@ -455,8 +434,6 @@ const supportInclusions = [
 
         tab.setAttribute("aria-selected", String(active));
         tab.tabIndex = active ? 0 : -1;
-        tab.classList.toggle("is-active", active);
-
         if (active && focus) {
           tab.focus();
         }
@@ -548,7 +525,7 @@ const supportInclusions = [
   });
 </script>
 
-<style lang="scss">
+<style>
   .courses-model,
   .courses-bundle,
   .course-support,
@@ -562,10 +539,10 @@ const supportInclusions = [
     margin-bottom: var(--space-section-tight);
   }
 
-  .courses-bundle__section-heading,
-  .courses-model__heading,
-  .course-support__section-heading,
-  .course-catalogue__heading {
+  :where(.courses-bundle) .heading,
+  :where(.courses-model) .heading,
+  :where(.course-support) .heading,
+  :where([data-kind="catalogue"]) .heading {
     margin: 0 0 1.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.75rem);
@@ -573,26 +550,26 @@ const supportInclusions = [
     color: var(--text-primary);
   }
 
-  .courses-model__grid,
-  .courses-bundle__panel-grid,
-  .courses-bundle__course-grid,
-  .course-catalogue__grid {
+  :where(.courses-model) .grid,
+  :where(.courses-bundle) .panels,
+  :where(.courses-bundle) .courses,
+  :where([data-kind="catalogue"]) .offerings {
     display: grid;
     gap: 1rem;
   }
 
   @media (min-width: 768px) {
-    .courses-model__grid {
+    :where(.courses-model) .grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .courses-bundle__course-grid,
-    .course-catalogue__grid {
+    :where(.courses-bundle) .courses,
+    :where([data-kind="catalogue"]) .offerings {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  .courses-model__card {
+  :where(.courses-model) .card {
     position: relative;
     overflow: hidden;
     padding: 1.45rem 1.3rem;
@@ -629,27 +606,27 @@ const supportInclusions = [
     }
   }
 
-  .courses-model__card-title,
-  .courses-bundle__title,
-  .course-card__title,
-  .course-interest__title {
+  :where(.courses-model) .name,
+  :where(.courses-bundle) .bundle,
+  :where(.course-card) .heading,
+  :where(.course-interest) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     line-height: 1.05;
     color: var(--text-primary);
   }
 
-  .courses-model__card-title {
+  :where(.courses-model) .name {
     font-size: 1.15rem;
   }
 
-  .courses-model__card-header {
+  :where(.courses-model) .header {
     display: flex;
     align-items: center;
     gap: 0.85rem;
   }
 
-  .courses-model__card-icon {
+  :where(.courses-model) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -669,19 +646,19 @@ const supportInclusions = [
     }
   }
 
-  .courses-model__card-body,
-  .courses-bundle__section-body,
-  .courses-bundle__catalogue-body,
-  .courses-bundle__body,
-  .course-card__summary,
-  .course-support__body,
-  .course-interest__body {
+  :where(.courses-model) .body,
+  :where(.courses-bundle) .text,
+  :where(.courses-bundle) .description,
+  :where(.courses-bundle) .body,
+  :where(.course-card) .summary,
+  :where(.course-support) .body,
+  :where(.course-interest) .body {
     margin: 0.7rem 0 0;
     color: var(--text-muted);
     line-height: 1.7;
   }
 
-  .courses-bundle__panel {
+  :where(.courses-bundle) .surface {
     padding: clamp(1.45rem, 3vw, 2.25rem);
     border: 1px solid
       color-mix(in srgb, var(--accent-primary) 14%, var(--border-subtle));
@@ -706,19 +683,19 @@ const supportInclusions = [
     box-shadow: 0 22px 48px rgba(var(--shadow-rgb), 0.08);
   }
 
-  .courses-bundle__section-header {
+  :where(.courses-bundle) .subheading {
     max-width: 38rem;
   }
 
-  .courses-bundle__section-intro {
+  :where(.courses-bundle) .preface {
     max-width: 45rem;
   }
 
-  .courses-bundle__section-body {
+  :where(.courses-bundle) .text {
     max-width: 38rem;
   }
 
-  .courses-bundle__tab-list {
+  :where(.courses-bundle) .tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
@@ -733,7 +710,7 @@ const supportInclusions = [
     );
   }
 
-  .courses-bundle__tab {
+  :where(.courses-bundle) .tab {
     appearance: none;
     border: 0;
     border-radius: var(--radius-pill);
@@ -775,29 +752,29 @@ const supportInclusions = [
     }
   }
 
-  .courses-bundle__tab-panel {
+  :where(.courses-bundle) .pane {
     margin-top: 1.25rem;
   }
 
-  .courses-bundle__tab-panel[hidden] {
+  :where(.courses-bundle) .pane[hidden] {
     display: none;
   }
 
-  .courses-bundle__panel-grid {
+  :where(.courses-bundle) .panels {
     display: grid;
     gap: 1.25rem;
   }
 
-  .courses-bundle__catalogue-intro {
+  :where(.courses-bundle) .overview {
     max-width: 45rem;
   }
 
-  .courses-bundle__kicker,
-  .course-support__kicker,
-  .course-interest__kicker,
-  .course-card__eyebrow,
-  .courses-bundle__course-focus,
-  .courses-bundle__aside-label {
+  :where(.courses-bundle) .kicker,
+  :where(.course-support) .kicker,
+  :where(.course-interest) .kicker,
+  :where(.course-card) .eyebrow,
+  :where(.courses-bundle) .focus,
+  :where(.courses-bundle) .caption {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.76rem;
@@ -806,14 +783,14 @@ const supportInclusions = [
     text-transform: uppercase;
   }
 
-  .courses-bundle__kicker,
-  .course-card__eyebrow,
-  .courses-bundle__course-focus,
-  .course-interest__kicker {
+  :where(.courses-bundle) .kicker,
+  :where(.course-card) .eyebrow,
+  :where(.courses-bundle) .focus,
+  :where(.course-interest) .kicker {
     color: var(--accent-primary);
   }
 
-  .course-card__status {
+  :where(.course-card) .status {
     display: inline-flex;
     align-items: center;
     width: fit-content;
@@ -826,19 +803,19 @@ const supportInclusions = [
       color-mix(in srgb, var(--accent-secondary) 22%, transparent);
   }
 
-  .course-support__kicker,
-  .courses-bundle__aside-label {
+  :where(.course-support) .kicker,
+  :where(.courses-bundle) .caption {
     color: var(--accent-secondary);
   }
 
-  .courses-bundle__chips {
+  :where(.courses-bundle) .chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.55rem;
     margin: 0.9rem 0 1rem;
   }
 
-  .courses-bundle__chip {
+  :where(.courses-bundle) .chip {
     display: inline-flex;
     align-items: center;
     min-height: 2rem;
@@ -858,7 +835,7 @@ const supportInclusions = [
     color: color-mix(in srgb, var(--text-primary) 82%, var(--accent-primary));
   }
 
-  .courses-bundle__chip--status {
+  :where(.courses-bundle) .chip[data-tone="status"] {
     border-color: color-mix(in srgb, var(--accent-secondary) 16%, transparent);
     background: color-mix(
       in srgb,
@@ -868,15 +845,15 @@ const supportInclusions = [
     color: color-mix(in srgb, var(--text-primary) 84%, var(--accent-secondary));
   }
 
-  .courses-bundle__title,
-  .course-interest__title {
+  :where(.courses-bundle) .bundle,
+  :where(.course-interest) .heading {
     font-size: clamp(1.7rem, 4vw, 2.5rem);
   }
 
-  .courses-bundle__benefits,
-  .courses-bundle__audience,
-  .course-card__list,
-  .course-support__list {
+  :where(.courses-bundle) .benefits,
+  :where(.courses-bundle) .audience,
+  :where(.course-card) .list,
+  :where(.course-support) .list {
     list-style: none;
     margin: 1rem 0 0;
     padding: 0;
@@ -884,10 +861,10 @@ const supportInclusions = [
     gap: 0.75rem;
   }
 
-  .courses-bundle__benefits li,
-  .courses-bundle__audience li,
-  .course-card__list li,
-  .course-support__list li {
+  :where(.courses-bundle) .benefits li,
+  :where(.courses-bundle) .audience li,
+  :where(.course-card) .list li,
+  :where(.course-support) .list li {
     position: relative;
     padding-left: 1rem;
     color: var(--text-primary);
@@ -906,8 +883,8 @@ const supportInclusions = [
     }
   }
 
-  .courses-bundle__actions,
-  .course-interest__actions {
+  :where(.courses-bundle) .cta,
+  :where(.course-interest) .cta {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -915,9 +892,9 @@ const supportInclusions = [
     margin-top: 1.25rem;
   }
 
-  .courses-bundle__link,
-  .course-support__link,
-  .course-card__cta {
+  :where(.courses-bundle) .anchor,
+  :where(.course-support) .anchor,
+  :where(.course-card) .cta {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.88rem;
     font-weight: 700;
@@ -926,40 +903,40 @@ const supportInclusions = [
     text-decoration: none;
   }
 
-  .courses-bundle__actions .courses-bundle__link {
+  :where(.courses-bundle) .cta .anchor {
     display: inline-flex;
     align-items: center;
     min-height: 2.85rem;
   }
 
-  .courses-bundle__link,
-  .course-card__cta {
+  :where(.courses-bundle) .anchor,
+  :where(.course-card) .cta {
     color: var(--accent-primary);
   }
 
-  .course-support__link {
+  :where(.course-support) .anchor {
     color: var(--accent-secondary);
   }
 
-  .course-support__panel--solo {
+  :where(.course-support) .surface[data-layout="solo"] {
     margin-top: 0;
   }
 
-  .course-support__link {
+  :where(.course-support) .anchor {
     display: inline-flex;
     align-items: center;
     margin-top: 1rem;
   }
 
-  .courses-bundle__course-grid {
+  :where(.courses-bundle) .courses {
     margin-top: 0;
   }
 
-  .course-catalogue__grid {
+  :where([data-kind="catalogue"]) .offerings {
     margin-top: 1.5rem;
   }
 
-  .courses-bundle__support {
+  :where(.courses-bundle) .support {
     margin-top: 1.25rem;
     padding: 1rem;
     border: 1px solid
@@ -972,7 +949,7 @@ const supportInclusions = [
     );
   }
 
-  .courses-bundle__support-label {
+  :where(.courses-bundle) .eyebrow {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.76rem;
@@ -982,19 +959,19 @@ const supportInclusions = [
     color: var(--accent-secondary);
   }
 
-  .courses-bundle__support-copy {
+  :where(.courses-bundle) .detail {
     margin: 0.55rem 0 0;
     color: var(--text-primary);
     line-height: 1.6;
   }
 
-  .course-support__included-grid {
+  :where(.course-support) .grid {
     display: grid;
     gap: 0.8rem;
     margin-top: 1rem;
   }
 
-  .course-support__included-card {
+  :where(.course-support) .card {
     padding: 0.95rem 1rem;
     border: 1px solid
       color-mix(in srgb, var(--accent-secondary) 14%, var(--border-subtle));
@@ -1006,13 +983,13 @@ const supportInclusions = [
     );
   }
 
-  .course-support__included-header {
+  :where(.course-support) .header {
     display: flex;
     align-items: center;
     gap: 0.7rem;
   }
 
-  .course-support__included-icon {
+  :where(.course-support) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1032,7 +1009,7 @@ const supportInclusions = [
     }
   }
 
-  .course-support__included-title {
+  :where(.course-support) .name {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.98rem;
@@ -1040,19 +1017,19 @@ const supportInclusions = [
     color: var(--text-primary);
   }
 
-  .course-support__included-body {
+  :where(.course-support) .description {
     margin: 0.65rem 0 0;
     color: var(--text-muted);
     line-height: 1.6;
   }
 
-  .courses-bundle__course-card,
-  .course-support__panel--solo {
+  :where(.courses-bundle) .card,
+  :where(.course-support) .surface[data-layout="solo"] {
     position: relative;
     overflow: hidden;
   }
 
-  .courses-bundle__course-card {
+  :where(.courses-bundle) .card {
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -1086,18 +1063,18 @@ const supportInclusions = [
     }
   }
 
-  .courses-bundle__course-header {
+  :where(.courses-bundle) .header {
     display: flex;
     align-items: center;
     gap: 0.85rem;
   }
 
-  .courses-bundle__course-heading {
+  :where(.courses-bundle) .group {
     display: grid;
     gap: 0.25rem;
   }
 
-  .courses-bundle__course-icon {
+  :where(.courses-bundle) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1117,11 +1094,11 @@ const supportInclusions = [
     }
   }
 
-  .courses-bundle__course-header .courses-bundle__course-title {
+  :where(.courses-bundle) .header .name {
     margin: 0;
   }
 
-  .courses-bundle__course-title {
+  :where(.courses-bundle) .name {
     margin: 0.35rem 0 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.05rem;
@@ -1129,7 +1106,7 @@ const supportInclusions = [
     color: var(--text-primary);
   }
 
-  .courses-bundle__course-copy {
+  :where(.courses-bundle) .copy {
     margin: 0.55rem 0 0;
     color: var(--text-muted);
     line-height: 1.6;
@@ -1177,12 +1154,12 @@ const supportInclusions = [
     }
   }
 
-  .course-card__status {
+  :where(.course-card) .status {
     margin: 0;
     justify-self: end;
   }
 
-  .course-card__top {
+  :where(.course-card) .top {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas: "header status";
@@ -1190,7 +1167,7 @@ const supportInclusions = [
     gap: 0.8rem 1rem;
   }
 
-  .course-card__header {
+  :where(.course-card) .header {
     grid-area: header;
     display: flex;
     align-items: flex-start;
@@ -1198,12 +1175,12 @@ const supportInclusions = [
     min-width: 0;
   }
 
-  .course-card__heading {
+  :where(.course-card) .group {
     display: grid;
     gap: 0.25rem;
   }
 
-  .course-card__icon {
+  :where(.course-card) .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1223,16 +1200,16 @@ const supportInclusions = [
     }
   }
 
-  .course-card__title {
+  :where(.course-card) .heading {
     font-size: 1.35rem;
   }
 
-  .course-card__details {
+  :where(.course-card) .details {
     display: grid;
     gap: 1rem;
   }
 
-  .course-card__label {
+  :where(.course-card) .caption {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -1242,40 +1219,40 @@ const supportInclusions = [
     color: var(--accent-secondary);
   }
 
-  .course-card__cta {
+  :where(.course-card) .cta {
     margin-top: auto;
   }
 
-  .course-interest__panel {
+  :where(.course-interest) .surface {
     display: grid;
     gap: 1.25rem;
   }
 
-  .course-interest__form-wrap {
+  :where(.course-interest) .slot {
     width: 100%;
   }
 
   @media (min-width: 960px) {
-    .courses-bundle__panel-grid {
+    :where(.courses-bundle) .panels {
       grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.82fr);
       align-items: start;
       gap: 1.35rem;
     }
 
-    .courses-bundle__course-grid {
+    :where(.courses-bundle) .courses {
       grid-column: 1 / -1;
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .course-catalogue__grid {
+    :where([data-kind="catalogue"]) .offerings {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .course-support__included-grid {
+    :where(.course-support) .grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .course-interest__panel {
+    :where(.course-interest) .surface {
       grid-template-columns: minmax(0, 1.1fr) minmax(19rem, 0.9fr);
       align-items: center;
       gap: 1.5rem;
@@ -1283,7 +1260,7 @@ const supportInclusions = [
   }
 
   @media (max-width: 479px) {
-    .course-card__top {
+    :where(.course-card) .top {
       grid-template-columns: 1fr;
       grid-template-areas:
         "status"

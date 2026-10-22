@@ -2,12 +2,14 @@
 
 ## Overview
 
-Personal tech blog and engineering consultancy site built with Astro 6, Sass/Bulma, and hosted on Netlify. Live at sourcier.uk.
+Personal tech blog and engineering consultancy site built with Astro 6 and
+native CSS, and hosted on Netlify. Live at sourcier.uk.
 
 ## Tech Stack
 
 - **Framework:** Astro 6 (static site generation with content collections)
-- **Styling:** Sass + Bulma CSS framework
+- **Styling:** Native CSS with purpose-focused global stylesheets and scoped
+  component styles
 - **Content:** Markdown with frontmatter in `collections/posts/`
 - **Serverless:** Netlify Functions (comments, subscriptions, scheduled builds)
 - **Email:** Resend (notifications and newsletter)
@@ -40,11 +42,22 @@ Requires Node.js (see .nvmrc), pnpm, and Netlify CLI.
 - `src/pages/` — Astro page routes
 - `src/components/` — Reusable Astro components
 - `src/layouts/` — BaseLayout and MarkdownPostLayout
-- `src/styles/global.scss` — Global styles and CSS variables
+- `src/styles/global.css` — Ordered global CSS entrypoint
 - `src/utils/` — Utilities (drafts, tags, icons)
 - `src/plugins/` — Remark plugins (Mermaid)
 - `netlify/functions/` — Serverless functions
 - `scripts/` — One-off utility scripts
+
+## Styling
+
+`src/styles/global.css` imports purpose-focused stylesheets in cascade order.
+`BaseLayout.astro` imports `reset.css` before the global entrypoint. The files
+cover theme tokens, base styles, navigation, homepage hero, controls, panels,
+series, post markers, blog cards, social icons, contact, articles, and search.
+Shared theme values live in `src/styles/theme.css` as CSS variables, with dark
+theme overrides under `[data-theme="dark"]`. Use plain scoped `<style>` blocks
+for component-specific rules. The site has no Bulma dependency and does not
+require Sass.
 
 ## Design System
 
@@ -70,8 +83,20 @@ Requires Node.js (see .nvmrc), pnpm, and Netlify CLI.
 
 ## Coding Conventions
 
-- Astro components use scoped `<style lang="scss">`
-- BEM-style class naming (e.g. `.page-hero__title`, `.back-to-top--visible`)
+- Astro components use plain scoped `<style>` blocks for component-specific
+  rules
+- Prefer single-word component parts such as `.heading`, `.body`, and
+  `.icon`, scoped to their owner; retain descriptive component roots where
+  needed. Do not squash compound names into opaque abbreviations.
+- Reserve shared utility classes such as `.button`, `.actions`, `.label`,
+  `.input`, `.container`, `.section`, and `.panel` for their intended
+  behavior. Scoped classes still receive global rules.
+- Use native or ARIA state and data attributes for presentation variants;
+  `.container` uses `data-width="narrow"` and `.panel` uses
+  `data-tone="secondary"`.
+- Keep markup, generated HTML, scripts, styles, and test selectors aligned.
+  Preserve nested component boundaries, vendor classes, and authored-content
+  contracts such as `date-chip`, `update-divider`, and `series-callout`.
 - CSS variables for theming — never hardcode colours outside `:root`/`[data-theme]`
 - Environment variables via `process.env` in Netlify functions, `import.meta.env` in Astro
 - All secrets in Netlify dashboard, never in code — see `.env.example` for the list
@@ -87,7 +112,8 @@ Requires Node.js (see .nvmrc), pnpm, and Netlify CLI.
 - Default to zero JavaScript — only add `client:load`/`client:idle`/`client:visible` where needed
 - Use `<Image />` component for automatic image optimisation (WebP, srcset)
 - Component script structure: frontmatter at top, template below
-- Scoped styles in components; global styles in `src/styles/global.scss`
+- Scoped component styles and purpose-focused global styles in
+  `src/styles/global.css` and its imported CSS files
 
 ## Content
 
@@ -157,7 +183,8 @@ When appending new content to an already-published post, use an `update-divider`
 - Include the full date: day, month, year
 - New sections after the divider should be written in present tense, consistent with the rest of the article
 - Always add a matching `history` entry in frontmatter
-- The `update-divider` CSS lives in `src/styles/global.scss` — no imports needed
+- The `update-divider` CSS lives in `src/styles/post-markers.css`, imported by
+  `src/styles/global.css` — no additional imports needed
 
 ### Series Articles
 

@@ -33,11 +33,11 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
   />
 
   <div class="blog-intro flow-section flow-section--loose">
-    <div class="container is-max-desktop">
-      <div class="blog-intro__panel page-panel">
-        <div class="blog-intro__copy">
-          <p class="blog-intro__eyebrow">What you will find here</p>
-          <div class="blog-intro__quote">
+    <div class="container" data-width="narrow">
+      <div class="surface panel">
+        <div class="copy">
+          <p class="eyebrow">What you will find here</p>
+          <div class="quote">
             <p>
               This blog turns real software engineering work into practical
               guidance for people moving into tech, engineers growing in
@@ -45,18 +45,18 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
             </p>
           </div>
         </div>
-        <ul class="blog-intro__stats" role="list">
-          <li class="blog-intro__stat">
-            <span class="blog-intro__stat-label">Published</span>
-            <span class="blog-intro__stat-value">{publishedArticleCount}</span>
+        <ul class="stats" role="list">
+          <li class="stat">
+            <span class="caption">Published</span>
+            <span class="value">{publishedArticleCount}</span>
           </li>
-          <li class="blog-intro__stat">
-            <span class="blog-intro__stat-label">Topics</span>
-            <span class="blog-intro__stat-value">{totalTags}</span>
+          <li class="stat">
+            <span class="caption">Topics</span>
+            <span class="value">{totalTags}</span>
           </li>
-          <li class="blog-intro__stat">
-            <span class="blog-intro__stat-label">Guides</span>
-            <span class="blog-intro__stat-value">{audienceGuides.length}</span>
+          <li class="stat">
+            <span class="caption">Guides</span>
+            <span class="value">{audienceGuides.length}</span>
           </li>
         </ul>
       </div>
@@ -64,12 +64,12 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
   </div>
 
   <section class="blog-paths flow-section" aria-labelledby="blog-paths-heading">
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label">Start here</p>
-      <h2 class="blog-paths__heading" id="blog-paths-heading">
+      <h2 class="heading" id="blog-paths-heading">
         Pick the guide that fits where you are now
       </h2>
-      <div class="blog-paths__grid">
+      <div class="grid">
         {
           audienceGuides.map((guide) => (
             <GuideCard
@@ -103,13 +103,13 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
   <MailingListCTA />
 </BaseLayout>
 
-<style lang="scss">
+<style>
   .blog-intro {
     padding: 0 1.5rem;
     margin-bottom: 0;
   }
 
-  .blog-intro__panel {
+  :where(.blog-intro) .surface {
     display: grid;
     gap: 1.5rem;
 
@@ -120,12 +120,12 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     }
   }
 
-  .blog-intro__copy {
+  :where(.blog-intro) .copy {
     display: grid;
     gap: 0.75rem;
   }
 
-  .blog-intro__eyebrow {
+  :where(.blog-intro) .eyebrow {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.8rem;
@@ -139,7 +139,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     padding: 0 1.5rem;
   }
 
-  .blog-paths__heading {
+  :where(.blog-paths) .heading {
     margin: 0 0 1.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -148,7 +148,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     color: var(--text-primary);
   }
 
-  .blog-paths__grid {
+  :where(.blog-paths) .grid {
     display: grid;
     gap: 1rem;
 
@@ -157,7 +157,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     }
   }
 
-  .blog-intro__quote {
+  :where(.blog-intro) .quote {
     margin: 0;
     padding-left: clamp(1.25rem, 3vw, 1.75rem);
     border-left: 3px solid var(--accent-primary);
@@ -172,7 +172,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     }
   }
 
-  .blog-intro__stats {
+  :where(.blog-intro) .stats {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -180,7 +180,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     gap: 0.85rem;
   }
 
-  .blog-intro__stat {
+  :where(.blog-intro) .stat {
     display: grid;
     gap: 0.35rem;
     padding: 1rem 1.1rem;
@@ -194,7 +194,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     );
   }
 
-  .blog-intro__stat-label {
+  :where(.blog-intro) .caption {
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -202,7 +202,7 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
     color: var(--text-muted);
   }
 
-  .blog-intro__stat-value {
+  :where(.blog-intro) .value {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.55rem, 4vw, 2.15rem);
     font-weight: 800;

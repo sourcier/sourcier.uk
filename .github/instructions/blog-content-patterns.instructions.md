@@ -247,7 +247,9 @@ before it).
 - The end divider's label is always **"End of update"** — it doesn't repeat the date.
 - New sections added after the divider should be written in present tense, matching the rest of the article. Do not use past tense to describe the additions (e.g. "every tag renders" not "every tag rendered").
 - Always add a matching `history` entry in frontmatter.
-- The `update-divider` and `update-divider--end` CSS are defined in `src/styles/global.scss` and require no additional imports.
+- The `update-divider` and `update-divider--end` CSS are defined in
+  `src/styles/post-markers.css`, imported by `src/styles/global.css`, and need
+  no additional imports.
 
 ## Markdown Test Post
 

@@ -118,27 +118,27 @@ const supportPublishableKey =
       postId={postId}
     />
 
-    <div class="post__body">
-      <div class="post__layout">
-        <div class="post__layout__content">
+    <div class="body">
+      <div class="layout">
+        <div class="main">
           {
             seriesNavigation && (
               <SeriesNavigation navigation={seriesNavigation} />
             )
           }
-          <div class="post__content" id="post-content">
+          <div class="content" id="post-content">
             <slot />
           </div>
         </div>
-        <aside class="post__sidebar" aria-label="Post sidebar">
+        <aside class="sidebar" aria-label="Post sidebar">
           {
             tocHeadings.length > 1 && (
               <nav class="toc">
-                <p class="toc__heading">On this page</p>
-                <ol class="toc__list">
+                <p class="heading">On this page</p>
+                <ol class="list">
                   {tocHeadings.map((h) => (
-                    <li class={`toc__item toc__item--h${h.depth}`}>
-                      <a class="toc__link" href={`#${h.slug}`}>
+                    <li class="item" data-depth={h.depth}>
+                      <a class="link" href={`#${h.slug}`}>
                         {h.text}
                       </a>
                     </li>
@@ -164,11 +164,8 @@ const supportPublishableKey =
     <MailingListCTA />
     {
       (frontmatter.history?.length > 0 || frontmatter.credits?.length > 0) && (
-        <section
-          class="post-meta-section"
-          aria-label="Page credits and history"
-        >
-          <div class="post-meta-section__inner">
+        <section class="meta" aria-label="Page credits and history">
+          <div class="inner">
             {frontmatter.credits && frontmatter.credits.length > 0 && (
               <PageCredits entries={frontmatter.credits} />
             )}
@@ -183,8 +180,8 @@ const supportPublishableKey =
 </BaseLayout>
 
 <style>
-  :global(.mermaid-diagram),
-  :global(.zoomable-image) {
+  :global(:where(.post) .mermaid-diagram),
+  :global(:where(.post) .image) {
     position: relative;
     margin: 2rem 0;
     display: flex;
@@ -196,17 +193,17 @@ const supportPublishableKey =
     padding: 2rem 1.5rem;
   }
 
-  :global(.zoomable-image img) {
+  :global(:where(.post) .image img) {
     outline: none;
     margin: 0;
   }
 
-  :global([data-theme="dark"] .mermaid-diagram),
-  :global([data-theme="dark"] .zoomable-image) {
+  :global([data-theme="dark"] :where(.post) .mermaid-diagram),
+  :global([data-theme="dark"] :where(.post) .image) {
     background: var(--surface-media-stage-dark);
   }
 
-  :global(.media-expand-btn) {
+  :global(:where(.post) .expand) {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -228,33 +225,33 @@ const supportPublishableKey =
       border-color 0.15s ease;
   }
 
-  :global([data-theme="dark"] .media-expand-btn) {
+  :global([data-theme="dark"] :where(.post) .expand) {
     border-color: var(--text-on-strong-alpha-25);
     color: var(--text-on-strong-alpha-50);
   }
 
   @media (hover: hover) {
-    :global(.media-expand-btn) {
+    :global(:where(.post) .expand) {
       opacity: 0;
     }
 
-    :global(.mermaid-diagram:hover .media-expand-btn:not(:hover)),
-    :global(.zoomable-image:hover .media-expand-btn:not(:hover)) {
+    :global(:where(.post) .mermaid-diagram:hover .expand:not(:hover)),
+    :global(:where(.post) .image:hover .expand:not(:hover)) {
       opacity: 0.75;
     }
 
-    :global(.media-expand-btn:hover) {
+    :global(:where(.post) .expand:hover) {
       opacity: 1;
     }
   }
 
-  :global(.media-expand-btn:hover) {
+  :global(:where(.post) .expand:hover) {
     background: rgba(var(--accent-primary-rgb), 0.1);
     border-color: rgba(var(--accent-primary-rgb), 0.5);
     color: var(--accent-primary);
   }
 
-  :global(.media-lightbox) {
+  :global(.lightbox) {
     display: none;
     position: fixed;
     inset: 0;
@@ -264,12 +261,12 @@ const supportPublishableKey =
     justify-content: center;
     padding: 2rem;
 
-    &.is-open {
+    &:not([hidden]) {
       display: flex;
     }
   }
 
-  :global(.media-lightbox__inner) {
+  :global(:where(.lightbox) .inner) {
     position: relative;
     background: var(--surface-media-stage);
     width: 98vw;
@@ -303,12 +300,12 @@ const supportPublishableKey =
       transition: opacity 0.2s ease;
     }
 
-    &.is-scrolled-end::after {
+    &[data-at-end]::after {
       opacity: 0;
     }
   }
 
-  :global(.media-lightbox__scroll) {
+  :global(:where(.lightbox) .scroll) {
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -319,16 +316,16 @@ const supportPublishableKey =
     align-items: center;
   }
 
-  :global(.media-lightbox__content) {
+  :global(:where(.lightbox) .content) {
     margin: auto;
     flex-shrink: 0;
   }
 
-  :global([data-theme="dark"] .media-lightbox__inner) {
+  :global([data-theme="dark"] :where(.lightbox) .inner) {
     background: var(--surface-media-stage-dark);
   }
 
-  :global([data-theme="dark"] .media-lightbox__inner::after) {
+  :global([data-theme="dark"] :where(.lightbox) .inner::after) {
     color: rgba(var(--text-on-strong-rgb), 0.35);
     background: linear-gradient(
       to bottom,
@@ -337,7 +334,7 @@ const supportPublishableKey =
     );
   }
 
-  :global(.media-lightbox__close) {
+  :global(:where(.lightbox) .close) {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -358,18 +355,18 @@ const supportPublishableKey =
       border-color 0.15s ease;
   }
 
-  :global([data-theme="dark"] .media-lightbox__close) {
+  :global([data-theme="dark"] :where(.lightbox) .close) {
     border-color: rgba(var(--text-on-strong-rgb), 0.25);
     color: rgba(var(--text-on-strong-rgb), 0.5);
   }
 
-  :global(.media-lightbox__close:hover) {
+  :global(:where(.lightbox) .close:hover) {
     background: rgba(var(--accent-primary-rgb), 0.1);
     border-color: rgba(var(--accent-primary-rgb), 0.5);
     color: var(--accent-primary);
   }
 
-  :global(.mermaid-diagram[data-loading]) {
+  :global(:where(.post) .mermaid-diagram[data-loading]) {
     /* Approximates a typical small flowchart (2-6 nodes) so the swap from
        skeleton to rendered SVG causes minimal layout shift for real visitors. */
     min-height: 220px;
@@ -380,14 +377,14 @@ const supportPublishableKey =
     color: transparent; /* prevents definition text flashing between skeleton and SVG */
   }
 
-  :global(.zoomable-image[data-loading]) {
+  :global(:where(.post) .image[data-loading]) {
     min-height: 260px;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  :global(.zoomable-image[data-loading])::before {
+  :global(:where(.post) .image[data-loading])::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -398,15 +395,15 @@ const supportPublishableKey =
       var(--border-subtle) 75%
     );
     background-size: 600px 100%;
-    animation: mermaid-skeleton-shimmer 1.6s ease-in-out infinite;
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
   }
 
   /* Skeleton fades out fast; image then fades in on its own via base transition */
-  :global(.zoomable-image[data-loading].is-loaded)::before {
+  :global(:where(.post) .image[data-loading][data-loaded])::before {
     animation: expandable-fade-out 0.25s ease forwards;
   }
 
-  :global(.zoomable-image__icon) {
+  :global(:where(.post .image) .icon) {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -417,15 +414,15 @@ const supportPublishableKey =
     pointer-events: none;
   }
 
-  :global(.zoomable-image[data-loading].is-loaded .zoomable-image__icon) {
+  :global(:where(.post) .image[data-loading][data-loaded] .icon) {
     animation: expandable-fade-out 0.2s ease forwards;
   }
 
-  :global(.zoomable-image__icon svg) {
+  :global(:where(.post .image) .icon svg) {
     display: block;
   }
 
-  :global([data-theme="dark"] .zoomable-image[data-loading])::before {
+  :global([data-theme="dark"] :where(.post) .image[data-loading])::before {
     background: linear-gradient(
       90deg,
       rgba(var(--text-on-strong-rgb), 0.05) 25%,
@@ -436,21 +433,21 @@ const supportPublishableKey =
   }
 
   /* Transition on base selector so it fires reliably when data-loading is removed */
-  :global(.zoomable-image img.zoomable) {
+  :global(:where(.post) .image img.zoom) {
     transition: opacity 0.5s ease;
   }
 
-  :global(.zoomable-image[data-loading] img) {
+  :global(:where(.post) .image[data-loading] img) {
     opacity: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :global(.zoomable-image img.zoomable) {
+    :global(:where(.post) .image img.zoom) {
       transition: none;
     }
   }
 
-  :global(.mermaid-skeleton) {
+  :global(:where(.post .mermaid-diagram) .skeleton) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -459,7 +456,7 @@ const supportPublishableKey =
     max-width: 480px;
   }
 
-  :global(.mermaid-skeleton__row) {
+  :global(:where(.post .mermaid-diagram .skeleton) .row) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -467,7 +464,7 @@ const supportPublishableKey =
     width: 100%;
   }
 
-  :global(.mermaid-skeleton__node) {
+  :global(:where(.post .mermaid-diagram .skeleton) .node) {
     height: 2.25rem;
     flex: 1;
     max-width: 140px;
@@ -479,18 +476,18 @@ const supportPublishableKey =
       var(--border-subtle) 75%
     );
     background-size: 400px 100%;
-    animation: mermaid-skeleton-shimmer 1.6s ease-in-out infinite;
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
   }
 
-  :global(.mermaid-skeleton__node--wide) {
+  :global(:where(.post .mermaid-diagram .skeleton) [data-kind="wide"]) {
     max-width: 220px;
   }
 
-  :global(.mermaid-skeleton__node--narrow) {
+  :global(:where(.post .mermaid-diagram .skeleton) [data-kind="narrow"]) {
     max-width: 90px;
   }
 
-  :global(.mermaid-skeleton__connector) {
+  :global(:where(.post .mermaid-diagram .skeleton) .connector) {
     width: 2px;
     height: 1.5rem;
     background: var(--border-subtle);
@@ -498,7 +495,7 @@ const supportPublishableKey =
     opacity: 0.6;
   }
 
-  :global([data-theme="dark"] .mermaid-skeleton__node) {
+  :global([data-theme="dark"] :where(.post .mermaid-diagram .skeleton) .node) {
     background: linear-gradient(
       90deg,
       rgba(var(--text-on-strong-rgb), 0.06) 25%,
@@ -508,30 +505,30 @@ const supportPublishableKey =
     background-size: 400px 100%;
   }
 
-  :global(.mermaid-diagram svg) {
+  :global(:where(.post) .mermaid-diagram svg) {
     max-width: 100%;
     height: auto;
   }
 
-  :global(.mermaid-diagram text) {
+  :global(:where(.post) .mermaid-diagram text) {
     fill: var(--text-primary) !important;
   }
 
-  :global(.mermaid-diagram .messageText),
-  :global(.mermaid-diagram .labelText),
-  :global(.mermaid-diagram .loopText),
-  :global(.mermaid-diagram .noteText) {
+  :global(:where(.post) .mermaid-diagram .messageText),
+  :global(:where(.post) .mermaid-diagram .labelText),
+  :global(:where(.post) .mermaid-diagram .loopText),
+  :global(:where(.post) .mermaid-diagram .noteText) {
     fill: var(--text-primary) !important;
     stroke: none !important;
   }
 
-  :global(.mermaid-diagram line),
-  :global(.mermaid-diagram path.arrowMarkerPath) {
+  :global(:where(.post) .mermaid-diagram line),
+  :global(:where(.post) .mermaid-diagram path.arrowMarkerPath) {
     stroke: var(--text-primary) !important;
   }
 
-  :global(.mermaid-diagram .messageLine0),
-  :global(.mermaid-diagram .messageLine1) {
+  :global(:where(.post) .mermaid-diagram .messageLine0),
+  :global(:where(.post) .mermaid-diagram .messageLine1) {
     stroke: var(--text-primary) !important;
   }
 </style>
@@ -613,16 +610,17 @@ const supportPublishableKey =
 
   // Lightbox — created once, shared across all diagrams and images
   const lightbox = document.createElement("div");
-  lightbox.className = "media-lightbox";
+  lightbox.className = "lightbox";
+  lightbox.hidden = true;
   lightbox.setAttribute("role", "dialog");
   lightbox.setAttribute("aria-modal", "true");
   lightbox.setAttribute("aria-label", "Diagram fullscreen view");
   const lightboxInner = document.createElement("div");
-  lightboxInner.className = "media-lightbox__inner";
+  lightboxInner.className = "inner";
   const lightboxScroll = document.createElement("div");
-  lightboxScroll.className = "media-lightbox__scroll";
+  lightboxScroll.className = "scroll";
   const closeBtn = document.createElement("button");
-  closeBtn.className = "media-lightbox__close";
+  closeBtn.className = "close";
   closeBtn.innerHTML = ICON_XMARK;
   closeBtn.setAttribute("aria-label", "Close fullscreen diagram");
   lightboxInner.appendChild(lightboxScroll);
@@ -631,8 +629,8 @@ const supportPublishableKey =
   document.body.appendChild(lightbox);
 
   const closeLightbox = () => {
-    lightbox.classList.remove("is-open");
-    lightboxScroll.querySelector(".media-lightbox__content")?.remove();
+    lightbox.hidden = true;
+    lightboxScroll.querySelector(".content")?.remove();
     document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
   };
@@ -641,7 +639,7 @@ const supportPublishableKey =
     const atBottom =
       lightboxScroll.scrollHeight - lightboxScroll.scrollTop <=
       lightboxScroll.clientHeight + 4; // 4px tolerance for sub-pixel browser rounding
-    lightboxInner.classList.toggle("is-scrolled-end", atBottom);
+    lightboxInner.toggleAttribute("data-at-end", atBottom);
   };
 
   lightboxScroll.addEventListener("scroll", updateScrollHint, {
@@ -664,13 +662,13 @@ const supportPublishableKey =
 
   document
     .querySelectorAll<HTMLElement>(
-      ".post__content .mermaid-diagram[data-mermaid]",
+      ".post .content .mermaid-diagram[data-mermaid]",
     )
     .forEach((container) => {
       const definition = container.dataset.mermaid!;
 
       const expandBtn = document.createElement("button");
-      expandBtn.className = "media-expand-btn";
+      expandBtn.className = "expand";
       expandBtn.innerHTML = ICON_EXPAND;
       expandBtn.setAttribute("aria-label", "View diagram fullscreen");
 
@@ -678,7 +676,7 @@ const supportPublishableKey =
         const svgClone = container
           .querySelector("svg")!
           .cloneNode(true) as SVGElement;
-        svgClone.classList.add("media-lightbox__content");
+        svgClone.classList.add("content");
         svgClone.removeAttribute("style");
         svgClone.removeAttribute("width");
         svgClone.removeAttribute("height");
@@ -708,7 +706,7 @@ const supportPublishableKey =
         }
         lightboxScroll.appendChild(svgClone);
         lightboxScroll.scrollTop = 0;
-        lightbox.classList.add("is-open");
+        lightbox.hidden = false;
         document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "hidden";
         updateScrollHint();
@@ -718,14 +716,14 @@ const supportPublishableKey =
       definitions.set(container, { definition, btn: expandBtn });
     });
 
-  // Image expand — wrapper div is injected at build time by rehype-zoomable-images
+  // Image expand — wrapper div is injected at build time by rehype-images
   document
-    .querySelectorAll<HTMLImageElement>(".post__content img.zoomable")
+    .querySelectorAll<HTMLImageElement>(".post .content img.zoom")
     .forEach((imgEl) => {
       const wrapper = imgEl.parentElement!;
 
-      // Icon is stamped into the HTML at build time by rehype-zoomable-images
-      const placeholder = wrapper.querySelector(".zoomable-image__icon");
+      // Icon is stamped into the HTML at build time by rehype-images
+      const placeholder = wrapper.querySelector(".icon");
 
       const revealImage = (animate = true) => {
         if (!animate) {
@@ -733,12 +731,12 @@ const supportPublishableKey =
           placeholder?.remove();
           return;
         }
-        wrapper.classList.add("is-loaded");
+        wrapper.setAttribute("data-loaded", "");
         // After skeleton fades out (0.25s), remove data-loading → image's base
         // transition (0.5s) fires naturally as opacity goes 0 → 1
         setTimeout(() => {
           wrapper.removeAttribute("data-loading");
-          wrapper.classList.remove("is-loaded");
+          wrapper.removeAttribute("data-loaded");
           placeholder?.remove();
         }, 280);
       };
@@ -752,7 +750,7 @@ const supportPublishableKey =
       }
 
       const expandBtn = document.createElement("button");
-      expandBtn.className = "media-expand-btn";
+      expandBtn.className = "expand";
       expandBtn.innerHTML = ICON_EXPAND;
       expandBtn.setAttribute("aria-label", "View image fullscreen");
 
@@ -760,7 +758,7 @@ const supportPublishableKey =
         const imgClone = document.createElement("img");
         imgClone.src = imgEl.src;
         imgClone.alt = imgEl.alt;
-        imgClone.className = "media-lightbox__content";
+        imgClone.className = "content";
         imgClone.style.display = "block";
         const rem = parseFloat(
           getComputedStyle(document.documentElement).fontSize,
@@ -779,7 +777,7 @@ const supportPublishableKey =
         }
         lightboxScroll.appendChild(imgClone);
         lightboxScroll.scrollTop = 0;
-        lightbox.classList.add("is-open");
+        lightbox.hidden = false;
         document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "hidden";
         updateScrollHint();
@@ -869,16 +867,21 @@ const supportPublishableKey =
   });
 
   // Highlight the active ToC link as the user scrolls
-  const tocLinks = document.querySelectorAll<HTMLAnchorElement>(".toc__link");
+  const tocLinks =
+    document.querySelectorAll<HTMLAnchorElement>(".post .toc .link");
   if (tocLinks.length) {
     const setActive = (id: string) => {
-      tocLinks.forEach((l) =>
-        l.classList.toggle("is-active", l.getAttribute("href") === `#${id}`),
-      );
+      tocLinks.forEach((link) => {
+        if (link.getAttribute("href") === `#${id}`) {
+          link.setAttribute("aria-current", "location");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
     };
 
     const headingEls = document.querySelectorAll<HTMLElement>(
-      ".post__content h2, .post__content h3",
+      ".post .content h2, .post .content h3",
     );
     const obs = new IntersectionObserver(
       (entries) => {

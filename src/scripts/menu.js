@@ -1,18 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0,
-  );
+  const menuToggles = document.querySelectorAll(".site-nav .toggle");
 
-  $navbarBurgers.forEach((el) => {
-    el.addEventListener("click", () => {
-      const target = el.dataset.target;
-      const $target = document.getElementById(target);
-      el.classList.toggle("is-active");
-      $target.classList.toggle("is-active");
-      el.setAttribute(
+  menuToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const target = document.getElementById(toggle.dataset.target);
+      target.toggleAttribute("data-open");
+      toggle.setAttribute(
         "aria-expanded",
-        el.classList.contains("is-active") ? "true" : "false",
+        target.hasAttribute("data-open") ? "true" : "false",
       );
     });
   });

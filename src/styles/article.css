@@ -1,0 +1,431 @@
+:where(.post) > .body {
+  padding: 2rem 1.5rem 2rem;
+}
+
+:where(.post) > .meta {
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.5rem;
+}
+
+:where(.post) > .meta > .inner {
+  max-width: 68ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+:where(.post > .body) > .layout {
+  margin: 0 auto;
+
+  @media (min-width: 1280px) {
+    display: grid;
+    grid-template-columns: minmax(0, 68ch) 260px;
+    gap: 4rem;
+    align-items: start;
+    justify-content: center;
+  }
+}
+
+:where(.post > .body > .layout) > .main {
+  min-width: 0;
+}
+
+:where(.post > .body > .layout) > .sidebar {
+  display: none;
+
+  @media (min-width: 1280px) {
+    display: block;
+    align-self: start;
+    position: sticky;
+    top: 6rem;
+    padding-left: 0;
+  }
+
+  nav.toc {
+    display: none;
+
+    @media (min-width: 1280px) {
+      display: block;
+    }
+  }
+}
+
+:where(.toc) .heading {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-primary);
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--accent-primary);
+  margin-bottom: 0.75rem;
+}
+
+:where(.toc) .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+:where(.toc) .link {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.45rem 0.5rem 0.45rem 0.75rem;
+  border-left: 2px solid transparent;
+  border-radius: 0 3px 3px 0;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:hover {
+    color: var(--accent-primary);
+    border-left-color: rgba(var(--accent-primary-rgb), 0.35);
+    background-color: rgba(var(--accent-primary-rgb), 0.04);
+  }
+
+  &[aria-current="location"] {
+    color: var(--accent-primary);
+    border-left-color: var(--accent-primary);
+    background-color: rgba(var(--accent-primary-rgb), 0.06);
+  }
+}
+
+:where(.toc) [data-depth="3"] .link {
+  padding-left: 1.5rem;
+  font-size: 0.875rem;
+}
+
+:where(.post > .body > .layout > .main) > .content {
+  max-width: 68ch;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: 1280px) {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+
+  /* Post body typography and rich-text elements */
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-primary);
+    font-weight: 800;
+    line-height: 1.125;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 4.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-subtle);
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 3rem;
+      height: 2px;
+      background-color: var(--accent-primary);
+    }
+  }
+
+  h3 {
+    font-size: 1.375rem;
+    color: var(--accent-primary);
+  }
+
+  h1:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  h2:not(:first-child) {
+    margin-top: 1.1428em;
+  }
+
+  h3:not(:first-child) {
+    margin-top: 1.3333em;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1.125em;
+  }
+
+  h6 {
+    font-size: 1em;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  p,
+  dl,
+  ol,
+  ul,
+  blockquote,
+  pre,
+  table {
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
+  }
+
+  a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--accent-primary-rgb), 0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s ease;
+
+    &:hover {
+      text-decoration-color: var(--accent-primary);
+    }
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent-primary);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background-color: var(--surface-elevated);
+    color: var(--text-muted);
+    font-style: italic;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-compact);
+    box-shadow: 0 0 0 1px var(--border-subtle);
+    margin: 2rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+
+    th {
+      background: linear-gradient(
+        180deg,
+        var(--surface-elevated) 0%,
+        color-mix(in srgb, var(--surface-elevated) 85%, var(--surface-page) 15%)
+          100%
+      );
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.8125rem;
+      padding: 0.875rem 1.125rem;
+      text-align: left;
+      border-bottom: 2px solid var(--accent-primary);
+      color: var(--text-primary);
+    }
+
+    td {
+      padding: 0.8rem 1.125rem;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+      background-color: var(--surface-elevated);
+    }
+
+    tbody tr:nth-child(even) td {
+      background-color: color-mix(
+        in srgb,
+        var(--surface-elevated) 60%,
+        var(--surface-page) 40%
+      );
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background-color: color-mix(
+        in srgb,
+        var(--accent-primary) 10%,
+        var(--surface-elevated) 90%
+      );
+      transition: background-color 0.1s ease;
+    }
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent-primary), transparent);
+    margin: 3rem 0;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 1.5rem;
+    margin-inline-start: 2em;
+    padding-left: 1.5rem;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    li + li {
+      margin-top: 0.25em;
+    }
+
+    li::marker {
+      color: var(--accent-primary);
+    }
+  }
+
+  ul {
+    list-style: disc outside;
+
+    ul {
+      list-style-type: circle;
+
+      margin-block: 0.25em;
+
+      ul {
+        list-style-type: square;
+      }
+    }
+  }
+
+  ol {
+    list-style: decimal outside;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2.5rem auto;
+    outline: 1px solid var(--border-subtle);
+    outline-offset: -1px;
+
+    + em {
+      display: block;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: -1.5rem;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+  }
+}
+
+/* — Expressive Code: 1px border outline on all code block frames */
+:where(.post) .expressive-code .frame {
+  box-shadow: 0 0 0 1px var(--border-subtle) !important;
+  border-radius: var(--radius-compact);
+  overflow: hidden;
+}
+
+/* — Expressive Code: spacing between consecutive collapsible blocks */
+:where(.post)
+  .expressive-code:has(.ec-collapsible)
+  + .expressive-code:has(.ec-collapsible) {
+  margin-top: 0.75rem;
+}
+
+/* — Expressive Code: rounded corners when collapsed */
+:where(.post) .expressive-code .ec-collapsible:has([aria-expanded="false"]) {
+  border-radius: var(--radius-compact);
+  overflow: hidden;
+}
+
+/* — Expressive Code: center chevron vertically in the header bar */
+:where(.post) .expressive-code .ec-collapse-toggle {
+  align-self: center;
+}
+
+/* — Expressive Code: file icon size and alignment */
+:where(.post) .expressive-code figcaption .title {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+:where(.post) .expressive-code figcaption .title svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  filter: brightness(0.65);
+}
+
+[data-theme="dark"] :where(.post) .expressive-code figcaption .title svg {
+  filter: none;
+}
+
+/* — Expressive Code: copy button with matching hover */
+:where(.post) .expressive-code .copy button {
+  border-radius: var(--radius-tight) !important;
+  width: 2rem !important;
+  height: 2rem !important;
+
+  &::after {
+    -webkit-mask-size: contain !important;
+    mask-size: contain !important;
+    -webkit-mask-position: center !important;
+    mask-position: center !important;
+  }
+
+  &::before {
+    border-width: 1px !important;
+  }
+
+  &:hover,
+  &:focus:focus-visible {
+    &::after {
+      background-color: var(--accent-primary);
+    }
+
+    &::before {
+      border-color: var(--accent-primary);
+      opacity: 0.5;
+    }
+  }
+}

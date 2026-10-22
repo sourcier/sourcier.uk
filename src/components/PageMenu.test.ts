@@ -18,7 +18,7 @@ describe("PageMenu", () => {
   it("renders no panel when no props are provided", async () => {
     const normalized = normalizeHtml(await container.renderToString(PageMenu));
     expect(normalized).toContain('data-has-panel="false"');
-    expect(normalized).not.toContain("page-menu__panel");
+    expect(normalized).not.toContain("popover");
   });
 
   it("renders a table of contents when tocHeadings has more than one entry", async () => {
@@ -30,6 +30,7 @@ describe("PageMenu", () => {
     expect(normalized).toContain('data-has-toc="true"');
     expect(normalized).toContain("Introduction");
     expect(normalized).toContain("Setup");
+    expect(normalized).toContain('class="link toc-link"');
   });
 
   it("does not render a TOC for a single heading", async () => {

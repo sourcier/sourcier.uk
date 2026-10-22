@@ -49,7 +49,7 @@ describe("PageCredits", () => {
     const normalized = normalizeHtml(
       await container.renderToString(PageCredits, { props: { entries: [] } }),
     );
-    expect(normalized).toContain("page-credits__list");
-    expect(normalized).not.toContain("page-credits__item");
+    expect(normalized).toContain('class="list"');
+    expect(normalized).not.toContain('class="item"');
   });
 });

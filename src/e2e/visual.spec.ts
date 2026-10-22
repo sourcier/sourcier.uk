@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// Pages that exercise Bulma layout, components, forms, grid, and typography.
+// Pages that exercise global CSS layout, components, forms, grid, and typography.
 // Run `pnpm test:visual:update` to regenerate baselines after intentional changes.
 
 // dynamicSelectors: elements that change when new content is published.
@@ -16,7 +16,7 @@ const routes = [
     name: "blog-index",
     path: "/blog",
     dynamicSelectors: [
-      ".blog-intro__stats",
+      ".blog-intro .stats",
       ".blog-grid-section",
       ".tag-cloud",
     ],
@@ -43,7 +43,7 @@ const routes = [
   {
     name: "guides-index",
     path: "/guides",
-    dynamicSelectors: [".guide-card__meta"],
+    dynamicSelectors: [".guide-card .meta"],
   },
   {
     name: "guide-detail",
@@ -54,13 +54,13 @@ const routes = [
   {
     name: "tags",
     path: "/tags",
-    dynamicSelectors: [".tag-summary__stats", ".cloud-section"],
+    dynamicSelectors: [".tag-summary .stats", ".cloud-section"],
   },
   {
     name: "tag-detail",
     path: "/tags/astro",
     dynamicSelectors: [
-      ".topic-overview__title", // "X posts about Astro" — changes with every new post
+      ".topic-overview .heading", // "X posts about Astro" — changes with every new post
       ".featured-post",
       ".topic-stats",
       ".related-tags", // tag co-occurrence list — changes when tag combinations change

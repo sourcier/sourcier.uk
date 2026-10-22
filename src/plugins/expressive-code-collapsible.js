@@ -56,8 +56,8 @@ export function pluginCollapsibleCodeBlocks() {
         blockAst.properties = blockAst.properties ?? {};
         const existing = blockAst.properties.className ?? [];
         blockAst.properties.className = Array.isArray(existing)
-          ? [...existing, "ec-collapsible", "is-collapsed"]
-          : ["ec-collapsible", "is-collapsed"];
+          ? [...existing, "ec-collapsible"]
+          : ["ec-collapsible"];
 
         // Inject the toggle button as the last child of the frame header
         const header = findElement(blockAst, "figcaption", "header");
@@ -112,7 +112,7 @@ export function pluginCollapsibleCodeBlocks() {
 
         }
 
-        &.is-collapsed {
+        &:has([aria-expanded="false"]) {
           border-left: 3px solid var(--accent-primary, #e8006a);
 
           .ec-collapse-toggle .ec-collapse-icon {
@@ -135,8 +135,8 @@ export function pluginCollapsibleCodeBlocks() {
           if (!header || !btn) continue;
 
           const toggle = () => {
-            const isNowCollapsed = block.classList.toggle('is-collapsed');
-            btn.setAttribute('aria-expanded', String(!isNowCollapsed));
+            const isNowExpanded = btn.getAttribute('aria-expanded') !== 'true';
+            btn.setAttribute('aria-expanded', String(isNowExpanded));
           };
 
           // Header click covers the whole bar; skip if a button was clicked

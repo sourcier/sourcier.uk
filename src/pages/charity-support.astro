@@ -94,23 +94,23 @@ const charityExperience = [
     class="section charity-stats flow-section flow-section--loose"
     aria-label="Offer details"
   >
-    <div class="container is-max-desktop">
-      <ul class="charity-stats__list" role="list">
-        <li class="charity-stats__item">
-          <span class="charity-stats__label">Frequency</span>
-          <span class="charity-stats__value">1 day/month</span>
+    <div class="container" data-width="narrow">
+      <ul class="list" role="list">
+        <li class="item">
+          <span class="caption">Frequency</span>
+          <span class="value">1 day/month</span>
         </li>
-        <li class="charity-stats__item">
-          <span class="charity-stats__label">Cost</span>
-          <span class="charity-stats__value">Free</span>
+        <li class="item">
+          <span class="caption">Cost</span>
+          <span class="value">Free</span>
         </li>
-        <li class="charity-stats__item">
-          <span class="charity-stats__label">Best fit</span>
-          <span class="charity-stats__value">Small scope</span>
+        <li class="item">
+          <span class="caption">Best fit</span>
+          <span class="value">Small scope</span>
         </li>
-        <li class="charity-stats__item">
-          <span class="charity-stats__label">Format</span>
-          <span class="charity-stats__value">Remote first</span>
+        <li class="item">
+          <span class="caption">Format</span>
+          <span class="value">Remote first</span>
         </li>
       </ul>
     </div>
@@ -120,28 +120,28 @@ const charityExperience = [
     class="section charity-intro flow-section"
     aria-labelledby="charity-intro-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="charity-intro__grid">
-        <div class="charity-intro__main page-panel page-panel--secondary">
+    <div class="container" data-width="narrow">
+      <div class="grid">
+        <div class="main panel" data-tone="secondary">
           <p class="section-label section-label--secondary">
             Why I am doing this
           </p>
-          <h2 class="charity-intro__heading" id="charity-intro-heading">
+          <h2 class="heading" id="charity-intro-heading">
             A practical way to give something back
           </h2>
-          <p class="charity-intro__body">
+          <p class="body">
             I have worked in the charity sector before, and it is something I
             still care about deeply. I know how often worthwhile organisations
             are balancing meaningful work against tight budgets, limited time,
             and more digital friction than they should have to carry.
           </p>
-          <p class="charity-intro__body">
+          <p class="body">
             Into Film was the first charity I worked for. After that, I worked
             at JustGiving on projects for Alzheimer's Research UK, Comic Relief,
             Diabetes UK, Macmillan Cancer Support, Shelter, and WaterAid UK,
             among many others. That work stays with me.
           </p>
-          <p class="charity-intro__body">
+          <p class="body">
             This page is my way of making space for that. Each month I set aside
             one free day for a charity or community organisation that could
             benefit from practical help. The goal is simple: solve one real
@@ -150,24 +150,23 @@ const charityExperience = [
         </div>
 
         <aside
-          class="charity-callout page-panel page-panel--secondary"
+          class="charity-callout panel"
+          data-tone="secondary"
           aria-label="Charity experience"
         >
-          <p class="charity-callout__label">Charity sector experience</p>
-          <h2 class="charity-callout__title">
-            Experience that shapes how I approach this
-          </h2>
-          <p class="charity-callout__body">
+          <p class="caption">Charity sector experience</p>
+          <h2 class="heading">Experience that shapes how I approach this</h2>
+          <p class="body">
             I understand the pace, constraints, and care that often sit behind
             this kind of work. That is part of why I want that day to be
             genuinely useful rather than symbolic.
           </p>
-          <ul class="charity-callout__list" role="list">
+          <ul class="list" role="list">
             {
               charityExperience.map((item) => (
                 <li>
-                  <span class="charity-callout__org">{item.organisation}</span>
-                  <span class="charity-callout__context">{item.detail}</span>
+                  <span class="organization">{item.organisation}</span>
+                  <span class="context">{item.detail}</span>
                 </li>
               ))
             }
@@ -181,18 +180,18 @@ const charityExperience = [
     class="section charity-areas flow-section"
     aria-labelledby="charity-areas-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">What I can help with</p>
-      <h2 class="charity-areas__heading" id="charity-areas-heading">
+      <h2 class="heading" id="charity-areas-heading">
         Good, practical problems for one focused day
       </h2>
-      <div class="charity-areas__grid">
+      <div class="grid">
         {
           supportAreas.map((area) => (
             <article class="charity-area-card">
-              <h3 class="charity-area-card__title">{area.title}</h3>
-              <p class="charity-area-card__body">{area.body}</p>
-              <ul class="charity-area-card__examples" role="list">
+              <h3 class="heading">{area.title}</h3>
+              <p class="body">{area.body}</p>
+              <ul class="examples" role="list">
                 {area.examples.map((example) => (
                   <li>{example}</li>
                 ))}
@@ -208,27 +207,25 @@ const charityExperience = [
     class="section charity-fit flow-section"
     aria-labelledby="charity-fit-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">How this works best</p>
-      <h2 class="charity-fit__heading" id="charity-fit-heading">
+      <h2 class="heading" id="charity-fit-heading">
         Where one day can make the biggest difference
       </h2>
-      <div class="charity-fit__grid">
-        <article class="charity-fit__panel page-panel page-panel--secondary">
-          <h3 class="charity-fit__title">Strong fit</h3>
-          <ul class="charity-fit__list" role="list">
+      <div class="grid">
+        <article class="surface panel" data-tone="secondary">
+          <h3 class="name">Strong fit</h3>
+          <ul class="list" role="list">
             {fitSignals.map((item) => <li>{item}</li>)}
           </ul>
         </article>
 
-        <article class="charity-fit__panel page-panel page-panel--secondary">
-          <h3 class="charity-fit__title">
-            Better suited to a bigger engagement
-          </h3>
-          <ul class="charity-fit__list" role="list">
+        <article class="surface panel" data-tone="secondary">
+          <h3 class="name">Better suited to a bigger engagement</h3>
+          <ul class="list" role="list">
             {biggerWorkSignals.map((item) => <li>{item}</li>)}
           </ul>
-          <p class="charity-fit__note">
+          <p class="note">
             If your need falls into this second group, it can still be worth
             getting in touch. I may be able to help you scope it or clarify what
             to ask for next.
@@ -242,18 +239,18 @@ const charityExperience = [
     class="section charity-process flow-section"
     aria-labelledby="charity-process-heading"
   >
-    <div class="container is-max-desktop">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Process</p>
-      <h2 class="charity-process__heading" id="charity-process-heading">
+      <h2 class="heading" id="charity-process-heading">
         Simple, focused, and practical
       </h2>
-      <div class="charity-process__grid">
+      <div class="grid">
         {
           processSteps.map((step) => (
             <article class="charity-step">
-              <p class="charity-step__label">{step.label}</p>
-              <h3 class="charity-step__title">{step.title}</h3>
-              <p class="charity-step__body">{step.body}</p>
+              <p class="caption">{step.label}</p>
+              <h3 class="heading">{step.title}</h3>
+              <p class="body">{step.body}</p>
             </article>
           ))
         }
@@ -265,25 +262,27 @@ const charityExperience = [
     class="section charity-cta flow-section"
     aria-labelledby="charity-cta-heading"
   >
-    <div class="container is-max-desktop">
-      <div class="charity-cta__panel page-panel page-panel--secondary">
+    <div class="container" data-width="narrow">
+      <div class="surface panel" data-tone="secondary">
         <p class="section-label section-label--secondary">Apply</p>
-        <h2 class="charity-cta__heading" id="charity-cta-heading">
+        <h2 class="heading" id="charity-cta-heading">
           Tell me about your charity or community organisation
         </h2>
-        <p class="charity-cta__body">
+        <p class="body">
           Tell me about your organisation, the problem you want solved, why it
           matters, and what a good outcome would look like. If it feels like a
           good fit for that day, I will get back to you and take it from there.
         </p>
-        <div class="charity-cta__actions">
+        <div class="cta">
           <a
             href="/contact?reason=charity-support#contact-form"
-            class="button is-ink is-medium"
+            class="button"
+            data-variant="ink"
+            data-size="large"
           >
             Get in touch about this
           </a>
-          <a href="/contact#contact-form" class="charity-cta__link">
+          <a href="/contact#contact-form" class="anchor">
             Ask if it is a fit
           </a>
         </div>
@@ -292,7 +291,7 @@ const charityExperience = [
   </section>
 </BaseLayout>
 
-<style lang="scss">
+<style>
   :global(.page-hero) {
     min-height: clamp(225px, 30vw, 295px);
     padding-bottom: clamp(2rem, 4vw, 2.7rem);
@@ -306,7 +305,7 @@ const charityExperience = [
     z-index: 1;
   }
 
-  .charity-stats__list {
+  :where(.charity-stats) .list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -322,7 +321,7 @@ const charityExperience = [
     }
   }
 
-  .charity-stats__item {
+  :where(.charity-stats) .item {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -350,7 +349,7 @@ const charityExperience = [
     }
   }
 
-  .charity-stats__label {
+  :where(.charity-stats) .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
@@ -359,7 +358,7 @@ const charityExperience = [
     color: var(--text-muted);
   }
 
-  .charity-stats__value {
+  :where(.charity-stats) .value {
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.35rem, 3vw, 1.8rem);
     font-weight: 800;
@@ -381,24 +380,24 @@ const charityExperience = [
     padding-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 
-  .charity-intro__grid,
-  .charity-fit__grid,
-  .charity-cta__panel {
+  :where(.charity-intro) .grid,
+  :where(.charity-fit) .grid,
+  :where(.charity-cta) .surface {
     display: grid;
     gap: 1rem;
   }
 
-  .charity-intro__grid {
+  :where(.charity-intro) .grid {
     @media (min-width: 960px) {
       grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.8fr);
     }
   }
 
-  .charity-intro__heading,
-  .charity-areas__heading,
-  .charity-fit__heading,
-  .charity-process__heading,
-  .charity-cta__heading {
+  :where(.charity-intro) .heading,
+  :where(.charity-areas) .heading,
+  :where(.charity-fit) .heading,
+  :where(.charity-process) .heading,
+  :where(.charity-cta) .heading {
     margin: 0 0 1rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.85rem, 4vw, 3rem);
@@ -408,25 +407,25 @@ const charityExperience = [
     color: var(--text-primary);
   }
 
-  .charity-intro__body,
-  .charity-cta__body {
+  :where(.charity-intro) .body,
+  :where(.charity-cta) .body {
     margin: 0;
     color: var(--text-muted);
     line-height: 1.75;
     font-size: 1rem;
   }
 
-  .charity-intro__main,
+  :where(.charity-intro) .main,
   .charity-callout,
-  .charity-fit__panel,
-  .charity-cta__panel {
+  :where(.charity-fit) .surface,
+  :where(.charity-cta) .surface {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .charity-fit__title,
-  .charity-step__label {
+  :where(.charity-fit) .name,
+  :where(.charity-step) .caption {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
@@ -436,7 +435,7 @@ const charityExperience = [
     color: var(--accent-secondary);
   }
 
-  .charity-callout__label {
+  :where(.charity-callout) .caption {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.78rem;
@@ -446,8 +445,8 @@ const charityExperience = [
     color: var(--accent-secondary);
   }
 
-  .charity-callout__title,
-  .charity-step__title {
+  :where(.charity-callout) .heading,
+  :where(.charity-step) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.4rem, 3vw, 1.9rem);
@@ -457,17 +456,17 @@ const charityExperience = [
     color: var(--text-primary);
   }
 
-  .charity-callout__body,
-  .charity-fit__note,
-  .charity-step__body {
+  :where(.charity-callout) .body,
+  :where(.charity-fit) .note,
+  :where(.charity-step) .body {
     margin: 0;
     color: var(--text-muted);
     line-height: 1.7;
   }
 
-  .charity-callout__list,
-  .charity-fit__list,
-  .charity-area-card__examples {
+  :where(.charity-callout) .list,
+  :where(.charity-fit) .list,
+  :where(.charity-area-card) .examples {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -475,9 +474,9 @@ const charityExperience = [
     gap: 0.75rem;
   }
 
-  .charity-callout__list li,
-  .charity-fit__list li,
-  .charity-area-card__examples li {
+  :where(.charity-callout) .list li,
+  :where(.charity-fit) .list li,
+  :where(.charity-area-card) .examples li {
     position: relative;
     padding-left: 1rem;
     color: var(--text-muted);
@@ -496,16 +495,16 @@ const charityExperience = [
     }
   }
 
-  .charity-callout__list li::before {
+  :where(.charity-callout) .list li::before {
     background: var(--accent-secondary);
   }
 
-  .charity-callout__org,
-  .charity-callout__context {
+  :where(.charity-callout) .organization,
+  :where(.charity-callout) .context {
     display: block;
   }
 
-  .charity-callout__org {
+  :where(.charity-callout) .organization {
     margin-bottom: 0.15rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.88rem;
@@ -515,17 +514,17 @@ const charityExperience = [
     color: var(--text-primary);
   }
 
-  .charity-callout__context {
+  :where(.charity-callout) .context {
     line-height: 1.65;
   }
 
-  .charity-areas__grid,
-  .charity-process__grid {
+  :where(.charity-areas) .grid,
+  :where(.charity-process) .grid {
     display: grid;
     gap: 1rem;
   }
 
-  .charity-areas__grid {
+  :where(.charity-areas) .grid {
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -590,7 +589,7 @@ const charityExperience = [
     );
   }
 
-  .charity-area-card__title {
+  :where(.charity-area-card) .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1.28rem;
@@ -600,19 +599,19 @@ const charityExperience = [
     color: var(--text-primary);
   }
 
-  .charity-area-card__body {
+  :where(.charity-area-card) .body {
     margin: 0;
     color: var(--text-muted);
     line-height: 1.7;
   }
 
-  .charity-fit__grid {
+  :where(.charity-fit) .grid {
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  .charity-fit__panel:first-child {
+  :where(.charity-fit) .surface:first-child {
     background:
       radial-gradient(
         ellipse 100% 100% at 100% 0%,
@@ -628,7 +627,7 @@ const charityExperience = [
       var(--surface-elevated);
   }
 
-  .charity-fit__panel:last-child {
+  :where(.charity-fit) .surface:last-child {
     border-color: color-mix(
       in srgb,
       var(--text-primary) 12%,
@@ -643,11 +642,11 @@ const charityExperience = [
       var(--surface-elevated);
   }
 
-  .charity-fit__panel:last-child .charity-fit__title {
+  :where(.charity-fit) .surface:last-child .name {
     color: color-mix(in srgb, var(--text-primary) 72%, var(--accent-primary));
   }
 
-  .charity-process__grid {
+  :where(.charity-process) .grid {
     gap: 1.25rem;
 
     @media (min-width: 768px) {
@@ -659,7 +658,7 @@ const charityExperience = [
     align-items: flex-start;
   }
 
-  .charity-step__label {
+  :where(.charity-step) .caption {
     display: inline-flex;
     align-items: center;
     align-self: flex-start;
@@ -675,7 +674,7 @@ const charityExperience = [
     color: var(--charity-card-accent);
   }
 
-  .charity-cta__panel {
+  :where(.charity-cta) .surface {
     align-items: flex-start;
     background:
       radial-gradient(
@@ -686,14 +685,14 @@ const charityExperience = [
       var(--surface-elevated);
   }
 
-  .charity-cta__actions {
+  :where(.charity-cta) .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
   }
 
-  .charity-cta__link {
+  :where(.charity-cta) .anchor {
     display: inline-flex;
     align-items: center;
     font-family: "Barlow Condensed", sans-serif;
