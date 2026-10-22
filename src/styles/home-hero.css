@@ -102,12 +102,12 @@
       transform 0.25s ease,
       opacity 0.25s ease;
 
-    &.is-leaving {
+    &.leaving {
       transform: scale(0.85);
       opacity: 0;
     }
 
-    &.is-entering {
+    &.entering {
       transform: scale(0.85);
       opacity: 0;
       transition: none;

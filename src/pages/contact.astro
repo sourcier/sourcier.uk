@@ -431,7 +431,7 @@ const pageTitle = "Contact — Sourcier";
     padding-right: 2.75rem;
     cursor: pointer;
 
-    &.is-placeholder {
+    &[data-placeholder] {
       color: var(--text-muted);
     }
 
@@ -564,7 +564,7 @@ const pageTitle = "Contact — Sourcier";
     if (otherReasonInput) {
       otherReasonInput.required = isOther;
     }
-    reasonSelect.classList.toggle("is-placeholder", reasonSelect.value === "");
+    reasonSelect.toggleAttribute("data-placeholder", reasonSelect.value === "");
   };
 
   reasonSelect?.addEventListener("change", syncReasonState);

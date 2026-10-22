@@ -441,16 +441,16 @@ const communityOfferItems = [
     setInterval(() => {
       current = (current + 1) % terms.length;
 
-      el.classList.add("is-leaving");
+      el.classList.add("leaving");
 
       setTimeout(() => {
-        el.classList.remove("is-leaving");
-        el.classList.add("is-entering");
+        el.classList.remove("leaving");
+        el.classList.add("entering");
         el.textContent = terms[current];
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            el.classList.remove("is-entering");
+            el.classList.remove("entering");
           });
         });
       }, 250);
