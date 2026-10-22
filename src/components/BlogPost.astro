@@ -91,12 +91,14 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: initial;
+    /* The legacy trio preserves multiline truncation where unprefixed line-clamp is unsupported. */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
   .heading {
+    /* Unprefixed line-clamp is not supported across the browser window. */
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
@@ -108,6 +110,7 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: initial;
+    /* Unprefixed line-clamp is not supported across the browser window. */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

@@ -13,6 +13,13 @@ import { pluginCollapsibleCodeBlocks } from "./src/plugins/expressive-code-colla
 export default defineConfig({
   site: "https://sourcier.uk",
   server: { host: true },
+  vite: {
+    build: {
+      // Latest stable major + two previous releases, reviewed 2026-10-23; see README.
+      cssTarget: ["chrome154", "edge154", "firefox156", "safari18", "ios18"],
+      cssMinify: "lightningcss",
+    },
+  },
   integrations: [
     expressiveCode({
       themes: ["one-light", "one-dark-pro"],

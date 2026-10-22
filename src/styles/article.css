@@ -231,7 +231,6 @@
 
   .table-wrap {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     border-radius: var(--radius-compact);
     box-shadow: 0 0 0 1px var(--border-subtle);
     margin: 2rem 0;
@@ -407,9 +406,7 @@
   height: 2rem !important;
 
   &::after {
-    -webkit-mask-size: contain !important;
     mask-size: contain !important;
-    -webkit-mask-position: center !important;
     mask-position: center !important;
   }
 
