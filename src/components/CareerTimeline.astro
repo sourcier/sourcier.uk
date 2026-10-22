@@ -29,8 +29,8 @@ const careerToggleIcon = faIcon(faSquareCaretDown, {
       </div>
 
       <ul class="career-timeline__list">
-        <li class="career-timeline__item">
-          <div class="career-timeline__marker is-current"></div>
+        <li class="career-timeline__item" aria-current="true">
+          <div class="career-timeline__marker"></div>
           <div class="career-timeline__content">
             <p class="career-timeline__period">Apr 2026 — Present</p>
             <p class="career-timeline__role">Staff Engineer</p>
@@ -383,7 +383,7 @@ const careerToggleIcon = faIcon(faSquareCaretDown, {
         box-shadow: var(--shadow-accent-primary-focus);
       }
 
-      &.is-current {
+      .career-timeline__item:where([aria-current="true"]) & {
         background: var(--accent-primary);
         box-shadow: var(--shadow-accent-primary-focus);
       }
