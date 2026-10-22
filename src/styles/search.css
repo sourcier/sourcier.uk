@@ -82,7 +82,7 @@
     color 0.15s ease,
     border-color 0.15s ease;
 
-  :global(svg) {
+  svg {
     display: block;
   }
 
@@ -93,7 +93,7 @@
   }
 }
 
-:global([data-theme="dark"]) :where(.site-search) .close {
+:where([data-theme="dark"]) :where(.site-search) .close {
   border-color: rgba(var(--text-on-strong-rgb), 0.25);
   color: rgba(var(--text-on-strong-rgb), 0.5);
 }
