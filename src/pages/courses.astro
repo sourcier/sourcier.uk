@@ -71,10 +71,10 @@ const supportInclusions = [
   />
 
   <section
-    class="content-section courses-bundle flow-section"
+    class="section courses-bundle flow-section"
     aria-labelledby="courses-bundle-section-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <div class="courses-bundle__section-header">
         <p class="section-label section-label--secondary">Choose your path</p>
         <h2
@@ -167,7 +167,7 @@ const supportInclusions = [
               <div class="courses-bundle__actions">
                 <a
                   href="/contact?reason=course-enquiry#contact-form"
-                  class="action-button"
+                  class="button"
                   data-variant="ink"
                   data-size="large"
                 >
@@ -183,7 +183,7 @@ const supportInclusions = [
               </div>
             </div>
 
-            <div class="courses-bundle__aside page-panel page-panel--secondary">
+            <div class="courses-bundle__aside panel" data-tone="secondary">
               <p class="courses-bundle__aside-label">Good fit for</p>
               <ul class="courses-bundle__audience" role="list">
                 {courseBundle.audience.map((item) => <li>{item}</li>)}
@@ -313,10 +313,10 @@ const supportInclusions = [
   </section>
 
   <section
-    class="content-section courses-model flow-section flow-section--loose"
+    class="section courses-model flow-section flow-section--loose"
     aria-labelledby="courses-model-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Why this format</p>
       <h2 class="courses-model__heading" id="courses-model-heading">
         Why this setup fits how people actually learn now
@@ -342,16 +342,17 @@ const supportInclusions = [
   </section>
 
   <section
-    class="content-section course-support flow-section"
+    class="section course-support flow-section"
     aria-labelledby="course-support-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">1:1 support</p>
       <h2 class="course-support__section-heading" id="course-support-heading">
         1:1 that feels usable, not token
       </h2>
       <article
-        class="course-support__panel course-support__panel--solo page-panel page-panel--secondary"
+        class="course-support__panel course-support__panel--solo panel"
+        data-tone="secondary"
       >
         <p class="course-support__kicker">Included support</p>
         <p class="course-support__body">
@@ -392,11 +393,11 @@ const supportInclusions = [
   </section>
 
   <section
-    class="content-section course-interest flow-section flow-section--loose"
+    class="section course-interest flow-section flow-section--loose"
     aria-labelledby="course-interest-heading"
   >
-    <div class="layout-container layout-container-narrow">
-      <div class="course-interest__panel page-panel page-panel--secondary">
+    <div class="container" data-width="narrow">
+      <div class="course-interest__panel panel" data-tone="secondary">
         <div class="course-interest__copy">
           <p class="course-interest__kicker">Next step</p>
           <h2 class="course-interest__title" id="course-interest-heading">
@@ -411,7 +412,7 @@ const supportInclusions = [
           <div class="course-interest__actions">
             <a
               href="/contact?reason=course-enquiry#contact-form"
-              class="action-button"
+              class="button"
               data-variant="ink"
               data-size="large"
             >

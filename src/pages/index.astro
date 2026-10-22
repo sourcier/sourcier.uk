@@ -46,7 +46,7 @@ const communityOfferItems = [
   description="Practical software engineering guidance for people transitioning into tech, engineers growing in confidence, and teams improving how they build software."
 >
   <section class="hero-intro">
-    <div class="layout-container">
+    <div class="container">
       <div class="hero-intro__layout">
         <div class="hero-intro__content">
           <span class="hero-kicker"
@@ -63,16 +63,16 @@ const communityOfferItems = [
               ></span
             >
           </p>
-          <div class="action-group">
+          <div class="actions">
             <a
               href="/guides"
-              class="action-button"
+              class="button"
               data-variant="primary"
               data-size="large">Choose a guide</a
             >
             <a
               href="/contact"
-              class="action-button"
+              class="button"
               data-variant="subtle"
               data-size="large">Get guidance</a
             >
@@ -83,11 +83,11 @@ const communityOfferItems = [
   </section>
 
   <section
-    class="content-section audience-paths flow-section flow-section--loose"
+    class="section audience-paths flow-section flow-section--loose"
     id="audience-paths"
     aria-labelledby="audience-paths-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Who this site is for</p>
       <h2 class="audience-paths__heading" id="audience-paths-heading">
         Choose the guide that matches where you are now
@@ -111,8 +111,8 @@ const communityOfferItems = [
     </div>
   </section>
 
-  <section class="content-section flow-section" aria-label="Recent Posts">
-    <div class="layout-container layout-container-narrow">
+  <section class="section flow-section" aria-label="Recent Posts">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Latest writing</p>
       <div class="home-post-grid">
         {
@@ -141,12 +141,12 @@ const communityOfferItems = [
   <CourseLaunchSection />
 
   <section
-    class="content-section community-offer flow-section"
+    class="section community-offer flow-section"
     aria-labelledby="community-offer-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <div class="community-offer__grid">
-        <div class="community-offer__main page-panel page-panel--secondary">
+        <div class="community-offer__main panel" data-tone="secondary">
           <div class="community-offer__intro">
             <p class="section-label section-label--secondary">Community</p>
             <div class="community-offer__chips" aria-label="Offer details">
@@ -167,7 +167,7 @@ const communityOfferItems = [
             <div class="community-offer__actions">
               <a
                 href="/charity-support"
-                class="action-button"
+                class="button"
                 data-variant="ink"
                 data-size="large"
               >
@@ -183,7 +183,7 @@ const communityOfferItems = [
           </div>
         </div>
 
-        <aside class="community-offer__aside page-panel page-panel--secondary">
+        <aside class="community-offer__aside panel" data-tone="secondary">
           <p class="community-offer__aside-label">What a day can cover</p>
           <ul class="community-offer__list" role="list">
             {
@@ -359,7 +359,7 @@ const communityOfferItems = [
     @media (max-width: 639px) {
       align-items: stretch;
 
-      > .action-button {
+      > .button {
         width: 100%;
         justify-content: center;
       }

@@ -12,14 +12,14 @@
   color: var(--accent-secondary);
 }
 
-.action-group {
+.actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
 
-.action-button {
+.button {
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -50,29 +50,29 @@
   }
 }
 
-.form-field:not(:last-child) {
+.field:not(:last-child) {
   margin-bottom: 0.75rem;
 }
 
-.form-field-row {
+.fields {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
 }
 
-.form-label {
+.label {
   display: block;
   margin-bottom: 0.5em;
   font-weight: 600;
 }
 
-.form-control {
+.control {
   position: relative;
 }
 
-.text-input,
-.text-area {
+.input,
+.textarea {
   display: block;
   width: 100%;
   border: 1px solid var(--border-subtle);
@@ -104,12 +104,12 @@
   }
 }
 
-.text-input {
+.input {
   height: 2.5em;
   padding: calc(0.5em - 1px) calc(0.75em - 1px);
 }
 
-.text-area {
+.textarea {
   min-width: 100%;
   max-width: 100%;
   min-height: 8em;
@@ -117,9 +117,9 @@
   resize: vertical;
 }
 
-.action-button[data-variant="primary"],
-.action-button[data-variant="subtle"],
-.action-button[data-variant="ink"] {
+.button[data-variant="primary"],
+.button[data-variant="subtle"],
+.button[data-variant="ink"] {
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -134,7 +134,7 @@
     box-shadow 0.16s ease;
 }
 
-.action-button[data-variant="primary"] {
+.button[data-variant="primary"] {
   background-color: var(--accent-primary);
   border-color: var(--accent-primary);
   color: var(--surface-page);
@@ -152,7 +152,7 @@
   }
 }
 
-.action-button[data-variant="subtle"] {
+.button[data-variant="subtle"] {
   background-color: transparent;
   border-color: color-mix(in srgb, var(--text-primary) 16%, transparent);
   box-shadow: none;
@@ -167,7 +167,7 @@
   }
 }
 
-.action-button[data-variant="ink"] {
+.button[data-variant="ink"] {
   background-color: var(--text-primary);
   border-color: var(--text-primary);
   color: var(--surface-page);
@@ -191,7 +191,7 @@
   }
 }
 
-.action-button[data-size="large"] {
+.button[data-size="large"] {
   min-height: 2.85rem;
   padding-inline: 1.15rem;
   font-size: 0.9375rem;

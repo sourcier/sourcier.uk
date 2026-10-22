@@ -21,7 +21,7 @@ describe("Breadcrumb", () => {
       props: { crumbs },
     });
     expect(normalizeHtml(html)).toContain(
-      'class="layout-container layout-container-narrow"',
+      'class="container" data-width="narrow"',
     );
   });
 
@@ -30,7 +30,7 @@ describe("Breadcrumb", () => {
       props: { crumbs, noContainer: true },
     });
     expect(normalizeHtml(html)).not.toContain(
-      'class="layout-container layout-container-narrow"',
+      'class="container" data-width="narrow"',
     );
   });
 

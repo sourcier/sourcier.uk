@@ -92,7 +92,7 @@ for (const width of [1215, 1216, 1407, 1408]) {
   test(`container width at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await visit(page, "/");
-    await expect(page.locator(".site-nav > .layout-container")).toHaveCSS(
+    await expect(page.locator(".site-nav > .container")).toHaveCSS(
       "max-width",
       `${width < 1216 ? 960 : width < 1408 ? 1152 : 1344}px`,
     );

@@ -1,4 +1,4 @@
-.layout-container {
+.container {
   flex-grow: 1;
   position: relative;
   width: 100%;
@@ -9,23 +9,23 @@
   }
 
   @media (min-width: 1216px) {
-    &:not(.layout-container-narrow) {
+    &:not([data-width="narrow"]) {
       max-width: 1152px;
     }
   }
 
   @media (min-width: 1408px) {
-    &:not(.layout-container-narrow) {
+    &:not([data-width="narrow"]) {
       max-width: 1344px;
     }
   }
 }
 
-.layout-container.layout-container-narrow {
+.container[data-width="narrow"] {
   max-width: 960px;
 }
 
-.content-section {
+.section {
   padding: 3rem 1.5rem;
 
   @media (min-width: 1024px) {

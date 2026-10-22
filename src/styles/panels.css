@@ -1,4 +1,4 @@
-.page-panel {
+.panel {
   position: relative;
   overflow: hidden;
   padding: clamp(1.35rem, 3vw, 2.1rem);
@@ -14,7 +14,7 @@
   box-shadow: 0 14px 30px rgba(var(--shadow-rgb), 0.05);
 }
 
-.page-panel--secondary {
+.panel:where([data-tone="secondary"]) {
   border-color: color-mix(
     in srgb,
     var(--accent-secondary) 14%,

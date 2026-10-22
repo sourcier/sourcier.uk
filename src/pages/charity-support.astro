@@ -91,10 +91,10 @@ const charityExperience = [
   />
 
   <section
-    class="content-section charity-stats flow-section flow-section--loose"
+    class="section charity-stats flow-section flow-section--loose"
     aria-label="Offer details"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <ul class="charity-stats__list" role="list">
         <li class="charity-stats__item">
           <span class="charity-stats__label">Frequency</span>
@@ -117,12 +117,12 @@ const charityExperience = [
   </section>
 
   <section
-    class="content-section charity-intro flow-section"
+    class="section charity-intro flow-section"
     aria-labelledby="charity-intro-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <div class="charity-intro__grid">
-        <div class="charity-intro__main page-panel page-panel--secondary">
+        <div class="charity-intro__main panel" data-tone="secondary">
           <p class="section-label section-label--secondary">
             Why I am doing this
           </p>
@@ -150,7 +150,8 @@ const charityExperience = [
         </div>
 
         <aside
-          class="charity-callout page-panel page-panel--secondary"
+          class="charity-callout panel"
+          data-tone="secondary"
           aria-label="Charity experience"
         >
           <p class="charity-callout__label">Charity sector experience</p>
@@ -178,10 +179,10 @@ const charityExperience = [
   </section>
 
   <section
-    class="content-section charity-areas flow-section"
+    class="section charity-areas flow-section"
     aria-labelledby="charity-areas-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">What I can help with</p>
       <h2 class="charity-areas__heading" id="charity-areas-heading">
         Good, practical problems for one focused day
@@ -205,23 +206,23 @@ const charityExperience = [
   </section>
 
   <section
-    class="content-section charity-fit flow-section"
+    class="section charity-fit flow-section"
     aria-labelledby="charity-fit-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">How this works best</p>
       <h2 class="charity-fit__heading" id="charity-fit-heading">
         Where one day can make the biggest difference
       </h2>
       <div class="charity-fit__grid">
-        <article class="charity-fit__panel page-panel page-panel--secondary">
+        <article class="charity-fit__panel panel" data-tone="secondary">
           <h3 class="charity-fit__title">Strong fit</h3>
           <ul class="charity-fit__list" role="list">
             {fitSignals.map((item) => <li>{item}</li>)}
           </ul>
         </article>
 
-        <article class="charity-fit__panel page-panel page-panel--secondary">
+        <article class="charity-fit__panel panel" data-tone="secondary">
           <h3 class="charity-fit__title">
             Better suited to a bigger engagement
           </h3>
@@ -239,10 +240,10 @@ const charityExperience = [
   </section>
 
   <section
-    class="content-section charity-process flow-section"
+    class="section charity-process flow-section"
     aria-labelledby="charity-process-heading"
   >
-    <div class="layout-container layout-container-narrow">
+    <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Process</p>
       <h2 class="charity-process__heading" id="charity-process-heading">
         Simple, focused, and practical
@@ -262,11 +263,11 @@ const charityExperience = [
   </section>
 
   <section
-    class="content-section charity-cta flow-section"
+    class="section charity-cta flow-section"
     aria-labelledby="charity-cta-heading"
   >
-    <div class="layout-container layout-container-narrow">
-      <div class="charity-cta__panel page-panel page-panel--secondary">
+    <div class="container" data-width="narrow">
+      <div class="charity-cta__panel panel" data-tone="secondary">
         <p class="section-label section-label--secondary">Apply</p>
         <h2 class="charity-cta__heading" id="charity-cta-heading">
           Tell me about your charity or community organisation
@@ -279,7 +280,7 @@ const charityExperience = [
         <div class="charity-cta__actions">
           <a
             href="/contact?reason=charity-support#contact-form"
-            class="action-button"
+            class="button"
             data-variant="ink"
             data-size="large"
           >

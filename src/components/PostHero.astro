@@ -58,7 +58,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 ---
 
 <header class:list={["post-hero", { "post-hero--with-cover": hasCover }]}>
-  <div class="layout-container">
+  <div class="container">
     <div class="post-hero__frame">
       {
         hasCover && (
@@ -151,7 +151,7 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
     padding: clamp(1.4rem, 3vw, 2.4rem) 0 0;
   }
 
-  .post-hero .layout-container {
+  .post-hero .container {
     width: 100%;
 
     @media (min-width: 768px) and (max-width: 1023px) {
