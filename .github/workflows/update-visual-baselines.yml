@@ -25,9 +25,16 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Fetch content
-        run: pnpm build:content:fetch
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+        uses: actions/checkout@v6
+        with:
+          repository: sourcier/sourcier.uk-content
+          ref: main
+          path: collections/posts
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: false
+
+      - name: Remove content repository metadata
+        run: rm -rf collections/posts/.git
 
       # rsync/jq are not included in the Playwright Docker image — rsync is used by
       # assets:sync, jq to safely build the PR JSON body (gh CLI isn't installed either)
