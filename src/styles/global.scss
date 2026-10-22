@@ -11,15 +11,7 @@
 @use "bulma/sass/themes";
 
 // Elements
-@use "bulma/sass/elements/button";
 @use "bulma/sass/elements/content";
-
-// Forms
-@use "bulma/sass/form/shared";
-@use "bulma/sass/form/tools";
-@use "bulma/sass/form/input-textarea";
-@use "bulma/sass/form/select";
-@use "bulma/sass/form/checkbox-radio";
 
 // Helpers
 @use "bulma/sass/helpers/visibility";
@@ -912,6 +904,111 @@ h6,
 
 .section-label--secondary {
   color: var(--accent-secondary);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  padding-inline: 0.75em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-tight);
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.field:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.field.is-grouped {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.control {
+  position: relative;
+}
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tight);
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgba(var(--shadow-rgb), 0.05);
+
+  &::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
+  }
+
+  &:disabled {
+    background-color: color-mix(
+      in srgb,
+      var(--surface-page) 72%,
+      var(--surface-elevated)
+    );
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  height: 2.5em;
+  padding: calc(0.5em - 1px) calc(0.75em - 1px);
+}
+
+.textarea {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 8em;
+  padding: calc(0.75em - 1px);
+  resize: vertical;
 }
 
 .button.is-primary,
