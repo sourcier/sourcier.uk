@@ -213,7 +213,7 @@ const testimonials = [
       dots.forEach((d, i) => {
         const hidden = i > maxIndex;
         d.classList.toggle("is-active", i === current);
-        d.classList.toggle("is-hidden", hidden);
+        d.classList.toggle("hidden", hidden);
         d.setAttribute("aria-current", i === current ? "true" : "false");
       });
     }
@@ -550,10 +550,6 @@ const testimonials = [
 
     &:hover:not(.is-active)::after {
       background: var(--text-muted);
-    }
-
-    &.is-hidden {
-      display: none;
     }
   }
 </style>

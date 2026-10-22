@@ -164,10 +164,7 @@ const pageTitle = "Contact — Sourcier";
                 </select>
               </div>
 
-              <div
-                class="contact-form__field is-hidden"
-                id="other-reason-field"
-              >
+              <div class="contact-form__field hidden" id="other-reason-field">
                 <label class="contact-form__label" for="contact-other-reason"
                   >Please specify</label
                 >
@@ -193,7 +190,7 @@ const pageTitle = "Contact — Sourcier";
                   required></textarea>
               </div>
 
-              <div class="form-field is-hidden" aria-hidden="true">
+              <div class="form-field hidden" aria-hidden="true">
                 <input name="bot-field" type="text" />
               </div>
 
@@ -202,7 +199,7 @@ const pageTitle = "Contact — Sourcier";
               >
             </form>
 
-            <div class="contact-success is-hidden" data-success-message>
+            <div class="contact-success hidden" data-success-message>
               <p class="contact-success__text">
                 &#10003; Message sent — I'll get back to you soon.
               </p>
@@ -524,7 +521,7 @@ const pageTitle = "Contact — Sourcier";
         const successEl = document.querySelector(
           "[data-success-message]",
         ) as HTMLElement | null;
-        successEl?.classList.remove("is-hidden");
+        successEl?.classList.remove("hidden");
         successEl?.setAttribute("tabindex", "-1");
         successEl?.focus();
       })
@@ -540,7 +537,7 @@ const pageTitle = "Contact — Sourcier";
     ) as HTMLElement;
 
     form.style.display = "";
-    successMessage.classList.add("is-hidden");
+    successMessage.classList.add("hidden");
   };
 
   document
@@ -563,7 +560,7 @@ const pageTitle = "Contact — Sourcier";
     }
 
     const isOther = reasonSelect.value === "other";
-    otherReasonField?.classList.toggle("is-hidden", !isOther);
+    otherReasonField?.classList.toggle("hidden", !isOther);
     if (otherReasonInput) {
       otherReasonInput.required = isOther;
     }

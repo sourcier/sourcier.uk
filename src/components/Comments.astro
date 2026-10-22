@@ -47,7 +47,7 @@ const { postId } = Astro.props;
           <input type="hidden" name="postSlug" value={postId} />
           <input type="hidden" name="parentId" value="" />
 
-          <p class="is-hidden" aria-hidden="true">
+          <p class="hidden" aria-hidden="true">
             <label
               >Leave this blank: <input name="bot-field" tabindex="-1" /></label
             >
@@ -325,7 +325,7 @@ const { postId } = Astro.props;
           <input type="hidden" name="form-name" value="blog-comments" />
           <input type="hidden" name="postSlug" value="${escapeHtml(postSlug)}" />
           <input type="hidden" name="parentId" value="${escapeHtml(commentId)}" />
-          <p class="is-hidden" aria-hidden="true">
+          <p class="hidden" aria-hidden="true">
             <label>Leave this blank: <input name="bot-field" tabindex="-1" /></label>
           </p>
           <div class="form-field">
