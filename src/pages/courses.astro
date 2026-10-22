@@ -113,7 +113,7 @@ const supportInclusions = [
           <button
             type="button"
             id="courses-bundle-tab"
-            class="courses-bundle__tab is-active"
+            class="courses-bundle__tab"
             role="tab"
             aria-selected="true"
             aria-controls="courses-bundle-panel"
@@ -459,8 +459,6 @@ const supportInclusions = [
 
         tab.setAttribute("aria-selected", String(active));
         tab.tabIndex = active ? 0 : -1;
-        tab.classList.toggle("is-active", active);
-
         if (active && focus) {
           tab.focus();
         }
