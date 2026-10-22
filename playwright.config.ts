@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./src/e2e",
@@ -26,6 +26,10 @@ export default defineConfig({
     timeout: 30_000,
   },
   use: {
+    browserName: "chromium",
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
     baseURL: "http://localhost:9000",
     contextOptions: { reducedMotion: "reduce" },
     launchOptions: {
@@ -34,26 +38,60 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "desktop",
+      name: "mobile-s",
+      testMatch: "visual.spec.ts",
       use: {
-        ...devices["Desktop Chrome"],
-        viewport: { width: 1280, height: 900 },
+        viewport: { width: 320, height: 900 },
+        isMobile: true,
+        hasTouch: true,
       },
     },
     {
-      name: "desktop-1024",
+      name: "mobile-m",
+      testMatch: "visual.spec.ts",
       use: {
-        ...devices["Desktop Chrome"],
-        viewport: { width: 1024, height: 900 },
+        viewport: { width: 375, height: 900 },
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
+    {
+      name: "mobile-l",
+      testMatch: "visual.spec.ts",
+      use: {
+        viewport: { width: 425, height: 900 },
+        isMobile: true,
+        hasTouch: true,
       },
     },
     {
       name: "tablet",
-      use: { ...devices["Galaxy Tab S9"] },
+      testMatch: "visual.spec.ts",
+      use: {
+        viewport: { width: 768, height: 1024 },
+        isMobile: true,
+        hasTouch: true,
+      },
     },
     {
-      name: "mobile",
-      use: { ...devices["Pixel 7"] },
+      name: "desktop-s",
+      testMatch: "visual.spec.ts",
+      use: { viewport: { width: 1024, height: 900 } },
+    },
+    {
+      name: "desktop-m",
+      testMatch: "visual.spec.ts",
+      use: { viewport: { width: 1280, height: 900 } },
+    },
+    {
+      name: "desktop-l",
+      testMatch: "visual.spec.ts",
+      use: { viewport: { width: 1440, height: 900 } },
+    },
+    {
+      name: "responsive",
+      testMatch: "responsive.spec.ts",
+      use: { viewport: { width: 1280, height: 900 } },
     },
   ],
 });
