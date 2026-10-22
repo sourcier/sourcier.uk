@@ -120,7 +120,7 @@
 .search-result {
   border-radius: var(--radius-compact);
 
-  &.is-active,
+  &[aria-selected="true"],
   &:hover {
     background-color: var(--border-subtle);
 
