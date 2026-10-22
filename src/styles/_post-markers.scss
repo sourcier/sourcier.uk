@@ -1,0 +1,110 @@
+// — Update divider (marks content added after original publication)
+.update-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3.5rem 0 2.5rem;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+  }
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--color-success) 35%, var(--border-subtle))
+    );
+  }
+
+  &::after {
+    background: linear-gradient(
+      to left,
+      transparent,
+      color-mix(in srgb, var(--color-success) 35%, var(--border-subtle))
+    );
+  }
+
+  &__label {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    color: var(--color-success);
+    border: 1px solid color-mix(in srgb, var(--color-success) 30%, transparent);
+    border-radius: var(--radius-pill);
+    padding: 0.28rem 0.8rem;
+    background: color-mix(
+      in srgb,
+      var(--color-success) 6%,
+      var(--surface-page)
+    );
+  }
+
+  // Closing bookend for an added block — same green as the start marker so
+  // the pair reads as one bounded region, just placed after the content ends.
+  &--end {
+    margin: 2.5rem 0 3rem;
+  }
+
+  [data-theme="dark"] & {
+    &::before {
+      background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(
+          in srgb,
+          var(--color-success-bright) 35%,
+          var(--border-subtle)
+        )
+      );
+    }
+
+    &::after {
+      background: linear-gradient(
+        to left,
+        transparent,
+        color-mix(
+          in srgb,
+          var(--color-success-bright) 35%,
+          var(--border-subtle)
+        )
+      );
+    }
+
+    .update-divider__label {
+      color: var(--color-success-bright);
+      border-color: color-mix(
+        in srgb,
+        var(--color-success-bright) 30%,
+        transparent
+      );
+      background: color-mix(
+        in srgb,
+        var(--color-success-bright) 10%,
+        var(--surface-page)
+      );
+    }
+  }
+}
+
+// — Inline date chip (used in content to indicate a future publish date)
+.date-chip {
+  display: inline-block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  border: 1px solid currentColor;
+  padding: 0.1em 0.45em;
+  line-height: 1.5;
+  vertical-align: middle;
+  white-space: nowrap;
+}

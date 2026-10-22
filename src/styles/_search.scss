@@ -1,0 +1,241 @@
+// — Search modal
+#search-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 5rem;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.search-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--overlay-rgb), 0.7);
+  cursor: pointer;
+}
+
+.search-panel {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 1rem;
+  background-color: var(--surface-elevated);
+  border-radius: var(--radius-compact);
+  box-shadow: 0 24px 64px rgba(var(--overlay-rgb), 0.4);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.search-input-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+#search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: "Barlow", sans-serif;
+  font-size: 1rem;
+  color: var(--text-primary);
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+.search-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(var(--overlay-rgb), 0.25);
+  border-radius: var(--radius-tight);
+  cursor: pointer;
+  color: rgba(var(--overlay-rgb), 0.5);
+  flex-shrink: 0;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  :global(svg) {
+    display: block;
+  }
+
+  &:hover {
+    background: rgba(var(--accent-primary-rgb), 0.1);
+    border-color: rgba(var(--accent-primary-rgb), 0.5);
+    color: var(--accent-primary);
+  }
+}
+
+:global([data-theme="dark"]) .search-close {
+  border-color: rgba(var(--text-on-strong-rgb), 0.25);
+  color: rgba(var(--text-on-strong-rgb), 0.5);
+}
+
+#search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  max-height: 420px;
+  overflow-y: auto;
+
+  &:empty {
+    padding: 0;
+  }
+}
+
+.search-no-results {
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.search-result {
+  border-radius: var(--radius-compact);
+
+  &.is-active,
+  &:hover {
+    background-color: var(--border-subtle);
+
+    .search-result__title {
+      color: var(--accent-primary);
+    }
+  }
+}
+
+.search-result__link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.625rem 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result__thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-tight);
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: var(--border-subtle);
+
+  &--placeholder {
+    opacity: 0.4;
+  }
+}
+
+.search-result__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-result__breadcrumb {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result__title {
+  display: block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+  transition: color 0.15s ease;
+}
+
+.search-result__excerpt {
+  display: block;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+
+  mark {
+    background: none;
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+}
+
+.search-skeleton {
+  display: block;
+  border-radius: var(--radius-tight);
+  background: linear-gradient(
+    90deg,
+    var(--border-subtle) 25%,
+    var(--surface-elevated) 50%,
+    var(--border-subtle) 75%
+  );
+  background-size: 400px 100%;
+  animation: search-skeleton-shimmer 1.4s ease infinite;
+
+  &--title {
+    height: 1rem;
+    width: 55%;
+    margin-bottom: 0.4rem;
+  }
+
+  &--excerpt {
+    height: 0.75rem;
+    width: 85%;
+  }
+}
+
+@keyframes mermaid-skeleton-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+@keyframes expandable-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes search-skeleton-shimmer {
+  from {
+    background-position: -400px 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}

@@ -1,0 +1,198 @@
+// — Section divider label
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-primary);
+  margin-bottom: 1.5rem;
+}
+
+.section-label--secondary {
+  color: var(--accent-secondary);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  padding-inline: 0.75em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-tight);
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.field:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.field.is-grouped {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.control {
+  position: relative;
+}
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tight);
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgba(var(--shadow-rgb), 0.05);
+
+  &::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
+  }
+
+  &:disabled {
+    background-color: color-mix(
+      in srgb,
+      var(--surface-page) 72%,
+      var(--surface-elevated)
+    );
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  height: 2.5em;
+  padding: calc(0.5em - 1px) calc(0.75em - 1px);
+}
+
+.textarea {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 8em;
+  padding: calc(0.75em - 1px);
+  resize: vertical;
+}
+
+.button.is-primary,
+.button.is-light,
+.button.is-ink {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-tight);
+  text-decoration: none;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.button.is-primary {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--surface-page);
+  box-shadow: 0 14px 30px
+    color-mix(in srgb, var(--accent-primary) 20%, transparent);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--accent-primary-deep);
+    border-color: var(--accent-primary-deep);
+    color: var(--surface-page);
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px
+      color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  }
+}
+
+.button.is-light {
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--text-primary) 16%, transparent);
+  box-shadow: none;
+  color: var(--text-primary);
+
+  &:hover,
+  &:focus-visible {
+    background-color: color-mix(in srgb, var(--text-primary) 4%, transparent);
+    border-color: color-mix(in srgb, var(--text-primary) 28%, transparent);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+  }
+}
+
+.button.is-ink {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--surface-page);
+  box-shadow: 0 14px 28px rgba(var(--shadow-rgb), 0.16);
+
+  &:hover,
+  &:focus-visible {
+    background-color: color-mix(
+      in srgb,
+      var(--text-primary) 90%,
+      var(--text-on-strong)
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--text-primary) 90%,
+      var(--text-on-strong)
+    );
+    color: var(--surface-page);
+    transform: translateY(-1px);
+    box-shadow: 0 18px 34px rgba(var(--shadow-rgb), 0.24);
+  }
+}
+
+.button.is-medium {
+  min-height: 2.85rem;
+  padding-inline: 1.15rem;
+  font-size: 0.9375rem;
+}
