@@ -85,7 +85,18 @@ require Sass.
 
 - Astro components use plain scoped `<style>` blocks for component-specific
   rules
-- BEM-style class naming (e.g. `.page-hero__title`, `.back-to-top--visible`)
+- Prefer single-word component parts such as `.heading`, `.body`, and
+  `.icon`, scoped to their owner; retain descriptive component roots where
+  needed. Do not squash compound names into opaque abbreviations.
+- Reserve shared utility classes such as `.button`, `.actions`, `.label`,
+  `.input`, `.container`, `.section`, and `.panel` for their intended
+  behavior. Scoped classes still receive global rules.
+- Use native or ARIA state and data attributes for presentation variants;
+  `.container` uses `data-width="narrow"` and `.panel` uses
+  `data-tone="secondary"`.
+- Keep markup, generated HTML, scripts, styles, and test selectors aligned.
+  Preserve nested component boundaries, vendor classes, and authored-content
+  contracts such as `date-chip`, `update-divider`, and `series-callout`.
 - CSS variables for theming — never hardcode colours outside `:root`/`[data-theme]`
 - Environment variables via `process.env` in Netlify functions, `import.meta.env` in Astro
 - All secrets in Netlify dashboard, never in code — see `.env.example` for the list

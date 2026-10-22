@@ -44,6 +44,20 @@ pnpm post-images:copy     # Mirror SVG files to public/post-images/<slug>/ and g
   because Astro scoping does not reach injected elements.
 - Global utilities such as `.visually-hidden` live in `src/styles/base.css`.
 - The styles use native CSS; neither Bulma nor Sass is a project dependency.
+- Prefer single-word component parts such as `.heading`, `.body`, and
+  `.icon`, scoped to their owner. Keep descriptive roots when needed;
+  do not replace meaningful words with opaque abbreviations.
+- Reserve global utility names such as `.button`, `.label`, `.input`,
+  `.actions`, `.container`, `.section`, and `.panel` for their shared
+  behavior. A scoped class still receives matching global rules.
+- Qualify global part selectors with their owning root, using `:where()`
+  where necessary to preserve specificity. Guard nested component boundaries.
+- Use native or existing ARIA state rather than duplicate state classes;
+  use data attributes for presentation variants. Container width uses
+  `data-width="narrow"`; panel tone uses `data-tone="secondary"`.
+- Rename markup, generated HTML, styles, scripts, and test selectors together.
+  Preserve vendor classes and content contracts such as `date-chip`,
+  `update-divider`, and `series-callout`.
 - Breakpoints: 640px (mobile/tablet), 768px (tablet/desktop)
 - Primary colour: `--color-pink: #e8006a`
 - `cover.thumbnail` in content schema is a plain string (not an Astro image) — bypasses filename hashing so the path stays stable

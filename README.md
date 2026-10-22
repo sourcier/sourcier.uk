@@ -44,6 +44,19 @@ Shared design tokens, including light and dark theme values, live in
 component-specific rules in plain scoped `<style>` blocks in Astro components.
 The site has no Bulma dependency and does not require Sass.
 
+Prefer single-word class names when their scope makes the meaning clear.
+Shared utilities include `.button`, `.actions`, `.field`, `.label`,
+`.input`, `.container`, `.section`, and `.panel`. Component parts use short
+names such as `.heading`, `.body`, and `.icon`, scoped to their owning
+component. Keep descriptive compound roots when they distinguish components.
+Do not reuse a global utility name for an unrelated local part.
+
+Use native or ARIA attributes for interactive state, and data attributes for
+presentation variants, such as `data-width="narrow"` on `.container` and
+`data-tone="secondary"` on `.panel`. Keep accessibility utilities,
+vendor-owned classes, and authored-content contracts such as `date-chip`,
+`update-divider`, and `series-callout` unchanged.
+
 ### Article series
 
 Posts can be grouped inside a series folder without changing their URLs:
