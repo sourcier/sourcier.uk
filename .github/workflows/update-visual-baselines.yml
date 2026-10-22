@@ -13,7 +13,7 @@ jobs:
     # Same image the visual-regression CI job checks against, so the baselines
     # this workflow produces are valid for that comparison.
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
       options: --ipc=host
     timeout-minutes: 30
     permissions:
@@ -51,6 +51,7 @@ jobs:
       - name: Open PR with updated baselines
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: ${{ github.ref_name }}
         run: |
           # actions/checkout only registers safe.directory under a temporary
           # $HOME used during its own step — it doesn't persist to later steps
@@ -75,7 +76,7 @@ jobs:
           jq -n --arg title "chore(e2e): update linux-x64 visual regression baselines" \
                 --arg body "Automated baseline refresh from the Update Visual Baselines workflow. Review the image diffs before merging." \
                 --arg head "$BRANCH" \
-                --arg base main \
+                --arg base "$BASE_BRANCH" \
                 '{title: $title, body: $body, head: $head, base: $base}' \
             | curl -sS -X POST \
                 -H "Authorization: Bearer $GH_TOKEN" \
