@@ -160,7 +160,7 @@ const testimonials = [
         {
           testimonials.map((t, i) => (
             <button
-              class:list={["testimonials__dot", { "is-active": i === 0 }]}
+              class="testimonials__dot"
               type="button"
               aria-label={`Go to slide ${i + 1}: ${t.name}`}
               aria-current={i === 0 ? "true" : "false"}
@@ -212,7 +212,6 @@ const testimonials = [
       track.style.transform = `translateX(-${current * stepPct}%)`;
       dots.forEach((d, i) => {
         const hidden = i > maxIndex;
-        d.classList.toggle("is-active", i === current);
         d.classList.toggle("hidden", hidden);
         d.setAttribute("aria-current", i === current ? "true" : "false");
       });
@@ -245,7 +244,6 @@ const testimonials = [
         "aria-label",
         paused ? "Play slideshow" : "Pause slideshow",
       );
-      pauseBtn.classList.toggle("is-paused", paused);
       if (paused) stopTimer();
       else startTimer();
     });
@@ -342,7 +340,7 @@ const testimonials = [
       display: none;
     }
 
-    &.is-paused {
+    &[aria-pressed="true"] {
       .testimonials__pause-icon {
         display: none;
       }
@@ -543,12 +541,12 @@ const testimonials = [
         transform 0.2s ease;
     }
 
-    &.is-active::after {
+    &[aria-current="true"]::after {
       background: var(--accent-secondary);
       transform: translate(-50%, -50%) scale(1.375);
     }
 
-    &:hover:not(.is-active)::after {
+    &:hover:not([aria-current="true"])::after {
       background: var(--text-muted);
     }
   }
