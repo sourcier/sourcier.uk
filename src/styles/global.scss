@@ -11,8 +11,6 @@
 @use "bulma/sass/themes";
 
 // Elements
-@use "bulma/sass/elements/content";
-
 // Helpers
 @use "bulma/sass/helpers/visibility";
 @use "bulma/sass/helpers/spacing";
@@ -1824,7 +1822,7 @@ h6,
     max-width: 100%;
   }
 
-  // Override Bulma .content defaults with our type scale
+  // Post body typography and rich-text elements
   font-size: 1.125rem;
   line-height: 1.85;
   color: var(--text-primary);
@@ -1840,6 +1838,8 @@ h6,
   h5,
   h6 {
     color: var(--text-primary);
+    font-weight: 800;
+    line-height: 1.125;
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
     scroll-margin-top: 4.5rem;
@@ -1867,8 +1867,44 @@ h6,
     color: var(--accent-primary);
   }
 
+  h1:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  h2:not(:first-child) {
+    margin-top: 1.1428em;
+  }
+
+  h3:not(:first-child) {
+    margin-top: 1.3333em;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1.125em;
+  }
+
+  h6 {
+    font-size: 1em;
+  }
+
   p {
     margin-bottom: 1.5rem;
+  }
+
+  p,
+  dl,
+  ol,
+  ul,
+  blockquote,
+  pre,
+  table {
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
   }
 
   a {
@@ -1971,15 +2007,42 @@ h6,
   ul,
   ol {
     margin-bottom: 1.5rem;
+    margin-inline-start: 2em;
     padding-left: 1.5rem;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
 
     li {
       margin-bottom: 0.4rem;
     }
 
+    li + li {
+      margin-top: 0.25em;
+    }
+
     li::marker {
       color: var(--accent-primary);
     }
+  }
+
+  ul {
+    list-style: disc outside;
+
+    ul {
+      list-style-type: circle;
+
+      margin-block: 0.25em;
+
+      ul {
+        list-style-type: square;
+      }
+    }
+  }
+
+  ol {
+    list-style: decimal outside;
   }
 
   img {
