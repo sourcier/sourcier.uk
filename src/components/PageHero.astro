@@ -51,35 +51,36 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
 ---
 
 <header
-  class:list={["page-hero", `page-hero--${tone}`]}
+  class="page-hero"
   style={coverImage ? `--cover-image: url('${coverImage.src}')` : ""}
+  data-tone={tone}
   data-has-cover={coverImage ? "true" : "false"}
 >
   <div class="container">
-    <div class="page-hero__inner">
+    <div class="hero-content">
       {
         resolvedCrumbs.length > 0 && (
           <Breadcrumb crumbs={resolvedCrumbs} inverted />
         )
       }
       {kicker && <p class="hero-kicker">{kicker}</p>}
-      <h1 class="page-hero__title">{title}</h1>
-      {subtitle && <p class="page-hero__subtitle">{subtitle}</p>}
+      <h1 class="hero-title">{title}</h1>
+      {subtitle && <p class="hero-subtitle">{subtitle}</p>}
       {
         (author || date || readingTime || (tags && tags.length > 0)) && (
-          <div class="page-hero__meta">
-            {author && <span class="page-hero__author">By {author}</span>}
-            {date && <span class="page-hero__date">{date}</span>}
+          <div class="hero-meta">
+            {author && <span class="hero-author">By {author}</span>}
+            {date && <span class="hero-date">{date}</span>}
             {readingTime && (
-              <span class="page-hero__reading-time">{readingTime}</span>
+              <span class="hero-reading-time">{readingTime}</span>
             )}
             {(date || readingTime) && tags && tags.length > 0 && (
-              <span class="page-hero__divider" aria-hidden="true" />
+              <span class="hero-divider" aria-hidden="true" />
             )}
             {tags && tags.length > 0 && (
-              <div class="page-hero__tags">
+              <div class="hero-tags">
                 {tags.map((tag: string) => (
-                  <a href={`/tags/${tagSlug(tag)}`} class="page-hero__tag">
+                  <a href={`/tags/${tagSlug(tag)}`} class="hero-tag">
                     {tag}
                   </a>
                 ))}
@@ -90,7 +91,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
       }
       {
         shareUrl && shareTitle && (
-          <div class="page-hero__share">
+          <div class="hero-share">
             <SharePost url={shareUrl} title={shareTitle} />
           </div>
         )
@@ -253,12 +254,12 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .page-hero--secondary {
+  .page-hero[data-tone="secondary"] {
     --page-hero-accent: var(--accent-secondary);
     --page-hero-accent-alt: var(--accent-primary);
   }
 
-  .page-hero--neutral {
+  .page-hero[data-tone="neutral"] {
     --page-hero-accent: color-mix(
       in srgb,
       var(--text-primary) 16%,
@@ -282,7 +283,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     );
   }
 
-  .page-hero__inner {
+  .hero-content {
     max-width: 760px;
   }
 
@@ -314,7 +315,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     color: color-mix(in srgb, var(--text-primary) 28%, transparent);
   }
 
-  .page-hero__title {
+  .hero-title {
     font-size: clamp(2.15rem, 5vw, 3.75rem);
     font-weight: 700;
     line-height: 1.02;
@@ -323,11 +324,11 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     color: var(--page-hero-ink);
   }
 
-  .page-hero[data-has-cover="true"] .page-hero__title {
+  .page-hero[data-has-cover="true"] .hero-title {
     font-size: clamp(2.35rem, 6vw, 4rem);
   }
 
-  .page-hero__subtitle {
+  .hero-subtitle {
     max-width: 60ch;
     font-size: clamp(1.02rem, 1.65vw, 1.16rem);
     line-height: 1.72;
@@ -336,7 +337,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     font-weight: 400;
   }
 
-  .page-hero__meta {
+  .hero-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -348,12 +349,12 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     color: var(--page-hero-soft);
   }
 
-  .page-hero__author {
+  .hero-author {
     color: var(--page-hero-ink);
     font-weight: 600;
   }
 
-  .page-hero__date {
+  .hero-date {
     &::before {
       content: "·";
       margin-right: 1rem;
@@ -361,7 +362,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .page-hero__divider {
+  .hero-divider {
     &::before {
       content: "·";
       color: var(--accent-primary);
@@ -372,13 +373,13 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     }
   }
 
-  .page-hero__tags {
+  .hero-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .page-hero__tag {
+  .hero-tag {
     display: inline-block;
     font-family: "Barlow", sans-serif;
     font-size: 0.82rem;
@@ -428,7 +429,7 @@ const resolvedCrumbs: Crumb[] = crumbs ?? autoCrumbs(Astro.url.pathname);
     margin-bottom: 0.75rem;
   }
 
-  .page-hero__share {
+  .hero-share {
     margin-top: 1.5rem;
 
     :global(.share-post) {

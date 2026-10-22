@@ -17,22 +17,23 @@ describe("PageHero", () => {
       }),
     );
     expect(normalized).toContain("About me");
+    expect(normalized).toContain('class="hero-title"');
   });
 
-  it("applies the default primary tone modifier", async () => {
+  it("sets the default primary tone", async () => {
     const normalized = normalizeHtml(
       await container.renderToString(PageHero, { props: { title: "Test" } }),
     );
-    expect(normalized).toContain("page-hero--primary");
+    expect(normalized).toContain('data-tone="primary"');
   });
 
-  it("applies the requested tone modifier", async () => {
+  it("sets the requested tone", async () => {
     const normalized = normalizeHtml(
       await container.renderToString(PageHero, {
         props: { title: "Test", tone: "secondary" },
       }),
     );
-    expect(normalized).toContain("page-hero--secondary");
+    expect(normalized).toContain('data-tone="secondary"');
   });
 
   it("sets the cover image CSS variable when a cover is provided", async () => {
