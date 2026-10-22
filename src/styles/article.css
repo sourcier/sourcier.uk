@@ -1,13 +1,13 @@
-.post__body {
+:where(.post) > .body {
   padding: 2rem 1.5rem 2rem;
 }
 
-.post-meta-section {
+:where(.post) > .meta {
   border-top: 1px solid var(--border-subtle);
   padding: 1.25rem 1.5rem;
 }
 
-.post-meta-section__inner {
+:where(.post) > .meta > .inner {
   max-width: 68ch;
   margin: 0 auto;
   display: flex;
@@ -15,7 +15,7 @@
   gap: 2rem;
 }
 
-.post__layout {
+:where(.post > .body) > .layout {
   margin: 0 auto;
 
   @media (min-width: 1280px) {
@@ -27,11 +27,11 @@
   }
 }
 
-.post__layout__content {
+:where(.post > .body > .layout) > .main {
   min-width: 0;
 }
 
-.post__sidebar {
+:where(.post > .body > .layout) > .sidebar {
   display: none;
 
   @media (min-width: 1280px) {
@@ -51,7 +51,7 @@
   }
 }
 
-.toc__heading {
+:where(.toc) .heading {
   font-family: "Barlow Condensed", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -63,7 +63,7 @@
   margin-bottom: 0.75rem;
 }
 
-.toc__list {
+:where(.toc) .list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -71,7 +71,7 @@
   flex-direction: column;
 }
 
-.toc__link {
+:where(.toc) .link {
   display: block;
   font-size: 0.9375rem;
   line-height: 1.4;
@@ -98,12 +98,12 @@
   }
 }
 
-.toc__item--h3 .toc__link {
+:where(.toc) [data-depth="3"] .link {
   padding-left: 1.5rem;
   font-size: 0.875rem;
 }
 
-.post__content {
+:where(.post > .body > .layout > .main) > .content {
   max-width: 68ch;
   margin-left: auto;
   margin-right: auto;
@@ -358,48 +358,50 @@
 }
 
 /* — Expressive Code: 1px border outline on all code block frames */
-.expressive-code .frame {
+:where(.post) .expressive-code .frame {
   box-shadow: 0 0 0 1px var(--border-subtle) !important;
   border-radius: var(--radius-compact);
   overflow: hidden;
 }
 
 /* — Expressive Code: spacing between consecutive collapsible blocks */
-.expressive-code:has(.ec-collapsible) + .expressive-code:has(.ec-collapsible) {
+:where(.post)
+  .expressive-code:has(.ec-collapsible)
+  + .expressive-code:has(.ec-collapsible) {
   margin-top: 0.75rem;
 }
 
 /* — Expressive Code: rounded corners when collapsed */
-.expressive-code .ec-collapsible:has([aria-expanded="false"]) {
+:where(.post) .expressive-code .ec-collapsible:has([aria-expanded="false"]) {
   border-radius: var(--radius-compact);
   overflow: hidden;
 }
 
 /* — Expressive Code: center chevron vertically in the header bar */
-.expressive-code .ec-collapse-toggle {
+:where(.post) .expressive-code .ec-collapse-toggle {
   align-self: center;
 }
 
 /* — Expressive Code: file icon size and alignment */
-.expressive-code figcaption .title {
+:where(.post) .expressive-code figcaption .title {
   display: flex;
   align-items: center;
   gap: 0.4em;
 }
 
-.expressive-code figcaption .title svg {
+:where(.post) .expressive-code figcaption .title svg {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
   filter: brightness(0.65);
 }
 
-[data-theme="dark"] .expressive-code figcaption .title svg {
+[data-theme="dark"] :where(.post) .expressive-code figcaption .title svg {
   filter: none;
 }
 
 /* — Expressive Code: copy button with matching hover */
-.expressive-code .copy button {
+:where(.post) .expressive-code .copy button {
   border-radius: var(--radius-tight) !important;
   width: 2rem !important;
   height: 2rem !important;

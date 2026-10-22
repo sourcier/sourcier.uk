@@ -75,10 +75,10 @@ const tipOptions: TipOption[] = [
   data-default-tip-pence={String(defaultTipPence)}
   aria-labelledby="support-modal-heading"
 >
-  <div class="support-modal__panel" role="document">
-    <div class="support-modal__topbar">
-      <div class="support-modal__intro">
-        <p class="support-modal__eyebrow" data-topbar-eyebrow>One-off tip</p>
+  <div class="surface" role="document">
+    <div class="topbar">
+      <div class="intro">
+        <p class="eyebrow" data-topbar-eyebrow>One-off tip</p>
         <h2 id="support-modal-heading" class="visually-hidden">
           Support checkout
         </h2>
@@ -86,7 +86,7 @@ const tipOptions: TipOption[] = [
 
       <button
         type="button"
-        class="support-modal__close"
+        class="close"
         data-support-modal-close
         aria-label="Close support checkout"
       >
@@ -94,60 +94,44 @@ const tipOptions: TipOption[] = [
       </button>
     </div>
 
-    <ol class="support-modal__steps" aria-label="Support checkout steps">
-      <li
-        class="support-modal__step"
-        data-step-indicator="amount"
-        data-state="active"
-      >
-        <span class="support-modal__step-number">1</span>
-        <span class="support-modal__step-label">Choose amount</span>
+    <ol class="steps" aria-label="Support checkout steps">
+      <li class="step" data-step-indicator="amount" data-state="active">
+        <span class="number">1</span>
+        <span class="caption">Choose amount</span>
       </li>
-      <li
-        class="support-modal__step"
-        data-step-indicator="payment"
-        data-state="upcoming"
-      >
-        <span class="support-modal__step-number">2</span>
-        <span class="support-modal__step-label">Payment</span>
+      <li class="step" data-step-indicator="payment" data-state="upcoming">
+        <span class="number">2</span>
+        <span class="caption">Payment</span>
       </li>
-      <li
-        class="support-modal__step"
-        data-step-indicator="success"
-        data-state="upcoming"
-      >
-        <span class="support-modal__step-number">3</span>
-        <span class="support-modal__step-label">Thank you</span>
+      <li class="step" data-step-indicator="success" data-state="upcoming">
+        <span class="number">3</span>
+        <span class="caption">Thank you</span>
       </li>
     </ol>
 
-    <p class="support-modal__status" data-status aria-live="polite" hidden></p>
+    <p class="status" data-status aria-live="polite" hidden></p>
 
-    <div class="support-modal__frame">
+    <div class="frame">
       <section
-        class="support-modal__stage"
+        class="stage"
         data-step-panel="amount"
         aria-labelledby="support-step-amount-title"
       >
-        <div class="support-modal__stage-copy">
-          <h3 class="support-modal__stage-title" id="support-step-amount-title">
-            Choose amount
-          </h3>
-          <p class="support-modal__stage-body">
+        <div class="copy">
+          <h3 class="heading" id="support-step-amount-title">Choose amount</h3>
+          <p class="body">
             Pick the level of support that feels right. You can keep it simple
             or enter a custom amount, then continue to secure payment.
           </p>
         </div>
 
-        <form class="support-modal__form" data-support-form novalidate>
-          <fieldset class="support-modal__fieldset">
-            <legend class="support-modal__legend"
-              >Choose a one-off amount</legend
-            >
-            <div class="support-modal__options" role="radiogroup">
+        <form class="form" data-support-form novalidate>
+          <fieldset class="fieldset">
+            <legend class="legend">Choose a one-off amount</legend>
+            <div class="options" role="radiogroup">
               {
                 tipOptions.map((option, index) => (
-                  <label class="support-modal__option" for={option.id}>
+                  <label class="option" for={option.id}>
                     <input
                       id={option.id}
                       type="radio"
@@ -159,27 +143,23 @@ const tipOptions: TipOption[] = [
                       }
                       checked={index === 1}
                     />
-                    <span class="support-modal__option-chip">
-                      {option.label}
-                    </span>
-                    <span class="support-modal__option-note">
-                      {option.note}
-                    </span>
+                    <span class="chip">{option.label}</span>
+                    <span class="note">{option.note}</span>
                   </label>
                 ))
               }
             </div>
           </fieldset>
 
-          <div class="support-modal__custom-wrap" data-custom-wrap hidden>
-            <label class="support-modal__custom-label" for="support-custom-tip">
+          <div class="custom" data-custom-wrap hidden>
+            <label class="caption" for="support-custom-tip">
               Custom amount in pounds
             </label>
-            <div class="support-modal__custom-field">
-              <span class="support-modal__currency">£</span>
+            <div class="custom-field">
+              <span class="currency">£</span>
               <input
                 id="support-custom-tip"
-                class="support-modal__custom-input"
+                class="entry"
                 type="number"
                 inputmode="decimal"
                 step="0.01"
@@ -187,15 +167,11 @@ const tipOptions: TipOption[] = [
                 data-custom-input
               />
             </div>
-            <p class="support-modal__fineprint">
-              Enter any amount in pounds and pence.
-            </p>
+            <p class="fineprint">Enter any amount in pounds and pence.</p>
           </div>
 
-          <div class="support-modal__footer">
-            <p
-              class="support-modal__fineprint support-modal__fineprint--inline"
-            >
+          <div class="bottom">
+            <p class="fineprint" data-inline>
               Secure payment is handled by Stripe.
             </p>
             <button
@@ -212,21 +188,16 @@ const tipOptions: TipOption[] = [
       </section>
 
       <section
-        class="support-modal__stage"
+        class="stage"
         data-step-panel="payment"
         aria-labelledby="support-step-payment-title"
         hidden
       >
-        <div class="support-modal__stage-header">
-          <div class="support-modal__stage-copy">
-            <h3
-              class="support-modal__stage-title"
-              id="support-step-payment-title"
-            >
-              Payment
-            </h3>
-            <p class="support-modal__stage-body">
-              <span class="support-modal__amount-inline" data-selected-amount>
+        <div class="stage-header">
+          <div class="copy">
+            <h3 class="heading" id="support-step-payment-title">Payment</h3>
+            <p class="body">
+              <span class="amount-inline" data-selected-amount>
                 {defaultTipLabel}
               </span>
               is ready below. Review the amount or change it, then enter your payment
@@ -234,43 +205,36 @@ const tipOptions: TipOption[] = [
             </p>
           </div>
 
-          <button type="button" class="support-modal__secondary" data-back>
+          <button type="button" class="secondary" data-back>
             Change amount
           </button>
         </div>
 
-        <div class="support-modal__summary">
+        <div class="summary">
           <div>
-            <p class="support-modal__summary-label">Selected amount</p>
-            <p class="support-modal__summary-value" data-selected-amount>
+            <p class="caption">Selected amount</p>
+            <p class="value" data-selected-amount>
               {defaultTipLabel}
             </p>
           </div>
         </div>
 
-        <form class="support-modal__payment-form" data-payment-form novalidate>
-          <div
-            class="support-modal__payment-shell"
-            data-payment-shell
-            data-state="idle"
-          >
-            <p class="support-modal__payment-label">Payment details</p>
+        <form class="payment-form" data-payment-form novalidate>
+          <div class="shell" data-payment-shell data-state="idle">
+            <p class="caption">Payment details</p>
             <p
               class="visually-hidden"
               data-payment-loading-live
               aria-live="polite"
             >
             </p>
-            <div class="support-modal__payment-stage">
-              <div class="support-modal__payment-element" data-payment-element>
-              </div>
+            <div class="payment-stage">
+              <div class="element" data-payment-element></div>
             </div>
           </div>
 
-          <div class="support-modal__footer">
-            <p
-              class="support-modal__fineprint support-modal__fineprint--inline"
-            >
+          <div class="bottom">
+            <p class="fineprint" data-inline>
               Payments are handled securely by Stripe.
             </p>
             <button
@@ -287,33 +251,33 @@ const tipOptions: TipOption[] = [
       </section>
 
       <section
-        class="support-modal__stage support-modal__stage--success"
+        class="stage"
         data-step-panel="success"
         aria-labelledby="support-step-success-title"
         hidden
       >
-        <div class="support-modal__thankyou">
-          <div class="support-modal__thankyou-lockup">
-            <p class="support-modal__thankyou-amount" data-success-amount>
+        <div class="thankyou">
+          <div class="lockup">
+            <p class="amount" data-success-amount>
               {defaultTipLabel}
             </p>
-            <div class="support-modal__thankyou-icon" aria-hidden="true">
+            <div class="icon" aria-hidden="true">
               <Fragment set:html={thankYouIcon} />
             </div>
           </div>
           <h3
-            class="support-modal__stage-title"
+            class="heading"
             id="support-step-success-title"
             data-success-title
           >
             Thank you
           </h3>
-          <p class="support-modal__stage-body" data-success-message>
+          <p class="body" data-success-message>
             {defaultSuccessMessage}
           </p>
         </div>
 
-        <div class="support-modal__footer support-modal__footer--success">
+        <div class="bottom" data-success>
           <button
             type="button"
             data-support-modal-finish
@@ -404,7 +368,7 @@ const tipOptions: TipOption[] = [
     const form = modal.querySelector("[data-support-form]");
     const paymentForm = modal.querySelector("[data-payment-form]");
     const customWrap = modal.querySelector("[data-custom-wrap]");
-    const customField = modal.querySelector(".support-modal__custom-field");
+    const customField = modal.querySelector(".custom-field");
     const customInput = modal.querySelector("[data-custom-input]");
     const launchButton = modal.querySelector("[data-launch]");
     const payButton = modal.querySelector("[data-pay]");
@@ -416,7 +380,7 @@ const tipOptions: TipOption[] = [
       "[data-payment-loading-live]",
     );
     const paymentElementMount = modal.querySelector("[data-payment-element]");
-    const frame = modal.querySelector(".support-modal__frame");
+    const frame = modal.querySelector(".frame");
     const stepPanels = modal.querySelectorAll("[data-step-panel]");
     const stepIndicators = modal.querySelectorAll("[data-step-indicator]");
     const selectedAmountOutputs = modal.querySelectorAll(
@@ -1819,7 +1783,7 @@ const tipOptions: TipOption[] = [
     backdrop-filter: blur(10px);
   }
 
-  .support-modal__panel {
+  .surface {
     display: grid;
     gap: 0.9rem;
     max-height: calc(100vh - 1.5rem);
@@ -1842,7 +1806,7 @@ const tipOptions: TipOption[] = [
     box-shadow: 0 24px 80px rgba(var(--overlay-rgb), 0.24);
   }
 
-  :global([data-theme="dark"]) .support-modal__panel {
+  :global([data-theme="dark"]) .surface {
     background:
       radial-gradient(
         circle at top right,
@@ -1861,18 +1825,18 @@ const tipOptions: TipOption[] = [
     );
   }
 
-  .support-modal__topbar {
+  .topbar {
     display: flex;
     gap: 0.85rem;
     justify-content: space-between;
     align-items: start;
   }
 
-  .support-modal__intro {
+  .intro {
     min-width: 0;
   }
 
-  .support-modal__eyebrow {
+  .eyebrow {
     margin: 0 0 0.5rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.74rem;
@@ -1882,11 +1846,11 @@ const tipOptions: TipOption[] = [
     color: var(--accent-primary);
   }
 
-  .support-modal__stage-copy {
+  .copy {
     min-width: 0;
   }
 
-  .support-modal__stage-title {
+  .heading {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-size: clamp(1.25rem, 2.4vw, 1.9rem);
@@ -1896,7 +1860,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__stage-body {
+  .body {
     margin: 0.45rem 0 0;
     max-width: 62ch;
     font-size: 0.95rem;
@@ -1904,7 +1868,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-muted);
   }
 
-  .support-modal__amount-inline {
+  .amount-inline {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 1rem;
     font-weight: 700;
@@ -1913,7 +1877,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__secondary {
+  .secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1936,7 +1900,7 @@ const tipOptions: TipOption[] = [
       transform 0.18s ease;
   }
 
-  .support-modal__close {
+  .close {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1960,7 +1924,7 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__secondary:hover {
+  .secondary:hover {
     border-color: rgba(var(--accent-primary-rgb), 0.32);
     background: color-mix(
       in srgb,
@@ -1970,14 +1934,14 @@ const tipOptions: TipOption[] = [
     transform: translateY(-1px);
   }
 
-  .support-modal__close:hover {
+  .close:hover {
     background: rgba(var(--accent-primary-rgb), 0.1);
     border-color: rgba(var(--accent-primary-rgb), 0.5);
     color: var(--accent-primary);
     transform: translateY(-1px);
   }
 
-  .support-modal__steps {
+  .steps {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.55rem;
@@ -1986,7 +1950,7 @@ const tipOptions: TipOption[] = [
     list-style: none;
   }
 
-  .support-modal__step {
+  .step {
     display: flex;
     gap: 0.55rem;
     align-items: center;
@@ -1996,7 +1960,7 @@ const tipOptions: TipOption[] = [
     background: rgba(var(--text-on-strong-rgb), 0.62);
   }
 
-  .support-modal__step-number {
+  .number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2013,7 +1977,7 @@ const tipOptions: TipOption[] = [
     flex-shrink: 0;
   }
 
-  .support-modal__step-label {
+  .caption {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.76rem;
     font-weight: 700;
@@ -2022,21 +1986,21 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__step[data-state="active"] {
+  .step[data-state="active"] {
     border-color: rgba(var(--accent-primary-rgb), 0.36);
     box-shadow: 0 16px 32px rgba(var(--accent-primary-rgb), 0.12);
   }
 
-  .support-modal__step[data-state="complete"] .support-modal__step-number {
+  .step[data-state="complete"] .number {
     background: var(--accent-primary);
     color: var(--text-on-strong);
   }
 
-  .support-modal__step[data-state="upcoming"] {
+  .step[data-state="upcoming"] {
     opacity: 0.72;
   }
 
-  .support-modal__status {
+  .status {
     margin: 0;
     padding: 0.75rem 0.9rem;
     border-radius: var(--radius-compact);
@@ -2072,7 +2036,7 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__frame {
+  .frame {
     padding: clamp(0.8rem, 2vw, 1.1rem);
     border: 1px solid rgba(var(--accent-primary-rgb), 0.14);
     border-radius: var(--radius-panel-large);
@@ -2083,7 +2047,7 @@ const tipOptions: TipOption[] = [
     );
   }
 
-  :global([data-theme="dark"]) .support-modal__frame {
+  :global([data-theme="dark"]) .frame {
     background: linear-gradient(
       180deg,
       rgba(25, 25, 25, 0.96),
@@ -2092,12 +2056,12 @@ const tipOptions: TipOption[] = [
     border-color: rgba(var(--accent-primary-rgb), 0.2);
   }
 
-  .support-modal__stage {
+  .stage {
     display: grid;
     gap: 0.95rem;
   }
 
-  .support-modal__stage[data-step-panel="payment"] {
+  .stage[data-step-panel="payment"] {
     @media (min-width: 900px) {
       grid-template-columns: minmax(15rem, 17rem) minmax(0, 1fr);
       grid-template-areas:
@@ -2107,41 +2071,40 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__stage[hidden] {
+  .stage[hidden] {
     display: none;
   }
 
-  .support-modal__stage-header {
+  .stage-header {
     display: flex;
     gap: 0.85rem;
     align-items: start;
     justify-content: space-between;
   }
 
-  .support-modal__stage[data-step-panel="payment"]
-    .support-modal__stage-header {
+  .stage[data-step-panel="payment"] .stage-header {
     @media (min-width: 900px) {
       grid-area: header;
     }
   }
 
-  .support-modal__stage[data-step-panel="payment"] .support-modal__stage-body {
+  .stage[data-step-panel="payment"] .body {
     max-width: 42ch;
   }
 
-  .support-modal__form,
-  .support-modal__payment-form {
+  .form,
+  .payment-form {
     display: grid;
     gap: 0.85rem;
   }
 
-  .support-modal__fieldset {
+  .fieldset {
     margin: 0;
     padding: 0;
     border: 0;
   }
 
-  .support-modal__legend {
+  .legend {
     margin-bottom: 0.55rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.82rem;
@@ -2151,7 +2114,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__options {
+  .options {
     display: grid;
     gap: 0.7rem;
 
@@ -2160,7 +2123,7 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__option {
+  .option {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.35rem 0.65rem;
@@ -2199,12 +2162,12 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__option input {
+  .option input {
     margin: 0;
     accent-color: var(--accent-primary);
   }
 
-  .support-modal__option-chip {
+  .chip {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.96rem;
     font-weight: 700;
@@ -2213,17 +2176,17 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__option-note {
+  .note {
     grid-column: 2;
     font-size: 0.84rem;
     line-height: 1.45;
     color: var(--text-muted);
   }
 
-  .support-modal__custom-wrap,
-  .support-modal__summary,
-  .support-modal__payment-shell,
-  .support-modal__payment-shell[data-state="ready"] {
+  .custom,
+  .summary,
+  .shell,
+  .shell[data-state="ready"] {
     padding: 0.85rem;
     border-radius: var(--radius-panel);
     background: linear-gradient(
@@ -2234,18 +2197,18 @@ const tipOptions: TipOption[] = [
     box-shadow: inset 0 1px 0 rgba(var(--text-on-strong-rgb), 0.55);
   }
 
-  .support-modal__custom-wrap,
-  .support-modal__summary {
+  .custom,
+  .summary {
     border: 1px solid
       color-mix(in srgb, var(--accent-primary) 22%, var(--border-subtle));
   }
 
-  .support-modal__payment-shell {
+  .shell {
     border: 1px solid
       color-mix(in srgb, var(--accent-primary) 10%, var(--border-subtle));
   }
 
-  .support-modal__payment-shell[data-state="ready"] {
+  .shell[data-state="ready"] {
     border-color: color-mix(
       in srgb,
       var(--accent-primary) 22%,
@@ -2253,9 +2216,7 @@ const tipOptions: TipOption[] = [
     );
   }
 
-  .support-modal__custom-label,
-  .support-modal__summary-label,
-  .support-modal__payment-label {
+  .caption {
     display: block;
     margin: 0 0 0.45rem;
     font-family: "Barlow Condensed", sans-serif;
@@ -2266,7 +2227,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__payment-stage {
+  .payment-stage {
     min-height: 12rem;
     padding: 0.75rem 0.8rem;
     border: 1px solid
@@ -2284,12 +2245,11 @@ const tipOptions: TipOption[] = [
     transition: opacity 0.3s ease;
   }
 
-  .support-modal__payment-shell[data-state="ready"]
-    .support-modal__payment-stage {
+  .shell[data-state="ready"] .payment-stage {
     opacity: 1;
   }
 
-  .support-modal__custom-field {
+  .custom-field {
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -2303,7 +2263,7 @@ const tipOptions: TipOption[] = [
       box-shadow 0.18s ease;
   }
 
-  .support-modal__custom-field:focus-within {
+  .custom-field:focus-within {
     border-color: color-mix(
       in srgb,
       var(--accent-primary) 28%,
@@ -2312,15 +2272,15 @@ const tipOptions: TipOption[] = [
     box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.12);
   }
 
-  .support-modal__custom-field[data-invalid="true"],
-  .support-modal__custom-field[data-invalid="true"]:focus-within {
+  .custom-field[data-invalid="true"],
+  .custom-field[data-invalid="true"]:focus-within {
     border-color: var(--support-modal-invalid-border);
     box-shadow:
       inset 0 1px 0 rgba(var(--overlay-rgb), 0.03),
       0 0 0 3px var(--support-modal-invalid-ring);
   }
 
-  .support-modal__currency {
+  .currency {
     padding: 0 0.9rem;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 0.9rem;
@@ -2330,7 +2290,7 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__custom-input {
+  .entry {
     width: 100%;
     min-height: 2.75rem;
     border: 0;
@@ -2344,23 +2304,23 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__payment-element {
+  .element {
     min-height: 12rem;
     padding-top: 0.15rem;
   }
 
-  .support-modal__fineprint {
+  .fineprint {
     margin: 0.4rem 0 0;
     font-size: 0.78rem;
     line-height: 1.45;
     color: var(--text-muted);
   }
 
-  .support-modal__fineprint--inline {
+  [data-inline] {
     margin: 0;
   }
 
-  .support-modal__footer {
+  .bottom {
     display: flex;
     gap: 0.7rem;
     flex-wrap: wrap;
@@ -2368,11 +2328,11 @@ const tipOptions: TipOption[] = [
     align-items: center;
   }
 
-  .support-modal__footer--success {
+  [data-success] {
     justify-content: center;
   }
 
-  .support-modal__summary {
+  .summary {
     display: grid;
     gap: 0.3rem;
 
@@ -2388,8 +2348,8 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__summary-value,
-  .support-modal__thankyou-amount {
+  .value,
+  .amount {
     margin: 0;
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
@@ -2397,12 +2357,12 @@ const tipOptions: TipOption[] = [
     color: var(--text-primary);
   }
 
-  .support-modal__summary-value {
+  .value {
     font-size: clamp(1.2rem, 2.2vw, 1.75rem);
     line-height: 0.96;
   }
 
-  .support-modal__summary-note {
+  .note {
     margin: 0;
     max-width: 34ch;
     font-size: 0.84rem;
@@ -2410,27 +2370,26 @@ const tipOptions: TipOption[] = [
     color: var(--text-muted);
   }
 
-  .support-modal__stage[data-step-panel="payment"]
-    .support-modal__payment-form {
+  .stage[data-step-panel="payment"] .payment-form {
     @media (min-width: 900px) {
       grid-area: form;
       align-content: start;
     }
   }
 
-  .support-modal__stage--success {
+  [data-step-panel="success"] {
     justify-items: center;
     text-align: center;
   }
 
-  .support-modal__thankyou {
+  .thankyou {
     display: grid;
     gap: 0.85rem;
     max-width: 40rem;
     justify-items: center;
   }
 
-  .support-modal__thankyou-lockup {
+  .lockup {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -2438,7 +2397,7 @@ const tipOptions: TipOption[] = [
     padding: 0 0.9rem 0.35rem 0;
   }
 
-  .support-modal__thankyou-icon {
+  .icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -2468,7 +2427,7 @@ const tipOptions: TipOption[] = [
     }
   }
 
-  .support-modal__thankyou-amount {
+  .amount {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2485,7 +2444,7 @@ const tipOptions: TipOption[] = [
     line-height: 1;
   }
 
-  :global([data-theme="dark"]) .support-modal__thankyou-icon {
+  :global([data-theme="dark"]) .icon {
     border-color: rgba(var(--accent-primary-rgb), 0.24);
     background: linear-gradient(
       180deg,
@@ -2503,18 +2462,18 @@ const tipOptions: TipOption[] = [
     font-size: 0.9rem;
   }
 
-  :global([data-theme="dark"]) .support-modal__close {
+  :global([data-theme="dark"]) .close {
     border-color: rgba(var(--text-on-strong-rgb), 0.25);
     color: rgba(var(--text-on-strong-rgb), 0.5);
     background: transparent;
   }
 
-  :global([data-theme="dark"]) .support-modal__secondary,
-  :global([data-theme="dark"]) .support-modal__step {
+  :global([data-theme="dark"]) .secondary,
+  :global([data-theme="dark"]) .step {
     background: rgba(var(--text-on-strong-rgb), 0.04);
   }
 
-  :global([data-theme="dark"]) .support-modal__option {
+  :global([data-theme="dark"]) .option {
     border-color: color-mix(
       in srgb,
       var(--accent-primary) 14%,
@@ -2528,9 +2487,9 @@ const tipOptions: TipOption[] = [
     box-shadow: inset 0 1px 0 rgba(var(--text-on-strong-rgb), 0.04);
   }
 
-  :global([data-theme="dark"]) .support-modal__custom-wrap,
-  :global([data-theme="dark"]) .support-modal__summary,
-  :global([data-theme="dark"]) .support-modal__payment-shell {
+  :global([data-theme="dark"]) .custom,
+  :global([data-theme="dark"]) .summary,
+  :global([data-theme="dark"]) .shell {
     border-color: color-mix(
       in srgb,
       var(--accent-primary) 14%,
@@ -2544,7 +2503,7 @@ const tipOptions: TipOption[] = [
     box-shadow: inset 0 1px 0 rgba(var(--text-on-strong-rgb), 0.04);
   }
 
-  :global([data-theme="dark"]) .support-modal__custom-field {
+  :global([data-theme="dark"]) .custom-field {
     border-color: color-mix(
       in srgb,
       var(--text-primary) 20%,
@@ -2554,10 +2513,8 @@ const tipOptions: TipOption[] = [
     box-shadow: inset 0 1px 0 rgba(var(--text-on-strong-rgb), 0.03);
   }
 
-  :global([data-theme="dark"])
-    .support-modal__custom-field[data-invalid="true"],
-  :global([data-theme="dark"])
-    .support-modal__custom-field[data-invalid="true"]:focus-within {
+  :global([data-theme="dark"]) .custom-field[data-invalid="true"],
+  :global([data-theme="dark"]) .custom-field[data-invalid="true"]:focus-within {
     border-color: var(--support-modal-invalid-border);
     box-shadow:
       inset 0 1px 0 rgba(var(--text-on-strong-rgb), 0.03),
@@ -2570,115 +2527,111 @@ const tipOptions: TipOption[] = [
       max-height: calc(100vh - 1rem);
     }
 
-    .support-modal__panel {
+    .surface {
       max-height: calc(100vh - 1rem);
       gap: 0.6rem;
       padding: 0.65rem;
     }
 
-    .support-modal__frame {
+    .frame {
       padding: 0.65rem;
     }
 
-    .support-modal__topbar {
+    .topbar {
       gap: 0.65rem;
     }
 
-    .support-modal__stage {
+    .stage {
       gap: 0.75rem;
     }
 
-    .support-modal__stage-header,
-    .support-modal__footer {
+    .stage-header,
+    .bottom {
       flex-direction: column;
       align-items: stretch;
     }
 
-    .support-modal__secondary {
+    .secondary {
       width: 100%;
     }
 
-    .support-modal__steps {
+    .steps {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.45rem;
     }
 
-    .support-modal__step {
+    .step {
       flex-direction: column;
       align-items: start;
       padding: 0.45rem;
     }
 
-    .support-modal__step-number {
+    .number {
       width: 1.45rem;
       height: 1.45rem;
       font-size: 0.74rem;
     }
 
-    .support-modal__step-label {
+    .caption {
       font-size: 0.66rem;
       line-height: 1.2;
     }
 
-    .support-modal__stage-title {
+    .heading {
       font-size: 1.15rem;
     }
 
-    .support-modal__stage-body {
+    .body {
       font-size: 0.9rem;
       line-height: 1.45;
     }
 
-    .support-modal__status {
+    .status {
       padding: 0.65rem 0.75rem;
       font-size: 0.82rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"]
-      .support-modal__stage-header {
+    .stage[data-step-panel="payment"] .stage-header {
       gap: 0.45rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"] .support-modal__secondary {
+    .stage[data-step-panel="payment"] .secondary {
       min-height: 2.2rem;
       padding: 0.55rem 0.8rem;
       font-size: 0.72rem;
     }
 
-    .support-modal__summary {
+    .summary {
       gap: 0.2rem;
       padding: 0.65rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"] .support-modal__summary {
+    .stage[data-step-panel="payment"] .summary {
       grid-template-columns: 1fr;
       padding: 0.55rem 0.65rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"]
-      .support-modal__summary
-      > div {
+    .stage[data-step-panel="payment"] .summary > div {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 0.55rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"]
-      .support-modal__summary-label {
+    .stage[data-step-panel="payment"] .caption {
       margin: 0;
     }
 
-    .support-modal__summary-value,
-    .support-modal__thankyou-amount {
+    .value,
+    .amount {
       font-size: 1.15rem;
     }
 
-    .support-modal__thankyou-lockup {
+    .lockup {
       padding: 0 0.7rem 0.25rem 0;
     }
 
-    .support-modal__thankyou-icon {
+    .icon {
       width: 1.95rem;
       height: 1.95rem;
       transform: translate(14%, -18%);
@@ -2689,44 +2642,42 @@ const tipOptions: TipOption[] = [
       }
     }
 
-    .support-modal__thankyou-amount {
+    .amount {
       min-height: 2.55rem;
       min-width: 5.45rem;
       padding: 0.55rem 1.3rem 0.55rem 0.95rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"]
-      .support-modal__summary-value {
+    .stage[data-step-panel="payment"] .value {
       font-size: 1rem;
     }
 
-    .support-modal__summary-note {
+    .note {
       font-size: 0.8rem;
     }
 
-    .support-modal__payment-shell {
+    .shell {
       padding: 0.65rem;
     }
 
-    .support-modal__payment-stage,
-    .support-modal__payment-element {
+    .payment-stage,
+    .element {
       min-height: 10rem;
     }
 
-    .support-modal__payment-stage {
+    .payment-stage {
       padding: 0.65rem 0.7rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"] .support-modal__footer {
+    .stage[data-step-panel="payment"] .bottom {
       gap: 0.45rem;
     }
 
-    .support-modal__stage[data-step-panel="payment"]
-      .support-modal__fineprint--inline {
+    .stage[data-step-panel="payment"] [data-inline] {
       display: none;
     }
 
-    .support-modal__payment-element {
+    .element {
       padding-top: 0.15rem;
     }
   }
