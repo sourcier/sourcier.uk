@@ -208,9 +208,6 @@ importers:
       astro-expressive-code:
         specifier: ^0.41.7
         version: 0.41.7(astro@7.2.8(@astrojs/markdown-remark@7.2.4)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13)(@types/node@22.20.1)(jiti@2.7.0)(sass@1.103.1)(terser@5.46.2)(yaml@2.9.0))
-      bulma:
-        specifier: ^1.0.4
-        version: 1.0.4
       expressive-code-color-chips:
         specifier: ^0.1.4
         version: 0.1.4(patch_hash=cfe4bd0e0e355489cf05d17c92149c3e1b4f21963899d7a1cd87d5afc609406e)(@expressive-code/core@0.41.7)
@@ -2947,9 +2944,6 @@ packages:
 
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
-
-  bulma@1.0.4:
-    resolution: {integrity: sha512-Ffb6YGXDiZYX3cqvSbHWqQ8+LkX6tVoTcZuVB3lm93sbAVXlO0D6QlOTMnV6g18gILpAXqkG2z9hf9z4hCjz2g==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -10515,8 +10509,6 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  bulma@1.0.4: {}
 
   bundle-name@4.1.0:
     dependencies:

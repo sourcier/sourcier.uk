@@ -1,24 +1,7 @@
-// Bulma 1.x — selective SASS module imports.
-// Only include the modules this site actually uses. Skipped modules:
-//   components: breadcrumb, card, dropdown, menu, message, modal, pagination, panel, tabs
-//   elements:   block, box, delete, icon, image, loader, notification, progress, table, tag, title
-//   layout:     hero, level, media
-//   base:       animations, skeleton
-//   helpers:    aspect-ratio, border, color, float, gap, other, overflow, position, typography
-
-// Infrastructure: compile-time functions + CSS custom property declarations
-@use "bulma/sass/utilities";
-@use "bulma/sass/themes";
-
-// Elements
-// Helpers
-@use "bulma/sass/helpers/visibility";
-@use "bulma/sass/helpers/spacing";
-
 :root {
   color-scheme: light;
 
-  // Brand accent tokens shared by the site theme and Bulma.
+  // Brand accent tokens shared across the site.
   --accent-primary-h: 330deg;
   --accent-primary-s: 100%;
   --accent-primary-l: 45%;
@@ -47,15 +30,6 @@
     var(--accent-primary) 68%,
     var(--text-primary) 32%
   );
-
-  --bulma-primary-h: var(--accent-primary-h);
-  --bulma-primary-s: var(--accent-primary-s);
-  --bulma-primary-l: var(--accent-primary-l);
-  --bulma-primary-invert-l: var(--accent-primary-invert-l);
-  --bulma-link-h: var(--accent-primary-h);
-  --bulma-link-s: var(--accent-primary-s);
-  --bulma-link-l: var(--accent-primary-l);
-  --bulma-link-invert-l: var(--accent-primary-invert-l);
 
   --color-success: #15803d;
   --color-success-bright: #4ade80;
@@ -121,16 +95,6 @@
   --page-atmosphere-secondary: rgba(var(--accent-secondary-rgb), 0.06);
   --page-backdrop-top: var(--surface-page-top);
   --page-backdrop-bottom: var(--surface-page-bottom);
-
-  --bulma-body-background-color: var(--surface-page);
-  --bulma-body-color: var(--text-primary);
-  --bulma-text: var(--text-primary);
-  --bulma-text-strong: var(--text-primary);
-  --bulma-background: var(--surface-page);
-  --bulma-code-background: var(--surface-inline-code);
-  --bulma-code: var(--text-inline-code);
-  --bulma-border: var(--border-subtle);
-  --bulma-link-text: var(--accent-primary);
 }
 
 [data-theme="dark"] {
@@ -155,16 +119,6 @@
   --page-atmosphere-secondary: var(--accent-secondary-alpha-14);
   --page-backdrop-top: var(--surface-page-top);
   --page-backdrop-bottom: var(--surface-page-bottom);
-
-  --bulma-body-background-color: var(--surface-page);
-  --bulma-body-color: var(--text-primary);
-  --bulma-text: var(--text-primary);
-  --bulma-text-strong: var(--text-primary);
-  --bulma-background: var(--surface-elevated);
-  --bulma-code-background: var(--surface-inline-code);
-  --bulma-code: var(--text-inline-code);
-  --bulma-border: var(--border-subtle);
-  --bulma-link-text: var(--accent-primary);
 }
 
 html {
@@ -208,8 +162,8 @@ html {
   }
 }
 
-.mt-auto {
-  margin-top: auto;
+.is-hidden {
+  display: none !important;
 }
 
 a {
