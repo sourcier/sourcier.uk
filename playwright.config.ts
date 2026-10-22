@@ -41,6 +41,13 @@ export default defineConfig({
       },
     },
     {
+      name: "desktop-1024",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1024, height: 900 },
+      },
+    },
+    {
       name: "tablet",
       use: { ...devices["Galaxy Tab S9"] },
     },

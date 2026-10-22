@@ -10,9 +10,6 @@
 @use "bulma/sass/utilities";
 @use "bulma/sass/themes";
 
-// Navigation
-@use "bulma/sass/components/navbar";
-
 // Elements
 @use "bulma/sass/elements/button";
 @use "bulma/sass/elements/content";
@@ -367,11 +364,7 @@ h6,
 
 // — Navbar: frosted glass with pink accent on hover
 .navbar {
-  --bulma-navbar-background-color: transparent;
-  --bulma-navbar-item-color: var(--text-on-strong-alpha-85);
-  --bulma-navbar-item-hover-color: var(--accent-primary);
-  --bulma-navbar-item-hover-background-color: transparent;
-  --bulma-navbar-item-active-color: var(--accent-primary);
+  min-height: 3.25rem;
   background:
     radial-gradient(
       ellipse 85% 150% at 0% 0%,
@@ -394,6 +387,157 @@ h6,
   position: sticky;
   top: 0;
   z-index: 100;
+
+  > .container {
+    display: block;
+
+    @media (min-width: 1024px) {
+      display: flex;
+      align-items: stretch;
+    }
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    min-height: 3.25rem;
+  }
+
+  .navbar-item {
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.5;
+    position: relative;
+    color: var(--text-on-strong-alpha-85);
+  }
+
+  .navbar-menu {
+    display: none;
+    padding: 0.5rem 0;
+    background-color: transparent;
+    box-shadow: 0 0.5em 1em rgba(var(--overlay-rgb), 0.1);
+
+    &.is-active {
+      display: block;
+    }
+  }
+
+  .navbar-start {
+    display: block;
+  }
+
+  .navbar-end {
+    display: block;
+  }
+
+  .navbar-burger {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-inline-start: auto;
+    margin-inline-end: 0.375rem;
+    border: 0;
+    background: transparent;
+    color: var(--text-on-strong);
+    cursor: pointer;
+
+    span {
+      position: absolute;
+      left: calc(50% - 10px);
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: currentColor;
+      transform-origin: center;
+      transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease,
+        transform 0.15s ease;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        top: calc(50% - 1px);
+      }
+
+      &:nth-child(3) {
+        bottom: calc(50% + 5px);
+      }
+
+      &:nth-child(4) {
+        top: calc(50% + 5px);
+      }
+    }
+
+    &.is-active span {
+      &:nth-child(1) {
+        transform: rotate(-45deg);
+      }
+
+      &:nth-child(2) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    display: flex;
+    align-items: stretch;
+
+    .navbar-menu,
+    .navbar-start,
+    .navbar-end {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .navbar-menu {
+      flex-grow: 1;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .navbar-menu.is-active {
+      display: flex;
+    }
+
+    .navbar-start {
+      justify-content: flex-start;
+      margin-inline-end: auto;
+    }
+
+    .navbar-end {
+      justify-content: flex-end;
+      margin-inline-start: auto;
+    }
+
+    .navbar-burger {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1215px) {
+    .navbar-start .navbar-item,
+    .navbar-end > .navbar-item {
+      padding-inline: 0.375rem;
+    }
+  }
 
   .navbar-item:hover,
   .navbar-item:focus,
