@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// Pages that exercise Bulma layout, components, forms, grid, and typography.
+// Pages that exercise global CSS layout, components, forms, grid, and typography.
 // Run `pnpm test:visual:update` to regenerate baselines after intentional changes.
 
 // dynamicSelectors: elements that change when new content is published.

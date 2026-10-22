@@ -9,7 +9,8 @@ Live at **[sourcier.uk](https://sourcier.uk)**
 ## Tech Stack
 
 - **Framework:** Astro 6
-- **Styling:** Sass + Bulma
+- **Styling:** Native CSS, with purpose-focused global stylesheets and scoped
+  component styles
 - **Content:** Markdown with frontmatter (Astro Content Collections)
 - **Hosting:** Netlify (static site + serverless functions)
 - **Email:** Resend (comment notifications & newsletter)
@@ -25,11 +26,23 @@ src/
   layouts/               # Page layouts
   pages/                 # Routes (blog, tags, RSS, etc.)
   plugins/               # Remark plugins (Mermaid)
-  styles/                # Global Sass styles
+  styles/                # Ordered native CSS entrypoint and purpose-focused stylesheets
   utils/                 # Utilities (drafts, tags, icons)
 netlify/functions/       # Serverless functions (comments, subscriptions, scheduled builds)
 scripts/                 # One-off utility scripts (email templates, notifications)
 ```
+
+### Styling
+
+`src/styles/global.css` is the ordered global stylesheet entrypoint. Its
+imports are `theme.css`, `base.css`, `navigation.css`, `home-hero.css`,
+`controls.css`, `panels.css`, `series.css`, `post-markers.css`,
+`blog-cards.css`, `social-icons.css`, `contact.css`, `article.css`, and
+`search.css`. `BaseLayout.astro` imports `reset.css` before that entrypoint.
+Shared design tokens, including light and dark theme values, live in
+`theme.css`; use these CSS variables instead of duplicating theme values. Keep
+component-specific rules in plain scoped `<style>` blocks in Astro components.
+The site has no Bulma dependency and does not require Sass.
 
 ### Article series
 
