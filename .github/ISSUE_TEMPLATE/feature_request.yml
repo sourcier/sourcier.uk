@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest an improvement to the site.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check existing issues before suggesting an improvement.
+        Do not include private content, credentials, or personal data.
+        Report vulnerabilities [privately](https://github.com/sourcier/sourcier.uk/security/advisories/new).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or need
+      description: Who would benefit, and what are they trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Describe the experience you would like and why it helps.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional. Describe existing workarounds or other approaches.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Optional. Include relevant public examples or redacted screenshots.
