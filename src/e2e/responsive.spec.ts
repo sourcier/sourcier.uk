@@ -112,6 +112,22 @@ for (const width of [1279, 1280]) {
   });
 }
 
+for (const width of [320, 768, 1024, 1279, 1280, 1440, 1920]) {
+  test(`series navigation aligns with article at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await visit(page, "/blog/how-this-blog-was-built");
+    const navigation = page.getByRole("navigation", { name: "Article series" });
+    await expectWithinViewport(navigation, width);
+    const navigationBox = await navigation.boundingBox();
+    const contentBox = await page.locator("#post-content").boundingBox();
+    expect(contentBox).not.toBeNull();
+    expect(navigationBox!.x).toBeCloseTo(contentBox!.x, 0);
+    expect(navigationBox!.width).toBeCloseTo(contentBox!.width, 0);
+  });
+}
+
 test("article table of contents marks its current location", async ({
   page,
 }) => {
