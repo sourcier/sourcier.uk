@@ -195,11 +195,11 @@ For an existing post, its ID alone locates its current directory.
 
 ### Install pnpm
 
-With pnpm available, install and enable Corepack to use the version pinned in
+Install and enable Corepack to use the pnpm version pinned in
 `package.json`:
 
 ```sh
-pnpm add -g corepack@0.34.5
+npm install --global corepack@0.34.5
 corepack enable pnpm
 pnpm --version            # Should print 12.11.1
 ```
