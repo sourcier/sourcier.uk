@@ -97,6 +97,7 @@ body {
     BlinkMacSystemFont,
     sans-serif;
   font-weight: 400;
+  /* Preserve macOS text rendering in WebKit/Blink and Firefox; no standard equivalent. */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

@@ -27,13 +27,13 @@ html {
     Cantarell,
     sans-serif;
   line-height: 1.5;
-  -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   color-scheme: light dark; /* Automatically supports dark mode */
 }
 
 body {
   min-height: 100vh;
+  /* Preserve macOS text rendering; font smoothing has no standard equivalent. */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeSpeed;
 }

@@ -59,6 +59,7 @@
   &::placeholder {
     color: var(--text-muted);
   }
+  /* Hide the native clear control; no standard pseudo-element targets it. */
   &::-webkit-search-cancel-button {
     display: none;
   }

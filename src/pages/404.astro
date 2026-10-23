@@ -130,6 +130,7 @@ const corePages = [
     line-height: 0.9;
     letter-spacing: -0.03em;
     color: transparent;
+    /* The outlined numeral needs text-stroke, which has no standard equivalent. */
     -webkit-text-stroke: 2px var(--accent-primary);
     user-select: none;
     position: relative;
@@ -139,6 +140,7 @@ const corePages = [
       position: absolute;
       inset: 0;
       color: rgba(var(--accent-primary-rgb), 0.07);
+      /* Avoid inheriting the outline on the filled shadow numeral. */
       -webkit-text-stroke: 0;
       transform: translate(6px, 6px);
       z-index: -1;
