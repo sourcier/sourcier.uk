@@ -1,7 +1,11 @@
 name: Run Visual Regression
-description: Install Playwright browsers and run visual regression tests
+description: Run visual regression tests and upload failure reports
 
 inputs:
+  shard:
+    description: Playwright shard in current/total format
+    required: false
+    default: 1/1
   report_name:
     description: Artifact name for the uploaded diff report (must be unique per workflow run)
     required: false
@@ -27,6 +31,8 @@ runs:
 
     - name: Run visual regression tests
       shell: bash
+      env:
+        SHARD: ${{ inputs.shard }}
       run: |
         # Skip comparison if no baselines exist yet for this platform/arch
         ARCH_FOLDER=$(node -e "process.stdout.write(process.platform + '-' + process.arch)")
@@ -35,7 +41,7 @@ runs:
           echo "No baselines found — run 'pnpm test:visual:update' locally to generate them."
           exit 0
         fi
-        pnpm exec playwright test
+        node node_modules/@playwright/test/cli.js test --shard="$SHARD"
 
     - name: Write job summary
       if: always()

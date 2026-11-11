@@ -20,7 +20,8 @@ export default defineConfig({
       ],
   webServer: {
     // Playwright owns the server lifecycle — no background process juggling needed.
-    command: "pnpm serve:dist",
+    command:
+      "node node_modules/serve/build/main.js dist --listen 9000 --no-clipboard",
     port: 9000,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,

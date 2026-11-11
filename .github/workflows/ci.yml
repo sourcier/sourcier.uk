@@ -418,10 +418,14 @@ jobs:
           preview_passcode: ${{ secrets.PREVIEW_PASSCODE }}
           environment: preview
 
-  visual-regression:
-    name: Visual Regression
+  visual-regression-shards:
+    name: Visual Regression shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     # Gates the prod deploy against the exact prod build (SHOW_DRAFTS=false).
     if: |
       always() &&
@@ -445,8 +449,8 @@ jobs:
       - run: apt-get update && apt-get install -y jq
         shell: bash
 
-      # Node.js is provided by the Playwright container; setup is only used for pnpm caching.
-      - uses: ./.github/actions/setup
+      # The image supplies Node.js; restore installed dependencies without the pnpm store.
+      - uses: ./.github/actions/visual-setup
 
       - name: Download built site
         uses: actions/download-artifact@v8
@@ -455,11 +459,32 @@ jobs:
           path: dist
 
       - uses: ./.github/actions/visual-regression
+        with:
+          shard: ${{ matrix.shard }}/2
+          report_name: visual-regression-report-${{ matrix.shard }}
 
-  visual-regression-preview:
-    name: Visual Regression (preview)
+  # Keep the required status check and deploy gate stable while aggregating both shards.
+  visual-regression:
+    name: Visual Regression
+    runs-on: ubuntu-latest
+    needs: visual-regression-shards
+    if: always() && needs['visual-regression-shards'].result != 'skipped'
+    permissions:
+      contents: read
+    steps:
+      - name: Require all shards to pass
+        env:
+          RESULT: ${{ needs['visual-regression-shards'].result }}
+        run: test "$RESULT" = success
+
+  visual-regression-preview-shards:
+    name: Visual Regression (preview) shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
     needs: build-preview
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     # Gates the preview deploy against the exact preview build (SHOW_DRAFTS=true).
     if: |
       always() &&
@@ -483,8 +508,8 @@ jobs:
       - run: apt-get update && apt-get install -y jq
         shell: bash
 
-      # Node.js is provided by the Playwright container; setup is only used for pnpm caching.
-      - uses: ./.github/actions/setup
+      # The image supplies Node.js; restore installed dependencies without the pnpm store.
+      - uses: ./.github/actions/visual-setup
 
       - name: Download built site
         uses: actions/download-artifact@v8
@@ -494,4 +519,18 @@ jobs:
 
       - uses: ./.github/actions/visual-regression
         with:
-          report_name: visual-regression-report-preview
+          shard: ${{ matrix.shard }}/2
+          report_name: visual-regression-report-preview-${{ matrix.shard }}
+
+  visual-regression-preview:
+    name: Visual Regression (preview)
+    runs-on: ubuntu-latest
+    needs: visual-regression-preview-shards
+    if: always() && needs['visual-regression-preview-shards'].result != 'skipped'
+    permissions:
+      contents: read
+    steps:
+      - name: Require all shards to pass
+        env:
+          RESULT: ${{ needs['visual-regression-preview-shards'].result }}
+        run: test "$RESULT" = success

@@ -124,10 +124,11 @@ Full-page screenshot tests using Playwright, covering 12 routes × 3 viewports.
 
 ### CI
 
-The `visual-regression` / `visual-regression-preview` jobs in `.github/workflows/ci.yml` run on
-`ubuntu-latest` inside the pinned Playwright Docker image, and only ever compare against the
-committed `linux-x64` baselines — they never write snapshots back to the repo. If no `linux-x64`
-baselines exist yet for a route/viewport, that check is skipped rather than failed.
+The `visual-regression-shards` / `visual-regression-preview-shards` jobs in
+`.github/workflows/ci.yml` run two shards on `ubuntu-latest` inside the pinned Playwright Docker
+image. They compare against the committed `linux-x64` baselines and never write snapshots back to
+the repo. If no baselines exist for the platform, the tests are skipped. The `visual-regression`
+and `visual-regression-preview` jobs aggregate the shard results and gate deployment.
 
 To (re)generate the `linux-x64` baselines, manually dispatch the **Update Visual Baselines**
 workflow (`.github/workflows/update-visual-baselines.yml`) from the Actions tab. It builds the
