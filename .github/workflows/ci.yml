@@ -423,7 +423,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         shard: [1, 2]
     # Gates the prod deploy against the exact prod build (SHOW_DRAFTS=false).
@@ -482,7 +482,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-preview
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         shard: [1, 2]
     # Gates the preview deploy against the exact preview build (SHOW_DRAFTS=true).

@@ -41,7 +41,7 @@ runs:
           echo "No baselines found — run 'pnpm test:visual:update' locally to generate them."
           exit 0
         fi
-        node node_modules/@playwright/test/cli.js test --shard="$SHARD"
+        node node_modules/@playwright/test/cli.js test --shard="$SHARD" --max-failures=1
 
     - name: Write job summary
       if: always()
