@@ -11,6 +11,7 @@ const routes = [
     name: "home",
     path: "/",
     dynamicSelectors: ['section[aria-label="Recent Posts"]'],
+    waitForNetworkIdle: false,
   },
   {
     name: "blog-index",
@@ -37,8 +38,8 @@ const routes = [
     // here rather than visually tested (mermaid rendering itself isn't page-specific).
     dynamicSelectors: [".tags-sidebar", ".mermaid-diagram"],
   },
-  { name: "about", path: "/about" },
-  { name: "contact", path: "/contact" },
+  { name: "about", path: "/about", waitForNetworkIdle: false },
+  { name: "contact", path: "/contact", waitForNetworkIdle: false },
   { name: "courses", path: "/courses" },
   {
     name: "guides-index",
@@ -70,24 +71,21 @@ const routes = [
   { name: "404", path: "/does-not-exist" },
 ];
 
-// Pages with external embeds or persistent network activity that prevent networkidle
-const NO_NETWORK_IDLE = new Set(["contact"]);
-
 for (const {
   name,
   path,
   dynamicSelectors,
   maxDiffPixelRatio,
   clipToContent,
+  waitForNetworkIdle = true,
 } of routes) {
   test(`visual: ${name}`, async ({ page }) => {
     await page.goto(path);
 
-    if (NO_NETWORK_IDLE.has(name)) {
-      await page.waitForLoadState("load");
-    } else {
+    if (waitForNetworkIdle) {
       await page.waitForLoadState("networkidle");
     }
+    await expect(page.locator("main")).toBeVisible();
 
     // Ensure all images are decoded so the page is visually stable
     await page.evaluate(async () => {

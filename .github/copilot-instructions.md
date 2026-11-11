@@ -65,6 +65,6 @@ Requires Node.js (see `.nvmrc`), pnpm, and Netlify CLI.
   generated HTML, CSS, scripts, and test selectors together. See the
   project Astro instructions for naming and variant conventions.
 - Draft posts controlled by `SHOW_DRAFTS` env var and the `isPublished()` / `isPubliclyPublished()` utilities in `src/utils/drafts.ts`.
-- CI (`.github/workflows/ci.yml`) always builds and tests the **preview** path (content with drafts) before the **prod** path (content without drafts) — the prod `build` job waits on `build-preview` and `visual-regression-preview` succeeding or being legitimately skipped, so a broken preview never wastes a redundant prod build.
+- CI (`.github/workflows/ci.yml`) always builds and tests the **preview** path (content with drafts) before the **prod** path (content without drafts) — the prod `build` job waits on `build-preview` and `visual-regression-preview-shards` succeeding or being legitimately skipped, so a broken preview never wastes a redundant prod build.
 - Visual regression baselines: `linux-x64` (used by CI, regenerated only via the manual `update-visual-baselines.yml` workflow) and `darwin-arm64` (local dev sanity check, never compared in CI) — never compare screenshots across architectures.
 - For any task that changes rendered UI, use Playwright against the dev server (`http://localhost:8888`) to verify visually — don't rely on code inspection alone.

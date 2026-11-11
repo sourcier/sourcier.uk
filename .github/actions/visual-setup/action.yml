@@ -1,0 +1,15 @@
+name: Setup visual regression dependencies
+description: Restore installed dependencies or fall back to the full pnpm setup.
+
+runs:
+  using: composite
+  steps:
+    - name: Restore node_modules cache
+      id: nm-cache
+      uses: actions/cache/restore@v5
+      with:
+        path: node_modules
+        key: nm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+    - uses: ./.github/actions/setup
+      if: steps.nm-cache.outputs.cache-hit != 'true'
