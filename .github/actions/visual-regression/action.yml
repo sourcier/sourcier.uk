@@ -13,7 +13,7 @@ runs:
     - name: Cache Playwright browsers
       id: pw-cache
       # Skip when running inside the Playwright Docker container — browsers are
-      # pre-installed at /ms-playwright and PLAYWRIGHT_BROWSERS_PATH is already set.
+      # pre-installed at /ms-playwright and the caller sets PLAYWRIGHT_BROWSERS_PATH.
       if: ${{ env.PLAYWRIGHT_BROWSERS_PATH != '/ms-playwright' }}
       uses: actions/cache@v5
       with:
