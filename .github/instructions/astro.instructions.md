@@ -127,8 +127,8 @@ Full-page screenshot tests using Playwright, covering 12 routes × 3 viewports.
 The `visual-regression-shards` / `visual-regression-preview-shards` jobs in
 `.github/workflows/ci.yml` run two shards on `ubuntu-latest` inside the pinned Playwright Docker
 image. They compare against the committed `linux-x64` baselines and never write snapshots back to
-the repo. If no baselines exist for the platform, the tests are skipped. The `visual-regression`
-and `visual-regression-preview` jobs aggregate the shard results and gate deployment.
+the repo. If no baselines exist for the platform, the tests are skipped. Build and deploy jobs
+depend directly on the matrix results.
 
 To (re)generate the `linux-x64` baselines, manually dispatch the **Update Visual Baselines**
 workflow (`.github/workflows/update-visual-baselines.yml`) from the Actions tab. It builds the
@@ -136,7 +136,7 @@ site and runs Playwright with `--update-snapshots` on the same `ubuntu-latest` +
 CI check uses, then opens a PR with the resulting PNGs for review — baselines are always generated
 and compared on the same machine type, so there's no cross-platform/cross-arch drift to chase.
 
-The prod `build` job waits on `build-preview` and `visual-regression-preview` succeeding (or being
+The prod `build` job waits on `build-preview` and `visual-regression-preview-shards` succeeding (or being
 legitimately skipped, e.g. on `schedule`/`workflow_dispatch(prod)` triggers, where preview never
 runs at all) before starting — a broken preview build blocks the prod path instead of both running
 in parallel and wasting a prod build on a commit that's already known to fail.
