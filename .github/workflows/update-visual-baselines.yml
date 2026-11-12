@@ -13,7 +13,7 @@ jobs:
     # Same image the visual-regression CI job checks against, so the baselines
     # this workflow produces are valid for that comparison.
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     timeout-minutes: 30
     permissions:
