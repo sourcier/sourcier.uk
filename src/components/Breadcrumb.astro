@@ -25,8 +25,30 @@ const items = allCrumbs.map((crumb, index) => ({
   class="breadcrumb-nav"
   data-inverted={inverted || undefined}
 >
-  {
-    noContainer ? (
+  {noContainer ? (
+    <ol class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      {items.map(({ label, href, isLast, position }) => (
+        <li
+          class="item"
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+        >
+          {!isLast && href ? (
+            <a href={href} class="link" itemprop="item">
+              <span itemprop="name">{label}</span>
+            </a>
+          ) : (
+            <span class="current" aria-current="page" itemprop="name">
+              {label}
+            </span>
+          )}
+          <meta itemprop="position" content={String(position)} />
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <div class="container" data-width="narrow">
       <ol class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
         {items.map(({ label, href, isLast, position }) => (
           <li
@@ -48,32 +70,8 @@ const items = allCrumbs.map((crumb, index) => ({
           </li>
         ))}
       </ol>
-    ) : (
-      <div class="container" data-width="narrow">
-        <ol class="list" itemscope itemtype="https://schema.org/BreadcrumbList">
-          {items.map(({ label, href, isLast, position }) => (
-            <li
-              class="item"
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-            >
-              {!isLast && href ? (
-                <a href={href} class="link" itemprop="item">
-                  <span itemprop="name">{label}</span>
-                </a>
-              ) : (
-                <span class="current" aria-current="page" itemprop="name">
-                  {label}
-                </span>
-              )}
-              <meta itemprop="position" content={String(position)} />
-            </li>
-          ))}
-        </ol>
-      </div>
-    )
-  }
+    </div>
+  )}
 </nav>
 
 <style>

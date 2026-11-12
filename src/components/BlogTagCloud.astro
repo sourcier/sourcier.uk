@@ -40,7 +40,9 @@ const tags = [...tagCounts.entries()]
       <div class="header">
         <div class="intro">
           <p class="section-label">Topics</p>
-          <h2 class="heading" id="tag-cloud-heading">Browse by topic</h2>
+          <h2 class="heading" id="tag-cloud-heading">
+            Browse by topic
+          </h2>
           <p class="description">
             Jump straight into the subjects you care about without paging
             through the full archive first.
@@ -51,23 +53,21 @@ const tags = [...tagCounts.entries()]
         </a>
       </div>
       <ul class="list" role="list">
-        {
-          tags.map(({ tag, count, slug, tier }) => (
-            <li>
-              <a
-                href={`/tags/${slug}`}
-                class="pill"
-                data-tier={tier}
-                aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
-              >
-                {tag}
-                <span class="count" aria-hidden="true">
-                  {count}
-                </span>
-              </a>
-            </li>
-          ))
-        }
+        {tags.map(({ tag, count, slug, tier }) => (
+          <li>
+            <a
+              href={`/tags/${slug}`}
+              class="pill"
+              data-tier={tier}
+              aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
+            >
+              {tag}
+              <span class="count" aria-hidden="true">
+                {count}
+              </span>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   </div>

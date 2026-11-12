@@ -58,69 +58,67 @@ const statusVariant: Record<string, string> = {
       <div class="heading-group">
         <div class="title-row">
           <h3 class="heading">{name}</h3>
-          <span class="status" data-status={statusVariant[status]}
-            >{status}</span
-          >
+          <span class="status" data-status={statusVariant[status]}>
+            {status}
+          </span>
         </div>
         {tagline && <p class="tagline">{tagline}</p>}
       </div>
     </div>
     <p class="body">{summary}</p>
     <ul class="tags" role="list">
-      {techStack.map((tech) => <li>{tech}</li>)}
+      {techStack.map((tech) => (
+        <li>{tech}</li>
+      ))}
     </ul>
     <div class="links">
       <a class="cta" href={repoUrl} target="_blank" rel="noopener noreferrer">
         <Fragment set:html={githubIcon} />
         <span>View on GitHub</span>
       </a>
-      {
-        homepageUrl && (
-          <a
-            class="cta"
-            data-variant="secondary"
-            href={homepageUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Visit site</span>
-          </a>
-        )
-      }
+      {homepageUrl && (
+        <a
+          class="cta"
+          data-variant="secondary"
+          href={homepageUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Visit site</span>
+        </a>
+      )}
     </div>
   </div>
 
-  {
-    previewCards && previewCards.length > 0 && (
-      <div class="preview" aria-hidden="true">
-        <div class="window">
-          <div class="window-chrome">
-            <span class="dot" data-action="close" />
-            <span class="dot" data-action="min" />
-            <span class="dot" data-action="max" />
-            <span class="window-heading">{name}</span>
+  {previewCards && previewCards.length > 0 && (
+    <div class="preview" aria-hidden="true">
+      <div class="window">
+        <div class="window-chrome">
+          <span class="dot" data-action="close" />
+          <span class="dot" data-action="min" />
+          <span class="dot" data-action="max" />
+          <span class="window-heading">{name}</span>
+        </div>
+        {slug === "nioh2-save-editor" && (
+          <div class="window-brand">
+            <Image src={niohLogo} alt="" width={220} loading="lazy" />
           </div>
-          {slug === "nioh2-save-editor" && (
-            <div class="window-brand">
-              <Image src={niohLogo} alt="" width={220} loading="lazy" />
+        )}
+        <div class="window-body">
+          {previewCards.map((card) => (
+            <div
+              class="game-card"
+              style={`background: linear-gradient(145deg, ${card.accentColor} 0%, ${card.accentColor}88 100%);`}
+            >
+              <span class="game-heading">{card.label}</span>
+              <span class="game-sub">{card.sublabel}</span>
+              <span class="game-cta">Select →</span>
             </div>
-          )}
-          <div class="window-body">
-            {previewCards.map((card) => (
-              <div
-                class="game-card"
-                style={`background: linear-gradient(145deg, ${card.accentColor} 0%, ${card.accentColor}88 100%);`}
-              >
-                <span class="game-heading">{card.label}</span>
-                <span class="game-sub">{card.sublabel}</span>
-                <span class="game-cta">Select →</span>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
-    )
-  }
+    </div>
+  )}
 </article>
 
 <style>

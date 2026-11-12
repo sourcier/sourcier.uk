@@ -107,7 +107,9 @@ const pageTitle = "Contact — Sourcier";
             >
               <div class="row">
                 <div class="entry">
-                  <label class="caption" for="contact-name">Name</label>
+                  <label class="caption" for="contact-name">
+                    Name
+                  </label>
                   <input
                     class="textbox"
                     id="contact-name"
@@ -118,7 +120,9 @@ const pageTitle = "Contact — Sourcier";
                   />
                 </div>
                 <div class="entry">
-                  <label class="caption" for="contact-email">Email</label>
+                  <label class="caption" for="contact-email">
+                    Email
+                  </label>
                   <input
                     class="textbox"
                     id="contact-email"
@@ -131,7 +135,9 @@ const pageTitle = "Contact — Sourcier";
               </div>
 
               <div class="entry">
-                <label class="caption" for="contact-reason">Reason</label>
+                <label class="caption" for="contact-reason">
+                  Reason
+                </label>
                 <select
                   class="select"
                   id="contact-reason"
@@ -139,19 +145,22 @@ const pageTitle = "Contact — Sourcier";
                   style={`--contact-select-caret-icon: ${selectCaretIcon}`}
                   required
                 >
-                  <option value="" disabled selected>Select a reason…</option>
-                  <option value="course-enquiry"
-                    >Course questions or enrolment</option
-                  >
-                  <option value="career-transition">Transition into tech</option
-                  >
+                  <option value="" disabled selected>
+                    Select a reason…
+                  </option>
+                  <option value="course-enquiry">
+                    Course questions or enrolment
+                  </option>
+                  <option value="career-transition">
+                    Transition into tech
+                  </option>
                   <option value="career-growth">Career growth</option>
-                  <option value="engineering-practice"
-                    >Engineering practice</option
-                  >
-                  <option value="charity-support"
-                    >Charity or community work</option
-                  >
+                  <option value="engineering-practice">
+                    Engineering practice
+                  </option>
+                  <option value="charity-support">
+                    Charity or community work
+                  </option>
                   <option value="project">Project</option>
                   <option value="speaking">Speaking</option>
                   <option value="other">Other</option>
@@ -159,9 +168,9 @@ const pageTitle = "Contact — Sourcier";
               </div>
 
               <div class="entry hidden" id="other-reason-field">
-                <label class="caption" for="contact-other-reason"
-                  >Please specify</label
-                >
+                <label class="caption" for="contact-other-reason">
+                  Please specify
+                </label>
                 <input
                   class="textbox"
                   id="contact-other-reason"
@@ -172,28 +181,35 @@ const pageTitle = "Contact — Sourcier";
               </div>
 
               <div class="entry">
-                <label class="caption" for="contact-message">Message</label>
+                <label class="caption" for="contact-message">
+                  Message
+                </label>
                 <textarea
                   class="message"
                   id="contact-message"
                   placeholder="Tell me about your situation, your goals, or the team challenge you want to solve…"
                   name="message"
                   rows="6"
-                  required></textarea>
+                  required
+                ></textarea>
               </div>
 
               <div class="entry hidden" aria-hidden="true">
                 <input name="bot-field" type="text" />
               </div>
 
-              <button class="submit" type="submit">Send Message &rarr;</button>
+              <button class="submit" type="submit">
+                Send Message &rarr;
+              </button>
             </form>
 
             <div class="contact-success hidden" data-success-message>
               <p class="text">
                 &#10003; Message sent — I'll get back to you soon.
               </p>
-              <button class="close" type="button">Dismiss</button>
+              <button class="close" type="button">
+                Dismiss
+              </button>
             </div>
           </div>
         </div>
@@ -212,9 +228,9 @@ const pageTitle = "Contact — Sourcier";
                   <span class="icon" set:html={linkedinIcon} />
                   LinkedIn
                 </span>
-                <span class="description"
-                  >Mentoring, growth, and engineering leadership</span
-                >
+                <span class="description">
+                  Mentoring, growth, and engineering leadership
+                </span>
               </a>
 
               <a
@@ -227,9 +243,9 @@ const pageTitle = "Contact — Sourcier";
                   <span class="icon" set:html={githubIcon} />
                   GitHub
                 </span>
-                <span class="description"
-                  >Blog code, tooling, and experiments</span
-                >
+                <span class="description">
+                  Blog code, tooling, and experiments
+                </span>
               </a>
             </div>
           </div>

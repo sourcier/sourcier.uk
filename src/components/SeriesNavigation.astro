@@ -12,54 +12,46 @@ const { overview, order, total, previous, next } = navigation;
 <nav class="series-nav" aria-label="Article series" data-pagefind-ignore>
   <div class="header">
     <h2 class="heading">
-      {
-        order === 0 ? (
-          overview.title
-        ) : (
-          <>
-            <a href={`/blog/${overview.id}`}>{overview.title}</a>{" "}
-            {overview.status !== "published" && (
-              <span class="status">
-                {overview.status === "draft" ? "Draft" : "Scheduled"}
-              </span>
-            )}
-          </>
-        )
-      }
+      {order === 0 ? (
+        overview.title
+      ) : (
+        <>
+          <a href={`/blog/${overview.id}`}>{overview.title}</a>{" "}
+          {overview.status !== "published" && (
+            <span class="status">
+              {overview.status === "draft" ? "Draft" : "Scheduled"}
+            </span>
+          )}
+        </>
+      )}
     </h2>
-    <p class="eyebrow">
-      {order === 0 ? `${total} articles` : `Part ${order}`}
-    </p>
+    <p class="eyebrow">{order === 0 ? `${total} articles` : `Part ${order}`}</p>
   </div>
   <div class="links">
-    {
-      previous && (
-        <a class="link" href={`/blog/${previous.id}`} rel="prev">
-          <span class="direction">Previous</span>
-          <span class="article">{previous.title}</span>
-          {previous.status !== "published" && (
-            <span class="status">
-              {previous.status === "draft" ? "Draft" : "Scheduled"}
-            </span>
-          )}
-        </a>
-      )
-    }
-    {
-      next && (
-        <a class="link" href={`/blog/${next.id}`} rel="next">
-          <span class="direction">
-            {order === 0 ? "Start the series" : "Next"}
+    {previous && (
+      <a class="link" href={`/blog/${previous.id}`} rel="prev">
+        <span class="direction">Previous</span>
+        <span class="article">{previous.title}</span>
+        {previous.status !== "published" && (
+          <span class="status">
+            {previous.status === "draft" ? "Draft" : "Scheduled"}
           </span>
-          <span class="article">{next.title}</span>
-          {next.status !== "published" && (
-            <span class="status">
-              {next.status === "draft" ? "Draft" : "Scheduled"}
-            </span>
-          )}
-        </a>
-      )
-    }
+        )}
+      </a>
+    )}
+    {next && (
+      <a class="link" href={`/blog/${next.id}`} rel="next">
+        <span class="direction">
+          {order === 0 ? "Start the series" : "Next"}
+        </span>
+        <span class="article">{next.title}</span>
+        {next.status !== "published" && (
+          <span class="status">
+            {next.status === "draft" ? "Draft" : "Scheduled"}
+          </span>
+        )}
+      </a>
+    )}
   </div>
 </nav>
 

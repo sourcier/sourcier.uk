@@ -47,49 +47,45 @@ const supportButtonLabel = isSidebar ? "Leave a tip" : "Support the writing";
     <div class="surface">
       <div class="content">
         <p class="eyebrow">{eyebrow}</p>
-        <h2 class="heading" id={headingId}>{title}</h2>
+        <h2 class="heading" id={headingId}>
+          {title}
+        </h2>
         <p class="text">{body}</p>
 
-        {
-          showHighlights && (
-            <ul class="highlights" role="list">
-              <li>Engineering practice review</li>
-              <li>Hands-on delivery</li>
-              <li>Team mentoring</li>
-            </ul>
-          )
-        }
+        {showHighlights && (
+          <ul class="highlights" role="list">
+            <li>Engineering practice review</li>
+            <li>Hands-on delivery</li>
+            <li>Team mentoring</li>
+          </ul>
+        )}
       </div>
 
       <div class="links">
-        {
-          showWorkButton && (
-            <a href="/contact" class="cta" data-kind="work">
-              Get guidance
-            </a>
-          )
-        }
+        {showWorkButton && (
+          <a href="/contact" class="cta" data-kind="work">
+            Get guidance
+          </a>
+        )}
 
-        {
-          showSupportButton && (
-            <>
-              {showSupportIntro && (
-                <p class="aside">
-                  If this has been useful, you can back the writing with a
-                  one-off tip through a secure Stripe checkout.
-                </p>
-              )}
-              <button
-                type="button"
-                class="cta"
-                data-kind="support"
-                data-support-modal-open
-              >
-                {supportButtonLabel}
-              </button>
-            </>
-          )
-        }
+        {showSupportButton && (
+          <>
+            {showSupportIntro && (
+              <p class="aside">
+                If this has been useful, you can back the writing with a one-off
+                tip through a secure Stripe checkout.
+              </p>
+            )}
+            <button
+              type="button"
+              class="cta"
+              data-kind="support"
+              data-support-modal-open
+            >
+              {supportButtonLabel}
+            </button>
+          </>
+        )}
       </div>
     </div>
   </div>

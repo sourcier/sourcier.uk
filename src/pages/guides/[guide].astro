@@ -104,7 +104,9 @@ const plannedIcon = faIcon(faClock, { size: 14 });
             Start here if this sounds like you
           </h2>
           <ul class="list" role="list">
-            {guide.whoItsFor.map((item) => <li>{item}</li>)}
+            {guide.whoItsFor.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </article>
 
@@ -115,7 +117,9 @@ const plannedIcon = faIcon(faClock, { size: 14 });
           </p>
           <h2 class="heading">What this guide will cover</h2>
           <ul class="list" role="list">
-            {guide.whatYouWillGet.map((item) => <li>{item}</li>)}
+            {guide.whatYouWillGet.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </article>
       </div>
@@ -128,22 +132,22 @@ const plannedIcon = faIcon(faClock, { size: 14 });
   >
     <div class="container" data-width="narrow">
       <p class="section-label">Published now</p>
-      <h2 class="heading" id="guide-current-heading">Read these first</h2>
+      <h2 class="heading" id="guide-current-heading">
+        Read these first
+      </h2>
       <div class="grid">
-        {
-          guidePosts.map((post) => (
-            <BlogPost
-              title={post.data.title}
-              subTitle={post.data.subTitle}
-              description={post.data.description}
-              url={`/blog/${post.id}`}
-              cover={post.data.cover}
-              pubDate={post.data.pubDate}
-              draft={post.data.draft}
-              readingTime={readingTime(post.body ?? "").text}
-            />
-          ))
-        }
+        {guidePosts.map((post) => (
+          <BlogPost
+            title={post.data.title}
+            subTitle={post.data.subTitle}
+            description={post.data.description}
+            url={`/blog/${post.id}`}
+            cover={post.data.cover}
+            pubDate={post.data.pubDate}
+            draft={post.data.draft}
+            readingTime={readingTime(post.body ?? "").text}
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -162,18 +166,16 @@ const plannedIcon = faIcon(faClock, { size: 14 });
         over time.
       </p>
       <div class="grid">
-        {
-          guide.plannedArticles.map((article) => (
-            <article class="planned-article-card">
-              <p class="status">
-                <span class="icon" aria-hidden="true" set:html={plannedIcon} />
-                <span>Planned</span>
-              </p>
-              <h3 class="heading">{article.title}</h3>
-              <p class="body">{article.description}</p>
-            </article>
-          ))
-        }
+        {guide.plannedArticles.map((article) => (
+          <article class="planned-article-card">
+            <p class="status">
+              <span class="icon" aria-hidden="true" set:html={plannedIcon} />
+              <span>Planned</span>
+            </p>
+            <h3 class="heading">{article.title}</h3>
+            <p class="body">{article.description}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -199,7 +201,9 @@ const plannedIcon = faIcon(faClock, { size: 14 });
           <a href={guide.supportHref} class="primary">
             {guide.supportLabel}
           </a>
-          <a href="/blog" class="secondary">Browse the blog</a>
+          <a href="/blog" class="secondary">
+            Browse the blog
+          </a>
         </div>
       </div>
     </div>

@@ -86,84 +86,80 @@ const testimonials = [
     >
       <div class="track-wrapper">
         <div class="track">
-          {
-            testimonials.map((t, i) => (
-              <div
-                class="item"
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${testimonials.length}`}
-              >
-                <blockquote class="quote">
-                  <p>&ldquo;{t.quote}&rdquo;</p>
-                </blockquote>
-                <footer class="byline">
-                  <div class="attribution">
-                    <div>
-                      <p class="name">
-                        <span class="name-group">
-                          <a
-                            href={t.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="name-link"
-                          >
-                            {t.name}
-                          </a>
-                          <a
-                            href={t.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="linkedin"
-                            aria-label={`${t.name} on LinkedIn`}
-                            set:html={linkedinIcon}
-                          />
-                        </span>
-                      </p>
-                      <p class="meta">
-                        {t.title && t.company
-                          ? `${t.title} · ${t.company}`
-                          : (t.title ?? t.company)}
-                      </p>
-                    </div>
-                    {t.logo && (
-                      <a
-                        href={t.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="logo-link"
-                        aria-label={`Visit ${t.company} website`}
-                      >
-                        <img
-                          src={t.logo.src}
-                          alt={t.company}
-                          class="logo"
-                          width="64"
-                          height="64"
-                          loading="lazy"
+          {testimonials.map((t, i) => (
+            <div
+              class="item"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${testimonials.length}`}
+            >
+              <blockquote class="quote">
+                <p>&ldquo;{t.quote}&rdquo;</p>
+              </blockquote>
+              <footer class="byline">
+                <div class="attribution">
+                  <div>
+                    <p class="name">
+                      <span class="name-group">
+                        <a
+                          href={t.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="name-link"
+                        >
+                          {t.name}
+                        </a>
+                        <a
+                          href={t.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="linkedin"
+                          aria-label={`${t.name} on LinkedIn`}
+                          set:html={linkedinIcon}
                         />
-                      </a>
-                    )}
+                      </span>
+                    </p>
+                    <p class="meta">
+                      {t.title && t.company
+                        ? `${t.title} · ${t.company}`
+                        : (t.title ?? t.company)}
+                    </p>
                   </div>
-                </footer>
-              </div>
-            ))
-          }
+                  {t.logo && (
+                    <a
+                      href={t.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="logo-link"
+                      aria-label={`Visit ${t.company} website`}
+                    >
+                      <img
+                        src={t.logo.src}
+                        alt={t.company}
+                        class="logo"
+                        width="64"
+                        height="64"
+                        loading="lazy"
+                      />
+                    </a>
+                  )}
+                </div>
+              </footer>
+            </div>
+          ))}
         </div>
       </div>
 
       <div class="dots" role="group" aria-label="Slide navigation">
-        {
-          testimonials.map((t, i) => (
-            <button
-              class="dot"
-              type="button"
-              aria-label={`Go to slide ${i + 1}: ${t.name}`}
-              aria-current={i === 0 ? "true" : "false"}
-              data-index={i}
-            />
-          ))
-        }
+        {testimonials.map((t, i) => (
+          <button
+            class="dot"
+            type="button"
+            aria-label={`Go to slide ${i + 1}: ${t.name}`}
+            aria-current={i === 0 ? "true" : "false"}
+            data-index={i}
+          />
+        ))}
       </div>
     </div>
   </div>

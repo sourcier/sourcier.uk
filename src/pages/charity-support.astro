@@ -162,14 +162,12 @@ const charityExperience = [
             genuinely useful rather than symbolic.
           </p>
           <ul class="list" role="list">
-            {
-              charityExperience.map((item) => (
-                <li>
-                  <span class="organization">{item.organisation}</span>
-                  <span class="context">{item.detail}</span>
-                </li>
-              ))
-            }
+            {charityExperience.map((item) => (
+              <li>
+                <span class="organization">{item.organisation}</span>
+                <span class="context">{item.detail}</span>
+              </li>
+            ))}
           </ul>
         </aside>
       </div>
@@ -186,19 +184,17 @@ const charityExperience = [
         Good, practical problems for one focused day
       </h2>
       <div class="grid">
-        {
-          supportAreas.map((area) => (
-            <article class="charity-area-card">
-              <h3 class="heading">{area.title}</h3>
-              <p class="body">{area.body}</p>
-              <ul class="examples" role="list">
-                {area.examples.map((example) => (
-                  <li>{example}</li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
+        {supportAreas.map((area) => (
+          <article class="charity-area-card">
+            <h3 class="heading">{area.title}</h3>
+            <p class="body">{area.body}</p>
+            <ul class="examples" role="list">
+              {area.examples.map((example) => (
+                <li>{example}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -216,14 +212,18 @@ const charityExperience = [
         <article class="surface panel" data-tone="secondary">
           <h3 class="name">Strong fit</h3>
           <ul class="list" role="list">
-            {fitSignals.map((item) => <li>{item}</li>)}
+            {fitSignals.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </article>
 
         <article class="surface panel" data-tone="secondary">
           <h3 class="name">Better suited to a bigger engagement</h3>
           <ul class="list" role="list">
-            {biggerWorkSignals.map((item) => <li>{item}</li>)}
+            {biggerWorkSignals.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
           <p class="note">
             If your need falls into this second group, it can still be worth
@@ -245,15 +245,13 @@ const charityExperience = [
         Simple, focused, and practical
       </h2>
       <div class="grid">
-        {
-          processSteps.map((step) => (
-            <article class="charity-step">
-              <p class="caption">{step.label}</p>
-              <h3 class="heading">{step.title}</h3>
-              <p class="body">{step.body}</p>
-            </article>
-          ))
-        }
+        {processSteps.map((step) => (
+          <article class="charity-step">
+            <p class="caption">{step.label}</p>
+            <h3 class="heading">{step.title}</h3>
+            <p class="body">{step.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>

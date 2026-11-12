@@ -30,23 +30,23 @@ const projectsHero = await getImage({ src: projectsHeroSource, width: 2400 });
     aria-labelledby="projects-grid-heading"
   >
     <div class="container" data-width="narrow">
-      <p class="section-label" id="projects-grid-heading">Projects</p>
+      <p class="section-label" id="projects-grid-heading">
+        Projects
+      </p>
       <div class="cards">
-        {
-          projects.map((project) => (
-            <ProjectCard
-              slug={project.slug}
-              name={project.name}
-              tagline={project.tagline}
-              summary={project.summary}
-              status={project.status}
-              techStack={project.techStack}
-              repoUrl={project.repoUrl}
-              homepageUrl={project.homepageUrl}
-              previewCards={project.previewCards}
-            />
-          ))
-        }
+        {projects.map((project) => (
+          <ProjectCard
+            slug={project.slug}
+            name={project.name}
+            tagline={project.tagline}
+            summary={project.summary}
+            status={project.status}
+            techStack={project.techStack}
+            repoUrl={project.repoUrl}
+            homepageUrl={project.homepageUrl}
+            previewCards={project.previewCards}
+          />
+        ))}
       </div>
     </div>
   </section>

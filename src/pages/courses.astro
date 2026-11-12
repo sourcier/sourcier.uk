@@ -94,11 +94,10 @@ const supportInclusions = [
             that still matter.
           </p>
           <p class="text">
-            If you want free, article-led orientation, start with the <a
-              href="/guides">guides</a
-            >. Choose a course when you want a more structured path through the
-            material, with 1:1 support included and the option to build from one
-            course to the full bundle.
+            If you want free, article-led orientation, start with the{" "}
+            <a href="/guides">guides</a>. Choose a course when you want a more
+            structured path through the material, with 1:1 support included and
+            the option to build from one course to the full bundle.
           </p>
         </div>
 
@@ -153,7 +152,9 @@ const supportInclusions = [
               </h3>
               <p class="body">{courseBundle.summary}</p>
               <ul class="benefits" role="list">
-                {courseBundle.benefits.map((benefit) => <li>{benefit}</li>)}
+                {courseBundle.benefits.map((benefit) => (
+                  <li>{benefit}</li>
+                ))}
               </ul>
               <div class="cta">
                 <a
@@ -177,16 +178,14 @@ const supportInclusions = [
             <div class="aside panel" data-tone="secondary">
               <p class="caption">Good fit for</p>
               <ul class="audience" role="list">
-                {courseBundle.audience.map((item) => <li>{item}</li>)}
+                {courseBundle.audience.map((item) => (
+                  <li>{item}</li>
+                ))}
               </ul>
               <div class="support">
                 <p class="eyebrow">Included support</p>
-                <p class="detail">
-                  {courseSupportOffer.singleDetail}
-                </p>
-                <p class="detail">
-                  {courseSupportOffer.bundleDetail}
-                </p>
+                <p class="detail">{courseSupportOffer.singleDetail}</p>
+                <p class="detail">{courseSupportOffer.bundleDetail}</p>
                 <p class="detail">
                   {courseSupportOffer.additionalSessionsDetail}
                 </p>
@@ -194,29 +193,27 @@ const supportInclusions = [
             </div>
 
             <div class="courses">
-              {
-                courseOffers.map((course) => (
-                  <a
-                    class="card"
-                    href={`#course-${course.slug}`}
-                    aria-label={`Show ${course.title} in the course catalogue`}
-                    data-course-switch="catalogue"
-                  >
-                    <div class="header">
-                      <span
-                        class="icon"
-                        aria-hidden="true"
-                        set:html={getCourseIcon(course.slug, 18)}
-                      />
-                      <div class="group">
-                        <p class="focus">{course.focus}</p>
-                        <h4 class="name">{course.title}</h4>
-                      </div>
+              {courseOffers.map((course) => (
+                <a
+                  class="card"
+                  href={`#course-${course.slug}`}
+                  aria-label={`Show ${course.title} in the course catalogue`}
+                  data-course-switch="catalogue"
+                >
+                  <div class="header">
+                    <span
+                      class="icon"
+                      aria-hidden="true"
+                      set:html={getCourseIcon(course.slug, 18)}
+                    />
+                    <div class="group">
+                      <p class="focus">{course.focus}</p>
+                      <h4 class="name">{course.title}</h4>
                     </div>
-                    <p class="copy">{course.teaser}</p>
-                  </a>
-                ))
-              }
+                  </div>
+                  <p class="copy">{course.teaser}</p>
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -246,54 +243,52 @@ const supportInclusions = [
             </p>
           </div>
           <div class="offerings">
-            {
-              courseOffers.map((course) => (
-                <article class="course-card" id={`course-${course.slug}`}>
-                  <div class="top">
-                    <div class="header">
-                      <span
-                        class="icon"
-                        aria-hidden="true"
-                        set:html={getCourseIcon(course.slug, 20)}
-                      />
-                      <div class="group">
-                        <p class="eyebrow">{course.focus}</p>
-                        <h3 class="heading">{course.title}</h3>
-                      </div>
-                    </div>
-                    <p class="status">{courseLaunchLabel}</p>
-                  </div>
-                  <p class="summary">{course.summary}</p>
-
-                  <div class="details">
-                    <div class="detail">
-                      <p class="caption">Topics</p>
-                      <ul class="list" role="list">
-                        {course.topics.map((topic) => (
-                          <li>{topic}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div class="detail">
-                      <p class="caption">You will leave with</p>
-                      <ul class="list" role="list">
-                        {course.outcomes.map((outcome) => (
-                          <li>{outcome}</li>
-                        ))}
-                      </ul>
+            {courseOffers.map((course) => (
+              <article class="course-card" id={`course-${course.slug}`}>
+                <div class="top">
+                  <div class="header">
+                    <span
+                      class="icon"
+                      aria-hidden="true"
+                      set:html={getCourseIcon(course.slug, 20)}
+                    />
+                    <div class="group">
+                      <p class="eyebrow">{course.focus}</p>
+                      <h3 class="heading">{course.title}</h3>
                     </div>
                   </div>
+                  <p class="status">{courseLaunchLabel}</p>
+                </div>
+                <p class="summary">{course.summary}</p>
 
-                  <a
-                    href="/contact?reason=course-enquiry#contact-form"
-                    class="cta"
-                  >
-                    Ask about this course
-                  </a>
-                </article>
-              ))
-            }
+                <div class="details">
+                  <div class="detail">
+                    <p class="caption">Topics</p>
+                    <ul class="list" role="list">
+                      {course.topics.map((topic) => (
+                        <li>{topic}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div class="detail">
+                    <p class="caption">You will leave with</p>
+                    <ul class="list" role="list">
+                      {course.outcomes.map((outcome) => (
+                        <li>{outcome}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <a
+                  href="/contact?reason=course-enquiry#contact-form"
+                  class="cta"
+                >
+                  Ask about this course
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </div>
@@ -310,17 +305,15 @@ const supportInclusions = [
         Why this setup fits how people actually learn now
       </h2>
       <div class="grid">
-        {
-          learningModel.map((item) => (
-            <article class="card">
-              <div class="header">
-                <span class="icon" aria-hidden="true" set:html={item.icon} />
-                <h3 class="name">{item.title}</h3>
-              </div>
-              <p class="body">{item.body}</p>
-            </article>
-          ))
-        }
+        {learningModel.map((item) => (
+          <article class="card">
+            <div class="header">
+              <span class="icon" aria-hidden="true" set:html={item.icon} />
+              <h3 class="name">{item.title}</h3>
+            </div>
+            <p class="body">{item.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -344,20 +337,20 @@ const supportInclusions = [
           missing attention without forcing everyone through the same timetable.
         </p>
         <div class="grid" role="list">
-          {
-            supportInclusions.map((item) => (
-              <div class="card" role="listitem">
-                <div class="header">
-                  <span class="icon" aria-hidden="true" set:html={item.icon} />
-                  <p class="name">{item.title}</p>
-                </div>
-                <p class="description">{item.body}</p>
+          {supportInclusions.map((item) => (
+            <div class="card" role="listitem">
+              <div class="header">
+                <span class="icon" aria-hidden="true" set:html={item.icon} />
+                <p class="name">{item.title}</p>
               </div>
-            ))
-          }
+              <p class="description">{item.body}</p>
+            </div>
+          ))}
         </div>
         <ul class="list" role="list">
-          {supportMoments.map((item) => <li>{item}</li>)}
+          {supportMoments.map((item) => (
+            <li>{item}</li>
+          ))}
         </ul>
         <a href="/contact?reason=course-enquiry#contact-form" class="anchor">
           Ask about the included support pack

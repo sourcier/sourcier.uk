@@ -18,15 +18,15 @@ const moonIcon = faIcon(faMoon, { size: 14 });
     aria-expanded="false"
     aria-haspopup="true"
   >
-    <span class="trigger-icon" data-theme-icon="system"
-      ><Fragment set:html={systemIcon} /></span
-    >
-    <span class="trigger-icon" data-theme-icon="light"
-      ><Fragment set:html={sunIcon} /></span
-    >
-    <span class="trigger-icon" data-theme-icon="dark"
-      ><Fragment set:html={moonIcon} /></span
-    >
+    <span class="trigger-icon" data-theme-icon="system">
+      <Fragment set:html={systemIcon} />
+    </span>
+    <span class="trigger-icon" data-theme-icon="light">
+      <Fragment set:html={sunIcon} />
+    </span>
+    <span class="trigger-icon" data-theme-icon="dark">
+      <Fragment set:html={moonIcon} />
+    </span>
   </button>
 
   <div class="dropdown" role="menu" aria-label="Theme preference" hidden>

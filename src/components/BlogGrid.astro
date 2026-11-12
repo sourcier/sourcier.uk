@@ -42,100 +42,88 @@ function pageUrl(n: number) {
 
 <section class="section blog-grid-section flow-section">
   <div class="container" data-width="narrow">
-    {
-      (Astro.props.sectionLabel || Astro.props.sectionTitle) && (
-        <div class="header">
-          {Astro.props.sectionLabel && (
-            <p class="section-label">{Astro.props.sectionLabel}</p>
-          )}
-          {Astro.props.sectionTitle && (
-            <h2 class="heading">{Astro.props.sectionTitle}</h2>
-          )}
-          {Astro.props.sectionDescription && (
-            <p class="description">{Astro.props.sectionDescription}</p>
-          )}
-        </div>
-      )
-    }
+    {(Astro.props.sectionLabel || Astro.props.sectionTitle) && (
+      <div class="header">
+        {Astro.props.sectionLabel && (
+          <p class="section-label">{Astro.props.sectionLabel}</p>
+        )}
+        {Astro.props.sectionTitle && (
+          <h2 class="heading">{Astro.props.sectionTitle}</h2>
+        )}
+        {Astro.props.sectionDescription && (
+          <p class="description">{Astro.props.sectionDescription}</p>
+        )}
+      </div>
+    )}
     <div class="layout">
-      {
-        posts.map((post) => (
-          <div class="cell">
-            <BlogPost
-              title={post.data.title}
-              subTitle={post.data.subTitle}
-              description={post.data.description}
-              url={`/blog/${post.id}`}
-              cover={post.data.cover}
-              pubDate={post.data.pubDate}
-              draft={post.data.draft}
-              readingTime={readingTime(post.body ?? "").text}
-            />
-          </div>
-        ))
-      }
-      {
-        Array.from({ length: sharedGhostCount }).map(() => (
-          <div class="cell ghost" data-viewport="tablet-up">
-            <BlogCardPlaceholder />
-          </div>
-        ))
-      }
-      {
-        Array.from({ length: tabletOnlyGhostCount }).map(() => (
-          <div class="cell ghost" data-viewport="tablet-only">
-            <BlogCardPlaceholder />
-          </div>
-        ))
-      }
-      {
-        Array.from({ length: desktopOnlyGhostCount }).map(() => (
-          <div class="cell ghost" data-viewport="desktop-only">
-            <BlogCardPlaceholder />
-          </div>
-        ))
-      }
+      {posts.map((post) => (
+        <div class="cell">
+          <BlogPost
+            title={post.data.title}
+            subTitle={post.data.subTitle}
+            description={post.data.description}
+            url={`/blog/${post.id}`}
+            cover={post.data.cover}
+            pubDate={post.data.pubDate}
+            draft={post.data.draft}
+            readingTime={readingTime(post.body ?? "").text}
+          />
+        </div>
+      ))}
+      {Array.from({ length: sharedGhostCount }).map(() => (
+        <div class="cell ghost" data-viewport="tablet-up">
+          <BlogCardPlaceholder />
+        </div>
+      ))}
+      {Array.from({ length: tabletOnlyGhostCount }).map(() => (
+        <div class="cell ghost" data-viewport="tablet-only">
+          <BlogCardPlaceholder />
+        </div>
+      ))}
+      {Array.from({ length: desktopOnlyGhostCount }).map(() => (
+        <div class="cell ghost" data-viewport="desktop-only">
+          <BlogCardPlaceholder />
+        </div>
+      ))}
     </div>
 
-    {
-      totalPages > 1 && (
-        <nav class="pagination-nav" aria-label="Blog pagination">
-          <a
-            href={prevUrl}
-            class="step"
-            aria-disabled={!prevUrl}
-            tabindex={!prevUrl ? -1 : 0}
-          >
-            &larr; Previous
-          </a>
+    {totalPages > 1 && (
+      <nav class="pagination-nav" aria-label="Blog pagination">
+        <a
+          href={prevUrl}
+          class="step"
+          aria-disabled={!prevUrl}
+          tabindex={!prevUrl ? -1 : 0}
+        >
+          &larr; Previous
+        </a>
 
-          <div class="pages" role="list">
-            {Array.from({ length: totalPages }).map((_, i) => {
-              const n = i + 1;
-              return (
-                <a
-                  href={pageUrl(n)}
-                  role="listitem"
-                  class="page"
-                  aria-current={n === currentPage ? "page" : undefined}
-                >
-                  {n}
-                </a>
-              );
-            })}
-          </div>
+        <div class="pages" role="list">
+          {Array.from({ length: totalPages }).map((_, i) => {
+            const n = i + 1;
+            return (
+              <a
+                href={pageUrl(n)}
+                role="listitem"
+                class="page"
+                aria-current={n === currentPage ? "page" : undefined}
+              >
+                {n}
+              </a>
+            );
+          })}
+        </div>
 
-          <a
-            href={nextUrl}
-            class="step"
-            aria-disabled={!nextUrl}
-            tabindex={!nextUrl ? -1 : 0}
-          >
-            Next &rarr;
-          </a>
-        </nav>
-      )
-    }
+        <a
+          href={nextUrl}
+          class="step"
+          aria-disabled={!nextUrl}
+          tabindex={!nextUrl ? -1 : 0}
+        >
+          Next &rarr;
+        </a>
+      </nav>
+    )}
   </div>
 </section>
 

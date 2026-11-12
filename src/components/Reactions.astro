@@ -25,25 +25,23 @@ const reactions = [
 >
   <p class="heading">{heading}</p>
   <div class="buttons" role="group" aria-label="React to this post">
-    {
-      reactions.map((r) => (
-        <button
-          class="reaction"
-          data-reaction={r.key}
-          aria-label={r.label}
-          aria-pressed="false"
-          type="button"
-        >
-          <span class="emoji" aria-hidden="true">
-            {r.emoji}
-          </span>
-          <span class="count" aria-live="polite">
-            —
-          </span>
-          <span class="caption">{r.label}</span>
-        </button>
-      ))
-    }
+    {reactions.map((r) => (
+      <button
+        class="reaction"
+        data-reaction={r.key}
+        aria-label={r.label}
+        aria-pressed="false"
+        type="button"
+      >
+        <span class="emoji" aria-hidden="true">
+          {r.emoji}
+        </span>
+        <span class="count" aria-live="polite">
+          —
+        </span>
+        <span class="caption">{r.label}</span>
+      </button>
+    ))}
   </div>
 </div>
 

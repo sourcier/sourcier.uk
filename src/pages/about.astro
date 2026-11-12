@@ -106,14 +106,12 @@ const pageTitle = "About — Roger Rajaratnam";
           </p>
         </div>
         <ul class="list" role="list">
-          {
-            focusAreas.map(({ label, icon }) => (
-              <li>
-                <span class="icon" aria-hidden="true" set:html={icon} />
-                <span>{label}</span>
-              </li>
-            ))
-          }
+          {focusAreas.map(({ label, icon }) => (
+            <li>
+              <span class="icon" aria-hidden="true" set:html={icon} />
+              <span>{label}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -279,56 +277,50 @@ const pageTitle = "About — Roger Rajaratnam";
     aria-labelledby="stack-heading"
   >
     <div class="container" data-width="narrow">
-      <p class="section-label" id="stack-heading">Tech stack</p>
+      <p class="section-label" id="stack-heading">
+        Tech stack
+      </p>
       <div class="grid">
         <div class="group">
           <h2 class="category">Frontend</h2>
           <ul class="list" role="list">
-            {
-              frontendStack.map(({ label, icon }) => (
-                <li>
-                  <span class="stack-icon" set:html={icon} />
-                  {label}
-                </li>
-              ))
-            }
+            {frontendStack.map(({ label, icon }) => (
+              <li>
+                <span class="stack-icon" set:html={icon} />
+                {label}
+              </li>
+            ))}
           </ul>
           <h3 class="subtopic">Frameworks</h3>
           <ul class="list" role="list">
-            {
-              frameworksStack.map(({ label, icon }) => (
-                <li>
-                  <span class="stack-icon" set:html={icon} />
-                  {label}
-                </li>
-              ))
-            }
+            {frameworksStack.map(({ label, icon }) => (
+              <li>
+                <span class="stack-icon" set:html={icon} />
+                {label}
+              </li>
+            ))}
           </ul>
         </div>
         <div class="group">
           <h2 class="category">Backend</h2>
           <ul class="list" role="list">
-            {
-              backendStack.map(({ label, icon }) => (
-                <li>
-                  <span class="stack-icon" set:html={icon} />
-                  {label}
-                </li>
-              ))
-            }
+            {backendStack.map(({ label, icon }) => (
+              <li>
+                <span class="stack-icon" set:html={icon} />
+                {label}
+              </li>
+            ))}
           </ul>
         </div>
         <div class="group">
           <h2 class="category">Tooling &amp; Infrastructure</h2>
           <ul class="list" role="list">
-            {
-              toolingStack.map(({ label, icon }) => (
-                <li>
-                  <span class="stack-icon" set:html={icon} />
-                  {label}
-                </li>
-              ))
-            }
+            {toolingStack.map(({ label, icon }) => (
+              <li>
+                <span class="stack-icon" set:html={icon} />
+                {label}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
