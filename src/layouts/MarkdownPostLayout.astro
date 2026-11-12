@@ -74,40 +74,39 @@ const supportPublishableKey =
   <script
     is:inline
     defer
-    src="https://cdn.jsdelivr.net/npm/mermaid@11.13.0/dist/mermaid.min.js"
-    slot="head"></script>
-  {
-    supportPublishableKey && (
-      <SupportCheckoutModal publishableKey={supportPublishableKey} />
-    )
-  }
+    src="https://cdn.jsdelivr.net/npm/mermaid@12.3.0/dist/mermaid.min.js"
+    slot="head"
+  ></script>
+  {supportPublishableKey && (
+    <SupportCheckoutModal publishableKey={supportPublishableKey} />
+  )}
   <article class="post" data-pagefind-body>
-    <span data-pagefind-meta="title" class="visually-hidden"
-      >{frontmatter.title}</span
-    >
-    {
-      thumbSrc && (
-        <img
-          data-pagefind-meta="image[src]"
-          src={thumbSrc}
-          width="96"
-          height="96"
-          alt=""
-          aria-hidden="true"
-          class="visually-hidden"
-        />
-      )
-    }
+    <span data-pagefind-meta="title" class="visually-hidden">
+      {frontmatter.title}
+    </span>
+    {thumbSrc && (
+      <img
+        data-pagefind-meta="image[src]"
+        src={thumbSrc}
+        width="96"
+        height="96"
+        alt=""
+        aria-hidden="true"
+        class="visually-hidden"
+      />
+    )}
     <PostHero
       title={frontmatter.title}
       subtitle={frontmatter.subTitle}
-      coverImage={frontmatter.cover
-        ? {
-            image: frontmatter.cover.image,
-            alt: frontmatter.cover.alt,
-            focalPoint: frontmatter.cover.focalPoint,
-          }
-        : undefined}
+      coverImage={
+        frontmatter.cover
+          ? {
+              image: frontmatter.cover.image,
+              alt: frontmatter.cover.alt,
+              focalPoint: frontmatter.cover.focalPoint,
+            }
+          : undefined
+      }
       tags={frontmatter.tags}
       status={statusValue}
       dateLabel={dateLabel}
@@ -121,32 +120,28 @@ const supportPublishableKey =
     <div class="body">
       <div class="layout">
         <div class="main">
-          {
-            seriesNavigation && (
-              <SeriesNavigation navigation={seriesNavigation} />
-            )
-          }
+          {seriesNavigation && (
+            <SeriesNavigation navigation={seriesNavigation} />
+          )}
           <div class="content" id="post-content">
             <slot />
           </div>
         </div>
         <aside class="sidebar" aria-label="Post sidebar">
-          {
-            tocHeadings.length > 1 && (
-              <nav class="toc">
-                <p class="heading">On this page</p>
-                <ol class="list">
-                  {tocHeadings.map((h) => (
-                    <li class="item" data-depth={h.depth}>
-                      <a class="link" href={`#${h.slug}`}>
-                        {h.text}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            )
-          }
+          {tocHeadings.length > 1 && (
+            <nav class="toc">
+              <p class="heading">On this page</p>
+              <ol class="list">
+                {tocHeadings.map((h) => (
+                  <li class="item" data-depth={h.depth}>
+                    <a class="link" href={`#${h.slug}`}>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
           <SharePost
             title={frontmatter.title}
             url={Astro.url.href}
@@ -162,20 +157,18 @@ const supportPublishableKey =
     <SupportCTA />
     {postId && <Comments postId={postId} />}
     <MailingListCTA />
-    {
-      (frontmatter.history?.length > 0 || frontmatter.credits?.length > 0) && (
-        <section class="meta" aria-label="Page credits and history">
-          <div class="inner">
-            {frontmatter.credits && frontmatter.credits.length > 0 && (
-              <PageCredits entries={frontmatter.credits} />
-            )}
-            {frontmatter.history && frontmatter.history.length > 0 && (
-              <PageHistory entries={frontmatter.history} />
-            )}
-          </div>
-        </section>
-      )
-    }
+    {(frontmatter.history?.length > 0 || frontmatter.credits?.length > 0) && (
+      <section class="meta" aria-label="Page credits and history">
+        <div class="inner">
+          {frontmatter.credits && frontmatter.credits.length > 0 && (
+            <PageCredits entries={frontmatter.credits} />
+          )}
+          {frontmatter.history && frontmatter.history.length > 0 && (
+            <PageHistory entries={frontmatter.history} />
+          )}
+        </div>
+      </section>
+    )}
   </article>
 </BaseLayout>
 

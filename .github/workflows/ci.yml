@@ -287,9 +287,8 @@ jobs:
     name: Deploy (preview)
     runs-on: ubuntu-latest
     needs: [build-preview, visual-regression-preview]
-    # Dependabot PRs only bump lockfile deps — skip the preview deploy (and the
-    # lighthouse-preview job that depends on it below) since there's nothing
-    # user-facing to preview or audit.
+    # Dependabot PRs skip the preview deploy and its dependent Lighthouse job;
+    # the preview build and visual regression checks still run.
     if: |
       always() &&
       needs.build-preview.result == 'success' &&
@@ -433,7 +432,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
@@ -478,7 +477,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright

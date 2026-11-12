@@ -15,25 +15,23 @@ const { entries } = Astro.props;
 <div class="page-credits">
   <p class="heading">Credits</p>
   <ul class="list" role="list">
-    {
-      entries.map((entry) => (
-        <li class="item">
-          <span class="caption">{entry.label}</span>
-          {entry.url ? (
-            <a
-              class="value"
-              href={entry.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {entry.text}
-            </a>
-          ) : (
-            <span class="value">{entry.text}</span>
-          )}
-        </li>
-      ))
-    }
+    {entries.map((entry) => (
+      <li class="item">
+        <span class="caption">{entry.label}</span>
+        {entry.url ? (
+          <a
+            class="value"
+            href={entry.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {entry.text}
+          </a>
+        ) : (
+          <span class="value">{entry.text}</span>
+        )}
+      </li>
+    ))}
   </ul>
 </div>
 

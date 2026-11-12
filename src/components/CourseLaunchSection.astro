@@ -32,11 +32,9 @@ const launchSignals = [
       <div class="intro">
         <div class="meta">
           <div class="signals" aria-label="Launch details">
-            {
-              launchSignals.map((signal) => (
-                <span class="signal">{signal}</span>
-              ))
-            }
+            {launchSignals.map((signal) => (
+              <span class="signal">{signal}</span>
+            ))}
           </div>
           <p class="status">{courseLaunchLabel}</p>
         </div>
@@ -68,27 +66,25 @@ const launchSignals = [
       </div>
 
       <ul class="modules" role="list" aria-label="Course modules">
-        {
-          launchModules.map((module) => (
-            <li>
-              <a
-                class="module"
-                href={`/courses#course-${module.slug}`}
-                aria-label={`Jump to ${module.title} details`}
-              >
-                <div class="module-header">
-                  <span
-                    class="module-icon"
-                    aria-hidden="true"
-                    set:html={module.icon}
-                  />
-                  <p class="module-heading">{module.title}</p>
-                </div>
-                <p class="module-copy">{module.teaser}</p>
-              </a>
-            </li>
-          ))
-        }
+        {launchModules.map((module) => (
+          <li>
+            <a
+              class="module"
+              href={`/courses#course-${module.slug}`}
+              aria-label={`Jump to ${module.title} details`}
+            >
+              <div class="module-header">
+                <span
+                  class="module-icon"
+                  aria-hidden="true"
+                  set:html={module.icon}
+                />
+                <p class="module-heading">{module.title}</p>
+              </div>
+              <p class="module-copy">{module.teaser}</p>
+            </a>
+          </li>
+        ))}
       </ul>
 
       <div class="form">

@@ -153,46 +153,48 @@ const ringStyle = (ringIdx: number) => {
             sit closer to the centre.
           </p>
           <div class="cloud-legend" aria-label="Size guide">
-            <span class="example" data-size="sm">fewer posts</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="example" data-size="lg">more posts</span>
+            <span class="example" data-size="sm">
+              fewer posts
+            </span>
+            <span class="arrow" aria-hidden="true">
+              →
+            </span>
+            <span class="example" data-size="lg">
+              more posts
+            </span>
           </div>
         </div>
 
         <!-- Circular cloud — decorative, replaced by list for SR/mobile -->
         <div class="cloud-circle-wrap" aria-hidden="true">
           <div class="cloud-circle">
-            {
-              positioned.map(({ tag, slug, fontSize, x, y, ringIdx }) => (
-                <a
-                  href={`/tags/${slug}`}
-                  class="tag"
-                  style={`left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;font-size:${fontSize.toFixed(3)}rem;${ringStyle(ringIdx)}`}
-                  tabindex="-1"
-                >
-                  {tag}
-                </a>
-              ))
-            }
+            {positioned.map(({ tag, slug, fontSize, x, y, ringIdx }) => (
+              <a
+                href={`/tags/${slug}`}
+                class="tag"
+                style={`left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;font-size:${fontSize.toFixed(3)}rem;${ringStyle(ringIdx)}`}
+                tabindex="-1"
+              >
+                {tag}
+              </a>
+            ))}
           </div>
         </div>
 
         <!-- Accessible list — always available to screen readers, visible on mobile -->
         <ul class="cloud-list" role="list" aria-label="Tag cloud">
-          {
-            shuffled.map(({ tag, count, slug, fontSize }) => (
-              <li>
-                <a
-                  href={`/tags/${slug}`}
-                  class="tag"
-                  style={`font-size:${fontSize.toFixed(3)}rem`}
-                  aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
-                >
-                  {tag}
-                </a>
-              </li>
-            ))
-          }
+          {shuffled.map(({ tag, count, slug, fontSize }) => (
+            <li>
+              <a
+                href={`/tags/${slug}`}
+                class="tag"
+                style={`font-size:${fontSize.toFixed(3)}rem`}
+                aria-label={`${tag} — ${count} post${count === 1 ? "" : "s"}`}
+              >
+                {tag}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

@@ -41,80 +41,78 @@ const donateIcon = faIcon(faHandHoldingHeart, { size: 14 });
   data-has-toc={hasToc}
   data-has-panel={hasPanel}
 >
-  {
-    hasPanel ? (
-      <>
-        <button
-          class="toggle"
-          id="page-menu-btn"
-          aria-expanded="false"
-          aria-controls="page-menu-panel"
-          aria-label="Page menu"
-        >
-          <span class="icon" set:html={plusIcon} />
-        </button>
-        <div class="popover" id="page-menu-panel" hidden>
-          {hasToc && (
-            <nav class="group toc" aria-label="Table of contents">
-              <p class="caption">On this page</p>
-              <ol class="list">
-                {tocHeadings.map((h) => (
-                  <li class="item" data-depth={h.depth}>
-                    <a class="link toc-link" href={`#${h.slug}`}>
-                      {h.text}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          )}
-          {hasReactions && (
-            <section class="group engagement">
-              <p class="caption">React to this post</p>
-              <div class="reaction-group">
-                <Reactions postId={postId!} compact />
-              </div>
-            </section>
-          )}
-          {hasShare && (
-            <section class="group engagement">
-              <SharePost title={shareTitle!} url={shareUrl!} variant="menu" />
-            </section>
-          )}
-          {hasSupport && (
-            <section class="group engagement">
-              <p class="caption">Support the writing</p>
-              <button
-                type="button"
-                class="support"
-                data-page-menu-support
-                data-support-modal-open
-                aria-label="Donate to support the writing"
-              >
-                <span class="support-icon" set:html={donateIcon} />
-                Donate
-              </button>
-            </section>
-          )}
-          <div class="tools" data-has-sections={hasPanel}>
-            <button class="top" id="page-menu-top-btn" aria-label="Back to top">
-              <span class="top-icon" set:html={arrowUpIcon} />
-              Back to top
-            </button>
-          </div>
-        </div>
-      </>
-    ) : (
+  {hasPanel ? (
+    <>
       <button
         class="toggle"
-        data-action="top"
         id="page-menu-btn"
-        aria-label="Back to top"
+        aria-expanded="false"
+        aria-controls="page-menu-panel"
+        aria-label="Page menu"
       >
-        <span class="icon" set:html={arrowUpIcon} />
+        <span class="icon" set:html={plusIcon} />
       </button>
-    )
-  }
+      <div class="popover" id="page-menu-panel" hidden>
+        {hasToc && (
+          <nav class="group toc" aria-label="Table of contents">
+            <p class="caption">On this page</p>
+            <ol class="list">
+              {tocHeadings.map((h) => (
+                <li class="item" data-depth={h.depth}>
+                  <a class="link toc-link" href={`#${h.slug}`}>
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+        {hasReactions && (
+          <section class="group engagement">
+            <p class="caption">React to this post</p>
+            <div class="reaction-group">
+              <Reactions postId={postId!} compact />
+            </div>
+          </section>
+        )}
+        {hasShare && (
+          <section class="group engagement">
+            <SharePost title={shareTitle!} url={shareUrl!} variant="menu" />
+          </section>
+        )}
+        {hasSupport && (
+          <section class="group engagement">
+            <p class="caption">Support the writing</p>
+            <button
+              type="button"
+              class="support"
+              data-page-menu-support
+              data-support-modal-open
+              aria-label="Donate to support the writing"
+            >
+              <span class="support-icon" set:html={donateIcon} />
+              Donate
+            </button>
+          </section>
+        )}
+        <div class="tools" data-has-sections={hasPanel}>
+          <button class="top" id="page-menu-top-btn" aria-label="Back to top">
+            <span class="top-icon" set:html={arrowUpIcon} />
+            Back to top
+          </button>
+        </div>
+      </div>
+    </>
+  ) : (
+    <button
+      class="toggle"
+      data-action="top"
+      id="page-menu-btn"
+      aria-label="Back to top"
+    >
+      <span class="icon" set:html={arrowUpIcon} />
+    </button>
+  )}
 </div>
 
 <script>

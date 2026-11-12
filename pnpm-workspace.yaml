@@ -4,7 +4,6 @@ allowBuilds:
   netlify-cli: true
   unix-dgram: true
 patchedDependencies:
-  expressive-code-color-chips: patches/expressive-code-color-chips.patch
 overrides:
   # Forces the nested ipx (netlify-cli dev image proxy) copy of sharp to the
   # patched version — GHSA advisory fixed in sharp >=0.35.0.
