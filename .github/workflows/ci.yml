@@ -433,7 +433,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
@@ -478,7 +478,7 @@ jobs:
     # Pin to the same Playwright Docker image used by the update-visual-baselines
     # workflow so font rendering matches the stored linux-x64 baselines.
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-noble
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
       options: --ipc=host
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
