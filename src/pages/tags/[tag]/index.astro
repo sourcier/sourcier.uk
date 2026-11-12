@@ -116,10 +116,8 @@ const avgReadMinutes =
             {postCountLabel} about {label}
           </h2>
           <p class="text">
-            {
-              description ??
-                "This archive keeps every article filed under this topic in one place, newest first, so you can stay with one theme without jumping around the rest of the site."
-            }
+            {description ??
+              "This archive keeps every article filed under this topic in one place, newest first, so you can stay with one theme without jumping around the rest of the site."}
           </p>
           <dl class="topic-stats">
             <div class="item">
@@ -137,7 +135,9 @@ const avgReadMinutes =
           </dl>
         </div>
         <div class="cta">
-          <a href="/tags" class="anchor">All topics</a>
+          <a href="/tags" class="anchor">
+            All topics
+          </a>
           <a href="/blog" class="anchor" data-variant="secondary">
             Latest writing
           </a>
@@ -146,79 +146,71 @@ const avgReadMinutes =
     </div>
   </section>
 
-  {
-    featuredPost && (
-      <section
-        class="featured-post flow-section flow-section--loose"
-        aria-labelledby="featured-post-heading"
-      >
-        <div class="container" data-width="narrow">
-          <p class="eyebrow">Latest in this topic</p>
-          <a href={`/blog/${featuredPost.id}/`} class="card">
-            {featuredPost.data.cover && (
-              <div class="cover">
-                <img
-                  src={featuredPost.data.cover.image.src}
-                  alt={featuredCoverAlt}
-                  loading="eager"
-                  style={
-                    featuredCoverPosition
-                      ? `object-position: ${featuredCoverPosition};`
-                      : undefined
-                  }
-                />
-                <div class="overlay" aria-hidden="true" />
-              </div>
-            )}
-            <div class="body">
-              <p class="meta">
-                {new Date(featuredPost.data.pubDate).toLocaleDateString(
-                  "en-GB",
-                  {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    timeZone: "Europe/London",
-                  },
-                )}
-                {featuredPost.body &&
-                  ` · ${readingTime(featuredPost.body).text}`}
-              </p>
-              <h2 class="heading" id="featured-post-heading">
-                {featuredPost.data.title}
-              </h2>
-              {featuredPost.data.subTitle && (
-                <p class="subtitle">{featuredPost.data.subTitle}</p>
-              )}
-              <p class="description">{featuredPost.data.description}</p>
-              <span class="cta">
-                Read post <span aria-hidden="true">&rarr;</span>
-              </span>
+  {featuredPost && (
+    <section
+      class="featured-post flow-section flow-section--loose"
+      aria-labelledby="featured-post-heading"
+    >
+      <div class="container" data-width="narrow">
+        <p class="eyebrow">Latest in this topic</p>
+        <a href={`/blog/${featuredPost.id}/`} class="card">
+          {featuredPost.data.cover && (
+            <div class="cover">
+              <img
+                src={featuredPost.data.cover.image.src}
+                alt={featuredCoverAlt}
+                loading="eager"
+                style={
+                  featuredCoverPosition
+                    ? `object-position: ${featuredCoverPosition};`
+                    : undefined
+                }
+              />
+              <div class="overlay" aria-hidden="true" />
             </div>
-          </a>
-        </div>
-      </section>
-    )
-  }
+          )}
+          <div class="body">
+            <p class="meta">
+              {new Date(featuredPost.data.pubDate).toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                timeZone: "Europe/London",
+              })}
+              {featuredPost.body && ` · ${readingTime(featuredPost.body).text}`}
+            </p>
+            <h2 class="heading" id="featured-post-heading">
+              {featuredPost.data.title}
+            </h2>
+            {featuredPost.data.subTitle && (
+              <p class="subtitle">{featuredPost.data.subTitle}</p>
+            )}
+            <p class="description">{featuredPost.data.description}</p>
+            <span class="cta">
+              Read post <span aria-hidden="true">&rarr;</span>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
 
-  {
-    relatedTags.length > 0 && (
-      <section class="related-tags flow-section" aria-label="Related topics">
-        <div class="container" data-width="narrow">
-          <p class="caption">Related topics</p>
-          <ul class="list" role="list">
-            {relatedTags.map(({ slug, label: relLabel }) => (
-              <li>
-                <a href={`/tags/${slug}`} class="pill">
-                  {relLabel}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    )
-  }
+  {relatedTags.length > 0 && (
+    <section class="related-tags flow-section" aria-label="Related topics">
+      <div class="container" data-width="narrow">
+        <p class="caption">Related topics</p>
+        <ul class="list" role="list">
+          {relatedTags.map(({ slug, label: relLabel }) => (
+            <li>
+              <a href={`/tags/${slug}`} class="pill">
+                {relLabel}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <BlogGrid
     posts={posts}

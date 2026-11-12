@@ -32,18 +32,16 @@ import GuideCard from "../../components/GuideCard.astro";
         you commit to anything more structured.
       </p>
       <div class="cards">
-        {
-          audienceGuides.map((guide) => (
-            <GuideCard
-              slug={guide.slug}
-              title={guide.title}
-              summary={guide.summary}
-              href={guide.href}
-              publishedCount={guide.currentPostIds.length}
-              plannedCount={guide.plannedArticles.length}
-            />
-          ))
-        }
+        {audienceGuides.map((guide) => (
+          <GuideCard
+            slug={guide.slug}
+            title={guide.title}
+            summary={guide.summary}
+            href={guide.href}
+            publishedCount={guide.currentPostIds.length}
+            plannedCount={guide.plannedArticles.length}
+          />
+        ))}
       </div>
     </div>
   </section>

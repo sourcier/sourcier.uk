@@ -49,32 +49,37 @@ const communityOfferItems = [
     <div class="container">
       <div class="layout">
         <div class="content">
-          <span class="hero-kicker"
-            >Sourcier &middot; Mentoring, career growth, and better software
-            delivery</span
-          >
+          <span class="hero-kicker">
+            Sourcier &middot; Mentoring, career growth, and better software
+            delivery
+          </span>
           <h1 class="hero-title">Practical software engineering guidance</h1>
           <p class="hero-bio">
             I help people transition into tech, engineers grow with confidence,
             and teams improve how they build software. Writing about
-            <span class="hero-cycle" aria-live="polite" aria-atomic="true"
-              ><span class="term" id="heroCycleTerm">Breaking into Tech</span
-              ></span
-            >
+            <span class="hero-cycle" aria-live="polite" aria-atomic="true">
+              <span class="term" id="heroCycleTerm">
+                Breaking into Tech
+              </span>
+            </span>
           </p>
           <div class="actions">
             <a
               href="/guides"
               class="button"
               data-variant="primary"
-              data-size="large">Choose a guide</a
+              data-size="large"
             >
+              Choose a guide
+            </a>
             <a
               href="/contact"
               class="button"
               data-variant="subtle"
-              data-size="large">Get guidance</a
+              data-size="large"
             >
+              Get guidance
+            </a>
           </div>
         </div>
       </div>
@@ -92,20 +97,18 @@ const communityOfferItems = [
         Choose the guide that matches where you are now
       </h2>
       <div class="grid">
-        {
-          audienceGuides.map((guide) => (
-            <GuideCard
-              slug={guide.slug}
-              title={guide.title}
-              summary={guide.summary}
-              href={guide.href}
-              publishedCount={guide.currentPostIds.length}
-              plannedCount={guide.plannedArticles.length}
-              variant="secondary"
-              hideMeta
-            />
-          ))
-        }
+        {audienceGuides.map((guide) => (
+          <GuideCard
+            slug={guide.slug}
+            title={guide.title}
+            summary={guide.summary}
+            href={guide.href}
+            publishedCount={guide.currentPostIds.length}
+            plannedCount={guide.plannedArticles.length}
+            variant="secondary"
+            hideMeta
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -114,25 +117,21 @@ const communityOfferItems = [
     <div class="container" data-width="narrow">
       <p class="section-label section-label--secondary">Latest writing</p>
       <div class="home-post-grid">
-        {
-          allPosts.map((post) => (
-            <BlogPost
-              title={post.data.title}
-              subTitle={post.data.subTitle}
-              description={post.data.description}
-              url={`/blog/${post.id}`}
-              cover={post.data.cover}
-              pubDate={post.data.pubDate}
-              draft={post.data.draft}
-              readingTime={readingTime(post.body ?? "").text}
-            />
-          ))
-        }
-        {
-          Array.from({ length: placeholderCount }).map(() => (
-            <BlogCardPlaceholder />
-          ))
-        }
+        {allPosts.map((post) => (
+          <BlogPost
+            title={post.data.title}
+            subTitle={post.data.subTitle}
+            description={post.data.description}
+            url={`/blog/${post.id}`}
+            cover={post.data.cover}
+            pubDate={post.data.pubDate}
+            draft={post.data.draft}
+            readingTime={readingTime(post.body ?? "").text}
+          />
+        ))}
+        {Array.from({ length: placeholderCount }).map(() => (
+          <BlogCardPlaceholder />
+        ))}
       </div>
     </div>
   </section>
@@ -185,14 +184,12 @@ const communityOfferItems = [
         <aside class="aside panel" data-tone="secondary">
           <p class="caption">What a day can cover</p>
           <ul class="list" role="list">
-            {
-              communityOfferItems.map((item) => (
-                <li>
-                  <span class="icon" aria-hidden="true" set:html={item.icon} />
-                  <span>{item.label}</span>
-                </li>
-              ))
-            }
+            {communityOfferItems.map((item) => (
+              <li>
+                <span class="icon" aria-hidden="true" set:html={item.icon} />
+                <span>{item.label}</span>
+              </li>
+            ))}
           </ul>
         </aside>
       </div>

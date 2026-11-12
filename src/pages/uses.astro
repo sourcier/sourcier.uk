@@ -129,11 +129,9 @@ const supportPublishableKey =
   description="The hardware and software Roger Rajaratnam reaches for every day — MacBook Pro M1, VS Code, iTerm2, Alfred, and more."
   pageMenuSupportEnabled={Boolean(supportPublishableKey)}
 >
-  {
-    supportPublishableKey && (
-      <SupportCheckoutModal publishableKey={supportPublishableKey} />
-    )
-  }
+  {supportPublishableKey && (
+    <SupportCheckoutModal publishableKey={supportPublishableKey} />
+  )}
   <PageHero
     kicker="My setup"
     title="Uses"
@@ -159,14 +157,12 @@ const supportPublishableKey =
           </p>
         </div>
         <ul class="list" role="list">
-          {
-            setupPrinciples.map((item) => (
-              <li>
-                <span class="icon" aria-hidden="true" set:html={item.icon} />
-                <span>{item.label}</span>
-              </li>
-            ))
-          }
+          {setupPrinciples.map((item) => (
+            <li>
+              <span class="icon" aria-hidden="true" set:html={item.icon} />
+              <span>{item.label}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -181,24 +177,24 @@ const supportPublishableKey =
         data-kind="hardware"
       >
         <div class="header">
-          <p class="section-label" id="hardware-heading">Hardware</p>
+          <p class="section-label" id="hardware-heading">
+            Hardware
+          </p>
           <p class="intro">
             The devices I rely on for development, writing, and day-to-day
             testing.
           </p>
         </div>
         <ul class="uses-grid" role="list">
-          {
-            hardware.map(({ name, description, icon }) => (
-              <li class="uses-card">
-                <span class="icon" set:html={icon} aria-hidden="true" />
-                <div class="body">
-                  <h2 class="name">{name}</h2>
-                  <p class="description">{description}</p>
-                </div>
-              </li>
-            ))
-          }
+          {hardware.map(({ name, description, icon }) => (
+            <li class="uses-card">
+              <span class="icon" set:html={icon} aria-hidden="true" />
+              <div class="body">
+                <h2 class="name">{name}</h2>
+                <p class="description">{description}</p>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
 
@@ -209,32 +205,32 @@ const supportPublishableKey =
         data-kind="development"
       >
         <div class="header">
-          <p class="section-label" id="dev-heading">Development</p>
+          <p class="section-label" id="dev-heading">
+            Development
+          </p>
           <p class="intro">
             The editor, terminal, and AI tools I use to write, test, and think
             through software work.
           </p>
         </div>
         <ul class="uses-grid" role="list">
-          {
-            devTools.map(({ name, description, url, icon }) => (
-              <li class="uses-card">
-                <span class="icon" set:html={icon} aria-hidden="true" />
-                <div class="body">
-                  <h2 class="name">
-                    {url ? (
-                      <a href={url} target="_blank" rel="noopener noreferrer">
-                        {name}
-                      </a>
-                    ) : (
-                      name
-                    )}
-                  </h2>
-                  <p class="description">{description}</p>
-                </div>
-              </li>
-            ))
-          }
+          {devTools.map(({ name, description, url, icon }) => (
+            <li class="uses-card">
+              <span class="icon" set:html={icon} aria-hidden="true" />
+              <div class="body">
+                <h2 class="name">
+                  {url ? (
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                      {name}
+                    </a>
+                  ) : (
+                    name
+                  )}
+                </h2>
+                <p class="description">{description}</p>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
 
@@ -245,32 +241,32 @@ const supportPublishableKey =
         data-kind="apps"
       >
         <div class="header">
-          <p class="section-label" id="apps-heading">macOS Apps</p>
+          <p class="section-label" id="apps-heading">
+            macOS Apps
+          </p>
           <p class="intro">
             Utility apps that remove friction from planning, window management,
             and daily navigation.
           </p>
         </div>
         <ul class="uses-grid" role="list">
-          {
-            macosApps.map(({ name, description, url, icon }) => (
-              <li class="uses-card">
-                <span class="icon" set:html={icon} aria-hidden="true" />
-                <div class="body">
-                  <h2 class="name">
-                    {url ? (
-                      <a href={url} target="_blank" rel="noopener noreferrer">
-                        {name}
-                      </a>
-                    ) : (
-                      name
-                    )}
-                  </h2>
-                  <p class="description">{description}</p>
-                </div>
-              </li>
-            ))
-          }
+          {macosApps.map(({ name, description, url, icon }) => (
+            <li class="uses-card">
+              <span class="icon" set:html={icon} aria-hidden="true" />
+              <div class="body">
+                <h2 class="name">
+                  {url ? (
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                      {name}
+                    </a>
+                  ) : (
+                    name
+                  )}
+                </h2>
+                <p class="description">{description}</p>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
     </div>

@@ -98,14 +98,9 @@ const siteName = "Sourcier";
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_GB" />
-    {
-      pubDate && (
-        <meta
-          property="article:published_time"
-          content={pubDate.toISOString()}
-        />
-      )
-    }
+    {pubDate && (
+      <meta property="article:published_time" content={pubDate.toISOString()} />
+    )}
     {author && <meta property="article:author" content={author} />}
     {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
 
@@ -121,21 +116,21 @@ const siteName = "Sourcier";
     <slot name="head" />
 
     <!-- PostHog Analytics — only in production -->
-    {
-      import.meta.env.PROD && (
-        <script
-          src="/scripts/posthog-bootstrap.js"
-          data-posthog-key={import.meta.env.PUBLIC_POSTHOG_KEY}
-          data-posthog-host={
-            import.meta.env.PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com"
-          }
-          defer
-        />
-      )
-    }
+    {import.meta.env.PROD && (
+      <script
+        src="/scripts/posthog-bootstrap.js"
+        data-posthog-key={import.meta.env.PUBLIC_POSTHOG_KEY}
+        data-posthog-host={
+          import.meta.env.PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com"
+        }
+        defer
+      />
+    )}
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
     <Header />
     <main id="main-content">
       <slot />

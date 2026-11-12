@@ -29,10 +29,14 @@ const corePages = [
     <div class="container" data-width="narrow">
       <section class="hero" aria-labelledby="not-found-heading">
         <div class="panel surface">
-          <div class="number" aria-hidden="true">404</div>
+          <div class="number" aria-hidden="true">
+            404
+          </div>
           <div class="copy">
             <p class="eyebrow">Page not found</p>
-            <h1 class="heading" id="not-found-heading">Nothing here.</h1>
+            <h1 class="heading" id="not-found-heading">
+              Nothing here.
+            </h1>
             <p class="subtitle">
               That URL may have moved, been deleted, or never existed. Start
               from the homepage, jump into the latest writing, or pick the guide
@@ -43,8 +47,10 @@ const corePages = [
                 href="/"
                 class="button"
                 data-variant="primary"
-                data-size="large">Home</a
+                data-size="large"
               >
+                Home
+              </a>
               <a
                 href="/blog"
                 class="button"
@@ -64,30 +70,26 @@ const corePages = [
           Start from a guide or a core page
         </h2>
         <div class="grid">
-          {
-            audienceGuides.map((guide) => (
-              <article class="not-found-card" data-kind="guide">
-                <p class="eyebrow">Guide</p>
-                <h3 class="heading">{guide.title}</h3>
-                <p class="body">{guide.summary}</p>
-                <a href={guide.href} class="cta">
-                  Open the guide
-                </a>
-              </article>
-            ))
-          }
-          {
-            corePages.map((page) => (
-              <article class="not-found-card">
-                <p class="eyebrow">Page</p>
-                <h3 class="heading">{page.label}</h3>
-                <p class="body">{page.description}</p>
-                <a href={page.href} class="cta">
-                  Open {page.label}
-                </a>
-              </article>
-            ))
-          }
+          {audienceGuides.map((guide) => (
+            <article class="not-found-card" data-kind="guide">
+              <p class="eyebrow">Guide</p>
+              <h3 class="heading">{guide.title}</h3>
+              <p class="body">{guide.summary}</p>
+              <a href={guide.href} class="cta">
+                Open the guide
+              </a>
+            </article>
+          ))}
+          {corePages.map((page) => (
+            <article class="not-found-card">
+              <p class="eyebrow">Page</p>
+              <h3 class="heading">{page.label}</h3>
+              <p class="body">{page.description}</p>
+              <a href={page.href} class="cta">
+                Open {page.label}
+              </a>
+            </article>
+          ))}
         </div>
       </section>
     </div>

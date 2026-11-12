@@ -23,16 +23,14 @@ function formatDatetime(date: Date): string {
 <div class="page-history">
   <p class="heading">Page history</p>
   <ol class="log">
-    {
-      entries.map((entry) => (
-        <li class="entry">
-          <time class="time" datetime={entry.datetime.toISOString()}>
-            {formatDatetime(entry.datetime)}
-          </time>
-          <span class="note" set:html={entry.note} />
-        </li>
-      ))
-    }
+    {entries.map((entry) => (
+      <li class="entry">
+        <time class="time" datetime={entry.datetime.toISOString()}>
+          {formatDatetime(entry.datetime)}
+        </time>
+        <span class="note" set:html={entry.note} />
+      </li>
+    ))}
   </ol>
 </div>
 

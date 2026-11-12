@@ -45,13 +45,15 @@ const { postId } = Astro.props;
           <input type="hidden" name="parentId" value="" />
 
           <p class="hidden" aria-hidden="true">
-            <label
-              >Leave this blank: <input name="bot-field" tabindex="-1" /></label
-            >
+            <label>
+              Leave this blank: <input name="bot-field" tabindex="-1" />
+            </label>
           </p>
 
           <div class="field">
-            <label class="label" for="comment-name">Name</label>
+            <label class="label" for="comment-name">
+              Name
+            </label>
             <div class="control">
               <input
                 class="input"
@@ -85,7 +87,9 @@ const { postId } = Astro.props;
           </div>
 
           <div class="field">
-            <label class="label" for="comment-body">Comment</label>
+            <label class="label" for="comment-body">
+              Comment
+            </label>
             <div class="control">
               <textarea
                 class="textarea"
@@ -94,7 +98,8 @@ const { postId } = Astro.props;
                 required
                 rows="5"
                 placeholder="What are your thoughts?"
-                maxlength="5000"></textarea>
+                maxlength="5000"
+              ></textarea>
             </div>
           </div>
 
@@ -109,8 +114,11 @@ const { postId } = Astro.props;
                 Post comment
               </button>
             </div>
-            <p class="form-status" id="comment-form-status" aria-live="polite">
-            </p>
+            <p
+              class="form-status"
+              id="comment-form-status"
+              aria-live="polite"
+            ></p>
           </div>
         </form>
       </div>

@@ -70,19 +70,17 @@ const totalTags = new Set(allPosts.flatMap((post) => post.data.tags)).size;
         Pick the guide that fits where you are now
       </h2>
       <div class="grid">
-        {
-          audienceGuides.map((guide) => (
-            <GuideCard
-              slug={guide.slug}
-              title={guide.title}
-              summary={guide.summary}
-              href={guide.href}
-              publishedCount={guide.currentPostIds.length}
-              plannedCount={guide.plannedArticles.length}
-              variant="secondary"
-            />
-          ))
-        }
+        {audienceGuides.map((guide) => (
+          <GuideCard
+            slug={guide.slug}
+            title={guide.title}
+            summary={guide.summary}
+            href={guide.href}
+            publishedCount={guide.currentPostIds.length}
+            plannedCount={guide.plannedArticles.length}
+            variant="secondary"
+          />
+        ))}
       </div>
     </div>
   </section>

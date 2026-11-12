@@ -18,25 +18,27 @@ const tags = [...tagCounts.entries()]
 ---
 
 <nav class="tags-sidebar" aria-labelledby="tags-sidebar-heading">
-  <p class="heading" id="tags-sidebar-heading">Browse topics</p>
+  <p class="heading" id="tags-sidebar-heading">
+    Browse topics
+  </p>
   <ul class="list" role="list">
-    {
-      tags.map(({ tag, count, slug }) => (
-        <li>
-          <a href={`/tags/${slug}`} class="tag">
-            <span class="name">{tag}</span>
-            <span
-              class="count"
-              aria-label={`${count} post${count === 1 ? "" : "s"}`}
-            >
-              {count}
-            </span>
-          </a>
-        </li>
-      ))
-    }
+    {tags.map(({ tag, count, slug }) => (
+      <li>
+        <a href={`/tags/${slug}`} class="tag">
+          <span class="name">{tag}</span>
+          <span
+            class="count"
+            aria-label={`${count} post${count === 1 ? "" : "s"}`}
+          >
+            {count}
+          </span>
+        </a>
+      </li>
+    ))}
   </ul>
-  <a href="/tags" class="all">All tags →</a>
+  <a href="/tags" class="all">
+    All tags →
+  </a>
 </nav>
 
 <style>

@@ -34,15 +34,15 @@ const {
     </div>
   </div>
   <p class="body">{summary}</p>
-  {
-    !hideMeta && (
-      <div class="meta" aria-label="Guide coverage">
-        <span>{publishedCount} published now</span>
-        <span>{plannedCount} planned next</span>
-      </div>
-    )
-  }
-  <a class="cta" href={href}>Open the guide</a>
+  {!hideMeta && (
+    <div class="meta" aria-label="Guide coverage">
+      <span>{publishedCount} published now</span>
+      <span>{plannedCount} planned next</span>
+    </div>
+  )}
+  <a class="cta" href={href}>
+    Open the guide
+  </a>
 </article>
 
 <style>

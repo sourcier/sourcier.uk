@@ -78,7 +78,9 @@ const tipOptions: TipOption[] = [
   <div class="surface" role="document">
     <div class="topbar">
       <div class="intro">
-        <p class="eyebrow" data-topbar-eyebrow>One-off tip</p>
+        <p class="eyebrow" data-topbar-eyebrow>
+          One-off tip
+        </p>
         <h2 id="support-modal-heading" class="visually-hidden">
           Support checkout
         </h2>
@@ -118,7 +120,9 @@ const tipOptions: TipOption[] = [
         aria-labelledby="support-step-amount-title"
       >
         <div class="copy">
-          <h3 class="heading" id="support-step-amount-title">Choose amount</h3>
+          <h3 class="heading" id="support-step-amount-title">
+            Choose amount
+          </h3>
           <p class="body">
             Pick the level of support that feels right. You can keep it simple
             or enter a custom amount, then continue to secure payment.
@@ -129,25 +133,21 @@ const tipOptions: TipOption[] = [
           <fieldset class="fieldset">
             <legend class="legend">Choose a one-off amount</legend>
             <div class="options" role="radiogroup">
-              {
-                tipOptions.map((option, index) => (
-                  <label class="option" for={option.id}>
-                    <input
-                      id={option.id}
-                      type="radio"
-                      name="support-tip-amount"
-                      value={
-                        option.amountPence
-                          ? String(option.amountPence)
-                          : "custom"
-                      }
-                      checked={index === 1}
-                    />
-                    <span class="chip">{option.label}</span>
-                    <span class="note">{option.note}</span>
-                  </label>
-                ))
-              }
+              {tipOptions.map((option, index) => (
+                <label class="option" for={option.id}>
+                  <input
+                    id={option.id}
+                    type="radio"
+                    name="support-tip-amount"
+                    value={
+                      option.amountPence ? String(option.amountPence) : "custom"
+                    }
+                    checked={index === 1}
+                  />
+                  <span class="chip">{option.label}</span>
+                  <span class="note">{option.note}</span>
+                </label>
+              ))}
             </div>
           </fieldset>
 
@@ -195,13 +195,15 @@ const tipOptions: TipOption[] = [
       >
         <div class="stage-header">
           <div class="copy">
-            <h3 class="heading" id="support-step-payment-title">Payment</h3>
+            <h3 class="heading" id="support-step-payment-title">
+              Payment
+            </h3>
             <p class="body">
               <span class="amount-inline" data-selected-amount>
                 {defaultTipLabel}
               </span>
-              is ready below. Review the amount or change it, then enter your payment
-              details securely with Stripe.
+              is ready below. Review the amount or change it, then enter your
+              payment details securely with Stripe.
             </p>
           </div>
 
@@ -226,8 +228,7 @@ const tipOptions: TipOption[] = [
               class="visually-hidden"
               data-payment-loading-live
               aria-live="polite"
-            >
-            </p>
+            ></p>
             <div class="payment-stage">
               <div class="element" data-payment-element></div>
             </div>

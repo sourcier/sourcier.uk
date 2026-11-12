@@ -162,7 +162,7 @@ export const handler = async (event: HandlerEvent) => {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: amountPence,
         currency: TIP_CURRENCY,
-        payment_method_types: ["card"],
+        allowed_payment_method_types: ["card"],
         description:
           "One-off tip to support the writing and upcoming course work on Sourcier.",
         receipt_email: parseReceiptEmail(body.receiptEmail) ?? undefined,

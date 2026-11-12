@@ -60,87 +60,77 @@ const coverPosition = coverObjectPosition(coverImage?.focalPoint);
 <header class="post-hero" data-has-cover={hasCover || undefined}>
   <div class="container">
     <div class="frame">
-      {
-        hasCover && (
-          <div class="cover-shell" aria-hidden="true">
-            <Image
-              class="cover"
-              src={coverImage!.image}
-              alt=""
-              widths={[640, 1024, 1440, 1920]}
-              sizes="(max-width: 767px) 100vw, 76vw"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              style={`object-position: ${coverPosition};`}
-            />
-          </div>
-        )
-      }
+      {hasCover && (
+        <div class="cover-shell" aria-hidden="true">
+          <Image
+            class="cover"
+            src={coverImage!.image}
+            alt=""
+            widths={[640, 1024, 1440, 1920]}
+            sizes="(max-width: 767px) 100vw, 76vw"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            style={`object-position: ${coverPosition};`}
+          />
+        </div>
+      )}
       <div
         class="inner"
-        style={postId
-          ? "--hero-utility-space: clamp(12rem, 26vw, 18rem);"
-          : undefined}
-      >
-        {
-          hasTopBar && (
-            <div class="topbar">
-              <Breadcrumb crumbs={crumbs} noContainer />
-            </div>
-          )
+        style={
+          postId
+            ? "--hero-utility-space: clamp(12rem, 26vw, 18rem);"
+            : undefined
         }
+      >
+        {hasTopBar && (
+          <div class="topbar">
+            <Breadcrumb crumbs={crumbs} noContainer />
+          </div>
+        )}
 
         <div class="content">
-          {
-            hasCover && coverImage?.alt && (
-              <span class="visually-hidden">Cover image: {coverImage.alt}</span>
-            )
-          }
+          {hasCover && coverImage?.alt && (
+            <span class="visually-hidden">Cover image: {coverImage.alt}</span>
+          )}
 
-          {
-            tags && tags.length > 0 && (
-              <div class="tags" aria-label="Post topics">
-                {tags.map((tag: string) => (
-                  <a href={`/tags/${tagSlug(tag)}`} class="tag">
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            )
-          }
+          {tags && tags.length > 0 && (
+            <div class="tags" aria-label="Post topics">
+              {tags.map((tag: string) => (
+                <a href={`/tags/${tagSlug(tag)}`} class="tag">
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )}
 
           <h1 class="heading">{title}</h1>
           {subtitle && <p class="subtitle">{subtitle}</p>}
 
-          {
-            facts.length > 0 && (
-              <dl class="facts">
-                {facts.map((fact) => (
-                  <div class="fact">
-                    <dt class="caption">{fact.label}</dt>
-                    <dd class="value">{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )
-          }
+          {facts.length > 0 && (
+            <dl class="facts">
+              {facts.map((fact) => (
+                <div class="fact">
+                  <dt class="caption">{fact.label}</dt>
+                  <dd class="value">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
 
-        {
-          hasEngagement && (
-            <div class="engagement">
-              {postId && (
-                <div class="utility">
-                  <Reactions postId={postId} variant="hero" compact />
-                </div>
-              )}
-              {hasShare && (
-                <SharePost title={title} url={shareUrl!} variant="hero" />
-              )}
-            </div>
-          )
-        }
+        {hasEngagement && (
+          <div class="engagement">
+            {postId && (
+              <div class="utility">
+                <Reactions postId={postId} variant="hero" compact />
+              </div>
+            )}
+            {hasShare && (
+              <SharePost title={title} url={shareUrl!} variant="hero" />
+            )}
+          </div>
+        )}
       </div>
     </div>
   </div>

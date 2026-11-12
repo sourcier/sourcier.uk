@@ -36,42 +36,36 @@ const coverPosition = coverObjectPosition(cover?.focalPoint);
 ---
 
 <a href={url} class="blog-card" data-preview={isPreview || undefined}>
-  {
-    previewLabel && (
-      <span
-        class="status"
-        data-status={publicationStatus}
-        aria-label={previewLabel}
-      >
-        {previewLabel}
-      </span>
-    )
-  }
-  {
-    cover && (
-      <div class="cover">
-        <Image
-          src={cover.image}
-          alt={cover.alt ?? ""}
-          widths={[400, 640, 960]}
-          sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 1.5rem), 370px"
-          loading="lazy"
-          decoding="async"
-          style={`object-position: ${coverPosition};`}
-        />
-        <div class="overlay" aria-hidden="true" />
-      </div>
-    )
-  }
+  {previewLabel && (
+    <span
+      class="status"
+      data-status={publicationStatus}
+      aria-label={previewLabel}
+    >
+      {previewLabel}
+    </span>
+  )}
+  {cover && (
+    <div class="cover">
+      <Image
+        src={cover.image}
+        alt={cover.alt ?? ""}
+        widths={[400, 640, 960]}
+        sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 1.5rem), 370px"
+        loading="lazy"
+        decoding="async"
+        style={`object-position: ${coverPosition};`}
+      />
+      <div class="overlay" aria-hidden="true" />
+    </div>
+  )}
   <div class="body">
-    {
-      formattedDate && (
-        <p class="meta">
-          {formattedDate}
-          {readingTime && ` · ${readingTime}`}
-        </p>
-      )
-    }
+    {formattedDate && (
+      <p class="meta">
+        {formattedDate}
+        {readingTime && ` · ${readingTime}`}
+      </p>
+    )}
     <p class="heading">{title}</p>
     {subTitle && <p class="subtitle">{subTitle}</p>}
     <p class="description">{description}</p>
