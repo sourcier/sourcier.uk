@@ -83,7 +83,7 @@
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2",
     "remark-emoji": "^5.0.2",
-    "serve": "^14.2.7",
+    "serve": "^14.2.8",
     "typescript-eslint": "^8.72.2",
     "vitest": "^5.1.0"
   }
