@@ -510,6 +510,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: visual-regression-preview-shards
     if: always()
+    permissions: {}
     steps:
       - name: Require preview visual regression shards to pass
         if: >-
